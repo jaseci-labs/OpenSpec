@@ -71,9 +71,8 @@ def:priv inferPreListTool(projectPath: str, view: any) -> any {
 
 def:priv readListFileTools(projectPath: str, view: any) -> list[any] {
     try {
-        known = {tool.value for tool in AI_TOOLS};
         ids = [resolveToolIdAlias(t[0]) for t in markerLines(projectPath, view)];
-        return [id for id in ids if id in known];
+        return [id for id in ids if findTool(id) is not None];
     } except Exception {
         return [];
     }

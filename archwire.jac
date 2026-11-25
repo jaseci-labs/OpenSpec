@@ -927,8 +927,8 @@ graph import {
     }
     "src/utils/file-system" ++> "src/core/shared-skill-target" { FileSystemUtils }
     src.core.config ++> "src/core/shared-skill-target" {
-        AI_TOOLS,
         OPENSPEC_SKILL_NAMES,
+        findTool,
         resolveToolIdAlias,
     }
     src.host ++> "src/core/shared-skill-target" { at, kind, rec, splitBy, sub }
