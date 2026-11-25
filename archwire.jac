@@ -7,6 +7,8 @@ graph spaces {
 }
 
 graph import {
+    src.lazy ++> "src/core/config-schema" { need }
+    src.host ++> "src/core/config-schema" { rec, missing, kind, js_error }
     src.host ++> "src/core/file-view" { rec }
     src.host ++> "src/core/global-config" {
         rec,
