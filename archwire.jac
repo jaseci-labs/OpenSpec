@@ -7,6 +7,7 @@ graph spaces {
 }
 
 graph import {
+    src.lazy ++> "src/core/artifact-graph/resolver" { packageRoot }
     src.host ++> "src/core/artifact-graph/resolver" { JsNull, found, js_error, rec, sub }
     "src/core/global-config" ++> "src/core/artifact-graph/resolver" { getGlobalDataDir }
     "src/utils/file-system" ++> "src/core/artifact-graph/resolver" { FileSystemUtils }

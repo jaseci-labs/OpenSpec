@@ -1,6 +1,5 @@
 import from "node:fs" { default as fs }
 import from "node:path" { default as path }
-import from "node:url" { fileURLToPath }
 
 type SchemaInfo = any;
 
@@ -23,24 +22,7 @@ def getPackageSchemasDir -> str {
     if packageSchemasDirOverride {
         return packageSchemasDirOverride();
     }
-    return path.join(path.dirname(ownFile()), "..", "..", "..", "..", "schemas");
-}
-
-def:priv ownFile -> str {
-    prepare = globalThis.Error.prepareStackTrace;
-    globalThis.Error.prepareStackTrace = lambda (e: any, sites: any) -> any { sites };
-    try {
-        sites: any = new(globalThis.Error).stack;
-    } finally {
-        globalThis.Error.prepareStackTrace = prepare;
-    }
-    for site in sites {
-        file: any = site.getFileName();
-        if file and "artifact-graph/resolver." in file {
-            return fileURLToPath(file) if file.startswith("file:") else file;
-        }
-    }
-    raise new(globalThis.Error, "Cannot locate the OpenSpec package directory.");
+    return path.join(packageRoot(), "schemas");
 }
 
 def getUserSchemasDir -> str {

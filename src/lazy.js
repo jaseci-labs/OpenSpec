@@ -1,6 +1,7 @@
 // neojac cannot yet import an npm package inside a function (E5090), and it loads every Jac
 // module when the CLI starts. These two load a package where it is first used instead.
 import { createRequire } from 'node:module';
+import { fileURLToPath } from 'node:url';
 
 const require = createRequire(import.meta.url);
 
@@ -13,3 +14,6 @@ export const load = (name) => import(name);
 /** One export of a package (its default unless named), as the value itself: reading a function
  *  off a package from Jac (`need("chalk").default`) gives a wrapper that loses its properties. */
 export const pick = (name, key = 'default') => require(name)[key];
+
+/** The package's root directory: the one holding package.json and schemas/ (this file is src/lazy.js). */
+export const packageRoot = () => fileURLToPath(new URL('..', import.meta.url));
