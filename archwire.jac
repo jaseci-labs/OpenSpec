@@ -862,13 +862,13 @@ graph import {
     "src/core/released-output-sweep" ++> "src/core/retired-tools" { pruneEmptyParents }
     "src/core/shared/command-reconcile" ++> "src/core/retired-tools" { reconcileCommandFiles }
     "src/core/shared/skill-links" ++> "src/core/retired-tools" { classifySkillFile }
+    src.core.config ++> "src/core/retired-tools" { OPENSPEC_SKILL_NAMES }
     include src.core.config ++> "src/core/retired-tools" {
         RETIRED_TOOLS,
         RetiredTool,
         findRetiredTool,
         formatRetiredToolError,
     }
-    src.core.config ++> "src/core/retired-tools" { OPENSPEC_SKILL_NAMES }
     src.core.profiles ++> "src/core/retired-tools" { ALL_WORKFLOWS }
     src.host ++> "src/core/retired-tools" { rec }
     "src/core/global-config" ++> "src/core/root-selection" { getGlobalConfig }
@@ -1337,10 +1337,10 @@ graph import {
         listSchemas,
         resolveSchema,
     }
-    "src/core/change-metadata/index" ++> "src/utils/change-metadata" { ChangeMetadataSchema }
     include "src/core/change-metadata/index" ++> "src/utils/change-metadata" {
         CHANGE_METADATA_KNOWN_KEYS,
     }
+    "src/core/change-metadata/index" ++> "src/utils/change-metadata" { ChangeMetadataSchema }
     "src/core/project-config" ++> "src/utils/change-metadata" { readProjectConfig }
     src.core.references ++> "src/utils/change-metadata" { sanitizeInline }
     src.host ++> "src/utils/change-metadata" {
@@ -1735,7 +1735,17 @@ graph import {
         resolveArtifactOutputs,
     }
     "src/utils/file-system" --> "test/core/artifact-graph/outputs.test" { FileSystemUtils }
-    "src/core/artifact-graph/resolver" --> "test/core/artifact-graph/resolver.test";
+    "src/core/artifact-graph/resolver" --> "test/core/artifact-graph/resolver.test" {
+        SchemaLoadError,
+        getPackageSchemasDir,
+        getProjectSchemasDir,
+        getSchemaDir,
+        getUserSchemasDir,
+        isSchemaDir,
+        listSchemas,
+        listSchemasWithInfo,
+        resolveSchema,
+    }
     "src/core/artifact-graph/schema" --> "test/core/artifact-graph/schema-apply-references.test" {
         SchemaValidationError,
         findApplyTracksWarning,
@@ -2383,7 +2393,10 @@ graph import {
     "src/core/templates/workflows/project-root" --> "test/core/root-selection.test";
     "test/helpers/fake-tool" --> "test/core/root-selection.test" { createFakeTool }
     "test/helpers/path-env" --> "test/core/root-selection.test" { withPrependedPathEnv }
-    src.core.store.foundation --> "test/core/root-selection.test";
+    src.core.store.foundation --> "test/core/root-selection.test" {
+        writeStoreMetadataState,
+        writeStoreRegistryState,
+    }
     src.core.store.git --> "test/core/root-selection.test" { envWithoutGitRepoLocation }
     "test/helpers/run-cli" --> "test/core/router-skill.test" { cliProjectRoot, runCLI }
     "src/core/shared/ide-restart" --> "test/core/shared-ide-restart.test" {
@@ -2855,7 +2868,7 @@ graph import {
     "src/utils/file-system" --> "test/core/update.test" { FileSystemUtils }
     "test/helpers/released-codex-prompt" --> "test/core/update.test" { releasedCodexPrompt }
     "test/helpers/store-git" --> "test/core/update.test" { isolatedGitEnv }
-    src.core.config --> "test/core/update.test";
+    src.core.config --> "test/core/update.test" { OPENSPEC_MARKERS }
     src.core.init --> "test/core/update.test" { InitCommand }
     src.core.profiles --> "test/core/update.test" { ALL_WORKFLOWS }
     src.core.shared.index --> "test/core/update.test" { getCommandContents }
@@ -2917,7 +2930,32 @@ graph import {
     src.core.validation.validator --> "test/core/validation.unknown-metadata-keys.test" {
         Validator,
     }
-    "src/core/version-check" --> "test/core/version-check.test";
+    "src/core/version-check" --> "test/core/version-check.test" {
+        buildCliUpdateLines,
+        buildUpgradeCommandLines,
+        buildVersionReportLines,
+        canSelfUpgrade,
+        checkForCliUpdate,
+        compareVersions,
+        detectPackageManager,
+        displayCliUpdateNote,
+        getAvailableCliUpdate,
+        getCliInstallInfo,
+        getCliUpdateCommand,
+        getInstallDir,
+        isEphemeralRunnerInstall,
+        isNpmGlobalInstall,
+        isProjectLocalInstall,
+        isSourceCheckout,
+        npmGlobalRoots,
+        npmPrefixFromInstallDir,
+        offerCliUpgrade,
+        readCliVersion,
+        registryUrl,
+        rerunUpdateWithUpgradedCli,
+        shouldOfferUpgrade,
+        upgradedBinPath,
+    }
     src.core.view --> "test/core/view.test" { ViewCommand }
     "src/core/available-tools" --> "test/core/warp.test" { getAvailableTools }
     "src/core/command-generation/registry" --> "test/core/warp.test" { CommandAdapterRegistry }
@@ -3088,7 +3126,6 @@ graph import {
     }
     website.scripts.preview --> "test/website-preview.test";
     "test/helpers/run-cli" --> "vitest.setup" { ensureCliBuilt, terminateActiveCliChildren }
-    "dist/cli/index.d" --> bin.openspec { runCli }
     src.commands.config ++> src.cli.commands.config {
         configEditCommand,
         configGetCommand,
@@ -3127,47 +3164,61 @@ graph import {
     "src/core/completions/command-registry" ++> src.cli.commands.workset { COMMAND_REGISTRY }
     src.commands.workset ++> src.cli.commands.workset { WorksetCommand }
     src.host ++> src.cli.commands.workset { rec }
-    "src/commands/install-standalone" --> src.cli.index;
-    "src/commands/shared-output" --> src.cli.index;
-    "src/commands/workflow/default-schema" --> src.cli.index { DEFAULT_SCHEMA }
-    "src/commands/workflow/new-change" --> src.cli.index;
-    "src/core/completion-tip" --> src.cli.index;
-    "src/core/completions/shared-flags" --> src.cli.index { COMMON_FLAGS }
-    "src/core/root-selection" --> src.cli.index;
-    "src/core/standalone-tip" --> src.cli.index;
-    "src/core/update-plan" --> src.cli.index;
-    "src/core/version-check" --> src.cli.index;
-    src.cli.commands.config --> src.cli.index { registerConfigCommand }
-    src.cli.commands.context --> src.cli.index { registerContextCommand }
-    src.cli.commands.doctor --> src.cli.index { registerDoctorCommand }
-    src.cli.commands.schema --> src.cli.index { registerSchemaCommand }
-    src.cli.commands.spec --> src.cli.index { registerSpecCommand }
-    src.cli.commands.store --> src.cli.index { registerStoreCommand }
-    src.cli.commands.workset --> src.cli.index { registerWorksetCommand }
-    src.commands.change --> src.cli.index;
-    src.commands.completion --> src.cli.index;
-    src.commands.feedback --> src.cli.index;
-    src.commands.show --> src.cli.index;
-    src.commands.validate --> src.cli.index;
-    src.commands.workflow.index --> src.cli.index {
-        InstructionsOptions,
-        NewChangeOptions,
-        SchemasOptions,
-        StatusOptions,
-        TemplatesOptions,
+    "src/commands/install-standalone" ++> src.cli.index { installStandalone }
+    "src/commands/shared-output" ++> src.cli.index { asStatus, printJson }
+    "src/commands/workflow/default-schema" ++> src.cli.index { DEFAULT_SCHEMA }
+    "src/commands/workflow/new-change" ++> src.cli.index { newChangeCommand }
+    "src/core/completion-tip" ++> src.cli.index { maybeShowCompletionTip }
+    "src/core/completions/shared-flags" ++> src.cli.index { COMMON_FLAGS }
+    "src/core/root-selection" ++> src.cli.index { resolveRootForCommand, toRootOutput }
+    "src/core/standalone-tip" ++> src.cli.index { maybeShowStandaloneTip }
+    "src/core/update-plan" ++> src.cli.index { formatUpdatePlan }
+    "src/core/version-check" ++> src.cli.index {
+        buildVersionReportLines,
+        canSelfUpgrade,
+        checkForCliUpdate,
+        displayCliUpdateNote,
+        displayUpgradeCommand,
+        getAvailableCliUpdate,
+        getCliInstallInfo,
+        getCliUpdateCommand,
+        getInstallDir,
+        getStandaloneBinaryPath,
+        isSourceCheckout,
+        offerCliUpgrade,
+        rerunUpdateWithUpgradedCli,
+        shouldOfferUpgrade,
     }
-    src.commands.workflow.instructions --> src.cli.index;
-    src.commands.workflow.schemas --> src.cli.index;
-    src.commands.workflow.status --> src.cli.index;
-    src.commands.workflow.templates --> src.cli.index;
-    src.core.archive --> src.cli.index;
-    src.core.config --> src.cli.index;
-    src.core.init --> src.cli.index;
-    src.core.list --> src.cli.index;
-    src.core.update --> src.cli.index;
-    src.core.view --> src.cli.index;
-    src.telemetry.index --> src.cli.index;
-    src.utils.interactive --> src.cli.index;
+    src.cli.commands.config ++> src.cli.index { registerConfigCommand }
+    src.cli.commands.context ++> src.cli.index { registerContextCommand }
+    src.cli.commands.doctor ++> src.cli.index { registerDoctorCommand }
+    src.cli.commands.schema ++> src.cli.index { registerSchemaCommand }
+    src.cli.commands.spec ++> src.cli.index { registerSpecCommand }
+    src.cli.commands.store ++> src.cli.index { registerStoreCommand }
+    src.cli.commands.workset ++> src.cli.index { registerWorksetCommand }
+    src.commands.change ++> src.cli.index { ChangeCommand }
+    src.commands.completion ++> src.cli.index { CompletionCommand }
+    src.commands.feedback ++> src.cli.index { FeedbackCommand }
+    src.commands.show ++> src.cli.index { ShowCommand }
+    src.commands.validate ++> src.cli.index { ValidateCommand }
+    src.commands.workflow.instructions ++> src.cli.index {
+        applyInstructionsCommand,
+        archiveInstructionsCommand,
+        instructionsCommand,
+    }
+    src.commands.workflow.schemas ++> src.cli.index { schemasCommand }
+    src.commands.workflow.status ++> src.cli.index { BATCH_STATUS_FAILURE_PAYLOAD, statusCommand }
+    src.commands.workflow.templates ++> src.cli.index { templatesCommand }
+    src.core.archive ++> src.cli.index { ArchiveCommand }
+    src.core.config ++> src.cli.index { AI_TOOLS, TOOL_ID_ALIASES }
+    src.core.init ++> src.cli.index { InitCommand }
+    src.core.list ++> src.cli.index { ListCommand }
+    src.core.update ++> src.cli.index { UpdateCommand }
+    src.core.view ++> src.cli.index { ViewCommand }
+    src.host ++> src.cli.index { JsNull, at, js_error, merge, missing, rec, same }
+    src.lazy ++> src.cli.index { load, packageJson, packageRoot, pick }
+    src.telemetry.index ++> src.cli.index { maybeShowTelemetryNotice, shutdown, trackCommand }
+    src.utils.interactive ++> src.cli.index { isInteractive }
     "src/core/converters/json-converter" ++> src.commands.change { JsonConverter }
     "src/core/parsers/change-parser" ++> src.commands.change { ChangeParser }
     "src/core/parsers/requirement-blocks" ++> src.commands.change {
@@ -3444,8 +3495,8 @@ graph import {
     "src/core/root-selection" ++> src.commands.workflow.schemas { resolveRootForCommand }
     src.host ++> src.commands.workflow.schemas { JsNull, rec, truthy }
     src.lazy ++> src.commands.workflow.schemas { pick }
-    include "src/commands/shared-output" ++> src.commands.workflow.shared { printJson }
     "src/commands/shared-output" ++> src.commands.workflow.shared { asErrorMessage }
+    include "src/commands/shared-output" ++> src.commands.workflow.shared { printJson }
     include "src/commands/workflow/default-schema" ++> src.commands.workflow.shared {
         DEFAULT_SCHEMA,
     }
@@ -4342,8 +4393,117 @@ graph import {
     src.core.store.errors ++> src.core.worksets { StoreError }
     src.host ++> src.core.worksets { JsNull, at, js_error, merge, rec }
     src.lazy ++> src.core.worksets { need }
-    src.cli.index --> src.index;
-    src.core.index --> src.index;
+    include src.cli.index ++> src.index {
+        getCommandPath,
+        isCompletionRun,
+        isJsonRun,
+        isTabCompletionRun,
+        program,
+        runCli,
+        shouldDeferCompletionTip,
+    }
+    include src.core.index ++> src.index {
+        ANCHORED_OPENSPEC_DIRS,
+        CreatedPathLedgerEntry,
+        DEFAULT_OPENSPEC_SCHEMA,
+        DIRECTORY_ANCHOR_FILE_NAME,
+        GLOBAL_CONFIG_DIR_NAME,
+        GLOBAL_CONFIG_FILE_NAME,
+        GLOBAL_DATA_DIR_NAME,
+        GlobalConfig,
+        GlobalDataDirOptions,
+        OPENSPEC_ARCHIVE_DIR,
+        OPENSPEC_CHANGES_DIR,
+        OPENSPEC_CONFIG_YAML,
+        OPENSPEC_CONFIG_YML,
+        OPENSPEC_ROOT_DIR,
+        OPENSPEC_SPECS_DIR,
+        OpenSpecRootInspection,
+        PlanningHome,
+        ReferenceIndexEntry,
+        RegistrySnapshot,
+        STORES_DIR_NAME,
+        STORE_METADATA_DIR_NAME,
+        STORE_METADATA_FILE_NAME,
+        STORE_REGISTRY_FILE_NAME,
+        SetupStoreInput,
+        StoreBackendConfig,
+        StoreCleanupResult,
+        StoreDiagnostic,
+        StoreDiagnosticSeverity,
+        StoreDoctorResult,
+        StoreError,
+        StoreGitBackendConfig,
+        StoreInfo,
+        StoreInspection,
+        StoreListResult,
+        StoreMutationResult,
+        StorePathOptions,
+        StoreRegistryEntry,
+        StoreRegistryState,
+        assembleReferenceIndex,
+        assertNoRegisteredStoreConflict,
+        commitStoreRegistration,
+        doctorStores,
+        ensureDirectoryAnchor,
+        ensureOpenSpecRoot,
+        escapeEnvelopeAttribute,
+        escapeEnvelopeTags,
+        expandUserPath,
+        extractFirstPurposeLine,
+        fetchRecipe,
+        findRepoPlanningRootSync,
+        formatChangeLocation,
+        getChangeDir,
+        getGlobalConfig,
+        getGlobalConfigDir,
+        getGlobalConfigPath,
+        getGlobalDataDir,
+        getRegisteredStore,
+        getStoreMetadataDir,
+        getStoreMetadataPath,
+        getStoreRegistryPath,
+        getStoreRootForBackend,
+        getStoresDir,
+        inspectOpenSpecRoot,
+        isStoreRoot,
+        isValidStoreId,
+        listRegisteredStores,
+        listStoreRegistryEntries,
+        listStores,
+        makeStoreDiagnostic,
+        normalizeStorePathForComparison,
+        parseStoreMetadataState,
+        parseStoreRegistryState,
+        prepareStoreCleanup,
+        prepareStoreSetup,
+        readOptionalStoreMetadataState,
+        readRegistrySnapshot,
+        readStoreMetadataState,
+        readStoreRegistryState,
+        registerExistingStore,
+        registerStore,
+        removeStore,
+        renderReferencedStoresBlock,
+        renderReferencedStoresSection,
+        resolveCurrentPlanningHomeSync,
+        resolveGitStoreBackendConfig,
+        resolveRegisteredStore,
+        resolveSetupGitEnabled,
+        rollbackCreatedPaths,
+        sanitizeInline,
+        saveGlobalConfig,
+        serializeStoreMetadataState,
+        serializeStoreRegistryState,
+        setupPreparedStore,
+        setupStore,
+        unregisterStore,
+        unregisterStoreRegistration,
+        updateStoreRegistryState,
+        validateStoreId,
+        writeStoreMetadataState,
+        writeStoreRegistryState,
+    }
     "src/core/global-config" ++> src.telemetry.config {
         GLOBAL_CONFIG_DIR_NAME,
         GLOBAL_CONFIG_FILE_NAME,
@@ -4359,47 +4519,8 @@ graph import {
     src.utils.ci ++> src.telemetry.index { isCiEnvironment }
     src.host ++> src.utils.interactive { at, kind, owns, rec, truthy }
     src.lazy ++> src.utils.interactive { load }
-    "src/core/artifact-graph/resolver" --> "test/core/artifact-graph/resolver.test" {
-        SchemaLoadError,
-        getPackageSchemasDir,
-        getProjectSchemasDir,
-        getSchemaDir,
-        getUserSchemasDir,
-        isSchemaDir,
-        listSchemas,
-        listSchemasWithInfo,
-        resolveSchema,
-    }
-    src.core.archive --> src.cli.index { ArchiveOptions }
-    src.core.store.foundation --> "test/core/root-selection.test" {
-        writeStoreMetadataState,
-        writeStoreRegistryState,
-    }
-    src.core.config --> "test/core/update.test" { OPENSPEC_MARKERS }
-    "src/core/version-check" --> "test/core/version-check.test" {
-        buildCliUpdateLines,
-        buildUpgradeCommandLines,
-        buildVersionReportLines,
-        canSelfUpgrade,
-        checkForCliUpdate,
-        compareVersions,
-        detectPackageManager,
-        displayCliUpdateNote,
-        getAvailableCliUpdate,
-        getCliInstallInfo,
-        getCliUpdateCommand,
-        getInstallDir,
-        isEphemeralRunnerInstall,
-        isNpmGlobalInstall,
-        isProjectLocalInstall,
-        isSourceCheckout,
-        npmGlobalRoots,
-        npmPrefixFromInstallDir,
-        offerCliUpgrade,
-        readCliVersion,
-        registryUrl,
-        rerunUpdateWithUpgradedCli,
-        shouldOfferUpgrade,
-        upgradedBinPath,
-    }
+    "src/core/artifact-graph/resolver" --> "test/core/artifact-graph/resolver.test";
+    src.core.store.foundation --> "test/core/root-selection.test";
+    src.core.config --> "test/core/update.test";
+    "src/core/version-check" --> "test/core/version-check.test";
 }
