@@ -303,6 +303,18 @@ dropped them because none moved the wall time beyond noise:
 - a larger young generation (`--max-semi-space-size=32`) against the ~17 ms of GC in
   `validate` (374 vs 369 ms).
 
+A third look charged each runtime helper's time to the Jac function that called it
+(`validate --all --json`, three profiles, all agreeing within 2 ms). Of ~370 ms:
+
+- ~100 ms is outside Jac code: Node itself, module loading, commander.
+- ~28 ms is `base.schema`'s start, which is loading `zod`. That is not a Jac cost: `require('zod')`
+  (what `src/lazy.js` does) measured 24–25 ms and `import('zod')` (what the original does)
+  28–57 ms. `yaml`, ~13 ms in `foundation`'s start, is the same either way (11–14 ms).
+- ~17 ms is the regex cache (`madeRx`) with what it calls, but only ~4 ms of that is the lookup
+  itself, spread over a dozen callers at under 1 ms each. Moving every hot caller to module-level
+  `RegExp` constants would touch ~200 call sites for about 3% of the command, under the noise
+  line; the code-fence trial above already measured nothing for the hottest one.
+
 What remains is spread across neojac's runtime helpers (`call`, `callattr`, `plain`,
 `str_join`, `dict_of`…), each a few ms, with no single hot spot left in this project's code.
 
