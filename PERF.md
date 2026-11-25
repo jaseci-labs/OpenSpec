@@ -315,6 +315,12 @@ A third look charged each runtime helper's time to the Jac function that called 
   `RegExp` constants would touch ~200 call sites for about 3% of the command, under the noise
   line; the code-fence trial above already measured nothing for the hottest one.
 
+npm packages are not where the gap is either. A load hook recorded the packages each command
+loads, for all 16 command workloads: the Jac loads the same set as the original, or fewer
+(`src/lazy.js` loads a package where it is first used). For example `list` and `validate` load
+`commander`, `yaml` and `zod` where the original also loads `tinyglobby`, `picomatch`,
+`brace-expansion` and `chalk`, and `update` does not load `ora`'s 15 packages.
+
 What remains is spread across neojac's runtime helpers (`call`, `callattr`, `plain`,
 `str_join`, `dict_of`…), each a few ms, with no single hot spot left in this project's code.
 
