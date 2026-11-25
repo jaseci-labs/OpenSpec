@@ -7,6 +7,27 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> src.core.store.foundation { JsNull, at, js_error, merge, rec, truthy }
+    src.lazy ++> src.core.store.foundation { need }
+    src.core.id ++> src.core.store.foundation {
+        KEBAB_ID_DESCRIPTION,
+        KEBAB_ID_FIX,
+        folderStyleNameProblem,
+        isKebabId,
+    }
+    "src/core/global-config" ++> src.core.store.foundation { getGlobalDataDir }
+    "src/utils/file-system" ++> src.core.store.foundation { FileSystemUtils }
+    "src/core/file-state" ++> src.core.store.foundation {
+        acquireFileLock,
+        isNodeErrorCode,
+        makeLockErrorFactory,
+        pathIsDirectory,
+        pathIsFile,
+        releaseFileLock,
+        writeFileAtomically,
+    }
+    "src/core/zod-issues" ++> src.core.store.foundation { formatZodIssues }
+    src.core.store.errors ++> src.core.store.foundation { StoreError }
     src.host ++> "src/core/parsers/markdown-parser" { JsNull, found, matchOf, rec, sub }
     "src/core/parsers/requirement-text" ++> "src/core/parsers/markdown-parser" {
         buildCodeFenceMask,
@@ -403,25 +424,6 @@ graph import {
     "src/utils/item-discovery" --> src.core.references { getSpecIds }
     "src/utils/file-system" --> src.core.references { FileSystemUtils }
     "src/core/project-config" --> src.core.references { DeclarationEntry, MAX_CONTEXT_SIZE }
-    src.core.id --> src.core.store.foundation {
-        KEBAB_ID_DESCRIPTION,
-        KEBAB_ID_FIX,
-        folderStyleNameProblem,
-        isKebabId,
-    }
-    "src/core/global-config" --> src.core.store.foundation { getGlobalDataDir }
-    "src/utils/file-system" --> src.core.store.foundation { FileSystemUtils }
-    "src/core/file-state" --> src.core.store.foundation {
-        acquireFileLock,
-        isNodeErrorCode,
-        makeLockErrorFactory,
-        pathIsDirectory,
-        pathIsFile,
-        releaseFileLock,
-        writeFileAtomically,
-    }
-    "src/core/zod-issues" --> src.core.store.foundation { formatZodIssues }
-    src.core.store.errors --> src.core.store.foundation { StoreError }
     src.core.store.foundation --> src.core.store.registry {
         StoreBackendConfig,
         StoreGitBackendConfig,
