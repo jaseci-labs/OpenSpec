@@ -7,6 +7,7 @@ graph spaces {
 }
 
 graph import {
+    src.lazy ++> src.core.styles.palette { need }
     src.host ++> src.core.styles.palette { rec }
     src.host ++> "src/core/change-status-policy" { rec, truthy }
     src.host ++> "src/commands/shared-output" { kind, merge, rec, truthy }

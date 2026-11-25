@@ -1,4 +1,4 @@
-import from "chalk" { default as chalk }
+glob:priv chalk: any = need("chalk").default;
 
 glob PALETTE: any = rec(
     white=chalk.hex("#f4f4f4"),
