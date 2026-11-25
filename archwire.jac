@@ -7,6 +7,10 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/utils/task-progress" { at, js_error, matchOf, missing, rec, rx, truthy }
+    "src/core/artifact-graph/outputs" ++> "src/utils/task-progress" { resolveArtifactOutputs }
+    "src/core/artifact-graph/resolver" ++> "src/utils/task-progress" { resolveSchema }
+    "src/utils/change-metadata" ++> "src/utils/task-progress" { resolveSchemaForChange }
     include "src/core/artifact-graph/types" ++> "src/core/artifact-graph/index" {
         Artifact,
         ArtifactSchema,
@@ -1816,13 +1820,6 @@ graph import {
     src.core.references --> src.commands.workflow.shared { ReferenceIndexEntry }
     "src/core/root-selection" --> src.commands.workflow.shared { isRootSelectionError }
     "src/commands/workflow/default-schema" --> src.commands.workflow.shared { DEFAULT_SCHEMA }
-    "src/core/artifact-graph/index" --> "src/utils/task-progress" {
-        Artifact,
-        SchemaYaml,
-        resolveArtifactOutputs,
-        resolveSchema,
-    }
-    "src/utils/change-metadata" --> "src/utils/task-progress" { resolveSchemaForChange }
     src.commands.workflow.instructions --> "test/commands/apply-instructions-tasks.test" {
         generateApplyInstructions,
     }
