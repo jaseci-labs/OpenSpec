@@ -5,7 +5,8 @@ type FileView = any;
 
 def:priv isDirectory(filePath: str) -> bool {
     try {
-        return statSync(filePath).isDirectory();
+        stats = statSync(filePath, rec(throwIfNoEntry=False));
+        return stats is not None and stats.isDirectory();
     } except Exception {
         return False;
     }
@@ -13,7 +14,8 @@ def:priv isDirectory(filePath: str) -> bool {
 
 def:priv linkTarget(filePath: str) -> any {
     try {
-        if lstatSync(filePath).isSymbolicLink() {
+        stats = lstatSync(filePath, rec(throwIfNoEntry=False));
+        if stats is not None and stats.isSymbolicLink() {
             return path.resolve(path.dirname(filePath), readlinkSync(filePath));
         }
     } except Exception {}

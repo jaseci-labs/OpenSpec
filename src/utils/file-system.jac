@@ -52,7 +52,8 @@ def:priv markerSpan(content: str, startMarker: str, endMarker: str) -> tuple[int
 
 def:priv isSymbolicLink(targetPath: str) -> bool {
     try {
-        return nodeFs.lstatSync(targetPath).isSymbolicLink();
+        stats = nodeFs.lstatSync(targetPath, rec(throwIfNoEntry=False));
+        return False if stats is None else stats.isSymbolicLink();
     } except Exception as e {
         if codeOf(e) != "ENOENT" {
             raise;
@@ -76,8 +77,9 @@ def:priv canonicalizePotentialPath(targetPath: str) -> str {
     missingSegments: list[str] = [];
     while True {
         try {
-            nodeFs.lstatSync(existing);
-            return path.resolve(nodeFs.realpathSync.native(existing), *missingSegments);
+            if nodeFs.lstatSync(existing, rec(throwIfNoEntry=False)) is not None {
+                return path.resolve(nodeFs.realpathSync.native(existing), *missingSegments);
+            }
         } except Exception as e {
             if codeOf(e) != "ENOENT" {
                 raise;
