@@ -7,6 +7,13 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/core/project-skills-scope" { JsNull, at }
+    src.lazy ++> "src/core/project-skills-scope" { need }
+    "src/utils/file-system" ++> "src/core/project-skills-scope" { FileSystemUtils }
+    "src/core/project-config" ++> "src/core/project-skills-scope" {
+        readProjectConfig,
+        resolveConfigFilePath,
+    }
     src.host ++> "src/core/project-config" {
         JsNull,
         at,
@@ -1894,11 +1901,6 @@ graph import {
     "src/core/global-skills" --> src.core.update;
     src.core.init --> src.core.update;
     "src/prompts/searchable-multi-select" --> src.core.update;
-    "src/utils/file-system" --> "src/core/project-skills-scope" { FileSystemUtils }
-    "src/core/project-config" --> "src/core/project-skills-scope" {
-        readProjectConfig,
-        resolveConfigFilePath,
-    }
     "src/utils/file-system" --> "src/core/legacy-cleanup" { FileSystemUtils, removeMarkerBlock }
     src.core.config --> "src/core/legacy-cleanup" { OPENSPEC_MARKERS, findRetiredTool }
     "src/core/shared/generated-fingerprint" --> "src/core/legacy-cleanup" {
