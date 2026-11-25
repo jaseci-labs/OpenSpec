@@ -7,6 +7,20 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/core/templates/workflows/apply-change" { rec }
+    "src/core/templates/workflows/store-selection" ++> "src/core/templates/workflows/apply-change" {
+        STORE_SELECTION_GUIDANCE,
+    }
+    "src/core/templates/workflows/project-root" ++> "src/core/templates/workflows/apply-change" {
+        PROJECT_ROOT_GUARD,
+    }
+    src.host ++> "src/core/templates/workflows/archive-change" { rec }
+    "src/core/templates/workflows/store-selection" ++> "src/core/templates/workflows/archive-change" {
+        STORE_SELECTION_GUIDANCE,
+    }
+    "src/core/templates/workflows/project-root" ++> "src/core/templates/workflows/archive-change" {
+        PROJECT_ROOT_GUARD,
+    }
     src.host ++> "src/core/shared-skill-target" { at, kind, rec, rx, sub }
     src.core.config ++> "src/core/shared-skill-target" {
         AI_TOOLS,
@@ -1088,16 +1102,6 @@ graph import {
     "src/core/templates/workflows/project-root" --> "src/core/templates/workflows/continue-change" {
         PROJECT_ROOT_GUARD,
     }
-    src.core.templates.types --> "src/core/templates/workflows/apply-change" {
-        CommandTemplate,
-        SkillTemplate,
-    }
-    "src/core/templates/workflows/store-selection" --> "src/core/templates/workflows/apply-change" {
-        STORE_SELECTION_GUIDANCE,
-    }
-    "src/core/templates/workflows/project-root" --> "src/core/templates/workflows/apply-change" {
-        PROJECT_ROOT_GUARD,
-    }
     src.core.templates.types --> "src/core/templates/workflows/update-change" {
         CommandTemplate,
         SkillTemplate,
@@ -1126,16 +1130,6 @@ graph import {
         STORE_SELECTION_GUIDANCE,
     }
     "src/core/templates/workflows/project-root" --> "src/core/templates/workflows/sync-specs" {
-        PROJECT_ROOT_GUARD,
-    }
-    src.core.templates.types --> "src/core/templates/workflows/archive-change" {
-        CommandTemplate,
-        SkillTemplate,
-    }
-    "src/core/templates/workflows/store-selection" --> "src/core/templates/workflows/archive-change" {
-        STORE_SELECTION_GUIDANCE,
-    }
-    "src/core/templates/workflows/project-root" --> "src/core/templates/workflows/archive-change" {
         PROJECT_ROOT_GUARD,
     }
     src.core.templates.types --> "src/core/templates/workflows/bulk-archive-change" {
