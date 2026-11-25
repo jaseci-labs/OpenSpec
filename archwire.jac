@@ -7,6 +7,10 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/core/validation/task-checkboxes" { matchOf, missing, rec, rx, sub }
+    "src/utils/task-progress" ++> "src/core/validation/task-checkboxes" { parseTaskLines }
+    src.host ++> "src/core/validation/task-numbering" { at, found, matchOf, rec, rx, sub }
+    "src/utils/task-progress" ++> "src/core/validation/task-numbering" { parseTaskLines }
     src.host ++> "src/utils/task-progress" { at, js_error, matchOf, missing, rec, rx, truthy }
     "src/core/artifact-graph/outputs" ++> "src/utils/task-progress" { resolveArtifactOutputs }
     "src/core/artifact-graph/resolver" ++> "src/utils/task-progress" { resolveSchema }
@@ -1902,8 +1906,6 @@ graph import {
         getPackageSchemasDir,
         getSchemaDir,
     }
-    "src/utils/task-progress" --> "src/core/validation/task-numbering" { parseTaskLines }
-    "src/utils/task-progress" --> "src/core/validation/task-checkboxes" { parseTaskLines }
     "test/helpers/run-cli" --> "test/commands/artifact-workflow.test" { runCLI }
     "src/utils/file-system" --> "test/commands/artifact-workflow.test" { FileSystemUtils }
     "src/utils/change-metadata" --> "test/commands/change-initiative-link.test" {
