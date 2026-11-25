@@ -7,6 +7,25 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/core/skill-installer" {
+        JsNull,
+        at,
+        kind,
+        matchOf,
+        merge,
+        missing,
+        rec,
+        truthy,
+    }
+    src.lazy ++> "src/core/skill-installer" { load, need }
+    "src/utils/command-references" ++> "src/core/skill-installer" {
+        transformToSharedSkillReferences,
+    }
+    "src/core/shared/skill-generation" ++> "src/core/skill-installer" {
+        generateSkillFiles,
+        getSkillTemplates,
+        stripVolatileFrontmatter,
+    }
     src.host ++> "src/core/shared/skill-generation" { at, merge, missing, rec, sub }
     "src/core/shared/allowed-tools" ++> "src/core/shared/skill-generation" {
         OPENSPEC_CLI_ALLOWED_TOOLS,
@@ -1238,14 +1257,6 @@ graph import {
         normalizeGeneratedContent,
     }
     "src/core/file-view" --> "src/core/shared/skill-links" { DISK_VIEW, FileView }
-    "src/utils/command-references" --> "src/core/skill-installer" {
-        transformToSharedSkillReferences,
-    }
-    "src/core/shared/skill-generation" --> "src/core/skill-installer" {
-        generateSkillFiles,
-        getSkillTemplates,
-        stripVolatileFrontmatter,
-    }
     include src.core.templates.types ++> "src/core/templates/skill-templates" {
         CommandTemplate,
         SkillTemplate,
