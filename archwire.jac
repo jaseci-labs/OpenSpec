@@ -7,6 +7,13 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/core/github-copilot/cloud-agent" { JsNull, at, js_error, kind, missing, rec }
+    src.lazy ++> "src/core/github-copilot/cloud-agent" { need }
+    "src/utils/file-system" ++> "src/core/github-copilot/cloud-agent" { FileSystemUtils }
+    "src/core/project-config" ++> "src/core/github-copilot/cloud-agent" {
+        readProjectConfig,
+        resolveConfigFilePath,
+    }
     src.host ++> src.commands.completion { at, truthy }
     src.lazy ++> src.commands.completion { load }
     src.core.completions.factory ++> src.commands.completion {
@@ -1927,11 +1934,6 @@ graph import {
         usesSharedSkills,
     }
     "src/core/file-view" --> "src/core/available-tools" { DISK_VIEW, FileView }
-    "src/utils/file-system" --> "src/core/github-copilot/cloud-agent" { FileSystemUtils }
-    "src/core/project-config" --> "src/core/github-copilot/cloud-agent" {
-        readProjectConfig,
-        resolveConfigFilePath,
-    }
     src.core.config --> "src/core/global-skills" { AI_TOOLS, OPENSPEC_SKILL_NAMES, installerAgent }
     "src/core/global-config" --> "src/core/global-skills" { getGlobalDataDir }
     src.core.profiles --> "src/core/global-skills" { withRouter }
