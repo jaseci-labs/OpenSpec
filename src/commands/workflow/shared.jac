@@ -2,10 +2,6 @@ import from "node:fs" { default as fs }
 import from "node:path" { default as path }
 import from "node:process" { default as process }
 
-type ApplyInstructions = any;
-type ArchiveInstructions = any;
-type TaskItem = any;
-
 glob:priv INDICATORS: dict[str, tuple[str, str]] = {
     "done": ("green", "[x]"),
     "skipped": ("gray", "[~]"),

@@ -7,6 +7,53 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> src.commands.workflow.instructions {
+        JsNull,
+        at,
+        js_error,
+        merge,
+        missing,
+        rec,
+        truthy,
+    }
+    src.lazy ++> src.commands.workflow.instructions { load }
+    "src/core/artifact-graph/index" ++> src.commands.workflow.instructions {
+        generateInstructions,
+        loadChangeContext,
+        resolveArtifactOutputs,
+        resolveSchema,
+    }
+    "src/core/artifact-graph/outputs" ++> src.commands.workflow.instructions { isSpecsArtifactPath }
+    "src/utils/spec-discovery" ++> src.commands.workflow.instructions { findUnreadDeltaFiles }
+    "src/core/planning-home" ++> src.commands.workflow.instructions {
+        getChangeDir,
+        resolveCurrentPlanningHomeSync,
+    }
+    "src/core/root-selection" ++> src.commands.workflow.instructions {
+        resolveRootForCommand,
+        toPlanningHome,
+        toRootOutput,
+        withStoreFlag,
+    }
+    src.core.references ++> src.commands.workflow.instructions {
+        assembleReferenceIndex,
+        escapeEnvelopeAttribute,
+        escapeEnvelopeTags,
+        renderReferencedStoresBlock,
+        renderReferencedStoresSection,
+        sanitizeInline,
+    }
+    src.core.store.registry ++> src.commands.workflow.instructions { readRegistrySnapshot }
+    "src/core/project-config" ++> src.commands.workflow.instructions {
+        loadOperationInputs,
+        readProjectConfig,
+    }
+    src.commands.workflow.shared ++> src.commands.workflow.instructions {
+        validateChangeExists,
+        validateSchemaExists,
+    }
+    "src/utils/task-progress" ++> src.commands.workflow.instructions { parseLocatedTaskLines }
+    "src/utils/change-metadata" ++> src.commands.workflow.instructions { METADATA_FILENAME }
     src.host ++> src.commands.workflow.status { JsNull, at, js_error, merge, owns, rec, truthy }
     src.lazy ++> src.commands.workflow.status { load, pick }
     "src/core/planning-home" ++> src.commands.workflow.status { getChangeDir }
@@ -2123,54 +2170,6 @@ graph import {
         generateApplyInstructions,
         printApplyInstructionsText,
     }
-    "src/core/artifact-graph/index" --> src.commands.workflow.instructions {
-        ArtifactInstructions,
-        generateInstructions,
-        loadChangeContext,
-        resolveArtifactOutputs,
-        resolveSchema,
-    }
-    "src/core/artifact-graph/outputs" --> src.commands.workflow.instructions { isSpecsArtifactPath }
-    "src/utils/spec-discovery" --> src.commands.workflow.instructions { findUnreadDeltaFiles }
-    "src/core/planning-home" --> src.commands.workflow.instructions {
-        PlanningHome,
-        getChangeDir,
-        resolveCurrentPlanningHomeSync,
-    }
-    "src/core/root-selection" --> src.commands.workflow.instructions {
-        ResolvedOpenSpecRoot,
-        resolveRootForCommand,
-        toPlanningHome,
-        toRootOutput,
-        withStoreFlag,
-    }
-    src.core.references --> src.commands.workflow.instructions {
-        ReferenceIndexEntry,
-        assembleReferenceIndex,
-        escapeEnvelopeAttribute,
-        escapeEnvelopeTags,
-        renderReferencedStoresBlock,
-        renderReferencedStoresSection,
-        sanitizeInline,
-    }
-    src.core.store.registry --> src.commands.workflow.instructions { readRegistrySnapshot }
-    "src/core/project-config" --> src.commands.workflow.instructions {
-        ProjectConfig,
-        loadOperationInputs,
-        readProjectConfig,
-    }
-    src.commands.workflow.shared --> src.commands.workflow.instructions {
-        ApplyInstructions,
-        ArchiveInstructions,
-        TaskItem,
-        validateChangeExists,
-        validateSchemaExists,
-    }
-    "src/utils/task-progress" --> src.commands.workflow.instructions {
-        ParsedTask,
-        parseLocatedTaskLines,
-    }
-    "src/utils/change-metadata" --> src.commands.workflow.instructions { METADATA_FILENAME }
     src.commands.workflow.instructions --> "test/commands/apply-instructions-tasks.test" {
         generateApplyInstructions,
     }
