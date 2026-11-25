@@ -7,6 +7,14 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/core/validation/purpose-placeholder" { JsNull, rec, sub, found }
+    "src/core/parsers/code-fence" ++> "src/core/validation/purpose-placeholder" {
+        buildCodeFenceMask,
+    }
+    src.core.validation.constants ++> "src/core/validation/purpose-placeholder" {
+        PURPOSE_PLACEHOLDER_PREFIX,
+        PURPOSE_PLACEHOLDER_SUFFIX,
+    }
     src.host ++> "src/utils/spec-path-containment" { js_error }
     "src/core/project-dir" ++> "src/utils/spec-path-containment" { OPENSPEC_DIR_NAME }
     "src/utils/file-system" ++> "src/utils/spec-path-containment" { FileSystemUtils }
@@ -1632,13 +1640,6 @@ graph import {
     "src/utils/line-endings" --> "src/core/specs-apply" { matchLineEnding }
     "src/utils/task-progress" --> "src/core/validation/task-numbering" { parseTaskLines }
     "src/utils/task-progress" --> "src/core/validation/task-checkboxes" { parseTaskLines }
-    "src/core/parsers/code-fence" --> "src/core/validation/purpose-placeholder" {
-        buildCodeFenceMask,
-    }
-    src.core.validation.constants --> "src/core/validation/purpose-placeholder" {
-        PURPOSE_PLACEHOLDER_PREFIX,
-        PURPOSE_PLACEHOLDER_SUFFIX,
-    }
     "test/helpers/run-cli" --> "test/commands/artifact-workflow.test" { runCLI }
     "src/utils/file-system" --> "test/commands/artifact-workflow.test" { FileSystemUtils }
     "src/utils/change-metadata" --> "test/commands/change-initiative-link.test" {
