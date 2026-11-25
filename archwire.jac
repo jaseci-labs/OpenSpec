@@ -7,6 +7,222 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> src.core.references {
+        JsNull,
+        found,
+        matchOf,
+        missing,
+        promise,
+        rec,
+        rx,
+        same,
+        sub,
+        truthy,
+    }
+    src.core.store.errors ++> src.core.references { makeStoreDiagnostic }
+    src.core.store.foundation ++> src.core.references {
+        isValidStoreId,
+        listStoreRegistryEntries,
+        readStoreRegistryState,
+    }
+    src.core.store.registry ++> src.core.references { getStoreRootForBackend }
+    "src/core/root-selection" ++> src.core.references { inspectRegisteredStore }
+    "src/utils/item-discovery" ++> src.core.references { getSpecIds }
+    "src/utils/file-system" ++> src.core.references { FileSystemUtils }
+    "src/core/project-config" ++> src.core.references { MAX_CONTEXT_SIZE }
+    src.host ++> "src/core/root-selection" {
+        JsNull,
+        at,
+        js_error,
+        merge,
+        missing,
+        rec,
+        same,
+        truthy,
+    }
+    src.core.store.errors ++> "src/core/root-selection" { StoreError }
+    src.core.store.foundation ++> "src/core/root-selection" {
+        getStoreMetadataPath,
+        listStoreRegistryEntries,
+        readOptionalStoreMetadataState,
+        readStoreRegistryState,
+        validateStoreId,
+    }
+    src.core.store.registry ++> "src/core/root-selection" { getStoreRootForBackend }
+    src.core.store.git ++> "src/core/root-selection" { gitOriginUrl, repoNameFromGitUrl }
+    src.core.id ++> "src/core/root-selection" { isKebabId, toKebabCase }
+    "src/core/openspec-root" ++> "src/core/root-selection" { inspectOpenSpecRoot }
+    "src/core/planning-home" ++> "src/core/root-selection" { findRepoPlanningRootSync }
+    "src/core/project-config" ++> "src/core/root-selection" {
+        classifyOpenSpecDir,
+        storePointerProblem,
+    }
+    "src/core/global-config" ++> "src/core/root-selection" { getGlobalConfig }
+    "src/utils/file-system" ++> "src/core/root-selection" { FileSystemUtils }
+    src.host ++> "src/commands/workset-prompts" { JsNull, js_error, merge, missing, rec }
+    src.lazy ++> "src/commands/workset-prompts" { load }
+    "src/core/file-state" ++> "src/commands/workset-prompts" { pathIsDirectory }
+    src.core.openers ++> "src/commands/workset-prompts" { listOpenerChoices }
+    src.core.store.operations ++> "src/commands/workset-prompts" { expandUserPath }
+    src.core.worksets ++> "src/commands/workset-prompts" { memberLabelProblem, validateWorksetName }
+    "src/commands/shared-output" ++> "src/commands/workset-prompts" { asErrorMessage }
+    "src/commands/workset-input" ++> "src/commands/workset-prompts" {
+        assertKnownTool,
+        finalizeWorkset,
+        formatMemberRows,
+        resolveMemberFlags,
+    }
+    src.host ++> "src/commands/workset-input" { JsNull, merge, promise, rec }
+    "src/core/file-state" ++> "src/commands/workset-input" { pathIsDirectory }
+    src.core.openers ++> "src/commands/workset-input" {
+        findOpener,
+        isOpenerCommandAvailable,
+        isOpenerEnabled,
+    }
+    src.core.store.errors ++> "src/commands/workset-input" { StoreError }
+    src.core.store.operations ++> "src/commands/workset-input" { expandUserPath }
+    "src/core/global-config" ++> "src/commands/workset-input" { getGlobalConfigPath }
+    src.core.worksets ++> "src/commands/workset-input" { memberLabelProblem, memberListProblem }
+    include src.core.store.foundation ++> src.core.store.index {
+        STORES_DIR_NAME,
+        STORE_METADATA_DIR_NAME,
+        STORE_METADATA_FILE_NAME,
+        STORE_REGISTRY_FILE_NAME,
+        StoreBackendConfig,
+        StoreGitBackendConfig,
+        StorePathOptions,
+        StoreRegistryEntry,
+        StoreRegistryState,
+        getStoreMetadataDir,
+        getStoreMetadataPath,
+        getStoreRegistryPath,
+        getStoresDir,
+        isStoreRoot,
+        isValidStoreId,
+        listStoreRegistryEntries,
+        parseStoreMetadataState,
+        parseStoreRegistryState,
+        readOptionalStoreMetadataState,
+        readStoreMetadataState,
+        readStoreRegistryState,
+        resolveGitStoreBackendConfig,
+        serializeStoreMetadataState,
+        serializeStoreRegistryState,
+        updateStoreRegistryState,
+        validateStoreId,
+        writeStoreMetadataState,
+        writeStoreRegistryState,
+    }
+    include src.core.store.errors ++> src.core.store.index {
+        StoreDiagnostic,
+        StoreDiagnosticSeverity,
+        StoreError,
+        makeStoreDiagnostic,
+    }
+    include src.core.store.registry ++> src.core.store.index {
+        RegistrySnapshot,
+        assertNoRegisteredStoreConflict,
+        commitStoreRegistration,
+        getRegisteredStore,
+        getStoreRootForBackend,
+        listRegisteredStores,
+        readRegistrySnapshot,
+        registerStore,
+        resolveRegisteredStore,
+        unregisterStoreRegistration,
+    }
+    include src.core.store.operations ++> src.core.store.index {
+        SetupStoreInput,
+        StoreCleanupResult,
+        StoreDoctorResult,
+        StoreInfo,
+        StoreInspection,
+        StoreListResult,
+        StoreMutationResult,
+        doctorStores,
+        expandUserPath,
+        listStores,
+        normalizeStorePathForComparison,
+        prepareStoreCleanup,
+        prepareStoreSetup,
+        registerExistingStore,
+        removeStore,
+        resolveSetupGitEnabled,
+        setupPreparedStore,
+        setupStore,
+        unregisterStore,
+    }
+    src.host ++> src.core.store.operations {
+        JsNull,
+        at,
+        js_error,
+        merge,
+        missing,
+        promise,
+        rec,
+        same,
+        truthy,
+    }
+    src.core.store.errors ++> src.core.store.operations { StoreError, makeStoreDiagnostic }
+    "src/utils/file-system" ++> src.core.store.operations { FileSystemUtils }
+    "src/core/project-config" ++> src.core.store.operations {
+        classifyOpenSpecDir,
+        storePointerProblem,
+    }
+    "src/core/openspec-root" ++> src.core.store.operations {
+        ANCHORED_OPENSPEC_DIRS,
+        DIRECTORY_ANCHOR_FILE_NAME,
+        OPENSPEC_ROOT_DIR,
+        ensureOpenSpecRoot,
+        inspectOpenSpecRoot,
+        rollbackCreatedPaths,
+    }
+    src.core.store.foundation ++> src.core.store.operations {
+        STORE_METADATA_DIR_NAME,
+        getStoreMetadataDir,
+        getStoreMetadataPath,
+        getStoreRegistryPath,
+        listStoreRegistryEntries,
+        readOptionalStoreMetadataState,
+        readStoreRegistryState,
+        resolveGitStoreBackendConfig,
+        validateStoreId,
+        writeStoreMetadataState,
+    }
+    src.core.store.git ++> src.core.store.operations {
+        GIT_EXEC_OPTIONS,
+        assertGitCommitIdentity,
+        commitStoreFiles,
+        gitDirectoryHasTrackedFiles,
+        gitHasCommits,
+        gitHasRemote,
+        gitHasUncommittedChanges,
+        gitOriginUrl,
+        initGitRepository,
+        isGitRepositoryAtRoot,
+    }
+    src.core.store.registry ++> src.core.store.operations {
+        assertNoRegisteredStoreConflict,
+        commitStoreRegistration,
+        getRegisteredStore,
+        getStoreRootForBackend,
+        listRegisteredStores,
+        unregisterStoreRegistration,
+    }
+    src.host ++> src.core.store.registry { JsNull, at, js_error, merge, missing, rec, same, truthy }
+    src.core.store.errors ++> src.core.store.registry { StoreError }
+    "src/utils/file-system" ++> src.core.store.registry { FileSystemUtils }
+    src.core.store.foundation ++> src.core.store.registry {
+        getStoreMetadataDir,
+        getStoreMetadataPath,
+        listStoreRegistryEntries,
+        readOptionalStoreMetadataState,
+        readStoreRegistryState,
+        resolveGitStoreBackendConfig,
+        updateStoreRegistryState,
+        validateStoreId,
+        writeStoreMetadataState,
+    }
     src.host ++> "src/core/skill-installer" {
         JsNull,
         at,
@@ -1107,119 +1323,6 @@ graph import {
     src.core.store.index --> src.core.index;
     "src/core/planning-home" --> src.core.index;
     "src/core/openspec-root" --> src.core.index;
-    src.core.store.errors --> src.core.references { StoreDiagnostic, makeStoreDiagnostic }
-    src.core.store.foundation --> src.core.references {
-        isValidStoreId,
-        listStoreRegistryEntries,
-        readStoreRegistryState,
-    }
-    src.core.store.registry --> src.core.references { getStoreRootForBackend }
-    "src/core/root-selection" --> src.core.references {
-        ResolvedOpenSpecRoot,
-        inspectRegisteredStore,
-    }
-    "src/utils/item-discovery" --> src.core.references { getSpecIds }
-    "src/utils/file-system" --> src.core.references { FileSystemUtils }
-    "src/core/project-config" --> src.core.references { DeclarationEntry, MAX_CONTEXT_SIZE }
-    src.core.store.foundation --> src.core.store.registry {
-        StoreBackendConfig,
-        StoreGitBackendConfig,
-        StorePathOptions,
-        StoreRegistryEntry,
-        StoreRegistryState,
-        getStoreMetadataDir,
-        getStoreMetadataPath,
-        listStoreRegistryEntries,
-        readOptionalStoreMetadataState,
-        readStoreRegistryState,
-        resolveGitStoreBackendConfig,
-        updateStoreRegistryState,
-        validateStoreId,
-        writeStoreMetadataState,
-    }
-    src.core.store.errors --> src.core.store.registry { StoreError }
-    "src/utils/file-system" --> src.core.store.registry { FileSystemUtils }
-    src.core.store.errors --> "src/core/root-selection" { StoreError }
-    src.core.store.foundation --> "src/core/root-selection" {
-        getStoreMetadataPath,
-        listStoreRegistryEntries,
-        readOptionalStoreMetadataState,
-        readStoreRegistryState,
-        validateStoreId,
-    }
-    src.core.store.registry --> "src/core/root-selection" { getStoreRootForBackend }
-    src.core.store.git --> "src/core/root-selection" { gitOriginUrl, repoNameFromGitUrl }
-    src.core.id --> "src/core/root-selection" { isKebabId, toKebabCase }
-    "src/core/openspec-root" --> "src/core/root-selection" { inspectOpenSpecRoot }
-    "src/core/planning-home" --> "src/core/root-selection" {
-        PlanningHome,
-        findRepoPlanningRootSync,
-    }
-    "src/core/project-config" --> "src/core/root-selection" {
-        classifyOpenSpecDir,
-        storePointerProblem,
-    }
-    "src/core/global-config" --> "src/core/root-selection" { getGlobalConfig }
-    "src/utils/file-system" --> "src/core/root-selection" { FileSystemUtils }
-    src.core.store.foundation --> src.core.store.index;
-    src.core.store.errors --> src.core.store.index;
-    src.core.store.registry --> src.core.store.index;
-    src.core.store.operations --> src.core.store.index;
-    "src/utils/file-system" --> src.core.store.operations { FileSystemUtils }
-    "src/core/project-config" --> src.core.store.operations {
-        classifyOpenSpecDir,
-        storePointerProblem,
-    }
-    "src/core/openspec-root" --> src.core.store.operations {
-        ANCHORED_OPENSPEC_DIRS,
-        CreatedPathLedgerEntry,
-        DIRECTORY_ANCHOR_FILE_NAME,
-        OPENSPEC_ROOT_DIR,
-        OpenSpecRootInspection,
-        ensureOpenSpecRoot,
-        inspectOpenSpecRoot,
-        rollbackCreatedPaths,
-    }
-    src.core.store.foundation --> src.core.store.operations {
-        STORE_METADATA_DIR_NAME,
-        StoreGitBackendConfig,
-        StorePathOptions,
-        StoreRegistryState,
-        getStoreMetadataDir,
-        getStoreMetadataPath,
-        getStoreRegistryPath,
-        listStoreRegistryEntries,
-        readOptionalStoreMetadataState,
-        readStoreRegistryState,
-        resolveGitStoreBackendConfig,
-        validateStoreId,
-        writeStoreMetadataState,
-    }
-    src.core.store.errors --> src.core.store.operations {
-        StoreDiagnostic,
-        StoreError,
-        makeStoreDiagnostic,
-    }
-    src.core.store.git --> src.core.store.operations {
-        GIT_EXEC_OPTIONS,
-        assertGitCommitIdentity,
-        commitStoreFiles,
-        gitDirectoryHasTrackedFiles,
-        gitHasCommits,
-        gitHasRemote,
-        gitHasUncommittedChanges,
-        gitOriginUrl,
-        initGitRepository,
-        isGitRepositoryAtRoot,
-    }
-    src.core.store.registry --> src.core.store.operations {
-        assertNoRegisteredStoreConflict,
-        commitStoreRegistration,
-        getRegisteredStore,
-        getStoreRootForBackend,
-        listRegisteredStores,
-        unregisterStoreRegistration,
-    }
     src.core.index --> "test/cli-e2e/capstone-journeys.test" { getGlobalDataDir, registerStore }
     "test/helpers/run-cli" --> "test/cli-e2e/capstone-journeys.test" { runCLI }
     "test/helpers/openspec-fixtures" --> "test/cli-e2e/capstone-journeys.test" {
@@ -2438,43 +2541,6 @@ graph import {
         confirmRemoveInteractively,
         promptOpenNow,
         promptToolFromChoices,
-    }
-    "src/core/file-state" --> "src/commands/workset-input" { pathIsDirectory }
-    src.core.openers --> "src/commands/workset-input" {
-        OpenerDefinition,
-        OpenerScanOptions,
-        findOpener,
-        isOpenerCommandAvailable,
-        isOpenerEnabled,
-    }
-    src.core.store.errors --> "src/commands/workset-input" { StoreError }
-    src.core.store.operations --> "src/commands/workset-input" { expandUserPath }
-    "src/core/global-config" --> "src/commands/workset-input" { getGlobalConfigPath }
-    src.core.worksets --> "src/commands/workset-input" {
-        Workset,
-        WorksetMember,
-        memberLabelProblem,
-        memberListProblem,
-    }
-    "src/core/file-state" --> "src/commands/workset-prompts" { pathIsDirectory }
-    src.core.openers --> "src/commands/workset-prompts" {
-        OpenerChoice,
-        OpenerDefinition,
-        listOpenerChoices,
-    }
-    src.core.store.operations --> "src/commands/workset-prompts" { expandUserPath }
-    src.core.worksets --> "src/commands/workset-prompts" {
-        Workset,
-        WorksetMember,
-        memberLabelProblem,
-        validateWorksetName,
-    }
-    "src/commands/shared-output" --> "src/commands/workset-prompts" { asErrorMessage }
-    "src/commands/workset-input" --> "src/commands/workset-prompts" {
-        assertKnownTool,
-        finalizeWorkset,
-        formatMemberRows,
-        resolveMemberFlags,
     }
     "src/core/completions/command-registry" --> src.cli.commands.workset { COMMAND_REGISTRY }
     src.core.store.errors --> src.cli.commands.workset { StoreDiagnostic }
