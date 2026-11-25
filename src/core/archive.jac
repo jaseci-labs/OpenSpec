@@ -166,7 +166,9 @@ def:priv rerunCommand(home: any, changeName: any, options: any) -> str {
 
 async def:priv confirmOrBlock(message: str, answer: bool, blocked: any) -> bool {
     try {
-        return await globalThis.Reflect.apply(confirmPrompt, None, [rec(message=message, **{"default": answer})]);
+        return await globalThis.Reflect.apply(
+            confirmPrompt, None, [rec(message=message, **{"default": answer})]
+        );
     } except Exception as e {
         if isNonInteractivePromptError(js_error(e)) {
             raise blocked();
