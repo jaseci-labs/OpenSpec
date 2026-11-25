@@ -7,6 +7,26 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/core/file-view" { rec }
+    src.host ++> "src/core/config-schema" { rec, missing, kind, js_error }
+    src.host ++> "src/core/global-config" {
+        rec,
+        merge,
+        at,
+        missing,
+        kind,
+        truthy,
+        js_error,
+        JsNull,
+    }
+    src.host ++> src.telemetry.config { rec, merge, at, missing, truthy, js_error }
+    "src/core/global-config" ++> src.telemetry.config {
+        GLOBAL_CONFIG_DIR_NAME,
+        GLOBAL_CONFIG_FILE_NAME,
+        getGlobalConfigDir,
+        isConfigRootObject,
+        unreadableGlobalConfigMessage,
+    }
     src.host ++> src.core.store.errors { merge, rec }
     src.host ++> src.core.id { JsNull, rx, sub }
     src.core.validation.constants --> "src/core/schemas/base.schema" { VALIDATION_MESSAGES }
@@ -122,7 +142,6 @@ graph import {
     "src/utils/file-system" --> "src/core/openspec-root" { FileSystemUtils }
     "src/core/config-prompts" --> "src/core/openspec-root" { serializeConfig }
     src.core.store.errors --> "src/core/openspec-root" { StoreDiagnostic, makeStoreDiagnostic }
-    "src/core/project-config" --> "src/core/config-prompts" { ProjectConfig }
     src.core.store.foundation --> "src/core/project-config" { getStoreMetadataPath }
     "src/utils/file-system" --> "src/core/planning-home" { FileSystemUtils }
     "src/utils/spec-discovery" --> "src/utils/item-discovery" { discoverSpecFiles }
@@ -2774,14 +2793,6 @@ graph import {
     src.utils.ci --> src.telemetry.index { isCiEnvironment }
     src.telemetry.config --> src.telemetry.index { getTelemetryConfig, updateTelemetryConfig }
     "src/telemetry/opt-out" --> src.telemetry.index { isTelemetryOptedOutByEnv }
-    "src/core/global-config" --> src.telemetry.config {
-        GLOBAL_CONFIG_DIR_NAME,
-        GLOBAL_CONFIG_FILE_NAME,
-        TelemetryConfig,
-        getGlobalConfigDir,
-        isConfigRootObject,
-        unreadableGlobalConfigMessage,
-    }
     "src/core/global-config" --> "src/core/completion-tip" { getGlobalConfigPath }
     "src/core/file-state" --> "src/core/completion-tip" { writeFileAtomically }
     src.utils.ci --> "src/core/completion-tip" { isCiEnvironment }
