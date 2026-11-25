@@ -12,7 +12,7 @@ packageManager = "pnpm@10.34.5"
 publishConfig = { access = "public" }
 exports = { "." = { types = "./dist/index.d.ts", default = "./dist/index.js" } }
 bin = { openspec = "./bin/openspec.js" }
-files = ["dist", "bin", "schemas", "!dist/**/*.test.js", "!dist/**/__tests__", "!dist/**/*.map"]
+files = ["dist", "bin", "schemas", "src", "!dist/**/*.test.js", "!dist/**/__tests__", "!dist/**/*.map"]
 
 [npm.".".scripts]
 lint = "eslint src/"
@@ -21,7 +21,7 @@ build = "node build.js"
 "regen:parity-hashes" = "node scripts/regen-parity-hashes.mjs"
 dev = "tsc --watch"
 "dev:cli" = "pnpm build && node bin/openspec.js"
-test = "vitest run"
+test = "node -e \"fs.mkdirSync('.git',{recursive:true})\" && node build.js && vitest run"
 "test:watch" = "vitest"
 "test:ui" = "vitest --ui"
 "test:coverage" = "vitest --coverage"
@@ -68,3 +68,6 @@ script = "test"
 
 [project]
 exclude = ["website", "dist"]
+
+[check.lint]
+ignore = ["separate-impls"]

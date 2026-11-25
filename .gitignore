@@ -172,3 +172,4 @@ dist-bin/
 *.bun-build
 /package.json
 /node_modules/
+/.jac/

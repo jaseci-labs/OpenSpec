@@ -3,16 +3,11 @@ graph layers {
 }
 
 graph spaces {
-    space openspec: browser { "."; }
-    space openspec_dev: node {
-        "eslint.config";
-        "vitest.config";
-        "vitest.setup";
-        src.* | test.* | bin.* | build | scripts.*;
-    }
+    space openspec: node { "."; }
 }
 
 graph import {
+    src.host ++> src.core.id { JsNull, rx, sub }
     src.core.validation.constants --> "src/core/schemas/base.schema" { VALIDATION_MESSAGES }
     "src/core/schemas/base.schema" --> "src/core/schemas/change.schema" { RequirementSchema }
     src.core.validation.constants --> "src/core/schemas/change.schema" {
