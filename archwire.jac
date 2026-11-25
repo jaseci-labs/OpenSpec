@@ -7,6 +7,57 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> src.core.archive {
+        JsNull,
+        at,
+        found,
+        js_error,
+        kind,
+        merge,
+        missing,
+        promise,
+        rec,
+        same,
+        sub,
+        truthy,
+    }
+    src.lazy ++> src.core.archive { load, pick }
+    src.utils.date ++> src.core.archive { formatLocalDate }
+    "src/utils/task-progress" ++> src.core.archive { formatTaskStatus, getTaskProgressForChange }
+    src.core.validation.validator ++> src.core.archive { Validator }
+    src.core.validation.constants ++> src.core.archive { VALIDATION_MESSAGES }
+    "src/core/root-selection" ++> src.core.archive {
+        emitStoreRootBanner,
+        isRootSelectionError,
+        isStoreSelectedRoot,
+        resolveOpenSpecRoot,
+        toRootOutput,
+        withStoreFlag,
+    }
+    "src/core/specs-apply" ++> src.core.archive {
+        buildUpdatedSpec,
+        finalizeRetiredSpec,
+        findSpecUpdates,
+        pruneEmptyDirs,
+        retireSpec,
+        writeUpdatedSpec,
+    }
+    "src/utils/spec-discovery" ++> src.core.archive {
+        discoverSpecFiles,
+        findUnreadDeltaFiles,
+        hasAnyFileUnder,
+    }
+    "src/utils/change-metadata" ++> src.core.archive {
+        METADATA_FILENAME,
+        formatUnknownChangeMetadataKeysMessage,
+        readRetireCapabilitiesMarker,
+        readSkipSpecsMarker,
+        readUnknownChangeMetadataKeys,
+    }
+    src.utils.interactive ++> src.core.archive { confirmPrompt, isNonInteractivePromptError }
+    "src/utils/file-system" ++> src.core.archive { FileSystemUtils }
+    src.core.id ++> src.core.archive { folderStyleNameProblem }
+    "src/utils/nested-change" ++> src.core.archive { describeNestedChange, findNestedChangesIn }
     src.host ++> src.core.validation.validator { JsNull, at, found, js_error, missing, rec, sub }
     src.core.schemas.index ++> src.core.validation.validator { ChangeSchema, SpecSchema }
     "src/core/parsers/markdown-parser" ++> src.core.validation.validator { MarkdownParser }
@@ -2723,44 +2774,6 @@ graph import {
     src.core.validation.constants --> "test/core/archive.test" { VALIDATION_MESSAGES }
     src.utils.date --> "test/core/archive.test" { formatLocalDate }
     src.utils.interactive --> "test/core/archive.test";
-    src.utils.date --> src.core.archive { formatLocalDate }
-    "src/utils/task-progress" --> src.core.archive { formatTaskStatus, getTaskProgressForChange }
-    src.core.validation.validator --> src.core.archive { Validator }
-    src.core.validation.constants --> src.core.archive { VALIDATION_MESSAGES }
-    "src/core/root-selection" --> src.core.archive {
-        ResolvedOpenSpecRoot,
-        emitStoreRootBanner,
-        isRootSelectionError,
-        isStoreSelectedRoot,
-        resolveOpenSpecRoot,
-        toRootOutput,
-        withStoreFlag,
-    }
-    "src/core/specs-apply" --> src.core.archive {
-        SpecUpdate,
-        buildUpdatedSpec,
-        finalizeRetiredSpec,
-        findSpecUpdates,
-        pruneEmptyDirs,
-        retireSpec,
-        writeUpdatedSpec,
-    }
-    "src/utils/spec-discovery" --> src.core.archive {
-        discoverSpecFiles,
-        findUnreadDeltaFiles,
-        hasAnyFileUnder,
-    }
-    "src/utils/change-metadata" --> src.core.archive {
-        METADATA_FILENAME,
-        formatUnknownChangeMetadataKeysMessage,
-        readRetireCapabilitiesMarker,
-        readSkipSpecsMarker,
-        readUnknownChangeMetadataKeys,
-    }
-    src.utils.interactive --> src.core.archive { confirmPrompt, isNonInteractivePromptError }
-    "src/utils/file-system" --> src.core.archive { FileSystemUtils }
-    src.core.id --> src.core.archive { folderStyleNameProblem }
-    "src/utils/nested-change" --> src.core.archive { describeNestedChange, findNestedChangesIn }
     "src/core/artifact-graph/graph" --> "test/core/artifact-graph/graph.test" { ArtifactGraph }
     "src/core/artifact-graph/types" --> "test/core/artifact-graph/graph.test" { SchemaYaml }
     "src/core/artifact-graph/schema" --> "test/core/artifact-graph/instruction-loader.test" {
