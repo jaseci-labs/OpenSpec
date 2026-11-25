@@ -162,25 +162,13 @@ def:priv choose(table: any, shell: any) -> any {
     return new(table[SHELLS.index(shell)]);
 }
 
-def:priv deferredZshInstaller -> any {
-    return new(
-        globalThis.Function,
-        "load",
-        "Fallback",
-        "let made; const get = async () => (made ??= new ((await load('./core/completions/installers/zsh-installer.js').catch(() => null))?.ZshInstaller ?? Fallback)());"
-            + "return new Proxy({}, { get: (_, k) => k === 'then' ? undefined : async (...a) => (await get())[k](...a) });",
-    )(load, ZshInstaller);
-}
-
 obj CompletionFactory(globalThis.Object) {
     static def createGenerator(shell: any) -> any {
         return choose([ZshGenerator, BashGenerator, FishGenerator, PowerShellGenerator], shell);
     }
 
     static def createInstaller(shell: any) -> any {
-        return deferredZshInstaller()
-            if shell == "zsh"
-            else choose([None, BashInstaller, FishInstaller, PowerShellInstaller], shell);
+        return choose([ZshInstaller, BashInstaller, FishInstaller, PowerShellInstaller], shell);
     }
 
     static def isSupported(shell: any) -> bool {

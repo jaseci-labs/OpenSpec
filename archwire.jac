@@ -51,7 +51,6 @@ graph import {
     src.utils.ci ++> "src/core/completion-tip" { isCiEnvironment }
     "src/utils/shell-detection" ++> "src/core/completion-tip" { detectShell }
     src.core.completions.factory ++> "src/core/completion-tip" { CompletionFactory }
-    src.lazy ++> src.core.completions.factory { load }
     src.host ++> src.core.completions.factory { at, js_error, merge, rec, sub }
     "src/utils/file-system" ++> src.core.completions.factory { FileSystemUtils }
     "src/core/completions/generators/zsh-generator" ++> src.core.completions.factory {
