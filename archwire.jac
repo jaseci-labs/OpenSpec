@@ -7,6 +7,57 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/core/project-skills-scope" { JsNull, at }
+    src.lazy ++> "src/core/project-skills-scope" { need }
+    "src/utils/file-system" ++> "src/core/project-skills-scope" { FileSystemUtils }
+    "src/core/project-config" ++> "src/core/project-skills-scope" {
+        readProjectConfig,
+        resolveConfigFilePath,
+    }
+    src.host ++> "src/core/project-config" {
+        JsNull,
+        at,
+        js_error,
+        kind,
+        merge,
+        missing,
+        rec,
+        truthy,
+    }
+    src.lazy ++> "src/core/project-config" { need }
+    src.core.store.foundation ++> "src/core/project-config" { getStoreMetadataPath }
+    src.host ++> src.core.store.foundation { JsNull, at, js_error, merge, rec, truthy }
+    src.lazy ++> src.core.store.foundation { need }
+    src.core.id ++> src.core.store.foundation {
+        KEBAB_ID_DESCRIPTION,
+        KEBAB_ID_FIX,
+        folderStyleNameProblem,
+        isKebabId,
+    }
+    "src/core/global-config" ++> src.core.store.foundation { getGlobalDataDir }
+    "src/utils/file-system" ++> src.core.store.foundation { FileSystemUtils }
+    "src/core/file-state" ++> src.core.store.foundation {
+        acquireFileLock,
+        isNodeErrorCode,
+        makeLockErrorFactory,
+        pathIsDirectory,
+        pathIsFile,
+        releaseFileLock,
+        writeFileAtomically,
+    }
+    "src/core/zod-issues" ++> src.core.store.foundation { formatZodIssues }
+    src.core.store.errors ++> src.core.store.foundation { StoreError }
+    src.host ++> "src/core/parsers/markdown-parser" { JsNull, found, matchOf, rec, sub }
+    "src/core/parsers/requirement-text" ++> "src/core/parsers/markdown-parser" {
+        buildCodeFenceMask,
+        extractRequirementText,
+        hasScenarioBody,
+    }
+    "src/core/parsers/requirement-blocks" ++> "src/core/parsers/markdown-parser" {
+        normalizeRequirementName,
+        scenarioNameFromHeaderText,
+        stripClosingSequence,
+    }
     src.lazy ++> "src/core/artifact-graph/resolver" { packageRoot }
     src.host ++> "src/core/artifact-graph/resolver" { JsNull, found, js_error, rec, sub }
     "src/core/global-config" ++> "src/core/artifact-graph/resolver" { getGlobalDataDir }
@@ -622,25 +673,6 @@ graph import {
     "src/utils/item-discovery" --> src.core.references { getSpecIds }
     "src/utils/file-system" --> src.core.references { FileSystemUtils }
     "src/core/project-config" --> src.core.references { DeclarationEntry, MAX_CONTEXT_SIZE }
-    src.core.id --> src.core.store.foundation {
-        KEBAB_ID_DESCRIPTION,
-        KEBAB_ID_FIX,
-        folderStyleNameProblem,
-        isKebabId,
-    }
-    "src/core/global-config" --> src.core.store.foundation { getGlobalDataDir }
-    "src/utils/file-system" --> src.core.store.foundation { FileSystemUtils }
-    "src/core/file-state" --> src.core.store.foundation {
-        acquireFileLock,
-        isNodeErrorCode,
-        makeLockErrorFactory,
-        pathIsDirectory,
-        pathIsFile,
-        releaseFileLock,
-        writeFileAtomically,
-    }
-    "src/core/zod-issues" --> src.core.store.foundation { formatZodIssues }
-    src.core.store.errors --> src.core.store.foundation { StoreError }
     src.core.store.foundation --> src.core.store.registry {
         StoreBackendConfig,
         StoreGitBackendConfig,
@@ -684,7 +716,6 @@ graph import {
     "src/utils/file-system" --> "src/core/openspec-root" { FileSystemUtils }
     "src/core/config-prompts" --> "src/core/openspec-root" { serializeConfig }
     src.core.store.errors --> "src/core/openspec-root" { StoreDiagnostic, makeStoreDiagnostic }
-    src.core.store.foundation --> "src/core/project-config" { getStoreMetadataPath }
     src.core.store.foundation --> src.core.store.index;
     src.core.store.errors --> src.core.store.index;
     src.core.store.registry --> src.core.store.index;
@@ -1507,24 +1538,6 @@ graph import {
         getPackageSchemasDir,
         getSchemaDir,
     }
-    src.core.schemas.index --> "src/core/parsers/markdown-parser" {
-        Change,
-        Delta,
-        DeltaOperation,
-        Requirement,
-        Scenario,
-        Spec,
-    }
-    "src/core/parsers/requirement-text" --> "src/core/parsers/markdown-parser" {
-        buildCodeFenceMask,
-        extractRequirementText,
-        hasScenarioBody,
-    }
-    "src/core/parsers/requirement-blocks" --> "src/core/parsers/markdown-parser" {
-        normalizeRequirementName,
-        scenarioNameFromHeaderText,
-        stripClosingSequence,
-    }
     "src/core/parsers/markdown-parser" --> "src/core/parsers/change-parser" {
         MarkdownParser,
         Section,
@@ -1825,11 +1838,6 @@ graph import {
     "src/core/global-skills" --> src.core.update;
     src.core.init --> src.core.update;
     "src/prompts/searchable-multi-select" --> src.core.update;
-    "src/utils/file-system" --> "src/core/project-skills-scope" { FileSystemUtils }
-    "src/core/project-config" --> "src/core/project-skills-scope" {
-        readProjectConfig,
-        resolveConfigFilePath,
-    }
     "src/utils/file-system" --> "src/core/legacy-cleanup" { FileSystemUtils, removeMarkerBlock }
     src.core.config --> "src/core/legacy-cleanup" { OPENSPEC_MARKERS, findRetiredTool }
     "src/core/shared/generated-fingerprint" --> "src/core/legacy-cleanup" {
