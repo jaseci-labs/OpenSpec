@@ -7,6 +7,10 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/core/parsers/change-parser" { at, found, merge, rec, sub, truthy }
+    "src/core/parsers/markdown-parser" ++> "src/core/parsers/change-parser" { MarkdownParser }
+    "src/core/parsers/requirement-blocks" ++> "src/core/parsers/change-parser" { parseDeltaSpec }
+    "src/utils/spec-discovery" ++> "src/core/parsers/change-parser" { discoverSpecFiles }
     src.lazy ++> src.commands.feedback { need, packageRoot }
     src.host ++> "src/commands/install-standalone" { JsNull, at, found, merge, missing, rec, sub }
     src.lazy ++> "src/commands/install-standalone" { pick }
@@ -1669,27 +1673,6 @@ graph import {
     "src/core/artifact-graph/index" --> src.core.validation.validator {
         getPackageSchemasDir,
         getSchemaDir,
-    }
-    "src/core/parsers/markdown-parser" --> "src/core/parsers/change-parser" {
-        MarkdownParser,
-        Section,
-    }
-    "src/core/parsers/requirement-text" --> "src/core/parsers/change-parser" { buildCodeFenceMask }
-    "src/core/parsers/requirement-blocks" --> "src/core/parsers/change-parser" {
-        DeltaPlan,
-        RequirementBlock,
-        parseDeltaSpec,
-        stripClosingSequence,
-    }
-    src.core.schemas.index --> "src/core/parsers/change-parser" {
-        Change,
-        Delta,
-        DeltaOperation,
-        Requirement,
-    }
-    "src/utils/spec-discovery" --> "src/core/parsers/change-parser" {
-        DiscoveredSpec,
-        discoverSpecFiles,
     }
     "src/core/parsers/requirement-blocks" --> "src/core/specs-apply" {
         RequirementBlock,
