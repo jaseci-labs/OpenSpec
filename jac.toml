@@ -15,22 +15,23 @@ bin = { openspec = "./bin/openspec.js" }
 files = ["dist", "bin", "schemas", "src", "!src/**/*.ts", ".jac/src", ".jac/@jac", ".jac/__boot.mjs", ".jac/__remotes.mjs", "!dist/**/*.test.js", "!dist/**/__tests__", "!dist/**/*.map"]
 
 [npm.".".scripts]
-lint = "eslint src/"
 build = "node build.js"
 "generate:skills" = "node scripts/generate-skillssh.mjs"
 "regen:parity-hashes" = "node scripts/regen-parity-hashes.mjs"
-dev = "tsc --watch"
-"dev:cli" = "pnpm build && node bin/openspec.js"
+dev = "neojac check"
+"dev:cli" = "node build.js && node bin/openspec.js"
 test = "node -e \"fs.mkdirSync('.git',{recursive:true})\" && node build.js && vitest run"
 "test:watch" = "vitest"
 "test:ui" = "vitest --ui"
 "test:coverage" = "vitest --coverage"
 prepare = "node build.js"
-prepublishOnly = "pnpm run build"
+prepublishOnly = "node build.js"
 "check:pack-version" = "node scripts/pack-version-check.mjs"
-release = "pnpm run release:ci"
-"release:ci" = "pnpm run check:pack-version && pnpm exec changeset publish"
+release = "npm run release:ci"
+"release:ci" = "npm run check:pack-version && changeset publish"
 changeset = "changeset"
+"version:packages" = "changeset version && node scripts/sync-version.mjs"
+"publish:beta" = "npm publish --tag beta"
 
 [npm.".".engines]
 node = ">=22.20.0"

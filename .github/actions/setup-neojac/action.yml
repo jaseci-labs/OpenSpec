@@ -1,0 +1,25 @@
+name: Set up neojac
+description: >-
+  Install the pinned neojac release (the Jac toolchain the CLI is built with),
+  with its usage statistics off, and the project's npm packages.
+inputs:
+  version:
+    description: The neojac release to install
+    default: '0.5.1'
+runs:
+  using: composite
+  steps:
+    - name: Install neojac
+      shell: bash
+      env:
+        NEOJAC_VERSION: ${{ inputs.version }}
+        NEOJAC_TELEMETRY: 'off'
+        GH_TOKEN: ${{ github.token }}
+      run: |
+        curl -fsSL https://github.com/jaseci-labs/neojac/releases/latest/download/install.sh \
+          | bash -s -- --version "$NEOJAC_VERSION"
+        echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+        echo "NEOJAC_TELEMETRY=off" >> "$GITHUB_ENV"
+    - name: Install the project's packages
+      shell: bash
+      run: neojac install
