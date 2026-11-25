@@ -7,6 +7,8 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> src.utils.interactive { at, kind, owns, rec, truthy }
+    src.host ++> "src/utils/shell-detection" { found, matchOf, rec, sub, truthy }
     src.host ++> src.core.store.errors { merge, rec }
     src.host ++> src.core.id { JsNull, rx, sub }
     src.core.validation.constants --> "src/core/schemas/base.schema" { VALIDATION_MESSAGES }
@@ -1629,7 +1631,6 @@ graph import {
         PowerShellInstaller,
     }
     "src/utils/shell-detection" --> src.core.completions.factory { SupportedShell }
-    "src/utils/shell-detection" --> src.core.completions.types { SupportedShell }
     src.core.completions.types --> "src/core/completions/generators/zsh-generator" {
         CommandDefinition,
         CompletionGenerator,
