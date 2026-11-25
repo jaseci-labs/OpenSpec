@@ -7,6 +7,20 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> src.core.templates.workflows.onboard { rec }
+    "src/core/templates/workflows/store-selection" ++> src.core.templates.workflows.onboard {
+        STORE_SELECTION_GUIDANCE,
+    }
+    "src/core/templates/workflows/project-root" ++> src.core.templates.workflows.onboard {
+        PROJECT_ROOT_GUARD,
+    }
+    src.host ++> "src/core/templates/workflows/new-change" { rec }
+    "src/core/templates/workflows/store-selection" ++> "src/core/templates/workflows/new-change" {
+        STORE_SELECTION_GUIDANCE,
+    }
+    "src/core/templates/workflows/project-root" ++> "src/core/templates/workflows/new-change" {
+        PROJECT_ROOT_GUARD,
+    }
     src.host ++> "src/core/templates/workflows/verify-change" { rec }
     "src/core/templates/workflows/store-selection" ++> "src/core/templates/workflows/verify-change" {
         STORE_SELECTION_GUIDANCE,
@@ -1064,10 +1078,6 @@ graph import {
         getOpsxVerifyCommandTemplate,
         getVerifyChangeSkillTemplate,
     }
-    src.core.templates.workflows.onboard --> "src/core/templates/skill-templates" {
-        getOnboardSkillTemplate,
-        getOpsxOnboardCommandTemplate,
-    }
     src.core.templates.workflows.propose --> "src/core/templates/skill-templates" {
         getOpsxProposeCommandTemplate,
         getOpsxProposeSkillTemplate,
@@ -1087,16 +1097,6 @@ graph import {
         STORE_SELECTION_GUIDANCE,
     }
     "src/core/templates/workflows/project-root" --> src.core.templates.workflows.explore {
-        PROJECT_ROOT_GUARD,
-    }
-    src.core.templates.types --> "src/core/templates/workflows/new-change" {
-        CommandTemplate,
-        SkillTemplate,
-    }
-    "src/core/templates/workflows/store-selection" --> "src/core/templates/workflows/new-change" {
-        STORE_SELECTION_GUIDANCE,
-    }
-    "src/core/templates/workflows/project-root" --> "src/core/templates/workflows/new-change" {
         PROJECT_ROOT_GUARD,
     }
     src.core.templates.types --> "src/core/templates/workflows/apply-change" {
@@ -1140,16 +1140,6 @@ graph import {
         STORE_SELECTION_GUIDANCE,
     }
     "src/core/templates/workflows/project-root" --> "src/core/templates/workflows/bulk-archive-change" {
-        PROJECT_ROOT_GUARD,
-    }
-    src.core.templates.types --> src.core.templates.workflows.onboard {
-        CommandTemplate,
-        SkillTemplate,
-    }
-    "src/core/templates/workflows/store-selection" --> src.core.templates.workflows.onboard {
-        STORE_SELECTION_GUIDANCE,
-    }
-    "src/core/templates/workflows/project-root" --> src.core.templates.workflows.onboard {
         PROJECT_ROOT_GUARD,
     }
     src.core.templates.types --> src.core.templates.workflows.propose {
@@ -4304,4 +4294,8 @@ graph import {
         transformToSharedSkillReferences,
     }
     "dist/core/command-surface.d" --> "dist/utils/command-references.d" { CommandSurfaceCapability }
+    src.core.templates.workflows.onboard --> "src/core/templates/skill-templates" {
+        getOnboardSkillTemplate,
+        getOpsxOnboardCommandTemplate,
+    }
 }
