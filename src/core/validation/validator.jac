@@ -159,7 +159,8 @@ def:priv specRules(spec: any, content: str) -> list[any] {
     } elif len(spec.overview) < MIN_PURPOSE_LENGTH {
         issues.append(issue("WARNING", "overview", M.PURPOSE_TOO_BRIEF));
     }
-    for (index, req) in enumerate(spec.requirements) {
+    for index in range(len(spec.requirements)) {
+        req = spec.requirements[index];
         if len(req.text) > MAX_REQUIREMENT_TEXT_LENGTH {
             issues.append(issue("WARNING", f"requirements[{index}]", M.REQUIREMENT_TOO_LONG));
         }
@@ -201,7 +202,8 @@ def:priv specIssues(name: str, content: any, file: any = None) -> list[any] {
 
 def:priv changeRules(change: any) -> list[any] {
     issues: list[any] = [];
-    for (index, delta) in enumerate(change.deltas) {
+    for index in range(len(change.deltas)) {
+        delta = change.deltas[index];
         if not delta["description"] or len(delta.description) < 10 {
             issues.append(
                 issue("WARNING", f"deltas[{index}].description", M.DELTA_DESCRIPTION_TOO_BRIEF)

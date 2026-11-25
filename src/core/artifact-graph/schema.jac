@@ -20,7 +20,8 @@ def parseSchema(yamlContent: str) -> any {
     schema = result.data;
     artifacts: list[any] = schema.artifacts;
     ids: list[str] = [a.id for a in artifacts];
-    for (i, id) in enumerate(ids) {
+    for i in range(len(ids)) {
+        id = ids[i];
         if id in ids[:i] {
             raise SchemaValidationError(f"Duplicate artifact ID: {id}");
         }

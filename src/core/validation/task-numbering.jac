@@ -15,7 +15,8 @@ def findTaskNumberingIssues(documents: list[any]) -> list[any] {
             continue;
         }
         currentGroup: any = None;
-        for (index, line) in enumerate(lines) {
+        for index in range(len(lines)) {
+            line = lines[index];
             if LEVEL_TWO_HEADING.test(line) {
                 currentGroup = at(matchOf(line, NUMBERED_GROUP_HEADING), "1");
             }

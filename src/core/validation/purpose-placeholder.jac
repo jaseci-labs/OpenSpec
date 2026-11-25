@@ -26,7 +26,7 @@ def:priv generatedPlaceholderPrefixIndex(text: str) -> int {
 
 def findPurposePlaceholderIssue(overview: str, content: any = None) -> any {
     (lines, fenced) = maskedLines(overview);
-    prose: any = "\n".join([line for (i, line) in enumerate(lines) if not fenced[i]]);
+    prose: any = "\n".join([lines[i] for i in range(len(lines)) if not fenced[i]]);
     prose = prose.trim();
     leading = found(prose, LEADING_MARKER, "u")
         or found(prose, LEADING_MARKER + MARKER_PUNCTUATION, "iu");
@@ -39,8 +39,7 @@ def findPurposePlaceholderIssue(overview: str, content: any = None) -> any {
 def:priv findPlaceholderLine(content: str, leading: bool) -> any {
     (lines, fenced) = maskedLines(content);
     header = next(
-        (i for (i, line) in enumerate(lines) if not fenced[i] and found(line, PURPOSE_HEADER, "i")),
-        -1,
+        (i for i in range(len(lines)) if not fenced[i] and found(lines[i], PURPOSE_HEADER, "i")), -1
     );
     if header == -1 {
         return None;

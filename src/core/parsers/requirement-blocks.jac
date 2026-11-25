@@ -46,7 +46,8 @@ def:priv readBlocks(
     starts: list[int] = [];
     ends: list[int] = [];
     live = False;
-    for (i, line) in enumerate(lines) {
+    for i in range(len(lines)) {
+        line = lines[i];
         if mask[i] {
             if live {
                 ends[-1] = i + 1;
@@ -112,16 +113,17 @@ def extractRequirementsSection(content: str) -> any {
 
 def:priv maskHtmlComments(lines: any, mask: any) -> list[str] {
     comments = sub(
-        "\n".join(["" if mask[i] else l for (i, l) in enumerate(lines)]),
+        "\n".join(["" if mask[i] else lines[i] for i in range(len(lines))]),
         "<!--[\\s\\S]*?(?:--!?>|$)",
         lambda (m: str) -> str { sub(m, "[^\\n]", " ") },
     ).split("\n");
-    return [l if mask[i] else comments[i] for (i, l) in enumerate(lines)];
+    return [lines[i] if mask[i] else comments[i] for i in range(len(lines))];
 }
 
 def:priv splitSections(lines: any, mask: any) -> list[any] {
     heads: list[any] = [];
-    for (i, line) in enumerate(lines) {
+    for i in range(len(lines)) {
+        line = lines[i];
         m = JsNull if mask[i] else matchOf(line, "^##\\s+(.+)$");
         if m {
             heads.append((stripClosingSequence(m[1]), i));
@@ -148,7 +150,8 @@ def:priv findOrphans(lines: any, mask: any) -> list[any] {
     orphans: list[any] = [];
     masked = maskHtmlComments(lines, mask);
     section: any = JsNull;
-    for (i, line) in enumerate(lines) {
+    for i in range(len(lines)) {
+        line = lines[i];
         if mask[i] {
             continue;
         }
@@ -240,7 +243,8 @@ def:priv findUnapplied(lines: any, mask: any, sections: list[any]) -> list[any] 
 
 def:priv removedNames(lines: any, mask: any) -> list[str] {
     names: list[str] = [];
-    for (i, line) in enumerate(lines) {
+    for i in range(len(lines)) {
+        line = lines[i];
         m = JsNull
             if mask[i]
             else (
@@ -257,7 +261,8 @@ def:priv removedNames(lines: any, mask: any) -> list[str] {
 def:priv renamedPairs(lines: any, mask: any, start: int, unpaired: list[any]) -> list[any] {
     pairs: list[any] = [];
     pending: any = None;
-    for (i, line) in enumerate(lines) {
+    for i in range(len(lines)) {
+        line = lines[i];
         m = JsNull
             if mask[i]
             else matchOf(
@@ -375,7 +380,7 @@ def isScenarioLabeledHeader(headerLine: str) -> bool {
 def parseScenarioBlocks(requirementRaw: str) -> list[any] {
     lines = sub(requirementRaw, "\\r\\n?", "\n").split("\n");
     mask = buildCodeFenceMask(lines);
-    starts = [i for (i, line) in enumerate(lines) if not mask[i] and SCENARIO_HEADER.test(line)];
+    starts = [i for i in range(len(lines)) if not mask[i] and SCENARIO_HEADER.test(lines[i])];
     return [
         rec(
             name=scenarioNameFromHeaderText(sub(lines[a], SCENARIO_HEADER.source, "", "")),

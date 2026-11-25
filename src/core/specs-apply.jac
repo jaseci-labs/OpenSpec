@@ -388,7 +388,8 @@ async def buildUpdatedSpec(update: any, changeName: str, options: any = None) ->
     }
     kept: list[any] = [];
     seen: list[str] = [];
-    for (index, block) in enumerate(parts.bodyBlocks) {
+    for index in range(len(parts.bodyBlocks)) {
+        block = parts.bodyBlocks[index];
         key = orderedKeys[index];
         replacement = blocks.get(key);
         if replacement is not None {
@@ -489,7 +490,8 @@ def:priv beforeLeftovers(before: any, out: list[str]) {
     inPurpose = False;
     titleSeen = False;
     previous = "";
-    for (i, line) in enumerate(lines) {
+    for i in range(len(lines)) {
+        line = lines[i];
         if not trim(line) {
             previous = "";
             continue;
@@ -537,7 +539,8 @@ def:priv blockLeftovers(raw: any, out: list[str]) {
     bulletsSeen = False;
     listIndent: any = None;
     paragraphOpen = False;
-    for (i, line) in enumerate(lines) {
+    for i in range(len(lines)) {
+        line = lines[i];
         if not trim(line) {
             inBullets = inBullets and not bulletsSeen;
             listIndent = None;
@@ -610,7 +613,8 @@ def:priv collapseBlankRunsOutsideFences(content: str) -> str {
     mask = buildCodeFenceMask(lines);
     kept: list[str] = [];
     blank = 0;
-    for (i, line) in enumerate(lines) {
+    for i in range(len(lines)) {
+        line = lines[i];
         blank = blank + 1 if line == "" and not mask[i] else 0;
         if blank <= 1 {
             kept.append(line);
@@ -804,7 +808,8 @@ def:priv extractPurposeSection(content: str) -> any {
     fence = buildCodeFenceMask(masked);
     start = -1;
     end = len(masked);
-    for (i, line) in enumerate(masked) {
+    for i in range(len(masked)) {
+        line = masked[i];
         if fence[i] {
             continue;
         }

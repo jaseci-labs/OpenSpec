@@ -116,7 +116,8 @@ async def:priv showStatus(options: any, found: any, spinner: any) {
         if options["json"] {
             printJsonLine(rec(changes=entries, root=rootOutput));
         } else {
-            for (i, item) in enumerate(entries) {
+            for i in range(len(entries)) {
+                item = entries[i];
                 if i > 0 {
                     log();
                 }

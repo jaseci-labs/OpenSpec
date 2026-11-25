@@ -62,7 +62,8 @@ obj MarkdownParser(globalThis.Object) {
     def parseSections -> any {
         sections = [];
         stack: list[any] = [];
-        for (i, line) in enumerate(self.lines) {
+        for i in range(len(self.lines)) {
+            line = self.lines[i];
             header = JsNull if self.codeFenceLineMask[i] else matchOf(line, "^(#{1,6})\\s+(.+)$");
             if not header {
                 continue;

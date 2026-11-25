@@ -12,7 +12,8 @@ def extractRequirementBody(bodyLines: any) -> str {
     mask = buildCodeFenceMask(bodyLines);
     captured: list[str] = [];
     metadata: list[str] = [];
-    for (i, line) in enumerate(bodyLines) {
+    for i in range(len(bodyLines)) {
+        line = bodyLines[i];
         if mask[i] {
             continue;
         }
@@ -66,6 +67,6 @@ def:priv hasStep(lines: list[str], words: str) -> bool {
 def scenarioStepCoverage(scenarioRaw: str) -> any {
     lines = sub(scenarioRaw, "\\r\\n?", "\n").split("\n");
     mask = buildCodeFenceMask(lines);
-    steps = [l for (i, l) in enumerate(lines) if i > 0 and not mask[i]];
+    steps = [lines[i] for i in range(1, len(lines)) if not mask[i]];
     return rec(hasTrigger=hasStep(steps, "WHEN|GIVEN"), hasOutcome=hasStep(steps, "THEN"));
 }

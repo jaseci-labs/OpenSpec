@@ -4,7 +4,8 @@ def findMainSpecStructureIssues(content: str) -> list[any] {
     seen: dict[str, int] = {};
     head = -1;
     end = len(lines);
-    for (i, line) in enumerate(lines) {
+    for i in range(len(lines)) {
+        line = lines[i];
         if head == -1 and REQUIREMENTS_SECTION_HEADER_REGEX.test(line) {
             head = i;
         } elif head != -1 and found(line, "^##\\s+") {
@@ -12,7 +13,8 @@ def findMainSpecStructureIssues(content: str) -> list[any] {
             break;
         }
     }
-    for (i, line) in enumerate(lines) {
+    for i in range(len(lines)) {
+        line = lines[i];
         text: any = line;
         trimmed = text.trim();
         if not trimmed {
@@ -47,5 +49,5 @@ def findMainSpecStructureIssues(content: str) -> list[any] {
 def stripFencedCodeBlocksPreservingLines(content: str) -> str {
     lines = content.split("\n");
     mask = buildCodeFenceMask(lines);
-    return "\n".join(["" if mask[i] else line for (i, line) in enumerate(lines)]);
+    return "\n".join(["" if mask[i] else lines[i] for i in range(len(lines))]);
 }
