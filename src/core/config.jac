@@ -158,10 +158,14 @@ glob AI_TOOLS: any = existingTools + [
      SKILL_LINKED_TOOL_IDS: any = new(
          globalThis.Set, [t.value for t in AI_TOOLS if not installerAgent(t.value).universal]
      ),
-     agentsByProjectFolder: any = new(globalThis.Map);
+     agentsByProjectFolder: any = new(globalThis.Map),
+     toolsById: dict[str, any] = {};
 
 with entry {
     for t in AI_TOOLS {
+        if t.value not in toolsById {
+            toolsById[t.value] = t;
+        }
         agent = installerAgent(t.value);
         if not agent.universal {
             agentsByProjectFolder.set(
@@ -172,8 +176,12 @@ with entry {
     }
 }
 
+def findTool(toolId: str) -> any {
+    return toolsById.get(toolId);
+}
+
 def getUniversalTool -> any {
-    return AI_TOOLS.find(lambda (t: any) -> bool { t.value == UNIVERSAL_TOOL_ID });
+    return findTool(UNIVERSAL_TOOL_ID);
 }
 
 def universalToolFallbackHint(offeredToolIds: list[str]) -> any {

@@ -34,6 +34,10 @@ def sub(text: str, pattern: str, to: any, flags: str = "g") -> str {
     return globalThis.String.prototype.replace.call(text, madeRx(pattern, flags), to);
 }
 
+def splitBy(text: any, pattern: str) -> any {
+    return globalThis.String.prototype.split.call(text, madeRx(pattern, ""));
+}
+
 def found(text: str, pattern: str, flags: str = "") -> bool {
     return globalThis.RegExp.prototype.test.call(madeRx(pattern, flags), text);
 }

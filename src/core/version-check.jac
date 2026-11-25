@@ -355,9 +355,7 @@ def isProjectLocalInstall(installDir: any, projectPath: any = None) -> bool {
 def:priv segmentsOf(installDir: any) -> any {
     return [
         lower(segment)
-        for segment in globalThis.String.prototype.split.call(
-            "" if missing(installDir) else installDir, rx("[\\\\/]")
-        )
+        for segment in splitBy("" if missing(installDir) else installDir, "[\\\\/]")
     ];
 }
 
@@ -697,10 +695,7 @@ def readCliVersion(binPath: str) -> any {
             globalThis.clearTimeout(timer);
             versions = [
                 withoutV(line)
-                for line in [
-                    raw.trim()
-                    for raw in globalThis.String.prototype.split.call(output, rx("\\r?\\n"))
-                ]
+                for line in [raw.trim() for raw in splitBy(output, "\\r?\\n")]
                 if found(withoutV(line), SAFE_VERSION)
             ];
             resolve(versions[-1] if versions else JsNull);

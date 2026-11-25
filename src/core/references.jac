@@ -75,7 +75,7 @@ def:priv parseHeadingTitle(line: any) -> any {
 def extractFirstPurposeLine(markdown: str) -> str {
     inPurpose = False;
     fenceMarker: any = JsNull;
-    for line in globalThis.String.prototype.split.call(markdown, rx("\\r?\\n")) {
+    for line in splitBy(markdown, "\\r?\\n") {
         fence = matchOf(line, "^\\s*(```|~~~)");
         if fence {
             if fenceMarker is JsNull {

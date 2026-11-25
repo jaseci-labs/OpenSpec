@@ -8,10 +8,6 @@ type ToolVersionStatus = any;
 glob SKILL_NAMES: any = OPENSPEC_SKILL_NAMES,
      COMMAND_IDS: list[str] = "explore new continue apply update ff sync archive bulk-archive verify onboard propose".split();
 
-def:priv findTool(toolId: str) -> any {
-    return AI_TOOLS.find(lambda (t: any) -> bool { t.value == toolId });
-}
-
 def:priv hasSkillIn(view: any, dirs: list[any], name: str) -> bool {
     for dir in dirs {
         if view.exists(path.join(dir, name, "SKILL.md")) {
@@ -145,9 +141,7 @@ def extractGeneratedByVersion(skillFilePath: str, view: any = None) -> any {
         if not view.exists(skillFilePath) {
             return JsNull;
         }
-        for line in globalThis.String.prototype.split.call(
-            view.read(skillFilePath), rx("\\r\\n?|\\n")
-        ) {
+        for line in splitBy(view.read(skillFilePath), "\\r\\n?|\\n") {
             hit: any = matchOf(line, "^[ \\t]*generatedBy:[ \\t]*[\"']?([^\"'\\n]+)[\"']?[ \\t]*$");
             if hit is not JsNull and hit[1] {
                 return hit[1].trim();
@@ -227,7 +221,7 @@ def:priv hasLegacyCommands(projectRoot: str, toolId: str, view: any) -> bool {
     for legacyRoot in tool["legacySkillsDirs"] or [] {
         for commandId in COMMAND_IDS {
             commandPath = adapter.getFilePath(commandId);
-            segments: any = globalThis.String.prototype.split.call(commandPath, rx("[\\\\/]"));
+            segments: any = splitBy(commandPath, "[\\\\/]");
             if path.isAbsolute(commandPath) or segments[0] != tool.skillsDir {
                 continue;
             }

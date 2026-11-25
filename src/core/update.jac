@@ -16,10 +16,6 @@ def:priv unique(items: any) -> list[any] {
     return globalThis.Array.from(new(globalThis.Set, items));
 }
 
-def:priv findTool(toolId: str) -> any {
-    return AI_TOOLS.find(lambda (t: any) -> bool { t.value == toolId });
-}
-
 def:priv errorMessage(e: any) -> str {
     err = js_error(e);
     return err.message if isinstance(err, globalThis.Error) else globalThis.String(err);

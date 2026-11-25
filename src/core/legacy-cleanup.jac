@@ -95,7 +95,7 @@ def getCodexPromptDir -> str {
 }
 
 def:priv splitOn(text: any, pattern: str) -> any {
-    return globalThis.String.prototype.split.call(text, rx(pattern));
+    return splitBy(text, pattern);
 }
 
 def:priv globMatches(pattern: str, file: str) -> bool {

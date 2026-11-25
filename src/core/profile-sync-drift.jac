@@ -12,10 +12,6 @@ def:priv toKnownWorkflows(workflows: any) -> list[any] {
     return [w for w in withRouter(workflows) if w in SKILL_WORKFLOWS];
 }
 
-def:priv findTool(toolId: str) -> any {
-    return AI_TOOLS.find(lambda (t: any) -> bool { t.value == toolId });
-}
-
 def:priv skillFile(skillsDir: str, workflow: str) -> str {
     return path.join(skillsDir, WORKFLOW_TO_SKILL_DIR[workflow], "SKILL.md");
 }

@@ -11,10 +11,6 @@ def:priv topFolder(rel: str) -> str {
     return rel.split("/")[0];
 }
 
-def:priv findTool(toolId: str) -> any {
-    return AI_TOOLS.find(lambda (t: any) -> bool { t.value == toolId });
-}
-
 def:priv skillFiles(dirName: str) -> list[any] {
     files: any = expectedSkillFiles("current").get(dirName);
     return ["SKILL.md"] if missing(files) else globalThis.Array.from(files.keys());

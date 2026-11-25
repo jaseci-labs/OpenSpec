@@ -23,7 +23,7 @@ glob LEGACY_TOOL_ROOTS: any = rec(
 );
 
 def:priv splitPath(p: str) -> any {
-    return globalThis.String.prototype.split.call(p, rx("[\\\\/]"));
+    return splitBy(p, "[\\\\/]");
 }
 
 def:priv isSamePath(a: str, b: str) -> bool {

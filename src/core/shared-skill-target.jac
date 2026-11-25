@@ -1,7 +1,7 @@
 import from "node:path" { default as path }
 
 def:priv splitOn(text: any, pattern: str) -> any {
-    return globalThis.String.prototype.split.call(text, rx(pattern));
+    return splitBy(text, pattern);
 }
 
 def:priv markerLines(projectPath: str, view: any) -> list[any] {

@@ -728,8 +728,8 @@ graph import {
         merge,
         missing,
         rec,
-        rx,
         same,
+        splitBy,
         sub,
         truthy,
         unique,
@@ -804,7 +804,7 @@ graph import {
     }
     "src/core/shared/tool-detection" ++> "src/core/profile-sync-drift" { getConfiguredTools }
     "src/utils/file-system" ++> "src/core/profile-sync-drift" { FileSystemUtils }
-    src.core.config ++> "src/core/profile-sync-drift" { AI_TOOLS }
+    src.core.config ++> "src/core/profile-sync-drift" { findTool }
     src.core.profiles ++> "src/core/profile-sync-drift" { SKILL_WORKFLOWS, withRouter }
     src.host ++> "src/core/profile-sync-drift" { missing, truthy }
     src.core.store.foundation ++> "src/core/project-config" { getStoreMetadataPath }
@@ -853,6 +853,7 @@ graph import {
     src.core.config ++> "src/core/released-output-sweep" {
         AI_TOOLS,
         SKILL_LINKED_TOOL_IDS,
+        findTool,
         installerAgent,
     }
     src.core.migration ++> "src/core/released-output-sweep" { LEGACY_TOOL_ROOTS, legacyCommandPath }
@@ -930,7 +931,7 @@ graph import {
         OPENSPEC_SKILL_NAMES,
         resolveToolIdAlias,
     }
-    src.host ++> "src/core/shared-skill-target" { at, kind, rec, rx, sub }
+    src.host ++> "src/core/shared-skill-target" { at, kind, rec, splitBy, sub }
     "src/core/command-generation/index" ++> "src/core/shared/command-reconcile" {
         CommandAdapterRegistry,
         generateCommands,
@@ -1086,6 +1087,7 @@ graph import {
         AI_TOOLS,
         OPENSPEC_SKILL_NAMES,
         agentsByProjectFolder,
+        findTool,
         installerAgent,
     }
     src.host ++> "src/core/shared/tool-detection" {
@@ -1095,7 +1097,7 @@ graph import {
         matchOf,
         merge,
         rec,
-        rx,
+        splitBy,
         sub,
     }
     "src/core/shared/skill-generation" ++> "src/core/skill-installer" {
@@ -1318,6 +1320,7 @@ graph import {
         rec,
         rx,
         same,
+        splitBy,
         sub,
         truthy,
     }
@@ -3864,6 +3867,7 @@ graph import {
         AI_TOOLS,
         OPENSPEC_DIR_NAME,
         SKILL_LINKED_TOOL_IDS,
+        findTool,
         getUniversalTool,
         installerAgent,
         resolveToolIdAlias,
@@ -3929,7 +3933,7 @@ graph import {
     "src/utils/file-system" ++> src.core.migration { FileSystemUtils }
     src.core.config ++> src.core.migration { AI_TOOLS }
     src.core.profiles ++> src.core.migration { ALL_WORKFLOWS, CORE_WORKFLOWS, SKILL_WORKFLOWS }
-    src.host ++> src.core.migration { JsNull, at, linkOf, merge, missing, rec, rx }
+    src.host ++> src.core.migration { JsNull, at, linkOf, merge, missing, rec, splitBy }
     "src/core/zod-issues" ++> src.core.openers { formatZodIssues }
     src.core.store.errors ++> src.core.openers { StoreError }
     src.host ++> src.core.openers { JsNull, at, found, merge, missing, rec }
@@ -3955,6 +3959,7 @@ graph import {
         rec,
         rx,
         same,
+        splitBy,
         sub,
         truthy,
     }
@@ -4280,7 +4285,7 @@ graph import {
         transformToSkillReferences,
     }
     "src/utils/file-system" ++> src.core.update { FileSystemUtils }
-    src.core.config ++> src.core.update { AI_TOOLS, OPENSPEC_DIR_NAME }
+    src.core.config ++> src.core.update { OPENSPEC_DIR_NAME, findTool }
     src.core.init ++> src.core.update { InitCommand }
     src.core.migration ++> src.core.update {
         describeLegacyMigration,
