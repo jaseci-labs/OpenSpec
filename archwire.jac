@@ -7,6 +7,61 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> src.cli.index { JsNull, at, js_error, merge, missing, rec, same }
+    src.lazy ++> src.cli.index { load, packageJson, packageRoot, pick }
+    "src/core/completions/shared-flags" ++> src.cli.index { COMMON_FLAGS }
+    "src/commands/workflow/default-schema" ++> src.cli.index { DEFAULT_SCHEMA }
+    src.cli.commands.spec ++> src.cli.index { registerSpecCommand }
+    src.cli.commands.config ++> src.cli.index { registerConfigCommand }
+    src.cli.commands.schema ++> src.cli.index { registerSchemaCommand }
+    src.cli.commands.store ++> src.cli.index { registerStoreCommand }
+    src.cli.commands.doctor ++> src.cli.index { registerDoctorCommand }
+    src.cli.commands.context ++> src.cli.index { registerContextCommand }
+    src.cli.commands.workset ++> src.cli.index { registerWorksetCommand }
+    "src/commands/shared-output" ++> src.cli.index { asStatus, printJson }
+    src.telemetry.index ++> src.cli.index { maybeShowTelemetryNotice, shutdown, trackCommand }
+    "src/core/completion-tip" ++> src.cli.index { maybeShowCompletionTip }
+    src.core.config ++> src.cli.index { AI_TOOLS, TOOL_ID_ALIASES }
+    "src/core/version-check" ++> src.cli.index {
+        buildVersionReportLines,
+        canSelfUpgrade,
+        checkForCliUpdate,
+        displayCliUpdateNote,
+        displayUpgradeCommand,
+        getAvailableCliUpdate,
+        getCliInstallInfo,
+        getCliUpdateCommand,
+        getInstallDir,
+        getStandaloneBinaryPath,
+        isSourceCheckout,
+        offerCliUpgrade,
+        rerunUpdateWithUpgradedCli,
+        shouldOfferUpgrade,
+    }
+    src.core.init ++> src.cli.index { InitCommand }
+    src.core.update ++> src.cli.index { UpdateCommand }
+    "src/core/update-plan" ++> src.cli.index { formatUpdatePlan }
+    src.utils.interactive ++> src.cli.index { isInteractive }
+    "src/core/standalone-tip" ++> src.cli.index { maybeShowStandaloneTip }
+    "src/commands/install-standalone" ++> src.cli.index { installStandalone }
+    "src/core/root-selection" ++> src.cli.index { resolveRootForCommand, toRootOutput }
+    src.core.list ++> src.cli.index { ListCommand }
+    src.core.view ++> src.cli.index { ViewCommand }
+    src.commands.change ++> src.cli.index { ChangeCommand }
+    src.core.archive ++> src.cli.index { ArchiveCommand }
+    src.commands.validate ++> src.cli.index { ValidateCommand }
+    src.commands.show ++> src.cli.index { ShowCommand }
+    src.commands.feedback ++> src.cli.index { FeedbackCommand }
+    src.commands.completion ++> src.cli.index { CompletionCommand }
+    src.commands.workflow.status ++> src.cli.index { BATCH_STATUS_FAILURE_PAYLOAD, statusCommand }
+    src.commands.workflow.instructions ++> src.cli.index {
+        applyInstructionsCommand,
+        archiveInstructionsCommand,
+        instructionsCommand,
+    }
+    src.commands.workflow.templates ++> src.cli.index { templatesCommand }
+    src.commands.workflow.schemas ++> src.cli.index { schemasCommand }
+    "src/commands/workflow/new-change" ++> src.cli.index { newChangeCommand }
     "src/core/version-check" ++> "src/commands/install-standalone" {
         getCliInstallInfo,
         getStandaloneBinaryPath,
@@ -3088,7 +3143,6 @@ graph import {
     }
     website.scripts.preview --> "test/website-preview.test";
     "test/helpers/run-cli" --> "vitest.setup" { ensureCliBuilt, terminateActiveCliChildren }
-    "dist/cli/index.d" --> bin.openspec { runCli }
     src.commands.config ++> src.cli.commands.config {
         configEditCommand,
         configGetCommand,
@@ -3127,47 +3181,6 @@ graph import {
     "src/core/completions/command-registry" ++> src.cli.commands.workset { COMMAND_REGISTRY }
     src.commands.workset ++> src.cli.commands.workset { WorksetCommand }
     src.host ++> src.cli.commands.workset { rec }
-    "src/commands/install-standalone" --> src.cli.index;
-    "src/commands/shared-output" --> src.cli.index;
-    "src/commands/workflow/default-schema" --> src.cli.index { DEFAULT_SCHEMA }
-    "src/commands/workflow/new-change" --> src.cli.index;
-    "src/core/completion-tip" --> src.cli.index;
-    "src/core/completions/shared-flags" --> src.cli.index { COMMON_FLAGS }
-    "src/core/root-selection" --> src.cli.index;
-    "src/core/standalone-tip" --> src.cli.index;
-    "src/core/update-plan" --> src.cli.index;
-    "src/core/version-check" --> src.cli.index;
-    src.cli.commands.config --> src.cli.index { registerConfigCommand }
-    src.cli.commands.context --> src.cli.index { registerContextCommand }
-    src.cli.commands.doctor --> src.cli.index { registerDoctorCommand }
-    src.cli.commands.schema --> src.cli.index { registerSchemaCommand }
-    src.cli.commands.spec --> src.cli.index { registerSpecCommand }
-    src.cli.commands.store --> src.cli.index { registerStoreCommand }
-    src.cli.commands.workset --> src.cli.index { registerWorksetCommand }
-    src.commands.change --> src.cli.index;
-    src.commands.completion --> src.cli.index;
-    src.commands.feedback --> src.cli.index;
-    src.commands.show --> src.cli.index;
-    src.commands.validate --> src.cli.index;
-    src.commands.workflow.index --> src.cli.index {
-        InstructionsOptions,
-        NewChangeOptions,
-        SchemasOptions,
-        StatusOptions,
-        TemplatesOptions,
-    }
-    src.commands.workflow.instructions --> src.cli.index;
-    src.commands.workflow.schemas --> src.cli.index;
-    src.commands.workflow.status --> src.cli.index;
-    src.commands.workflow.templates --> src.cli.index;
-    src.core.archive --> src.cli.index;
-    src.core.config --> src.cli.index;
-    src.core.init --> src.cli.index;
-    src.core.list --> src.cli.index;
-    src.core.update --> src.cli.index;
-    src.core.view --> src.cli.index;
-    src.telemetry.index --> src.cli.index;
-    src.utils.interactive --> src.cli.index;
     "src/core/converters/json-converter" ++> src.commands.change { JsonConverter }
     "src/core/parsers/change-parser" ++> src.commands.change { ChangeParser }
     "src/core/parsers/requirement-blocks" ++> src.commands.change {
@@ -4370,7 +4383,6 @@ graph import {
         listSchemasWithInfo,
         resolveSchema,
     }
-    src.core.archive --> src.cli.index { ArchiveOptions }
     src.core.store.foundation --> "test/core/root-selection.test" {
         writeStoreMetadataState,
         writeStoreRegistryState,
