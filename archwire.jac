@@ -7,6 +7,19 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> src.commands.workflow.shared { at, js_error, merge, rec, truthy }
+    src.lazy ++> src.commands.workflow.shared { pick }
+    "src/commands/shared-output" ++> src.commands.workflow.shared { asErrorMessage }
+    include "src/commands/shared-output" ++> src.commands.workflow.shared { printJson }
+    include "src/commands/workflow/default-schema" ++> src.commands.workflow.shared {
+        DEFAULT_SCHEMA,
+    }
+    "src/utils/nested-change" ++> src.commands.workflow.shared {
+        describeNestedChange,
+        findNestedChangesIn,
+    }
+    "src/core/artifact-graph/index" ++> src.commands.workflow.shared { getSchemaDir, listSchemas }
+    "src/core/root-selection" ++> src.commands.workflow.shared { isRootSelectionError }
     src.host ++> "src/core/retired-tools" { rec }
     include src.core.config ++> "src/core/retired-tools" {
         RETIRED_TOOLS,
@@ -2089,14 +2102,6 @@ graph import {
         parseLocatedTaskLines,
     }
     "src/utils/change-metadata" --> src.commands.workflow.instructions { METADATA_FILENAME }
-    "src/utils/nested-change" --> src.commands.workflow.shared {
-        describeNestedChange,
-        findNestedChangesIn,
-    }
-    "src/core/artifact-graph/index" --> src.commands.workflow.shared { getSchemaDir, listSchemas }
-    src.core.references --> src.commands.workflow.shared { ReferenceIndexEntry }
-    "src/core/root-selection" --> src.commands.workflow.shared { isRootSelectionError }
-    "src/commands/workflow/default-schema" --> src.commands.workflow.shared { DEFAULT_SCHEMA }
     src.commands.workflow.instructions --> "test/commands/apply-instructions-tasks.test" {
         generateApplyInstructions,
     }
