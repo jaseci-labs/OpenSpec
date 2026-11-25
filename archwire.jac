@@ -7,6 +7,17 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/commands/workset-input" { JsNull, merge, promise, rec }
+    "src/core/file-state" ++> "src/commands/workset-input" { pathIsDirectory }
+    src.core.openers ++> "src/commands/workset-input" {
+        findOpener,
+        isOpenerCommandAvailable,
+        isOpenerEnabled,
+    }
+    src.core.store.errors ++> "src/commands/workset-input" { StoreError }
+    src.core.store.operations ++> "src/commands/workset-input" { expandUserPath }
+    "src/core/global-config" ++> "src/commands/workset-input" { getGlobalConfigPath }
+    src.core.worksets ++> "src/commands/workset-input" { memberLabelProblem, memberListProblem }
     include src.core.store.foundation ++> src.core.store.index {
         STORES_DIR_NAME,
         STORE_METADATA_DIR_NAME,
@@ -2478,23 +2489,6 @@ graph import {
         confirmRemoveInteractively,
         promptOpenNow,
         promptToolFromChoices,
-    }
-    "src/core/file-state" --> "src/commands/workset-input" { pathIsDirectory }
-    src.core.openers --> "src/commands/workset-input" {
-        OpenerDefinition,
-        OpenerScanOptions,
-        findOpener,
-        isOpenerCommandAvailable,
-        isOpenerEnabled,
-    }
-    src.core.store.errors --> "src/commands/workset-input" { StoreError }
-    src.core.store.operations --> "src/commands/workset-input" { expandUserPath }
-    "src/core/global-config" --> "src/commands/workset-input" { getGlobalConfigPath }
-    src.core.worksets --> "src/commands/workset-input" {
-        Workset,
-        WorksetMember,
-        memberLabelProblem,
-        memberListProblem,
     }
     "src/core/file-state" --> "src/commands/workset-prompts" { pathIsDirectory }
     src.core.openers --> "src/commands/workset-prompts" {
