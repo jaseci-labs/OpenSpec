@@ -7,6 +7,13 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/core/templates/workflows/continue-change" { rec }
+    "src/core/templates/workflows/store-selection" ++> "src/core/templates/workflows/continue-change" {
+        STORE_SELECTION_GUIDANCE,
+    }
+    "src/core/templates/workflows/project-root" ++> "src/core/templates/workflows/continue-change" {
+        PROJECT_ROOT_GUARD,
+    }
     src.host ++> "src/prompts/searchable-multi-select" { JsNull, kind, merge, missing, rec, same }
     src.lazy ++> "src/prompts/searchable-multi-select" { load, pick }
     src.host ++> "src/core/schemas/base.schema" { rec }
@@ -1069,16 +1076,6 @@ graph import {
         STORE_SELECTION_GUIDANCE,
     }
     "src/core/templates/workflows/project-root" --> "src/core/templates/workflows/new-change" {
-        PROJECT_ROOT_GUARD,
-    }
-    src.core.templates.types --> "src/core/templates/workflows/continue-change" {
-        CommandTemplate,
-        SkillTemplate,
-    }
-    "src/core/templates/workflows/store-selection" --> "src/core/templates/workflows/continue-change" {
-        STORE_SELECTION_GUIDANCE,
-    }
-    "src/core/templates/workflows/project-root" --> "src/core/templates/workflows/continue-change" {
         PROJECT_ROOT_GUARD,
     }
     src.core.templates.types --> "src/core/templates/workflows/apply-change" {
