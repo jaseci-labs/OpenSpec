@@ -7,6 +7,30 @@ graph spaces {
 }
 
 graph import {
+    include src.commands.workflow.status ++> src.commands.workflow.index {
+        BATCH_STATUS_FAILURE_PAYLOAD,
+        StatusOptions,
+        statusCommand,
+    }
+    include src.commands.workflow.instructions ++> src.commands.workflow.index {
+        InstructionsOptions,
+        applyInstructionsCommand,
+        archiveInstructionsCommand,
+        instructionsCommand,
+    }
+    include src.commands.workflow.templates ++> src.commands.workflow.index {
+        TemplatesOptions,
+        templatesCommand,
+    }
+    include src.commands.workflow.schemas ++> src.commands.workflow.index {
+        SchemasOptions,
+        schemasCommand,
+    }
+    include "src/commands/workflow/new-change" ++> src.commands.workflow.index {
+        NewChangeOptions,
+        newChangeCommand,
+    }
+    include src.commands.workflow.shared ++> src.commands.workflow.index { DEFAULT_SCHEMA }
     src.host ++> src.commands.workflow.instructions {
         JsNull,
         at,
@@ -2938,23 +2962,6 @@ graph import {
     "src/utils/item-discovery" --> src.commands.spec { getSpecIds }
     "src/utils/spec-discovery" --> src.commands.spec { discoverSpecFiles }
     "src/utils/spec-path-containment" --> src.commands.spec { assertDiscoveredSpecFile }
-    src.commands.workflow.status --> src.commands.workflow.index {
-        BATCH_STATUS_FAILURE_PAYLOAD,
-        StatusOptions,
-        statusCommand,
-    }
-    src.commands.workflow.instructions --> src.commands.workflow.index {
-        InstructionsOptions,
-        applyInstructionsCommand,
-        archiveInstructionsCommand,
-        instructionsCommand,
-    }
-    src.commands.workflow.schemas --> src.commands.workflow.index { SchemasOptions, schemasCommand }
-    "src/commands/workflow/new-change" --> src.commands.workflow.index {
-        NewChangeOptions,
-        newChangeCommand,
-    }
-    src.commands.workflow.shared --> src.commands.workflow.index { DEFAULT_SCHEMA }
     "src/utils/task-progress" --> src.core.list { formatTaskStatus, getTaskProgressForChange }
     "src/core/parsers/markdown-parser" --> src.core.list { MarkdownParser }
     "src/core/root-selection" --> src.core.list { RootOutput }
@@ -4352,8 +4359,4 @@ graph import {
     }
     "dist/cli/index.d" --> bin.openspec { runCli }
     src.commands.workflow.templates --> src.cli.index;
-    src.commands.workflow.templates --> src.commands.workflow.index {
-        TemplatesOptions,
-        templatesCommand,
-    }
 }
