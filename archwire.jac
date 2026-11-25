@@ -7,6 +7,17 @@ graph spaces {
 }
 
 graph import {
+    src.commands.config ++> src.cli.commands.config {
+        configPathCommand,
+        configListCommand,
+        configGetCommand,
+        configSetCommand,
+        configUnsetCommand,
+        configResetCommand,
+        configEditCommand,
+        configProfileCommand,
+    }
+    src.host ++> src.cli.commands.config { rec }
     "src/commands/shared-output" ++> src.commands.config {
         asErrorMessage,
         isPromptCancellationError,
@@ -3167,7 +3178,6 @@ graph import {
     website.scripts.preview --> "test/website-preview.test";
     "test/helpers/run-cli" --> "vitest.setup" { ensureCliBuilt, terminateActiveCliChildren }
     "dist/cli/index.d" --> bin.openspec { runCli }
-    src.commands.config --> src.cli.commands.config;
     "src/core/completions/command-registry" ++> src.cli.commands.context { COMMAND_REGISTRY }
     "src/core/completions/shared-flags" ++> src.cli.commands.context { COMMON_FLAGS }
     src.commands.context ++> src.cli.commands.context { contextCommand }
