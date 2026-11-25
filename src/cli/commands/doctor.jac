@@ -1,11 +1,6 @@
-import from "node:path" { join }
-import from "node:url" { pathToFileURL }
-
 async def:priv runDoctor(options: any) {
-    implementation = await load(
-        pathToFileURL(join(packageRoot(), "dist", "commands", "doctor.js")).href
-    );
-    await implementation.doctorCommand(options);
+    import from src.commands.doctor { doctorCommand }
+    await doctorCommand(options);
 }
 
 def registerDoctorCommand(program: any) {

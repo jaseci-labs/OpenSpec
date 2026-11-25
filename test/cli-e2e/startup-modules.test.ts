@@ -113,6 +113,22 @@ function loadedModules(args: string[], withProject = false): {
   return { own, jacModules, packages, status: result.status };
 }
 
+// A command implemented in Jac is started by a Jac caller's import of its
+// emission, which a load hook cannot tell from the parse every Jac module gets
+// at start-up; only its dist/ forwarder (a TypeScript caller's import) shows.
+function isJac(command: string): boolean {
+  return COMMAND_IMPLEMENTATIONS[command].every((module) =>
+    existsSync(path.join(cliProjectRoot, '.jac', 'src', module.replace(/\.js$/, '.mjs')))
+  );
+}
+
+// No other command's implementation loaded, and this one's did where that is visible.
+function expectOnlyImplementation(own: string[], command: string): void {
+  const loaded = implementationsLoaded(own);
+  expect(loaded.filter((other) => other !== command)).toEqual([]);
+  if (!isJac(command)) expect(loaded).toContain(command);
+}
+
 function implementationsLoaded(own: string[]): string[] {
   return Object.entries(COMMAND_IMPLEMENTATIONS)
     .filter(([, modules]) => modules.some((module) => own.includes(module)))
@@ -243,7 +259,7 @@ describe('CLI startup loads only what the command needs', () => {
     await ensureCliBuilt();
     const { own } = loadedModules(invocation.split(' '));
 
-    expect(implementationsLoaded(own)).toEqual([command]);
+    expectOnlyImplementation(own, command);
   });
 
   it.each([
@@ -256,7 +272,7 @@ describe('CLI startup loads only what the command needs', () => {
     const { own, packages, status } = loadedModules(invocation.split(' '), true);
 
     expect(status).toBe(0);
-    expect(implementationsLoaded(own)).toEqual([command]);
+    expectOnlyImplementation(own, command);
     expect([...packages]).not.toContain('ora');
   });
 });

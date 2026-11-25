@@ -1,11 +1,6 @@
-import from "node:path" { join }
-import from "node:url" { pathToFileURL }
-
 async def:priv runContext(options: any) {
-    implementation = await load(
-        pathToFileURL(join(packageRoot(), "dist", "commands", "context.js")).href
-    );
-    await implementation.contextCommand(options);
+    import from src.commands.context { contextCommand }
+    await contextCommand(options);
 }
 
 def registerContextCommand(program: any) {

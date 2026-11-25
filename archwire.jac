@@ -7,6 +7,9 @@ graph spaces {
 }
 
 graph import {
+    src.commands.context ++> src.cli.commands.context { contextCommand }
+    src.commands.store ++> src.cli.commands.store { runStoreAction }
+    src.commands.doctor ++> src.cli.commands.doctor { doctorCommand }
     src.host ++> "src/core/validation/task-checkboxes" { matchOf, missing, rec, rx, sub }
     "src/utils/task-progress" ++> "src/core/validation/task-checkboxes" { parseTaskLines }
     src.host ++> "src/core/validation/task-numbering" { at, found, matchOf, rec, rx, sub }
@@ -176,10 +179,10 @@ graph import {
         resolveConfigFilePath,
     }
     "src/core/planning-home" ++> src.commands.doctor { findRepoPlanningRootSync }
-    src.lazy ++> src.cli.commands.context { load, packageRoot, pick }
+    src.lazy ++> src.cli.commands.context { pick }
     "src/core/completions/command-registry" ++> src.cli.commands.context { COMMAND_REGISTRY }
     "src/core/completions/shared-flags" ++> src.cli.commands.context { COMMON_FLAGS }
-    src.lazy ++> src.cli.commands.doctor { load, packageRoot, pick }
+    src.lazy ++> src.cli.commands.doctor { pick }
     "src/core/completions/command-registry" ++> src.cli.commands.doctor { COMMAND_REGISTRY }
     "src/core/completions/shared-flags" ++> src.cli.commands.doctor { COMMON_FLAGS }
     src.host ++> src.commands.store { JsNull, at, js_error, merge, missing, rec, same, truthy }
@@ -202,7 +205,6 @@ graph import {
     src.host ++> src.cli.commands.store { at, rec }
     "src/core/completions/command-registry" ++> src.cli.commands.store { COMMAND_REGISTRY }
     "src/commands/shared-output" ++> src.cli.commands.store { printJson }
-    src.lazy ++> src.cli.commands.store { load, packageRoot }
     src.host ++> "src/commands/shared-gather" { at, missing, rec }
     src.core.store.registry ++> "src/commands/shared-gather" { readRegistrySnapshot }
     "src/core/project-config" ++> "src/commands/shared-gather" {

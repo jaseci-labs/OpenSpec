@@ -1,13 +1,10 @@
 import from "node:process" { default as process }
 import from "node:path" { join }
-import from "node:url" { pathToFileURL }
 
 def:priv runner(action: str) -> any {
     async def run(arg: any, options: any) {
-        implementation = await load(
-            pathToFileURL(join(packageRoot(), "dist", "commands", "store.js")).href
-        );
-        await implementation.runStoreAction(action, arg, options);
+        import from src.commands.store { runStoreAction }
+        await runStoreAction(action, arg, options);
     }
     return run;
 }
