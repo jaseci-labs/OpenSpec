@@ -1,7 +1,7 @@
 glob JsNull: any = globalThis.JSON.parse("null");
 
 def rec(**fields: any) -> any {
-    return globalThis.Object.fromEntries(list(fields.items()));
+    return globalThis.Object(fields);
 }
 
 def merge(*parts: any) -> any {
@@ -16,12 +16,26 @@ def rx(pattern: str, flags: str = "") -> any {
     return new(globalThis.RegExp, pattern, flags);
 }
 
+glob:priv madePatterns: any = globalThis.Object.create(JsNull);
+
+def:priv madeRx(pattern: str, flags: str) -> any {
+    key = flags + "/" + pattern;
+    made = madePatterns[key];
+    if made is None {
+        made = rx(pattern, flags);
+        madePatterns[key] = made;
+    } elif "g" in flags or "y" in flags {
+        made.lastIndex = 0;
+    }
+    return made;
+}
+
 def sub(text: str, pattern: str, to: any, flags: str = "g") -> str {
-    return globalThis.String.prototype.replace.call(text, rx(pattern, flags), to);
+    return globalThis.String.prototype.replace.call(text, madeRx(pattern, flags), to);
 }
 
 def found(text: str, pattern: str, flags: str = "") -> bool {
-    return rx(pattern, flags).test(text);
+    return globalThis.RegExp.prototype.test.call(madeRx(pattern, flags), text);
 }
 
 def missing(value: any) -> bool {
@@ -63,7 +77,7 @@ def promise(work: any) -> any {
 }
 
 def matchOf(text: str, pattern: str, flags: str = "") -> any {
-    return rx(pattern, flags).exec(text);
+    return globalThis.RegExp.prototype.exec.call(madeRx(pattern, flags), text);
 }
 
 def unique(items: any) -> list[any] {
@@ -71,10 +85,16 @@ def unique(items: any) -> list[any] {
 }
 
 def trim(s: any) -> str {
+    if isinstance(s, str) {
+        return globalThis.String.prototype.trim.call(s);
+    }
     return s.trim();
 }
 
 def rtrim(s: any) -> str {
+    if isinstance(s, str) {
+        return globalThis.String.prototype.trimEnd.call(s);
+    }
     return s.trimEnd();
 }
 
