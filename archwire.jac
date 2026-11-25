@@ -7,6 +7,19 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/commands/workset-prompts" { JsNull, js_error, merge, missing, rec }
+    src.lazy ++> "src/commands/workset-prompts" { load }
+    "src/core/file-state" ++> "src/commands/workset-prompts" { pathIsDirectory }
+    src.core.openers ++> "src/commands/workset-prompts" { listOpenerChoices }
+    src.core.store.operations ++> "src/commands/workset-prompts" { expandUserPath }
+    src.core.worksets ++> "src/commands/workset-prompts" { memberLabelProblem, validateWorksetName }
+    "src/commands/shared-output" ++> "src/commands/workset-prompts" { asErrorMessage }
+    "src/commands/workset-input" ++> "src/commands/workset-prompts" {
+        assertKnownTool,
+        finalizeWorkset,
+        formatMemberRows,
+        resolveMemberFlags,
+    }
     src.host ++> "src/commands/workset-input" { JsNull, merge, promise, rec }
     "src/core/file-state" ++> "src/commands/workset-input" { pathIsDirectory }
     src.core.openers ++> "src/commands/workset-input" {
@@ -2489,26 +2502,6 @@ graph import {
         confirmRemoveInteractively,
         promptOpenNow,
         promptToolFromChoices,
-    }
-    "src/core/file-state" --> "src/commands/workset-prompts" { pathIsDirectory }
-    src.core.openers --> "src/commands/workset-prompts" {
-        OpenerChoice,
-        OpenerDefinition,
-        listOpenerChoices,
-    }
-    src.core.store.operations --> "src/commands/workset-prompts" { expandUserPath }
-    src.core.worksets --> "src/commands/workset-prompts" {
-        Workset,
-        WorksetMember,
-        memberLabelProblem,
-        validateWorksetName,
-    }
-    "src/commands/shared-output" --> "src/commands/workset-prompts" { asErrorMessage }
-    "src/commands/workset-input" --> "src/commands/workset-prompts" {
-        assertKnownTool,
-        finalizeWorkset,
-        formatMemberRows,
-        resolveMemberFlags,
     }
     "src/core/completions/command-registry" --> src.cli.commands.workset { COMMAND_REGISTRY }
     src.core.store.errors --> src.cli.commands.workset { StoreDiagnostic }
