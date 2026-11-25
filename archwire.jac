@@ -7,6 +7,29 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/core/legacy-cleanup" {
+        at,
+        found,
+        js_error,
+        merge,
+        missing,
+        rec,
+        rx,
+        same,
+        sub,
+        truthy,
+    }
+    src.lazy ++> "src/core/legacy-cleanup" { pick }
+    "src/utils/file-system" ++> "src/core/legacy-cleanup" {
+        FileSystemUtils,
+        removeMarkerBlock as removeMarkerBlockUtil,
+    }
+    src.core.config ++> "src/core/legacy-cleanup" { OPENSPEC_MARKERS, findRetiredTool }
+    "src/core/shared/generated-fingerprint" ++> "src/core/legacy-cleanup" {
+        hasReleasedOpenSpecBlock,
+        isReleasedGeneratedContent,
+    }
+    src.core.profiles ++> "src/core/legacy-cleanup" { ALL_WORKFLOWS }
     src.host ++> "src/core/templates/workflows/apply-change" { rec }
     "src/core/templates/workflows/store-selection" ++> "src/core/templates/workflows/apply-change" {
         STORE_SELECTION_GUIDANCE,
@@ -1889,13 +1912,6 @@ graph import {
         readProjectConfig,
         resolveConfigFilePath,
     }
-    "src/utils/file-system" --> "src/core/legacy-cleanup" { FileSystemUtils, removeMarkerBlock }
-    src.core.config --> "src/core/legacy-cleanup" { OPENSPEC_MARKERS, findRetiredTool }
-    "src/core/shared/generated-fingerprint" --> "src/core/legacy-cleanup" {
-        hasReleasedOpenSpecBlock,
-        isReleasedGeneratedContent,
-    }
-    src.core.profiles --> "src/core/legacy-cleanup" { ALL_WORKFLOWS, WorkflowId }
     src.core.config --> "src/core/retired-tools" {
         OPENSPEC_SKILL_NAMES,
         RETIRED_TOOLS,
