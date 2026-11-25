@@ -7,6 +7,11 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/core/shared/generated-fingerprint" { found, matchOf, sub }
+    "src/core/shared/released-generated-fingerprints" ++> "src/core/shared/generated-fingerprint" {
+        RELEASED_GENERATED_FINGERPRINTS,
+    }
+    "src/utils/file-system" ++> "src/core/shared/generated-fingerprint" { findMarkerBlock }
     src.host ++> "src/prompts/searchable-multi-select" { JsNull, kind, merge, missing, rec, same }
     src.lazy ++> "src/prompts/searchable-multi-select" { load, pick }
     src.host ++> "src/core/schemas/base.schema" { rec }
@@ -941,10 +946,6 @@ graph import {
         SHARED_SKILLS_ROOT,
         resolveFormerOwnSkillsDir,
     }
-    "src/core/shared/released-generated-fingerprints" --> "src/core/shared/generated-fingerprint" {
-        RELEASED_GENERATED_FINGERPRINTS,
-    }
-    "src/utils/file-system" --> "src/core/shared/generated-fingerprint" { findMarkerBlock }
     "src/core/shared/generated-fingerprint" --> "src/core/shared/skill-links" {
         isReleasedGeneratedContent,
         normalizeGeneratedContent,
