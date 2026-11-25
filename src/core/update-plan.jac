@@ -290,9 +290,8 @@ obj UpdatePlanRecorder(globalThis.Object) {
                 byPath[display] = rec(path=display, action=action, tool=tool);
             }
         }
-        changes: any = list(byPath.values());
-        globalThis.Array.prototype.sort.call(
-            changes, lambda (a: any, b: any) -> int { a.path.localeCompare(b.path) }
+        changes = globalThis.Array.prototype.sort.call(
+            list(byPath.values()), lambda (a: any, b: any) -> int { a.path.localeCompare(b.path) }
         );
         return rec(changes=changes, notes=list(self.notes), failures=list(self.failures));
     }
