@@ -862,13 +862,13 @@ graph import {
     "src/core/released-output-sweep" ++> "src/core/retired-tools" { pruneEmptyParents }
     "src/core/shared/command-reconcile" ++> "src/core/retired-tools" { reconcileCommandFiles }
     "src/core/shared/skill-links" ++> "src/core/retired-tools" { classifySkillFile }
-    src.core.config ++> "src/core/retired-tools" { OPENSPEC_SKILL_NAMES }
     include src.core.config ++> "src/core/retired-tools" {
         RETIRED_TOOLS,
         RetiredTool,
         findRetiredTool,
         formatRetiredToolError,
     }
+    src.core.config ++> "src/core/retired-tools" { OPENSPEC_SKILL_NAMES }
     src.core.profiles ++> "src/core/retired-tools" { ALL_WORKFLOWS }
     src.host ++> "src/core/retired-tools" { rec }
     "src/core/global-config" ++> "src/core/root-selection" { getGlobalConfig }
@@ -1337,10 +1337,10 @@ graph import {
         listSchemas,
         resolveSchema,
     }
+    "src/core/change-metadata/index" ++> "src/utils/change-metadata" { ChangeMetadataSchema }
     include "src/core/change-metadata/index" ++> "src/utils/change-metadata" {
         CHANGE_METADATA_KNOWN_KEYS,
     }
-    "src/core/change-metadata/index" ++> "src/utils/change-metadata" { ChangeMetadataSchema }
     "src/core/project-config" ++> "src/utils/change-metadata" { readProjectConfig }
     src.core.references ++> "src/utils/change-metadata" { sanitizeInline }
     src.host ++> "src/utils/change-metadata" {
@@ -3089,7 +3089,17 @@ graph import {
     website.scripts.preview --> "test/website-preview.test";
     "test/helpers/run-cli" --> "vitest.setup" { ensureCliBuilt, terminateActiveCliChildren }
     "dist/cli/index.d" --> bin.openspec { runCli }
-    src.commands.config --> src.cli.commands.config;
+    src.commands.config ++> src.cli.commands.config {
+        configEditCommand,
+        configGetCommand,
+        configListCommand,
+        configPathCommand,
+        configProfileCommand,
+        configResetCommand,
+        configSetCommand,
+        configUnsetCommand,
+    }
+    src.host ++> src.cli.commands.config { rec }
     "src/core/completions/command-registry" ++> src.cli.commands.context { COMMAND_REGISTRY }
     "src/core/completions/shared-flags" ++> src.cli.commands.context { COMMON_FLAGS }
     src.commands.context ++> src.cli.commands.context { contextCommand }
@@ -3188,11 +3198,11 @@ graph import {
     src.core.completions.factory ++> src.commands.completion { CompletionFactory, errorText }
     src.host ++> src.commands.completion { at, jsAsync, truthy }
     src.lazy ++> src.commands.completion { load }
-    "src/commands/shared-output" --> src.commands.config {
+    "src/commands/shared-output" ++> src.commands.config {
         asErrorMessage,
         isPromptCancellationError,
     }
-    "src/core/config-schema" --> src.commands.config {
+    "src/core/config-schema" ++> src.commands.config {
         DEFAULT_CONFIG,
         coerceValue,
         deleteNestedValue,
@@ -3203,20 +3213,31 @@ graph import {
         validateConfig,
         validateConfigKeyPath,
     }
-    "src/core/global-config" --> src.commands.config {
-        Delivery,
-        GlobalConfig,
-        Profile,
+    "src/core/global-config" ++> src.commands.config {
         getGlobalConfig,
         getGlobalConfigPath,
         isConfigRootObject,
         isGlobalConfigUnreadable,
         saveGlobalConfig,
     }
-    "src/core/profile-sync-drift" --> src.commands.config;
-    src.core.config --> src.commands.config { OPENSPEC_DIR_NAME }
-    src.core.profiles --> src.commands.config { ALL_WORKFLOWS, CORE_WORKFLOWS, getProfileWorkflows }
-    src.core.update --> src.commands.config;
+    "src/core/profile-sync-drift" ++> src.commands.config { hasProjectConfigDrift }
+    src.core.config ++> src.commands.config { OPENSPEC_DIR_NAME }
+    src.core.profiles ++> src.commands.config { ALL_WORKFLOWS, CORE_WORKFLOWS, getProfileWorkflows }
+    src.core.update ++> src.commands.config { UpdateCommand }
+    src.host ++> src.commands.config {
+        JsNull,
+        at,
+        found,
+        js_error,
+        kind,
+        merge,
+        messageOf,
+        rec,
+        same,
+        truthy,
+        unique,
+    }
+    src.lazy ++> src.commands.config { load, need, pick }
     "src/commands/shared-gather" ++> src.commands.context { gatherRelationshipData }
     "src/commands/shared-output" ++> src.commands.context { emitFailure, printJson }
     "src/core/relationship-health" ++> src.commands.context { inspectRelationships }
@@ -3423,8 +3444,8 @@ graph import {
     "src/core/root-selection" ++> src.commands.workflow.schemas { resolveRootForCommand }
     src.host ++> src.commands.workflow.schemas { JsNull, rec, truthy }
     src.lazy ++> src.commands.workflow.schemas { pick }
-    "src/commands/shared-output" ++> src.commands.workflow.shared { asErrorMessage }
     include "src/commands/shared-output" ++> src.commands.workflow.shared { printJson }
+    "src/commands/shared-output" ++> src.commands.workflow.shared { asErrorMessage }
     include "src/commands/workflow/default-schema" ++> src.commands.workflow.shared {
         DEFAULT_SCHEMA,
     }
