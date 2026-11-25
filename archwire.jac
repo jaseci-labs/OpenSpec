@@ -7,6 +7,19 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/core/retired-tools" { rec }
+    include src.core.config ++> "src/core/retired-tools" {
+        RETIRED_TOOLS,
+        RetiredTool,
+        findRetiredTool,
+        formatRetiredToolError,
+    }
+    src.core.config ++> "src/core/retired-tools" { OPENSPEC_SKILL_NAMES }
+    "src/core/shared/command-reconcile" ++> "src/core/retired-tools" { reconcileCommandFiles }
+    "src/core/shared/skill-links" ++> "src/core/retired-tools" { classifySkillFile }
+    "src/core/legacy-cleanup" ++> "src/core/retired-tools" { reachesWithoutLink }
+    "src/core/released-output-sweep" ++> "src/core/retired-tools" { pruneEmptyParents }
+    src.core.profiles ++> "src/core/retired-tools" { ALL_WORKFLOWS }
     src.host ++> src.core.migration { JsNull, at, merge, missing, rec, rx }
     src.core.config ++> src.core.migration { AI_TOOLS }
     "src/core/global-config" ++> src.core.migration {
@@ -2080,19 +2093,6 @@ graph import {
     }
     src.core.init --> src.core.update;
     "src/prompts/searchable-multi-select" --> src.core.update;
-    src.core.config --> "src/core/retired-tools" {
-        OPENSPEC_SKILL_NAMES,
-        RETIRED_TOOLS,
-        RetiredTool,
-        findRetiredTool,
-        formatRetiredToolError,
-    }
-    "src/core/shared/command-reconcile" --> "src/core/retired-tools" { reconcileCommandFiles }
-    "src/core/shared/skill-links" --> "src/core/retired-tools" { classifySkillFile }
-    "src/core/legacy-cleanup" --> "src/core/retired-tools" { reachesWithoutLink }
-    "src/core/released-output-sweep" --> "src/core/retired-tools" { pruneEmptyParents }
-    src.core.profiles --> "src/core/retired-tools" { ALL_WORKFLOWS }
-    "src/core/file-view" --> "src/core/retired-tools" { FileView }
     "src/utils/file-system" --> src.core.init { FileSystemUtils }
     "src/core/project-skills-scope" --> src.core.init { forgetProjectSkills }
     "src/core/project-config" --> src.core.init {
