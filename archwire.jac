@@ -7,6 +7,24 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> src.core.templates.workflows.propose { rec }
+    "src/core/templates/workflows/store-selection" ++> src.core.templates.workflows.propose {
+        STORE_SELECTION_GUIDANCE,
+    }
+    "src/core/templates/workflows/project-root" ++> src.core.templates.workflows.propose {
+        PROJECT_ROOT_GUARD,
+    }
+    "src/core/templates/workflows/new-change" ++> src.core.templates.workflows.propose {
+        changeInput,
+        ASK_WHAT_TO_BUILD,
+    }
+    "src/core/templates/workflows/ff-change" ++> src.core.templates.workflows.propose {
+        artifactBuildSteps,
+    }
+    src.host ++> "src/core/templates/workflows/ff-change" { rec }
+    "src/core/templates/workflows/new-change" ++> "src/core/templates/workflows/ff-change" {
+        newChangeIntro,
+    }
     src.host ++> src.core.templates.workflows.onboard { rec }
     "src/core/templates/workflows/store-selection" ++> src.core.templates.workflows.onboard {
         STORE_SELECTION_GUIDANCE,
@@ -1109,16 +1127,6 @@ graph import {
     "src/core/templates/workflows/project-root" --> "src/core/templates/workflows/apply-change" {
         PROJECT_ROOT_GUARD,
     }
-    src.core.templates.types --> "src/core/templates/workflows/ff-change" {
-        CommandTemplate,
-        SkillTemplate,
-    }
-    "src/core/templates/workflows/store-selection" --> "src/core/templates/workflows/ff-change" {
-        STORE_SELECTION_GUIDANCE,
-    }
-    "src/core/templates/workflows/project-root" --> "src/core/templates/workflows/ff-change" {
-        PROJECT_ROOT_GUARD,
-    }
     src.core.templates.types --> "src/core/templates/workflows/archive-change" {
         CommandTemplate,
         SkillTemplate,
@@ -1140,16 +1148,6 @@ graph import {
         STORE_SELECTION_GUIDANCE,
     }
     "src/core/templates/workflows/project-root" --> "src/core/templates/workflows/bulk-archive-change" {
-        PROJECT_ROOT_GUARD,
-    }
-    src.core.templates.types --> src.core.templates.workflows.propose {
-        CommandTemplate,
-        SkillTemplate,
-    }
-    "src/core/templates/workflows/store-selection" --> src.core.templates.workflows.propose {
-        STORE_SELECTION_GUIDANCE,
-    }
-    "src/core/templates/workflows/project-root" --> src.core.templates.workflows.propose {
         PROJECT_ROOT_GUARD,
     }
     "src/utils/file-system" --> "src/core/shared/command-reconcile" { FileSystemUtils }
