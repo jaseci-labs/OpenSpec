@@ -1376,7 +1376,7 @@ graph import {
     src.core.index --> "test/cli-e2e/basic.test" { getGlobalDataDir, registerStore }
     "test/helpers/openspec-fixtures" --> "test/cli-e2e/basic.test" { createOpenSpecRoot }
     src.core.index --> "test/helpers/store-git" { DEFAULT_OPENSPEC_SCHEMA }
-    "src/core/global-config" --> src.core.index {
+    include "src/core/global-config" ++> src.core.index {
         GLOBAL_CONFIG_DIR_NAME,
         GLOBAL_CONFIG_FILE_NAME,
         GLOBAL_DATA_DIR_NAME,
@@ -1388,10 +1388,104 @@ graph import {
         getGlobalDataDir,
         saveGlobalConfig,
     }
-    src.core.references --> src.core.index;
-    src.core.store.index --> src.core.index;
-    "src/core/planning-home" --> src.core.index;
-    "src/core/openspec-root" --> src.core.index;
+    include src.core.references ++> src.core.index {
+        ReferenceIndexEntry,
+        extractFirstPurposeLine,
+        fetchRecipe,
+        renderReferencedStoresBlock,
+        renderReferencedStoresSection,
+        sanitizeInline,
+        escapeEnvelopeTags,
+        escapeEnvelopeAttribute,
+        assembleReferenceIndex,
+    }
+    include src.core.store.index ++> src.core.index {
+        RegistrySnapshot,
+        STORES_DIR_NAME,
+        STORE_METADATA_DIR_NAME,
+        STORE_METADATA_FILE_NAME,
+        STORE_REGISTRY_FILE_NAME,
+        SetupStoreInput,
+        StoreBackendConfig,
+        StoreCleanupResult,
+        StoreDiagnostic,
+        StoreDiagnosticSeverity,
+        StoreDoctorResult,
+        StoreError,
+        StoreGitBackendConfig,
+        StoreInfo,
+        StoreInspection,
+        StoreListResult,
+        StoreMutationResult,
+        StorePathOptions,
+        StoreRegistryEntry,
+        StoreRegistryState,
+        assertNoRegisteredStoreConflict,
+        commitStoreRegistration,
+        doctorStores,
+        expandUserPath,
+        getRegisteredStore,
+        getStoreMetadataDir,
+        getStoreMetadataPath,
+        getStoreRegistryPath,
+        getStoreRootForBackend,
+        getStoresDir,
+        isStoreRoot,
+        isValidStoreId,
+        listRegisteredStores,
+        listStoreRegistryEntries,
+        listStores,
+        makeStoreDiagnostic,
+        normalizeStorePathForComparison,
+        parseStoreMetadataState,
+        parseStoreRegistryState,
+        prepareStoreCleanup,
+        prepareStoreSetup,
+        readOptionalStoreMetadataState,
+        readRegistrySnapshot,
+        readStoreMetadataState,
+        readStoreRegistryState,
+        registerExistingStore,
+        registerStore,
+        removeStore,
+        resolveGitStoreBackendConfig,
+        resolveRegisteredStore,
+        resolveSetupGitEnabled,
+        serializeStoreMetadataState,
+        serializeStoreRegistryState,
+        setupPreparedStore,
+        setupStore,
+        unregisterStore,
+        unregisterStoreRegistration,
+        updateStoreRegistryState,
+        validateStoreId,
+        writeStoreMetadataState,
+        writeStoreRegistryState,
+    }
+    include "src/core/planning-home" ++> src.core.index {
+        PlanningHome,
+        findRepoPlanningRootSync,
+        resolveCurrentPlanningHomeSync,
+        getChangeDir,
+        formatChangeLocation,
+    }
+    include "src/core/openspec-root" ++> src.core.index {
+        CreatedPathLedgerEntry,
+        OpenSpecRootInspection,
+        OPENSPEC_ROOT_DIR,
+        OPENSPEC_CONFIG_YAML,
+        OPENSPEC_CONFIG_YML,
+        OPENSPEC_SPECS_DIR,
+        OPENSPEC_CHANGES_DIR,
+        OPENSPEC_ARCHIVE_DIR,
+        DEFAULT_OPENSPEC_SCHEMA,
+        DIRECTORY_ANCHOR_FILE_NAME,
+        ANCHORED_OPENSPEC_DIRS,
+        inspectOpenSpecRoot,
+        ensureDirectoryAnchor,
+        ensureOpenSpecRoot,
+        rollbackCreatedPaths,
+    }
     src.core.index --> "test/cli-e2e/capstone-journeys.test" { getGlobalDataDir, registerStore }
     "test/helpers/run-cli" --> "test/cli-e2e/capstone-journeys.test" { runCLI }
     "test/helpers/openspec-fixtures" --> "test/cli-e2e/capstone-journeys.test" {
