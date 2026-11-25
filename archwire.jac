@@ -24,11 +24,9 @@ graph import {
     src.host ++> "src/commands/shared-gather" { at, missing, rec }
     src.core.store.errors ++> "src/commands/shared-output" { StoreError }
     src.host ++> "src/commands/shared-output" { kind, merge, rec, truthy }
-    "src/core/planning-home" --> "src/commands/workflow/new-change" { formatChangeLocation }
-    "src/core/project-config" --> "src/commands/workflow/new-change" { readProjectConfig }
-    "src/core/root-selection" --> "src/commands/workflow/new-change" {
-        ResolvedOpenSpecRoot,
-        RootOutput,
+    "src/core/planning-home" ++> "src/commands/workflow/new-change" { formatChangeLocation }
+    "src/core/project-config" ++> "src/commands/workflow/new-change" { readProjectConfig }
+    "src/core/root-selection" ++> "src/commands/workflow/new-change" {
         RootSelectionError,
         isStoreSelectedRoot,
         resolveRootForCommand,
@@ -36,15 +34,17 @@ graph import {
         toRootOutput,
         withStoreFlag,
     }
-    "src/utils/change-utils" --> "src/commands/workflow/new-change" {
+    "src/utils/change-utils" ++> "src/commands/workflow/new-change" {
         createChange,
         validateChangeName,
     }
-    src.commands.workflow.shared --> "src/commands/workflow/new-change" {
+    src.commands.workflow.shared ++> "src/commands/workflow/new-change" {
         printJson,
         statusFromError,
         validateSchemaExists,
     }
+    src.host ++> "src/commands/workflow/new-change" { JsNull, at, js_error, merge, rec, truthy }
+    src.lazy ++> "src/commands/workflow/new-change" { load, pick }
     "src/core/file-state" ++> "src/commands/workset-input" { pathIsDirectory }
     "src/core/global-config" ++> "src/commands/workset-input" { getGlobalConfigPath }
     src.core.openers ++> "src/commands/workset-input" {
@@ -862,13 +862,13 @@ graph import {
     "src/core/released-output-sweep" ++> "src/core/retired-tools" { pruneEmptyParents }
     "src/core/shared/command-reconcile" ++> "src/core/retired-tools" { reconcileCommandFiles }
     "src/core/shared/skill-links" ++> "src/core/retired-tools" { classifySkillFile }
-    src.core.config ++> "src/core/retired-tools" { OPENSPEC_SKILL_NAMES }
     include src.core.config ++> "src/core/retired-tools" {
         RETIRED_TOOLS,
         RetiredTool,
         findRetiredTool,
         formatRetiredToolError,
     }
+    src.core.config ++> "src/core/retired-tools" { OPENSPEC_SKILL_NAMES }
     src.core.profiles ++> "src/core/retired-tools" { ALL_WORKFLOWS }
     src.host ++> "src/core/retired-tools" { rec }
     "src/core/global-config" ++> "src/core/root-selection" { getGlobalConfig }
@@ -1735,17 +1735,7 @@ graph import {
         resolveArtifactOutputs,
     }
     "src/utils/file-system" --> "test/core/artifact-graph/outputs.test" { FileSystemUtils }
-    "src/core/artifact-graph/resolver" --> "test/core/artifact-graph/resolver.test" {
-        SchemaLoadError,
-        getPackageSchemasDir,
-        getProjectSchemasDir,
-        getSchemaDir,
-        getUserSchemasDir,
-        isSchemaDir,
-        listSchemas,
-        listSchemasWithInfo,
-        resolveSchema,
-    }
+    "src/core/artifact-graph/resolver" --> "test/core/artifact-graph/resolver.test";
     "src/core/artifact-graph/schema" --> "test/core/artifact-graph/schema-apply-references.test" {
         SchemaValidationError,
         findApplyTracksWarning,
@@ -2393,10 +2383,7 @@ graph import {
     "src/core/templates/workflows/project-root" --> "test/core/root-selection.test";
     "test/helpers/fake-tool" --> "test/core/root-selection.test" { createFakeTool }
     "test/helpers/path-env" --> "test/core/root-selection.test" { withPrependedPathEnv }
-    src.core.store.foundation --> "test/core/root-selection.test" {
-        writeStoreMetadataState,
-        writeStoreRegistryState,
-    }
+    src.core.store.foundation --> "test/core/root-selection.test";
     src.core.store.git --> "test/core/root-selection.test" { envWithoutGitRepoLocation }
     "test/helpers/run-cli" --> "test/core/router-skill.test" { cliProjectRoot, runCLI }
     "src/core/shared/ide-restart" --> "test/core/shared-ide-restart.test" {
@@ -2868,7 +2855,7 @@ graph import {
     "src/utils/file-system" --> "test/core/update.test" { FileSystemUtils }
     "test/helpers/released-codex-prompt" --> "test/core/update.test" { releasedCodexPrompt }
     "test/helpers/store-git" --> "test/core/update.test" { isolatedGitEnv }
-    src.core.config --> "test/core/update.test" { OPENSPEC_MARKERS }
+    src.core.config --> "test/core/update.test";
     src.core.init --> "test/core/update.test" { InitCommand }
     src.core.profiles --> "test/core/update.test" { ALL_WORKFLOWS }
     src.core.shared.index --> "test/core/update.test" { getCommandContents }
@@ -2930,32 +2917,7 @@ graph import {
     src.core.validation.validator --> "test/core/validation.unknown-metadata-keys.test" {
         Validator,
     }
-    "src/core/version-check" --> "test/core/version-check.test" {
-        buildCliUpdateLines,
-        buildUpgradeCommandLines,
-        buildVersionReportLines,
-        canSelfUpgrade,
-        checkForCliUpdate,
-        compareVersions,
-        detectPackageManager,
-        displayCliUpdateNote,
-        getAvailableCliUpdate,
-        getCliInstallInfo,
-        getCliUpdateCommand,
-        getInstallDir,
-        isEphemeralRunnerInstall,
-        isNpmGlobalInstall,
-        isProjectLocalInstall,
-        isSourceCheckout,
-        npmGlobalRoots,
-        npmPrefixFromInstallDir,
-        offerCliUpgrade,
-        readCliVersion,
-        registryUrl,
-        rerunUpdateWithUpgradedCli,
-        shouldOfferUpgrade,
-        upgradedBinPath,
-    }
+    "src/core/version-check" --> "test/core/version-check.test";
     src.core.view --> "test/core/view.test" { ViewCommand }
     "src/core/available-tools" --> "test/core/warp.test" { getAvailableTools }
     "src/core/command-generation/registry" --> "test/core/warp.test" { CommandAdapterRegistry }
@@ -3142,7 +3104,7 @@ graph import {
         schemaValidateCommand,
         schemaWhichCommand,
     }
-    src.commands.spec --> src.cli.commands.spec { ShowOptions }
+    src.commands.spec --> src.cli.commands.spec;
     "src/commands/shared-output" ++> src.cli.commands.store { printJson }
     "src/core/completions/command-registry" ++> src.cli.commands.store { COMMAND_REGISTRY }
     src.commands.store ++> src.cli.commands.store { runStoreAction }
@@ -3184,7 +3146,7 @@ graph import {
     src.commands.workflow.schemas --> src.cli.index;
     src.commands.workflow.status --> src.cli.index;
     src.commands.workflow.templates --> src.cli.index;
-    src.core.archive --> src.cli.index { ArchiveOptions }
+    src.core.archive --> src.cli.index;
     src.core.config --> src.cli.index;
     src.core.init --> src.cli.index;
     src.core.list --> src.cli.index;
@@ -3376,67 +3338,59 @@ graph import {
         resolveNoInteractive,
     }
     src.utils.match --> src.commands.validate { nearestMatches }
-    "src/commands/workflow/new-change" --> src.commands.workflow.index {
+    include "src/commands/workflow/new-change" ++> src.commands.workflow.index {
         NewChangeOptions,
         newChangeCommand,
     }
-    src.commands.workflow.instructions --> src.commands.workflow.index {
+    include src.commands.workflow.instructions ++> src.commands.workflow.index {
         InstructionsOptions,
         applyInstructionsCommand,
         archiveInstructionsCommand,
         instructionsCommand,
     }
-    src.commands.workflow.schemas --> src.commands.workflow.index { SchemasOptions, schemasCommand }
-    src.commands.workflow.shared --> src.commands.workflow.index { DEFAULT_SCHEMA }
-    src.commands.workflow.status --> src.commands.workflow.index {
+    include src.commands.workflow.schemas ++> src.commands.workflow.index {
+        SchemasOptions,
+        schemasCommand,
+    }
+    include src.commands.workflow.shared ++> src.commands.workflow.index { DEFAULT_SCHEMA }
+    include src.commands.workflow.status ++> src.commands.workflow.index {
         BATCH_STATUS_FAILURE_PAYLOAD,
         StatusOptions,
         statusCommand,
     }
-    src.commands.workflow.templates --> src.commands.workflow.index {
+    include src.commands.workflow.templates ++> src.commands.workflow.index {
         TemplatesOptions,
         templatesCommand,
     }
-    "src/core/artifact-graph/index" --> src.commands.workflow.instructions {
-        ArtifactInstructions,
+    "src/core/artifact-graph/index" ++> src.commands.workflow.instructions {
         generateInstructions,
         loadChangeContext,
         resolveArtifactOutputs,
         resolveSchema,
     }
-    "src/core/artifact-graph/outputs" --> src.commands.workflow.instructions { isSpecsArtifactPath }
-    "src/core/planning-home" --> src.commands.workflow.instructions {
-        PlanningHome,
+    "src/core/artifact-graph/outputs" ++> src.commands.workflow.instructions { isSpecsArtifactPath }
+    "src/core/planning-home" ++> src.commands.workflow.instructions {
         getChangeDir,
         resolveCurrentPlanningHomeSync,
     }
-    "src/core/project-config" --> src.commands.workflow.instructions {
-        ProjectConfig,
+    "src/core/project-config" ++> src.commands.workflow.instructions {
         loadOperationInputs,
         readProjectConfig,
     }
-    "src/core/root-selection" --> src.commands.workflow.instructions {
-        ResolvedOpenSpecRoot,
+    "src/core/root-selection" ++> src.commands.workflow.instructions {
         resolveRootForCommand,
         toPlanningHome,
         toRootOutput,
         withStoreFlag,
     }
-    "src/utils/change-metadata" --> src.commands.workflow.instructions { METADATA_FILENAME }
-    "src/utils/spec-discovery" --> src.commands.workflow.instructions { findUnreadDeltaFiles }
-    "src/utils/task-progress" --> src.commands.workflow.instructions {
-        ParsedTask,
-        parseLocatedTaskLines,
-    }
-    src.commands.workflow.shared --> src.commands.workflow.instructions {
-        ApplyInstructions,
-        ArchiveInstructions,
-        TaskItem,
+    "src/utils/change-metadata" ++> src.commands.workflow.instructions { METADATA_FILENAME }
+    "src/utils/spec-discovery" ++> src.commands.workflow.instructions { findUnreadDeltaFiles }
+    "src/utils/task-progress" ++> src.commands.workflow.instructions { parseLocatedTaskLines }
+    src.commands.workflow.shared ++> src.commands.workflow.instructions {
         validateChangeExists,
         validateSchemaExists,
     }
-    src.core.references --> src.commands.workflow.instructions {
-        ReferenceIndexEntry,
+    src.core.references ++> src.commands.workflow.instructions {
         assembleReferenceIndex,
         escapeEnvelopeAttribute,
         escapeEnvelopeTags,
@@ -3444,26 +3398,42 @@ graph import {
         renderReferencedStoresSection,
         sanitizeInline,
     }
-    src.core.store.registry --> src.commands.workflow.instructions { readRegistrySnapshot }
-    "src/core/artifact-graph/index" --> src.commands.workflow.schemas { listSchemasWithInfo }
-    "src/core/root-selection" --> src.commands.workflow.schemas { resolveRootForCommand }
-    "src/commands/workflow/default-schema" --> src.commands.workflow.shared { DEFAULT_SCHEMA }
-    "src/core/artifact-graph/index" --> src.commands.workflow.shared { getSchemaDir, listSchemas }
-    "src/core/root-selection" --> src.commands.workflow.shared { isRootSelectionError }
-    "src/utils/nested-change" --> src.commands.workflow.shared {
+    src.core.store.registry ++> src.commands.workflow.instructions { readRegistrySnapshot }
+    src.host ++> src.commands.workflow.instructions {
+        JsNull,
+        at,
+        js_error,
+        merge,
+        missing,
+        rec,
+        truthy,
+    }
+    src.lazy ++> src.commands.workflow.instructions { load }
+    "src/core/artifact-graph/index" ++> src.commands.workflow.schemas { listSchemasWithInfo }
+    "src/core/root-selection" ++> src.commands.workflow.schemas { resolveRootForCommand }
+    src.host ++> src.commands.workflow.schemas { JsNull, rec, truthy }
+    src.lazy ++> src.commands.workflow.schemas { pick }
+    include "src/commands/shared-output" ++> src.commands.workflow.shared { printJson }
+    "src/commands/shared-output" ++> src.commands.workflow.shared { asErrorMessage }
+    include "src/commands/workflow/default-schema" ++> src.commands.workflow.shared {
+        DEFAULT_SCHEMA,
+    }
+    "src/core/artifact-graph/index" ++> src.commands.workflow.shared { getSchemaDir, listSchemas }
+    "src/core/root-selection" ++> src.commands.workflow.shared { isRootSelectionError }
+    "src/utils/nested-change" ++> src.commands.workflow.shared {
         describeNestedChange,
         findNestedChangesIn,
     }
-    src.core.references --> src.commands.workflow.shared { ReferenceIndexEntry }
-    "src/commands/shared-output" --> src.commands.workflow.status { asStatus }
-    "src/core/artifact-graph/index" --> src.commands.workflow.status {
-        ChangeStatus,
+    src.host ++> src.commands.workflow.shared { at, js_error, merge, rec, truthy }
+    src.lazy ++> src.commands.workflow.shared { pick }
+    "src/commands/shared-output" ++> src.commands.workflow.status { asStatus }
+    "src/core/artifact-graph/index" ++> src.commands.workflow.status {
         formatChangeStatus,
         loadChangeContext,
     }
-    "src/core/change-status-policy" --> src.commands.workflow.status { resolveNextStep }
-    "src/core/planning-home" --> src.commands.workflow.status { getChangeDir }
-    "src/core/root-selection" --> src.commands.workflow.status {
+    "src/core/change-status-policy" ++> src.commands.workflow.status { resolveNextStep }
+    "src/core/planning-home" ++> src.commands.workflow.status { getChangeDir }
+    "src/core/root-selection" ++> src.commands.workflow.status {
         findDeclaringProjectRoot,
         isStoreSelectedRoot,
         resolveRootForCommand,
@@ -3471,29 +3441,35 @@ graph import {
         toRootOutput,
         withStoreFlag,
     }
-    "src/utils/nested-change" --> src.commands.workflow.status {
+    "src/utils/nested-change" ++> src.commands.workflow.status {
         describeNestedChange,
         findNestedChanges,
     }
-    src.commands.workflow.shared --> src.commands.workflow.status {
+    src.commands.workflow.shared ++> src.commands.workflow.status {
         getAvailableChanges,
         getStatusColor,
         getStatusIndicator,
         validateChangeExists,
         validateSchemaExists,
     }
-    src.core.store.errors --> src.commands.workflow.status { StoreDiagnostic }
-    "src/core/artifact-graph/index" --> src.commands.workflow.templates {
+    src.host ++> src.commands.workflow.status { JsNull, at, js_error, merge, owns, rec, truthy }
+    src.lazy ++> src.commands.workflow.status { load, pick }
+    "src/core/artifact-graph/index" ++> src.commands.workflow.templates {
         ArtifactGraph,
         getSchemaDir,
         resolveSchema,
     }
-    "src/core/artifact-graph/resolver" --> src.commands.workflow.templates;
-    "src/utils/file-system" --> src.commands.workflow.templates { FileSystemUtils }
-    src.commands.workflow.shared --> src.commands.workflow.templates {
+    "src/core/artifact-graph/resolver" ++> src.commands.workflow.templates {
+        getProjectSchemasDir,
+        getUserSchemasDir,
+    }
+    "src/utils/file-system" ++> src.commands.workflow.templates { FileSystemUtils }
+    src.commands.workflow.shared ++> src.commands.workflow.templates {
         DEFAULT_SCHEMA,
         validateSchemaExists,
     }
+    src.host ++> src.commands.workflow.templates { js_error, rec }
+    src.lazy ++> src.commands.workflow.templates { load }
     "src/commands/shared-output" ++> src.commands.workset {
         asErrorMessage,
         emitFailure,
@@ -4356,10 +4332,48 @@ graph import {
     src.utils.ci ++> src.telemetry.index { isCiEnvironment }
     src.host ++> src.utils.interactive { at, kind, owns, rec, truthy }
     src.lazy ++> src.utils.interactive { load }
-    "src/core/artifact-graph/resolver" --> "test/core/artifact-graph/resolver.test";
-    src.core.archive --> src.cli.index;
-    src.commands.spec --> src.cli.commands.spec;
-    src.core.store.foundation --> "test/core/root-selection.test";
-    src.core.config --> "test/core/update.test";
-    "src/core/version-check" --> "test/core/version-check.test";
+    "src/core/artifact-graph/resolver" --> "test/core/artifact-graph/resolver.test" {
+        SchemaLoadError,
+        getPackageSchemasDir,
+        getProjectSchemasDir,
+        getSchemaDir,
+        getUserSchemasDir,
+        isSchemaDir,
+        listSchemas,
+        listSchemasWithInfo,
+        resolveSchema,
+    }
+    src.core.archive --> src.cli.index { ArchiveOptions }
+    src.commands.spec --> src.cli.commands.spec { ShowOptions }
+    src.core.store.foundation --> "test/core/root-selection.test" {
+        writeStoreMetadataState,
+        writeStoreRegistryState,
+    }
+    src.core.config --> "test/core/update.test" { OPENSPEC_MARKERS }
+    "src/core/version-check" --> "test/core/version-check.test" {
+        buildCliUpdateLines,
+        buildUpgradeCommandLines,
+        buildVersionReportLines,
+        canSelfUpgrade,
+        checkForCliUpdate,
+        compareVersions,
+        detectPackageManager,
+        displayCliUpdateNote,
+        getAvailableCliUpdate,
+        getCliInstallInfo,
+        getCliUpdateCommand,
+        getInstallDir,
+        isEphemeralRunnerInstall,
+        isNpmGlobalInstall,
+        isProjectLocalInstall,
+        isSourceCheckout,
+        npmGlobalRoots,
+        npmPrefixFromInstallDir,
+        offerCliUpgrade,
+        readCliVersion,
+        registryUrl,
+        rerunUpdateWithUpgradedCli,
+        shouldOfferUpgrade,
+        upgradedBinPath,
+    }
 }
