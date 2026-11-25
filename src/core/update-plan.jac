@@ -42,15 +42,20 @@ glob realFileOps: any = rec(
 
 def:priv chain(start: str) -> list[str] {
     out = [start];
-    while path.dirname(out[-1]) != out[-1] {
-        out.append(path.dirname(out[-1]));
+    current = start;
+    parent = path.dirname(current);
+    while parent != current {
+        out.append(parent);
+        current = parent;
+        parent = path.dirname(current);
     }
     return out;
 }
 
 def:priv isLink(target: str) -> bool {
     try {
-        return fs.lstatSync(target).isSymbolicLink();
+        stats = fs.lstatSync(target, rec(throwIfNoEntry=False));
+        return stats is not None and stats.isSymbolicLink();
     } except Exception {
         return False;
     }
@@ -345,7 +350,10 @@ obj UpdatePlanRecorder(globalThis.Object) {
         }
         if staged is None {
             try {
-                return ("directory" if fs.statSync(target).isDirectory() else "file", True);
+                stats = fs.statSync(target, rec(throwIfNoEntry=False));
+                if stats is not None {
+                    return ("directory" if stats.isDirectory() else "file", True);
+                }
             } except Exception as e {
                 if at(js_error(e), "code") not in ["ENOENT", "ENOTDIR"] {
                     raise js_error(e);
