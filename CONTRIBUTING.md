@@ -35,28 +35,32 @@ Opening pull requests is limited to maintainers, so wait for an invitation on th
 
 ## Development setup
 
-You need Node 22.20.0+ and pnpm.
+OpenSpec's source is [Jac](https://github.com/jaseci-labs/neojac), compiled to JavaScript by the `neojac` toolchain (Linux and macOS; it carries its own Node). The published package and the standalone binaries are plain JavaScript and run anywhere Node 22.20.0+ does.
 
 ```bash
-pnpm install
-pnpm build              # tests run against the build output
-pnpm test
-pnpm exec tsc --noEmit
-pnpm lint
+curl -fsSL https://github.com/jaseci-labs/neojac/releases/latest/download/install.sh | bash -s -- --version 0.5.1
+neojac install          # npm packages, from jac.toml; writes package.json
+neojac check            # types, imports and lint of every Jac module
+neojac fmt src          # the one layout; CI runs `neojac fmt --check`
+neojac test             # builds, then runs the vitest suite on what neojac emits
 ```
 
-Those four commands are what CI runs, so a green local run means a green CI run.
+What CI runs, in order: `neojac check`, `neojac fmt --check src archwire.jac`, then the suite on the tree `neojac npm run build` lays out, on Linux, macOS and Windows.
 
-Run `pnpm changeset` if your change affects users, and commit the file it generates.
+- **Where things are:** each module is `src/<path>.jac`. `jac.toml` replaces `package.json` (neojac writes `package.json` from it; don't edit or commit that file). `archwire.jac` holds every import between the project's modules as a wire; `neojac fmt --fix archwire.jac` rewrites the wires from the sources. `src/host.jac` holds the small helpers for JavaScript values that Jac code shares, and `src/lazy.js` loads npm packages on first use.
+- **Running the CLI from source:** `neojac npm run dev:cli -- <args>`.
+- **Tests** stay in TypeScript under `test/` and import modules by their old `.js` paths, which neojac serves from forwarders. `neojac npx vitest run <file>` runs one file.
+
+Run `neojac npx changeset` if your change affects users, and commit the file it generates.
 
 ### Keep the CLI's startup fast
 
-Editors, agents and OpenSpec Desktop run the CLI many times, and each call pays for every module it loads before the command runs. Before this rule, `openspec --version` loaded 485 modules: about 0.5 s per call on a Windows machine. So a command loads only the command definitions and its own code:
+Editors, agents and OpenSpec Desktop run the CLI many times, and each call pays for what it loads before the command runs. So a command loads only the command definitions and its own code:
 
-- **Definitions** (name, options, help text) go in `src/cli/index.ts` or `src/cli/commands/<name>.ts`. Import nothing heavy there: no zod, yaml, tinyglobby, ora, and no other command's code.
-- **The command's code** goes in `src/commands/<name>.ts` or `src/core/`, loaded inside the action with `await import()`.
+- **Definitions** (name, options, help text) go in `src/cli/index.jac` or `src/cli/commands/<name>.jac`. The command's code is imported inside the action function (an import in a code body), with its `++>` wire in `archwire.jac`.
+- **npm packages** (zod, yaml, tinyglobby, ora, chalk, `@inquirer/*`...) never get a top-level import: neojac loads every Jac module as the CLI starts, so a module takes a package through `need`/`load`/`pick` from `src/lazy.js`, where it is used. Add a new package to the tables there, so bundlers see it.
 
-`test/cli-e2e/startup-modules.test.ts` checks which modules each command loads, and fails if a definition starts pulling in an implementation. When you add a command, add it to that test's list.
+`test/cli-e2e/startup-modules.test.ts` checks which packages and command modules each command loads. When you add a command, add it to that test's list.
 
 ## PR checklist
 
