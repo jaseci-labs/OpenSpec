@@ -1735,7 +1735,17 @@ graph import {
         resolveArtifactOutputs,
     }
     "src/utils/file-system" --> "test/core/artifact-graph/outputs.test" { FileSystemUtils }
-    "src/core/artifact-graph/resolver" --> "test/core/artifact-graph/resolver.test";
+    "src/core/artifact-graph/resolver" --> "test/core/artifact-graph/resolver.test" {
+        SchemaLoadError,
+        getPackageSchemasDir,
+        getProjectSchemasDir,
+        getSchemaDir,
+        getUserSchemasDir,
+        isSchemaDir,
+        listSchemas,
+        listSchemasWithInfo,
+        resolveSchema,
+    }
     "src/core/artifact-graph/schema" --> "test/core/artifact-graph/schema-apply-references.test" {
         SchemaValidationError,
         findApplyTracksWarning,
@@ -2383,7 +2393,10 @@ graph import {
     "src/core/templates/workflows/project-root" --> "test/core/root-selection.test";
     "test/helpers/fake-tool" --> "test/core/root-selection.test" { createFakeTool }
     "test/helpers/path-env" --> "test/core/root-selection.test" { withPrependedPathEnv }
-    src.core.store.foundation --> "test/core/root-selection.test";
+    src.core.store.foundation --> "test/core/root-selection.test" {
+        writeStoreMetadataState,
+        writeStoreRegistryState,
+    }
     src.core.store.git --> "test/core/root-selection.test" { envWithoutGitRepoLocation }
     "test/helpers/run-cli" --> "test/core/router-skill.test" { cliProjectRoot, runCLI }
     "src/core/shared/ide-restart" --> "test/core/shared-ide-restart.test" {
@@ -2855,7 +2868,7 @@ graph import {
     "src/utils/file-system" --> "test/core/update.test" { FileSystemUtils }
     "test/helpers/released-codex-prompt" --> "test/core/update.test" { releasedCodexPrompt }
     "test/helpers/store-git" --> "test/core/update.test" { isolatedGitEnv }
-    src.core.config --> "test/core/update.test";
+    src.core.config --> "test/core/update.test" { OPENSPEC_MARKERS }
     src.core.init --> "test/core/update.test" { InitCommand }
     src.core.profiles --> "test/core/update.test" { ALL_WORKFLOWS }
     src.core.shared.index --> "test/core/update.test" { getCommandContents }
@@ -2917,7 +2930,32 @@ graph import {
     src.core.validation.validator --> "test/core/validation.unknown-metadata-keys.test" {
         Validator,
     }
-    "src/core/version-check" --> "test/core/version-check.test";
+    "src/core/version-check" --> "test/core/version-check.test" {
+        buildCliUpdateLines,
+        buildUpgradeCommandLines,
+        buildVersionReportLines,
+        canSelfUpgrade,
+        checkForCliUpdate,
+        compareVersions,
+        detectPackageManager,
+        displayCliUpdateNote,
+        getAvailableCliUpdate,
+        getCliInstallInfo,
+        getCliUpdateCommand,
+        getInstallDir,
+        isEphemeralRunnerInstall,
+        isNpmGlobalInstall,
+        isProjectLocalInstall,
+        isSourceCheckout,
+        npmGlobalRoots,
+        npmPrefixFromInstallDir,
+        offerCliUpgrade,
+        readCliVersion,
+        registryUrl,
+        rerunUpdateWithUpgradedCli,
+        shouldOfferUpgrade,
+        upgradedBinPath,
+    }
     src.core.view --> "test/core/view.test" { ViewCommand }
     "src/core/available-tools" --> "test/core/warp.test" { getAvailableTools }
     "src/core/command-generation/registry" --> "test/core/warp.test" { CommandAdapterRegistry }
@@ -3104,7 +3142,7 @@ graph import {
         schemaValidateCommand,
         schemaWhichCommand,
     }
-    src.commands.spec --> src.cli.commands.spec;
+    src.commands.spec --> src.cli.commands.spec { ShowOptions }
     "src/commands/shared-output" ++> src.cli.commands.store { printJson }
     "src/core/completions/command-registry" ++> src.cli.commands.store { COMMAND_REGISTRY }
     src.commands.store ++> src.cli.commands.store { runStoreAction }
@@ -3146,7 +3184,7 @@ graph import {
     src.commands.workflow.schemas --> src.cli.index;
     src.commands.workflow.status --> src.cli.index;
     src.commands.workflow.templates --> src.cli.index;
-    src.core.archive --> src.cli.index;
+    src.core.archive --> src.cli.index { ArchiveOptions }
     src.core.config --> src.cli.index;
     src.core.init --> src.cli.index;
     src.core.list --> src.cli.index;
@@ -3709,11 +3747,11 @@ graph import {
         writeStoreMetadataState,
         writeStoreRegistryState,
     }
-    "src/core/available-tools" --> src.core.init { getAvailableTools }
-    "src/core/command-surface" --> src.core.init { shouldReconcileCommandFilesForTool }
-    "src/core/config-prompts" --> src.core.init { serializeConfig }
-    "src/core/file-view" --> src.core.init { DISK_VIEW }
-    "src/core/github-copilot/cloud-agent" --> src.core.init {
+    "src/core/available-tools" ++> src.core.init { getAvailableTools }
+    "src/core/command-surface" ++> src.core.init { shouldReconcileCommandFilesForTool }
+    "src/core/config-prompts" ++> src.core.init { serializeConfig }
+    "src/core/file-view" ++> src.core.init { DISK_VIEW }
+    "src/core/github-copilot/cloud-agent" ++> src.core.init {
         findUnmanagedCloudFiles,
         hasExistingManagedCloudFiles,
         listManagedCloudFiles,
@@ -3722,10 +3760,9 @@ graph import {
         removeCopilotCloudFiles,
         writeCopilotCloudFiles,
     }
-    "src/core/global-config" --> src.core.init { Delivery, Profile, getGlobalConfig }
-    "src/core/global-skills" --> src.core.init {
+    "src/core/global-config" ++> src.core.init { getGlobalConfig }
+    "src/core/global-skills" ++> src.core.init {
         SKILL_SCOPES,
-        SkillScope,
         describeRemovedSkills,
         describeSkillsError,
         installGlobalSkills,
@@ -3734,9 +3771,8 @@ graph import {
         readGlobalSkills,
         supportsGlobalSkills,
     }
-    "src/core/known-projects" --> src.core.init { rememberProject }
-    "src/core/legacy-cleanup" --> src.core.init {
-        LegacyDetectionResult,
+    "src/core/known-projects" ++> src.core.init { rememberProject }
+    "src/core/legacy-cleanup" ++> src.core.init {
         cleanupLegacyArtifacts,
         detectLegacyArtifacts,
         formatCleanupSummary,
@@ -3746,42 +3782,41 @@ graph import {
         omitGlobalLegacyPromptFiles,
         pickGlobalLegacyPromptFiles,
     }
-    "src/core/onboarding-commands" --> src.core.init { formatOptionalWorkflowsNote }
-    "src/core/openspec-root" --> src.core.init { ANCHORED_OPENSPEC_DIRS, ensureDirectoryAnchor }
-    "src/core/planning-home" --> src.core.init { findRepoPlanningRootSync }
-    "src/core/project-config" --> src.core.init {
+    "src/core/onboarding-commands" ++> src.core.init { formatOptionalWorkflowsNote }
+    "src/core/openspec-root" ++> src.core.init { ANCHORED_OPENSPEC_DIRS, ensureDirectoryAnchor }
+    "src/core/planning-home" ++> src.core.init { findRepoPlanningRootSync }
+    "src/core/project-config" ++> src.core.init {
         MAX_CONTEXT_SIZE,
         classifyOpenSpecDir,
         readProjectConfig,
         storePointerProblem,
     }
-    "src/core/project-skills-scope" --> src.core.init { forgetProjectSkills }
-    "src/core/released-output-sweep" --> src.core.init { pruneEmptyParents }
-    "src/core/retired-tools" --> src.core.init {
+    "src/core/project-skills-scope" ++> src.core.init { forgetProjectSkills }
+    "src/core/released-output-sweep" ++> src.core.init { pruneEmptyParents }
+    "src/core/retired-tools" ++> src.core.init {
         cleanUpRetiredTools,
         findRetiredTool,
         formatRetiredToolCleanup,
         formatRetiredToolError,
     }
-    "src/core/root-selection" --> src.core.init { resolveOpenSpecRoot }
-    "src/core/shared/command-reconcile" --> src.core.init {
+    "src/core/root-selection" ++> src.core.init { resolveOpenSpecRoot }
+    "src/core/shared/command-reconcile" ++> src.core.init {
         classifyCommandFiles,
         formatKeptCommandFiles,
         reconcileCommandFiles,
     }
-    "src/core/shared/shared-skill-install" --> src.core.init { installSharedSkills }
-    "src/core/shared/skill-paths" --> src.core.init { usesSharedSkills }
-    "src/core/update-plan" --> src.core.init { UpdatePlanRecorder, realFileOps }
-    "src/prompts/searchable-multi-select" --> src.core.init;
-    "src/ui/welcome-screen" --> src.core.init;
-    "src/utils/command-references" --> src.core.init {
+    "src/core/shared/shared-skill-install" ++> src.core.init { installSharedSkills }
+    "src/core/shared/skill-paths" ++> src.core.init { usesSharedSkills }
+    "src/core/update-plan" ++> src.core.init { UpdatePlanRecorder, realFileOps }
+    "src/prompts/searchable-multi-select" ++> src.core.init { searchableMultiSelect }
+    "src/ui/welcome-screen" ++> src.core.init { showWelcomeScreen }
+    "src/utils/command-references" ++> src.core.init {
         getSkillReferenceTransformer,
         transformToSkillReferences,
         usesNaturalLanguageSkillReferences,
     }
-    "src/utils/file-system" --> src.core.init { FileSystemUtils }
-    src.core.config --> src.core.init {
-        AIToolOption,
+    "src/utils/file-system" ++> src.core.init { FileSystemUtils }
+    src.core.config ++> src.core.init {
         AI_TOOLS,
         OPENSPEC_DIR_NAME,
         SKILL_LINKED_TOOL_IDS,
@@ -3790,7 +3825,7 @@ graph import {
         resolveToolIdAlias,
         universalToolFallbackHint,
     }
-    src.core.migration --> src.core.init {
+    src.core.migration ++> src.core.init {
         computeProfileMigration,
         describeLegacyMigration,
         hasMovableContent,
@@ -3799,9 +3834,8 @@ graph import {
         migrateLegacyToolDirs,
         scanInstalledWorkflows,
     }
-    src.core.profiles --> src.core.init { getProfileWorkflows, withRouter }
-    src.core.shared.index --> src.core.init {
-        ToolSkillStatus,
+    src.core.profiles ++> src.core.init { getProfileWorkflows, withRouter }
+    src.core.shared.index ++> src.core.init {
         formatIdeRestart,
         getConfiguredTools,
         getSkillTemplates,
@@ -3809,8 +3843,21 @@ graph import {
         getToolsWithSkillsDir,
         toolSupportsSkills,
     }
-    src.core.styles.palette --> src.core.init { PALETTE }
-    src.utils.interactive --> src.core.init { isInteractive }
+    src.core.styles.palette ++> src.core.init { PALETTE }
+    src.host ++> src.core.init {
+        at,
+        found,
+        jsAsync,
+        js_error,
+        kind,
+        merge,
+        missing,
+        promise,
+        rec,
+        truthy,
+    }
+    src.lazy ++> src.core.init { load, need, packageRoot, pick }
+    src.utils.interactive ++> src.core.init { isInteractive }
     "src/core/parsers/markdown-parser" ++> src.core.list { MarkdownParser }
     "src/utils/nested-change" ++> src.core.list { describeNestedChange, findNestedChanges }
     "src/utils/spec-discovery" ++> src.core.list { discoverSpecFiles }
@@ -4115,11 +4162,10 @@ graph import {
     }
     src.host ++> src.core.templates.workflows.propose { rec }
     src.host ++> src.core.templates.workflows.router { rec }
-    "src/core/available-tools" --> src.core.update { getAvailableTools }
-    "src/core/command-surface" --> src.core.update { shouldReconcileCommandFilesForTool }
-    "src/core/file-view" --> src.core.update { DISK_VIEW, FileView }
-    "src/core/github-copilot/cloud-agent" --> src.core.update {
-        CopilotCloudFileOps,
+    "src/core/available-tools" ++> src.core.update { getAvailableTools }
+    "src/core/command-surface" ++> src.core.update { shouldReconcileCommandFilesForTool }
+    "src/core/file-view" ++> src.core.update { DISK_VIEW }
+    "src/core/github-copilot/cloud-agent" ++> src.core.update {
         findUnmanagedCloudFiles,
         includesGitHubCopilot,
         isCopilotCloudEnabled,
@@ -4127,18 +4173,21 @@ graph import {
         removeCopilotCloudFiles,
         writeCopilotCloudFiles,
     }
-    "src/core/global-config" --> src.core.update {
-        Delivery,
-        Profile,
+    "src/core/global-config" ++> src.core.update {
         getGlobalConfig,
         getGlobalConfigPath,
         serializeGlobalConfig,
     }
-    "src/core/global-skills" --> src.core.update;
-    "src/core/known-projects" --> src.core.update { rememberProject }
-    "src/core/legacy-cleanup" --> src.core.update {
-        LegacyCleanupOps,
-        LegacyDetectionResult,
+    "src/core/global-skills" ++> src.core.update {
+        describeRemovedSkills,
+        describeSkillsError,
+        installGlobalSkills,
+        isHomeFolder,
+        projectHasOwnSkills,
+        readGlobalSkills,
+    }
+    "src/core/known-projects" ++> src.core.update { rememberProject }
+    "src/core/legacy-cleanup" ++> src.core.update {
         cleanupLegacyArtifacts,
         detectLegacyArtifacts,
         findEditedLegacyGlobalPrompts,
@@ -4154,72 +4203,55 @@ graph import {
         omitToolLegacyArtifacts,
         pickGlobalLegacyPromptFiles,
     }
-    "src/core/onboarding-commands" --> src.core.update {
+    "src/core/onboarding-commands" ++> src.core.update {
         formatOptionalWorkflowsNote,
         getOnboardingCommands,
     }
-    "src/core/profile-sync-drift" --> src.core.update {
+    "src/core/profile-sync-drift" ++> src.core.update {
         getConfiguredToolsForProfileSync,
         getToolsNeedingProfileSync,
     }
-    "src/core/project-skills-scope" --> src.core.update {
+    "src/core/project-skills-scope" ++> src.core.update {
         keepsProjectSkills,
         rememberProjectSkills,
     }
-    "src/core/released-output-sweep" --> src.core.update {
+    "src/core/released-output-sweep" ++> src.core.update {
         findStaleReleasedFiles,
         pruneEmptyParents,
     }
-    "src/core/retired-tools" --> src.core.update { cleanUpRetiredTools, formatRetiredToolCleanup }
-    "src/core/shared-skill-target" --> src.core.update { isToolListed }
-    "src/core/shared/command-reconcile" --> src.core.update {
+    "src/core/retired-tools" ++> src.core.update { cleanUpRetiredTools, formatRetiredToolCleanup }
+    "src/core/shared-skill-target" ++> src.core.update { isToolListed }
+    "src/core/shared/command-reconcile" ++> src.core.update {
         formatKeptCommandFiles,
         reconcileCommandFiles,
     }
-    "src/core/shared/generated-fingerprint" --> src.core.update { normalizeGeneratedFile }
-    "src/core/shared/shared-skill-install" --> src.core.update {
-        SharedSkillInstallResult,
-        installSharedSkills,
-    }
-    "src/core/shared/skill-paths" --> src.core.update { resolveSkillLinkDir, usesSharedSkills }
-    "src/core/skill-installer" --> src.core.update { expectedSkillFiles, projectSkillText }
-    "src/core/update-plan" --> src.core.update {
-        UpdateFileOps,
-        UpdatePlan,
-        UpdatePlanRecorder,
-        realFileOps,
-    }
-    "src/prompts/searchable-multi-select" --> src.core.update;
-    "src/utils/command-references" --> src.core.update {
+    "src/core/shared/generated-fingerprint" ++> src.core.update { normalizeGeneratedFile }
+    "src/core/shared/shared-skill-install" ++> src.core.update { installSharedSkills }
+    "src/core/shared/skill-paths" ++> src.core.update { resolveSkillLinkDir, usesSharedSkills }
+    "src/core/skill-installer" ++> src.core.update { expectedSkillFiles, projectSkillText }
+    "src/core/update-plan" ++> src.core.update { UpdatePlanRecorder, realFileOps }
+    "src/prompts/searchable-multi-select" ++> src.core.update { searchableMultiSelect }
+    "src/utils/command-references" ++> src.core.update {
         getSkillReferenceTransformer,
         transformToSkillReferences,
     }
-    "src/utils/file-system" --> src.core.update { FileSystemUtils }
-    src.core.config --> src.core.update { AI_TOOLS, OPENSPEC_DIR_NAME }
-    src.core.init --> src.core.update;
-    src.core.migration --> src.core.update {
-        LEGACY_TOOL_ROOTS,
-        LegacyToolMigration,
-        applyProfileMigration,
-        computeProfileMigration,
+    "src/utils/file-system" ++> src.core.update { FileSystemUtils }
+    src.core.config ++> src.core.update { AI_TOOLS, OPENSPEC_DIR_NAME }
+    src.core.init ++> src.core.update { InitCommand }
+    src.core.migration as migration ++> src.core.update;
+    src.core.migration ++> src.core.update {
         describeLegacyMigration,
-        findLegacyToolMigrations,
         hasMovableContent,
         keptInPlaceNotice,
         legacyMigrationNotice,
-        migrateIfNeeded,
-        migrateLegacyToolDirs,
-        planLegacyToolMigrations,
-        scanInstalledWorkflows,
     }
-    src.core.profiles --> src.core.update {
+    src.core.profiles ++> src.core.update {
         CORE_WORKFLOWS,
         SKILL_WORKFLOWS,
         getProfileWorkflows,
         withRouter,
     }
-    src.core.shared.index --> src.core.update {
-        ToolVersionStatus,
+    src.core.shared.index ++> src.core.update {
         formatIdeRestart,
         getToolSkillStatus,
         getToolVersionStatus,
@@ -4227,7 +4259,9 @@ graph import {
         resolveToolSkillsDir,
         toolSupportsSkills,
     }
-    src.utils.interactive --> src.core.update { isInteractive }
+    src.host ++> src.core.update { JsNull, at, jsAsync, js_error, merge, missing, rec, truthy }
+    src.lazy ++> src.core.update { load, need, packageRoot, pick }
+    src.utils.interactive ++> src.core.update { isInteractive }
     src.host ++> src.core.validation.constants { rec }
     "src/core/artifact-graph/index" ++> src.core.validation.validator {
         getPackageSchemasDir,
@@ -4332,48 +4366,10 @@ graph import {
     src.utils.ci ++> src.telemetry.index { isCiEnvironment }
     src.host ++> src.utils.interactive { at, kind, owns, rec, truthy }
     src.lazy ++> src.utils.interactive { load }
-    "src/core/artifact-graph/resolver" --> "test/core/artifact-graph/resolver.test" {
-        SchemaLoadError,
-        getPackageSchemasDir,
-        getProjectSchemasDir,
-        getSchemaDir,
-        getUserSchemasDir,
-        isSchemaDir,
-        listSchemas,
-        listSchemasWithInfo,
-        resolveSchema,
-    }
-    src.core.archive --> src.cli.index { ArchiveOptions }
-    src.commands.spec --> src.cli.commands.spec { ShowOptions }
-    src.core.store.foundation --> "test/core/root-selection.test" {
-        writeStoreMetadataState,
-        writeStoreRegistryState,
-    }
-    src.core.config --> "test/core/update.test" { OPENSPEC_MARKERS }
-    "src/core/version-check" --> "test/core/version-check.test" {
-        buildCliUpdateLines,
-        buildUpgradeCommandLines,
-        buildVersionReportLines,
-        canSelfUpgrade,
-        checkForCliUpdate,
-        compareVersions,
-        detectPackageManager,
-        displayCliUpdateNote,
-        getAvailableCliUpdate,
-        getCliInstallInfo,
-        getCliUpdateCommand,
-        getInstallDir,
-        isEphemeralRunnerInstall,
-        isNpmGlobalInstall,
-        isProjectLocalInstall,
-        isSourceCheckout,
-        npmGlobalRoots,
-        npmPrefixFromInstallDir,
-        offerCliUpgrade,
-        readCliVersion,
-        registryUrl,
-        rerunUpdateWithUpgradedCli,
-        shouldOfferUpgrade,
-        upgradedBinPath,
-    }
+    "src/core/artifact-graph/resolver" --> "test/core/artifact-graph/resolver.test";
+    src.core.archive --> src.cli.index;
+    src.commands.spec --> src.cli.commands.spec;
+    src.core.store.foundation --> "test/core/root-selection.test";
+    src.core.config --> "test/core/update.test";
+    "src/core/version-check" --> "test/core/version-check.test";
 }
