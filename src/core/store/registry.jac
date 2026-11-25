@@ -1,5 +1,6 @@
 import from "node:fs" { promises as fs }
 import from "node:path" { default as path }
+import from "node:process" { default as process }
 
 type RegistrySnapshot = any;
 
@@ -188,7 +189,7 @@ async def registerStore(input: any) -> any {
             None if input["remote"] is None else rec(remote=input.remote),
             None if input["branch"] is None else rec(branch=input.branch),
         ),
-        input["cwd"],
+        input["cwd"] ?? process.cwd(),
     );
     committed = await commitStoreRegistration(
         merge(

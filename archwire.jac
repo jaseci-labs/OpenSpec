@@ -7,6 +7,63 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> src.core.store.operations {
+        JsNull,
+        at,
+        js_error,
+        merge,
+        missing,
+        promise,
+        rec,
+        same,
+        truthy,
+    }
+    src.core.store.errors ++> src.core.store.operations { StoreError, makeStoreDiagnostic }
+    "src/utils/file-system" ++> src.core.store.operations { FileSystemUtils }
+    "src/core/project-config" ++> src.core.store.operations {
+        classifyOpenSpecDir,
+        storePointerProblem,
+    }
+    "src/core/openspec-root" ++> src.core.store.operations {
+        ANCHORED_OPENSPEC_DIRS,
+        DIRECTORY_ANCHOR_FILE_NAME,
+        OPENSPEC_ROOT_DIR,
+        ensureOpenSpecRoot,
+        inspectOpenSpecRoot,
+        rollbackCreatedPaths,
+    }
+    src.core.store.foundation ++> src.core.store.operations {
+        STORE_METADATA_DIR_NAME,
+        getStoreMetadataDir,
+        getStoreMetadataPath,
+        getStoreRegistryPath,
+        listStoreRegistryEntries,
+        readOptionalStoreMetadataState,
+        readStoreRegistryState,
+        resolveGitStoreBackendConfig,
+        validateStoreId,
+        writeStoreMetadataState,
+    }
+    src.core.store.git ++> src.core.store.operations {
+        GIT_EXEC_OPTIONS,
+        assertGitCommitIdentity,
+        commitStoreFiles,
+        gitDirectoryHasTrackedFiles,
+        gitHasCommits,
+        gitHasRemote,
+        gitHasUncommittedChanges,
+        gitOriginUrl,
+        initGitRepository,
+        isGitRepositoryAtRoot,
+    }
+    src.core.store.registry ++> src.core.store.operations {
+        assertNoRegisteredStoreConflict,
+        commitStoreRegistration,
+        getRegisteredStore,
+        getStoreRootForBackend,
+        listRegisteredStores,
+        unregisterStoreRegistration,
+    }
     src.host ++> src.core.store.registry { JsNull, at, js_error, merge, missing, rec, same, truthy }
     src.core.store.errors ++> src.core.store.registry { StoreError }
     "src/utils/file-system" ++> src.core.store.registry { FileSystemUtils }
@@ -982,61 +1039,6 @@ graph import {
     src.core.store.errors --> src.core.store.index;
     src.core.store.registry --> src.core.store.index;
     src.core.store.operations --> src.core.store.index;
-    "src/utils/file-system" --> src.core.store.operations { FileSystemUtils }
-    "src/core/project-config" --> src.core.store.operations {
-        classifyOpenSpecDir,
-        storePointerProblem,
-    }
-    "src/core/openspec-root" --> src.core.store.operations {
-        ANCHORED_OPENSPEC_DIRS,
-        CreatedPathLedgerEntry,
-        DIRECTORY_ANCHOR_FILE_NAME,
-        OPENSPEC_ROOT_DIR,
-        OpenSpecRootInspection,
-        ensureOpenSpecRoot,
-        inspectOpenSpecRoot,
-        rollbackCreatedPaths,
-    }
-    src.core.store.foundation --> src.core.store.operations {
-        STORE_METADATA_DIR_NAME,
-        StoreGitBackendConfig,
-        StorePathOptions,
-        StoreRegistryState,
-        getStoreMetadataDir,
-        getStoreMetadataPath,
-        getStoreRegistryPath,
-        listStoreRegistryEntries,
-        readOptionalStoreMetadataState,
-        readStoreRegistryState,
-        resolveGitStoreBackendConfig,
-        validateStoreId,
-        writeStoreMetadataState,
-    }
-    src.core.store.errors --> src.core.store.operations {
-        StoreDiagnostic,
-        StoreError,
-        makeStoreDiagnostic,
-    }
-    src.core.store.git --> src.core.store.operations {
-        GIT_EXEC_OPTIONS,
-        assertGitCommitIdentity,
-        commitStoreFiles,
-        gitDirectoryHasTrackedFiles,
-        gitHasCommits,
-        gitHasRemote,
-        gitHasUncommittedChanges,
-        gitOriginUrl,
-        initGitRepository,
-        isGitRepositoryAtRoot,
-    }
-    src.core.store.registry --> src.core.store.operations {
-        assertNoRegisteredStoreConflict,
-        commitStoreRegistration,
-        getRegisteredStore,
-        getStoreRootForBackend,
-        listRegisteredStores,
-        unregisterStoreRegistration,
-    }
     src.core.index --> "test/cli-e2e/capstone-journeys.test" { getGlobalDataDir, registerStore }
     "test/helpers/run-cli" --> "test/cli-e2e/capstone-journeys.test" { runCLI }
     "test/helpers/openspec-fixtures" --> "test/cli-e2e/capstone-journeys.test" {
