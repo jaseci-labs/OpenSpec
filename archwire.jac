@@ -7,6 +7,13 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> src.core.styles.palette { rec }
+    src.host ++> "src/core/change-status-policy" { rec, truthy }
+    src.host ++> "src/commands/shared-output" { kind, merge, rec, truthy }
+    src.core.store.errors ++> "src/commands/shared-output" { StoreError }
+    src.host ++> src.commands.feedback { at, found, js_error, missing, rec, sub, truthy }
+    src.host ++> src.core.templates.workflows.feedback { rec }
+    src.host ++> src.core.templates.workflows.router { rec }
     src.host ++> src.core.store.errors { merge, rec }
     src.host ++> src.core.id { JsNull, rx, sub }
     src.core.validation.constants --> "src/core/schemas/base.schema" { VALIDATION_MESSAGES }
@@ -1083,8 +1090,6 @@ graph import {
     "src/core/templates/workflows/project-root" --> src.core.templates.workflows.propose {
         PROJECT_ROOT_GUARD,
     }
-    src.core.templates.types --> src.core.templates.workflows.feedback { SkillTemplate }
-    src.core.templates.types --> src.core.templates.workflows.router { SkillTemplate }
     src.core.config --> "src/core/shared/ide-restart" { AI_TOOLS }
     "src/core/global-config" --> "src/core/shared/ide-restart" { Delivery }
     "src/utils/file-system" --> "src/core/shared/command-reconcile" { FileSystemUtils }
@@ -1390,7 +1395,6 @@ graph import {
     src.core.references --> "src/utils/change-metadata" { sanitizeInline }
     "src/core/change-metadata/schema" --> "src/core/change-metadata/index";
     src.core.id --> "src/core/change-metadata/schema" { isKebabId }
-    "src/core/planning-home" --> "src/core/change-status-policy" { PlanningHome }
     "src/utils/nested-change" --> src.commands.workflow.shared {
         describeNestedChange,
         findNestedChangesIn,
@@ -1731,7 +1735,6 @@ graph import {
     }
     "src/core/profile-sync-drift" --> src.commands.config;
     src.core.update --> src.commands.config;
-    src.core.store.errors --> "src/commands/shared-output" { StoreDiagnostic, StoreError }
     "src/utils/file-system" --> src.core.update { FileSystemUtils }
     "src/utils/command-references" --> src.core.update {
         getSkillReferenceTransformer,
