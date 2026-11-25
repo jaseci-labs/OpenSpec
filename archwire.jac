@@ -7,6 +7,31 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/ui/welcome-screen" { rec, merge, at, same, truthy }
+    src.lazy ++> "src/ui/welcome-screen" { load, pick }
+    "src/ui/ascii-patterns" ++> "src/ui/welcome-screen" { WELCOME_ANIMATION }
+    "src/core/onboarding-commands" ++> "src/ui/welcome-screen" { getOnboardingCommands }
+    src.host ++> src.telemetry.index { JsNull, rec, at, same, truthy, promise }
+    "src/core/global-config" ++> src.telemetry.index { getGlobalConfig, isGlobalConfigUnreadable }
+    src.utils.ci ++> src.telemetry.index { isCiEnvironment }
+    src.telemetry.config ++> src.telemetry.index { getTelemetryConfig, updateTelemetryConfig }
+    "src/telemetry/opt-out" ++> src.telemetry.index { isTelemetryOptedOutByEnv }
+    src.host ++> "src/core/validation/purpose-placeholder" { JsNull, rec, sub, found }
+    "src/core/parsers/code-fence" ++> "src/core/validation/purpose-placeholder" {
+        buildCodeFenceMask,
+    }
+    src.core.validation.constants ++> "src/core/validation/purpose-placeholder" {
+        PURPOSE_PLACEHOLDER_PREFIX,
+        PURPOSE_PLACEHOLDER_SUFFIX,
+    }
+    src.host ++> "src/utils/spec-path-containment" { js_error }
+    "src/core/project-dir" ++> "src/utils/spec-path-containment" { OPENSPEC_DIR_NAME }
+    "src/utils/file-system" ++> "src/utils/spec-path-containment" { FileSystemUtils }
+    src.host ++> "src/utils/spec-discovery" { rec, at, js_error }
+    "src/utils/spec-path-containment" ++> "src/utils/spec-discovery" { assertDiscoveredSpecFile }
+    "src/core/parsers/requirement-blocks" ++> "src/utils/spec-discovery" { parseDeltaSpec }
+    src.host ++> "src/utils/item-discovery" { rec }
+    "src/utils/spec-discovery" ++> "src/utils/item-discovery" { discoverSpecFiles }
     src.host ++> "src/prompts/searchable-multi-select" { JsNull, kind, merge, missing, rec, same }
     src.lazy ++> "src/prompts/searchable-multi-select" { load, pick }
     src.host ++> "src/core/schemas/base.schema" { rec }
@@ -455,11 +480,6 @@ graph import {
     "src/core/config-prompts" --> "src/core/openspec-root" { serializeConfig }
     src.core.store.errors --> "src/core/openspec-root" { StoreDiagnostic, makeStoreDiagnostic }
     src.core.store.foundation --> "src/core/project-config" { getStoreMetadataPath }
-    "src/utils/spec-discovery" --> "src/utils/item-discovery" { discoverSpecFiles }
-    "src/utils/spec-path-containment" --> "src/utils/spec-discovery" { assertDiscoveredSpecFile }
-    "src/core/parsers/requirement-blocks" --> "src/utils/spec-discovery" { parseDeltaSpec }
-    "src/core/project-dir" --> "src/utils/spec-path-containment" { OPENSPEC_DIR_NAME }
-    "src/utils/file-system" --> "src/utils/spec-path-containment" { FileSystemUtils }
     src.core.store.foundation --> src.core.store.index;
     src.core.store.errors --> src.core.store.index;
     src.core.store.registry --> src.core.store.index;
@@ -1629,13 +1649,6 @@ graph import {
     "src/utils/line-endings" --> "src/core/specs-apply" { matchLineEnding }
     "src/utils/task-progress" --> "src/core/validation/task-numbering" { parseTaskLines }
     "src/utils/task-progress" --> "src/core/validation/task-checkboxes" { parseTaskLines }
-    "src/core/parsers/code-fence" --> "src/core/validation/purpose-placeholder" {
-        buildCodeFenceMask,
-    }
-    src.core.validation.constants --> "src/core/validation/purpose-placeholder" {
-        PURPOSE_PLACEHOLDER_PREFIX,
-        PURPOSE_PLACEHOLDER_SUFFIX,
-    }
     "test/helpers/run-cli" --> "test/commands/artifact-workflow.test" { runCLI }
     "src/utils/file-system" --> "test/commands/artifact-workflow.test" { FileSystemUtils }
     "src/utils/change-metadata" --> "test/commands/change-initiative-link.test" {
@@ -2045,8 +2058,6 @@ graph import {
     }
     "src/ui/welcome-screen" --> src.core.init;
     "src/prompts/searchable-multi-select" --> src.core.init;
-    "src/ui/ascii-patterns" --> "src/ui/welcome-screen" { WELCOME_ANIMATION }
-    "src/core/onboarding-commands" --> "src/ui/welcome-screen" { getOnboardingCommands }
     src.cli.commands.config --> "test/commands/config-profile.test";
     src.commands.config --> "test/commands/config-profile.test";
     "src/core/global-config" --> "test/commands/config-profile.test";
@@ -2809,10 +2820,6 @@ graph import {
     "src/core/artifact-graph/resolver" --> "src/utils/change-utils" { resolveSchema }
     "src/core/artifact-graph/outputs" --> "src/utils/change-utils" { isSpecsArtifactPath }
     "src/core/change-metadata/index" --> "src/utils/change-utils" { ChangeMetadata }
-    "src/core/global-config" --> src.telemetry.index { getGlobalConfig, isGlobalConfigUnreadable }
-    src.utils.ci --> src.telemetry.index { isCiEnvironment }
-    src.telemetry.config --> src.telemetry.index { getTelemetryConfig, updateTelemetryConfig }
-    "src/telemetry/opt-out" --> src.telemetry.index { isTelemetryOptedOutByEnv }
     "src/core/global-config" --> "src/core/completion-tip" { getGlobalConfigPath }
     "src/core/file-state" --> "src/core/completion-tip" { writeFileAtomically }
     src.utils.ci --> "src/core/completion-tip" { isCiEnvironment }
