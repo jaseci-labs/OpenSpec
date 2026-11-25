@@ -7,6 +7,22 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/commands/shared-gather" { at, missing, rec }
+    src.core.store.registry ++> "src/commands/shared-gather" { readRegistrySnapshot }
+    "src/core/project-config" ++> "src/commands/shared-gather" {
+        readProjectConfig,
+        resolveConfigFilePath,
+    }
+    src.core.references ++> "src/commands/shared-gather" { assembleReferenceIndex }
+    "src/core/openspec-root" ++> "src/commands/shared-gather" { inspectOpenSpecRoot }
+    src.host ++> "src/core/relationship-health" { JsNull, merge, missing, rec, truthy }
+    src.core.store.errors ++> "src/core/relationship-health" { makeStoreDiagnostic }
+    src.core.references ++> "src/core/relationship-health" { sanitizeInline }
+    "src/core/project-config" ++> "src/core/relationship-health" { storePointerProblem }
+    "src/core/root-selection" ++> "src/core/relationship-health" { toRootOutput }
+    src.host ++> "src/core/working-set" { merge, rec }
+    src.core.references ++> "src/core/working-set" { fetchRecipe }
+    "src/core/root-selection" ++> "src/core/working-set" { toRootOutput }
     src.host ++> "src/core/update-plan" { at, js_error, kind, rec }
     "src/utils/file-system" ++> "src/core/update-plan" { FileSystemUtils }
     "src/core/file-view" ++> "src/core/update-plan" { DISK_VIEW }
@@ -2756,34 +2772,6 @@ graph import {
         inspectRelationships,
     }
     "src/commands/shared-output" --> src.commands.doctor { emitFailure, printJson }
-    src.core.store.registry --> "src/commands/shared-gather" {
-        RegistrySnapshot,
-        readRegistrySnapshot,
-    }
-    "src/core/project-config" --> "src/commands/shared-gather" {
-        ProjectConfig,
-        readProjectConfig,
-        resolveConfigFilePath,
-    }
-    src.core.references --> "src/commands/shared-gather" {
-        ReferenceIndexEntry,
-        assembleReferenceIndex,
-    }
-    "src/core/openspec-root" --> "src/commands/shared-gather" {
-        OpenSpecRootInspection,
-        inspectOpenSpecRoot,
-    }
-    "src/core/root-selection" --> "src/commands/shared-gather" { ResolvedOpenSpecRoot }
-    src.core.store.errors --> "src/core/relationship-health" {
-        StoreDiagnostic,
-        makeStoreDiagnostic,
-    }
-    src.core.references --> "src/core/relationship-health" { ReferenceIndexEntry, sanitizeInline }
-    "src/core/project-config" --> "src/core/relationship-health" { storePointerProblem }
-    "src/core/root-selection" --> "src/core/relationship-health" {
-        ResolvedOpenSpecRoot,
-        toRootOutput,
-    }
     "src/core/completions/command-registry" --> src.cli.commands.context { COMMAND_REGISTRY }
     "src/core/completions/shared-flags" --> src.cli.commands.context { COMMON_FLAGS }
     src.commands.context --> src.cli.commands.context;
@@ -2803,9 +2791,6 @@ graph import {
     src.core.store.errors --> src.commands.context { StoreError }
     "src/commands/shared-output" --> src.commands.context { emitFailure, printJson }
     "src/commands/shared-gather" --> src.commands.context { gatherRelationshipData }
-    src.core.store.errors --> "src/core/working-set" { StoreDiagnostic }
-    src.core.references --> "src/core/working-set" { ReferenceIndexEntry, fetchRecipe }
-    "src/core/root-selection" --> "src/core/working-set" { ResolvedOpenSpecRoot, toRootOutput }
     src.commands.workflow.status --> src.commands.workflow.index {
         BATCH_STATUS_FAILURE_PAYLOAD,
         StatusOptions,
