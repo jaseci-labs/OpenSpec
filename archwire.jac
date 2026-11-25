@@ -7,6 +7,10 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/core/update-plan" { at, js_error, kind, rec }
+    "src/utils/file-system" ++> "src/core/update-plan" { FileSystemUtils }
+    "src/core/file-view" ++> "src/core/update-plan" { DISK_VIEW }
+    "src/core/shared/skill-links" ++> "src/core/update-plan" { createSkillLink, skillLinkText }
     src.host ++> "src/core/converters/json-converter" { merge, rec }
     "src/core/parsers/markdown-parser" ++> "src/core/converters/json-converter" { MarkdownParser }
     "src/core/parsers/change-parser" ++> "src/core/converters/json-converter" { ChangeParser }
@@ -1396,9 +1400,6 @@ graph import {
         resolveSkillLinkDir,
         usesSharedSkills,
     }
-    "src/utils/file-system" --> "src/core/update-plan" { FileSystemUtils }
-    "src/core/file-view" --> "src/core/update-plan" { DISK_VIEW, FileView }
-    "src/core/shared/skill-links" --> "src/core/update-plan" { createSkillLink, skillLinkText }
     "test/helpers/run-cli" --> "test/cli-e2e/validate-archived-tasks.test" { runCLI }
     src.core.index --> "test/cli-e2e/validate-findings.test" { getGlobalDataDir, registerStore }
     "test/helpers/run-cli" --> "test/cli-e2e/validate-findings.test" { runCLI }
