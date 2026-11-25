@@ -1497,7 +1497,7 @@ graph import {
         toolSupportsSkills,
         usesSharedSkills,
     }
-    "src/core/shared/tool-detection" --> src.core.shared.index {
+    include "src/core/shared/tool-detection" ++> src.core.shared.index {
         COMMAND_IDS,
         CommandId,
         SKILL_NAMES,
@@ -1513,7 +1513,7 @@ graph import {
         getToolsWithSkillsDir,
         normalizeCommandContent,
     }
-    "src/core/shared/skill-generation" --> src.core.shared.index {
+    include "src/core/shared/skill-generation" ++> src.core.shared.index {
         CommandTemplateEntry,
         SkillTemplateEntry,
         generateSkillContent,
@@ -1522,14 +1522,14 @@ graph import {
         getCommandTemplates,
         getSkillTemplates,
     }
-    "src/core/shared/skill-paths" --> src.core.shared.index {
+    include "src/core/shared/skill-paths" ++> src.core.shared.index {
         SkillCapableTool,
         getSkillCapableTools,
         hasGlobalSkillTarget,
         resolveToolSkillsDir,
         toolSupportsSkills,
     }
-    "src/core/shared/ide-restart" --> src.core.shared.index {
+    include "src/core/shared/ide-restart" ++> src.core.shared.index {
         IdeRestartSurface,
         formatIdeRestart,
         resolveIdeRestartSurface,
