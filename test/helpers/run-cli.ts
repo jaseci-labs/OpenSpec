@@ -2,13 +2,16 @@ import { type ChildProcess, spawn } from 'child_process';
 import { existsSync, promises as fs } from 'fs';
 import os from 'os';
 import path from 'path';
-import { fileURLToPath } from 'url';
+import { fileURLToPath, pathToFileURL } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const projectRoot = path.resolve(__dirname, '..', '..');
 const cliEntry = path.join(projectRoot, 'dist', 'cli', 'index.js');
+// What bin/openspec.js sets up before the CLI loads (compile cache, resolve hook), so a
+// spawned CLI starts as an installed one does.
+const cliStart = path.join(projectRoot, 'bin', 'start.mjs');
 const DEFAULT_CLI_TIMEOUT_MS = 30_000;
 // Set to a standalone binary (scripts/binary/build.mjs) to run every CLI test
 // against it instead of `node dist/cli/index.js`.
@@ -143,7 +146,7 @@ export async function runCLI(args: string[] = [], options: RunCLIOptions = {}): 
   const finalArgs = Array.isArray(args) ? args : [args];
   const [command, commandArgs] = testBinary
     ? [testBinary, finalArgs]
-    : [process.execPath, [cliEntry, ...finalArgs]];
+    : [process.execPath, ['--import', pathToFileURL(cliStart).href, cliEntry, ...finalArgs]];
   // What actually runs, so a failure names the binary when testing one.
   const invocation = [command, ...commandArgs].join(' ');
   const explicitConfigHome = options.env?.XDG_CONFIG_HOME;
