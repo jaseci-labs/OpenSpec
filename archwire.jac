@@ -7,6 +7,205 @@ graph spaces {
 }
 
 graph import {
+    "src/core/completions/shared-flags" ++> "src/core/completions/command-registry" { COMMON_FLAGS }
+    "src/core/command-generation/types" ++> "src/core/command-generation/adapters/amazon-q" {
+        commandAdapter,
+    }
+    "src/core/command-generation/yaml" ++> "src/core/command-generation/adapters/amazon-q" {
+        frontmatter,
+    }
+    "src/core/command-generation/types" ++> "src/core/command-generation/adapters/antigravity" {
+        commandAdapter,
+    }
+    "src/core/command-generation/yaml" ++> "src/core/command-generation/adapters/antigravity" {
+        frontmatter,
+    }
+    "src/core/command-generation/types" ++> "src/core/command-generation/adapters/auggie" {
+        commandAdapter,
+    }
+    "src/core/command-generation/yaml" ++> "src/core/command-generation/adapters/auggie" {
+        frontmatter,
+    }
+    "src/core/command-generation/types" ++> "src/core/command-generation/adapters/bob" {
+        commandAdapter,
+    }
+    "src/core/command-generation/yaml" ++> "src/core/command-generation/adapters/bob" {
+        frontmatter,
+    }
+    "src/core/command-generation/types" ++> "src/core/command-generation/adapters/codeassistant" {
+        commandAdapter,
+    }
+    "src/core/command-generation/yaml" ++> "src/core/command-generation/adapters/codeassistant" {
+        frontmatter,
+    }
+    "src/core/command-generation/types" ++> "src/core/command-generation/adapters/codebuddy" {
+        commandAdapter,
+    }
+    "src/core/command-generation/yaml" ++> "src/core/command-generation/adapters/codebuddy" {
+        frontmatter,
+    }
+    "src/core/command-generation/types" ++> "src/core/command-generation/adapters/codestudio" {
+        commandAdapter,
+    }
+    "src/core/command-generation/yaml" ++> "src/core/command-generation/adapters/codestudio" {
+        frontmatter,
+    }
+    "src/core/command-generation/types" ++> "src/core/command-generation/adapters/costrict" {
+        commandAdapter,
+    }
+    "src/core/command-generation/yaml" ++> "src/core/command-generation/adapters/costrict" {
+        frontmatter,
+    }
+    "src/core/command-generation/types" ++> "src/core/command-generation/adapters/crush" {
+        commandAdapter,
+    }
+    "src/core/command-generation/yaml" ++> "src/core/command-generation/adapters/crush" {
+        frontmatter,
+    }
+    "src/core/command-generation/types" ++> "src/core/command-generation/adapters/cursor" {
+        commandAdapter,
+    }
+    "src/core/command-generation/yaml" ++> "src/core/command-generation/adapters/cursor" {
+        frontmatter,
+        idField,
+    }
+    "src/core/command-generation/types" ++> "src/core/command-generation/adapters/devin" {
+        commandAdapter,
+    }
+    "src/core/command-generation/yaml" ++> "src/core/command-generation/adapters/devin" {
+        frontmatter,
+    }
+    "src/core/command-generation/types" ++> "src/core/command-generation/adapters/factory" {
+        commandAdapter,
+    }
+    "src/core/command-generation/yaml" ++> "src/core/command-generation/adapters/factory" {
+        frontmatter,
+    }
+    "src/core/command-generation/types" ++> "src/core/command-generation/adapters/gigacode" {
+        commandAdapter,
+    }
+    "src/core/command-generation/yaml" ++> "src/core/command-generation/adapters/gigacode" {
+        frontmatter,
+    }
+    "src/core/command-generation/types" ++> "src/core/command-generation/adapters/github-copilot" {
+        commandAdapter,
+    }
+    "src/core/command-generation/yaml" ++> "src/core/command-generation/adapters/github-copilot" {
+        frontmatter,
+    }
+    "src/core/command-generation/types" ++> "src/core/command-generation/adapters/iflow" {
+        commandAdapter,
+    }
+    "src/core/command-generation/yaml" ++> "src/core/command-generation/adapters/iflow" {
+        frontmatter,
+        idField,
+    }
+    "src/core/command-generation/types" ++> "src/core/command-generation/adapters/junie" {
+        commandAdapter,
+    }
+    "src/core/command-generation/yaml" ++> "src/core/command-generation/adapters/junie" {
+        frontmatter,
+    }
+    "src/core/command-generation/types" ++> "src/core/command-generation/adapters/kiro" {
+        commandAdapter,
+    }
+    "src/core/command-generation/yaml" ++> "src/core/command-generation/adapters/kiro" {
+        frontmatter,
+    }
+    "src/core/command-generation/types" ++> "src/core/command-generation/adapters/lingma" {
+        commandAdapter,
+    }
+    "src/core/command-generation/yaml" ++> "src/core/command-generation/adapters/lingma" {
+        frontmatter,
+    }
+    "src/core/command-generation/types" ++> "src/core/command-generation/adapters/qoder" {
+        commandAdapter,
+    }
+    "src/core/command-generation/yaml" ++> "src/core/command-generation/adapters/qoder" {
+        frontmatter,
+    }
+    "src/core/command-generation/types" ++> "src/core/command-generation/adapters/qwen" {
+        commandAdapter,
+    }
+    "src/core/command-generation/yaml" ++> "src/core/command-generation/adapters/qwen" {
+        frontmatter,
+    }
+    "src/core/command-generation/types" ++> "src/core/command-generation/adapters/trae" {
+        commandAdapter,
+    }
+    "src/core/command-generation/yaml" ++> "src/core/command-generation/adapters/trae" {
+        frontmatter,
+    }
+    "src/core/command-generation/types" ++> "src/core/command-generation/adapters/zcode" {
+        commandAdapter,
+    }
+    "src/core/command-generation/yaml" ++> "src/core/command-generation/adapters/zcode" {
+        frontmatter,
+    }
+    "src/core/command-generation/types" ++> "src/core/command-generation/adapters/cline" {
+        commandAdapter,
+        headedFile,
+    }
+    "src/core/command-generation/types" ++> "src/core/command-generation/adapters/roocode" {
+        commandAdapter,
+        headedFile,
+    }
+    "src/core/command-generation/types" ++> "src/core/command-generation/adapters/kilocode" {
+        commandAdapter,
+    }
+    "src/core/command-generation/types" ++> "src/core/command-generation/adapters/easycode" {
+        commandAdapter,
+    }
+    "src/core/command-generation/toml" ++> "src/core/command-generation/adapters/easycode" {
+        tomlCommandFile,
+    }
+    "src/core/command-generation/types" ++> "src/core/command-generation/adapters/gemini" {
+        commandAdapter,
+    }
+    "src/core/command-generation/toml" ++> "src/core/command-generation/adapters/gemini" {
+        tomlCommandFile,
+    }
+    "src/core/command-generation/types" ++> "src/core/command-generation/adapters/continue" {
+        commandAdapter,
+    }
+    "src/core/command-generation/yaml" ++> "src/core/command-generation/adapters/continue" {
+        frontmatter,
+        idField,
+    }
+    "src/core/command-generation/types" ++> "src/core/command-generation/adapters/pi" {
+        commandAdapter,
+        provideArguments,
+    }
+    "src/core/command-generation/yaml" ++> "src/core/command-generation/adapters/pi" { frontmatter }
+    "src/core/command-generation/types" ++> "src/core/command-generation/adapters/oh-my-pi" {
+        commandAdapter,
+    }
+    "src/core/command-generation/adapters/pi" ++> "src/core/command-generation/adapters/oh-my-pi" {
+        piAdapter,
+    }
+    "src/core/command-generation/types" ++> "src/core/command-generation/adapters/command-code" {
+        commandAdapter,
+        provideArguments,
+    }
+    src.host ++> "src/core/command-generation/adapters/command-code" { found }
+    "src/core/command-generation/types" ++> "src/core/command-generation/adapters/opencode" {
+        commandAdapter,
+        provideArguments,
+    }
+    "src/core/command-generation/yaml" ++> "src/core/command-generation/adapters/opencode" {
+        frontmatter,
+    }
+    src.host ++> "src/core/command-generation/adapters/opencode" { found }
+    "src/core/command-generation/types" ++> "src/core/command-generation/adapters/atomcode" {
+        commandAdapter,
+    }
+    src.host ++> "src/core/command-generation/adapters/atomcode" { found, rec }
+    src.lazy ++> "src/core/command-generation/adapters/atomcode" { need }
+    src.host ++> "src/core/command-generation/yaml" { kind, sub }
+    src.host ++> "src/core/command-generation/toml" { sub }
+    src.host ++> "src/core/command-generation/types" { merge, rec, sub }
+    src.host ++> "src/core/command-generation/invocation" { missing, rec }
+    src.host ++> "src/core/completions/shared-flags" { rec }
     src.lazy ++> "src/core/config-schema" { need }
     src.host ++> "src/core/config-schema" { rec, missing, kind, js_error }
     src.host ++> "src/core/file-view" { rec }
@@ -420,38 +619,6 @@ graph import {
     "src/core/command-generation/adapters/zcode" --> "src/core/command-generation/registry" {
         zcodeAdapter,
     }
-    "src/core/command-generation/types" --> "src/core/command-generation/adapters/amazon-q" {
-        CommandContent,
-        ToolCommandAdapter,
-    }
-    "src/core/command-generation/yaml" --> "src/core/command-generation/adapters/amazon-q" {
-        escapeYamlValue,
-    }
-    "src/core/command-generation/types" --> "src/core/command-generation/adapters/antigravity" {
-        CommandContent,
-        ToolCommandAdapter,
-    }
-    "src/core/command-generation/yaml" --> "src/core/command-generation/adapters/antigravity" {
-        escapeYamlValue,
-    }
-    "src/core/command-generation/types" --> "src/core/command-generation/adapters/atomcode" {
-        CommandContent,
-        ToolCommandAdapter,
-    }
-    "src/core/command-generation/types" --> "src/core/command-generation/adapters/auggie" {
-        CommandContent,
-        ToolCommandAdapter,
-    }
-    "src/core/command-generation/yaml" --> "src/core/command-generation/adapters/auggie" {
-        escapeYamlValue,
-    }
-    "src/core/command-generation/types" --> "src/core/command-generation/adapters/bob" {
-        CommandContent,
-        ToolCommandAdapter,
-    }
-    "src/core/command-generation/yaml" --> "src/core/command-generation/adapters/bob" {
-        escapeYamlValue,
-    }
     "src/core/command-generation/types" --> "src/core/command-generation/adapters/claude" {
         CommandContent,
         ToolCommandAdapter,
@@ -462,197 +629,6 @@ graph import {
     }
     "src/core/shared/allowed-tools" --> "src/core/command-generation/adapters/claude" {
         OPENSPEC_CLI_ALLOWED_TOOLS,
-    }
-    "src/core/command-generation/types" --> "src/core/command-generation/adapters/cline" {
-        CommandContent,
-        ToolCommandAdapter,
-    }
-    "src/core/command-generation/types" --> "src/core/command-generation/adapters/command-code" {
-        CommandContent,
-        ToolCommandAdapter,
-    }
-    "src/core/command-generation/types" --> "src/core/command-generation/adapters/devin" {
-        CommandContent,
-        ToolCommandAdapter,
-    }
-    "src/core/command-generation/yaml" --> "src/core/command-generation/adapters/devin" {
-        escapeYamlValue,
-        formatTagsArray,
-    }
-    "src/core/command-generation/types" --> "src/core/command-generation/adapters/codebuddy" {
-        CommandContent,
-        ToolCommandAdapter,
-    }
-    "src/core/command-generation/yaml" --> "src/core/command-generation/adapters/codebuddy" {
-        escapeYamlValue,
-    }
-    "src/core/command-generation/types" --> "src/core/command-generation/adapters/codestudio" {
-        CommandContent,
-        ToolCommandAdapter,
-    }
-    "src/core/command-generation/yaml" --> "src/core/command-generation/adapters/codestudio" {
-        escapeYamlValue,
-    }
-    "src/core/command-generation/types" --> "src/core/command-generation/adapters/continue" {
-        CommandContent,
-        ToolCommandAdapter,
-    }
-    "src/core/command-generation/yaml" --> "src/core/command-generation/adapters/continue" {
-        escapeYamlValue,
-    }
-    "src/core/command-generation/types" --> "src/core/command-generation/adapters/costrict" {
-        CommandContent,
-        ToolCommandAdapter,
-    }
-    "src/core/command-generation/yaml" --> "src/core/command-generation/adapters/costrict" {
-        escapeYamlValue,
-    }
-    "src/core/command-generation/types" --> "src/core/command-generation/adapters/crush" {
-        CommandContent,
-        ToolCommandAdapter,
-    }
-    "src/core/command-generation/yaml" --> "src/core/command-generation/adapters/crush" {
-        escapeYamlValue,
-        formatTagsArray,
-    }
-    "src/core/command-generation/types" --> "src/core/command-generation/adapters/cursor" {
-        CommandContent,
-        ToolCommandAdapter,
-    }
-    "src/core/command-generation/yaml" --> "src/core/command-generation/adapters/cursor" {
-        escapeYamlValue,
-    }
-    "src/core/command-generation/types" --> "src/core/command-generation/adapters/easycode" {
-        CommandContent,
-        ToolCommandAdapter,
-    }
-    "src/core/command-generation/toml" --> "src/core/command-generation/adapters/easycode" {
-        escapeTomlBasicString,
-        escapeTomlMultilineBasicString,
-    }
-    "src/core/command-generation/types" --> "src/core/command-generation/adapters/factory" {
-        CommandContent,
-        ToolCommandAdapter,
-    }
-    "src/core/command-generation/yaml" --> "src/core/command-generation/adapters/factory" {
-        escapeYamlValue,
-    }
-    "src/core/command-generation/types" --> "src/core/command-generation/adapters/gemini" {
-        CommandContent,
-        ToolCommandAdapter,
-    }
-    "src/core/command-generation/toml" --> "src/core/command-generation/adapters/gemini" {
-        escapeTomlBasicString,
-        escapeTomlMultilineBasicString,
-    }
-    "src/core/command-generation/types" --> "src/core/command-generation/adapters/github-copilot" {
-        CommandContent,
-        ToolCommandAdapter,
-    }
-    "src/core/command-generation/yaml" --> "src/core/command-generation/adapters/github-copilot" {
-        escapeYamlValue,
-    }
-    "src/core/command-generation/types" --> "src/core/command-generation/adapters/gigacode" {
-        CommandContent,
-        ToolCommandAdapter,
-    }
-    "src/core/command-generation/yaml" --> "src/core/command-generation/adapters/gigacode" {
-        escapeYamlValue,
-    }
-    "src/core/command-generation/types" --> "src/core/command-generation/adapters/iflow" {
-        CommandContent,
-        ToolCommandAdapter,
-    }
-    "src/core/command-generation/yaml" --> "src/core/command-generation/adapters/iflow" {
-        escapeYamlValue,
-    }
-    "src/core/command-generation/types" --> "src/core/command-generation/adapters/junie" {
-        CommandContent,
-        ToolCommandAdapter,
-    }
-    "src/core/command-generation/yaml" --> "src/core/command-generation/adapters/junie" {
-        escapeYamlValue,
-    }
-    "src/core/command-generation/types" --> "src/core/command-generation/adapters/kilocode" {
-        CommandContent,
-        ToolCommandAdapter,
-    }
-    "src/core/command-generation/types" --> "src/core/command-generation/adapters/kiro" {
-        CommandContent,
-        ToolCommandAdapter,
-    }
-    "src/core/command-generation/yaml" --> "src/core/command-generation/adapters/kiro" {
-        escapeYamlValue,
-    }
-    "src/core/command-generation/types" --> "src/core/command-generation/adapters/oh-my-pi" {
-        CommandContent,
-        ToolCommandAdapter,
-    }
-    "src/core/command-generation/yaml" --> "src/core/command-generation/adapters/oh-my-pi" {
-        escapeYamlValue,
-    }
-    "src/core/command-generation/types" --> "src/core/command-generation/adapters/opencode" {
-        CommandContent,
-        ToolCommandAdapter,
-    }
-    "src/core/command-generation/yaml" --> "src/core/command-generation/adapters/opencode" {
-        escapeYamlValue,
-    }
-    "src/core/command-generation/types" --> "src/core/command-generation/adapters/pi" {
-        CommandContent,
-        ToolCommandAdapter,
-    }
-    "src/core/command-generation/yaml" --> "src/core/command-generation/adapters/pi" {
-        escapeYamlValue,
-    }
-    "src/core/command-generation/types" --> "src/core/command-generation/adapters/codeassistant" {
-        CommandContent,
-        ToolCommandAdapter,
-    }
-    "src/core/command-generation/yaml" --> "src/core/command-generation/adapters/codeassistant" {
-        escapeYamlValue,
-    }
-    "src/core/command-generation/types" --> "src/core/command-generation/adapters/qoder" {
-        CommandContent,
-        ToolCommandAdapter,
-    }
-    "src/core/command-generation/yaml" --> "src/core/command-generation/adapters/qoder" {
-        escapeYamlValue,
-        formatTagsArray,
-    }
-    "src/core/command-generation/types" --> "src/core/command-generation/adapters/lingma" {
-        CommandContent,
-        ToolCommandAdapter,
-    }
-    "src/core/command-generation/yaml" --> "src/core/command-generation/adapters/lingma" {
-        escapeYamlValue,
-        formatTagsArray,
-    }
-    "src/core/command-generation/types" --> "src/core/command-generation/adapters/qwen" {
-        CommandContent,
-        ToolCommandAdapter,
-    }
-    "src/core/command-generation/yaml" --> "src/core/command-generation/adapters/qwen" {
-        escapeYamlValue,
-    }
-    "src/core/command-generation/types" --> "src/core/command-generation/adapters/roocode" {
-        CommandContent,
-        ToolCommandAdapter,
-    }
-    "src/core/command-generation/types" --> "src/core/command-generation/adapters/trae" {
-        CommandContent,
-        ToolCommandAdapter,
-    }
-    "src/core/command-generation/yaml" --> "src/core/command-generation/adapters/trae" {
-        escapeYamlValue,
-    }
-    "src/core/command-generation/types" --> "src/core/command-generation/adapters/zcode" {
-        CommandContent,
-        ToolCommandAdapter,
-    }
-    "src/core/command-generation/yaml" --> "src/core/command-generation/adapters/zcode" {
-        escapeYamlValue,
-        formatTagsArray,
     }
     "src/core/command-generation/types" --> "src/core/command-generation/generator" {
         CommandContent,
@@ -665,9 +641,6 @@ graph import {
     }
     "src/utils/command-references" --> "src/core/command-generation/generator" {
         transformCommandInvocations,
-    }
-    "src/core/command-generation/types" --> "src/core/command-generation/invocation" {
-        ToolCommandAdapter,
     }
     "src/core/command-surface" --> "src/utils/command-references" { CommandSurfaceCapability }
     "src/core/command-generation/invocation" --> "src/utils/command-references" {
@@ -1737,9 +1710,6 @@ graph import {
     src.core.completions.factory --> "src/core/completions/installers/powershell-installer" {
         InstallationResult,
     }
-    "src/core/completions/shared-flags" --> "src/core/completions/command-registry" { COMMON_FLAGS }
-    src.core.completions.types --> "src/core/completions/command-registry" { CommandDefinition }
-    src.core.completions.types --> "src/core/completions/shared-flags" { FlagDefinition }
     "src/utils/item-discovery" --> "src/core/completions/completion-provider" {
         getActiveChangeIds,
         getSpecIds,
