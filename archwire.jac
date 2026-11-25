@@ -7,6 +7,17 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/core/parsers/markdown-parser" { JsNull, found, matchOf, rec, sub }
+    "src/core/parsers/requirement-text" ++> "src/core/parsers/markdown-parser" {
+        buildCodeFenceMask,
+        extractRequirementText,
+        hasScenarioBody,
+    }
+    "src/core/parsers/requirement-blocks" ++> "src/core/parsers/markdown-parser" {
+        normalizeRequirementName,
+        scenarioNameFromHeaderText,
+        stripClosingSequence,
+    }
     src.host ++> "src/prompts/searchable-multi-select" { JsNull, kind, merge, missing, rec, same }
     src.lazy ++> "src/prompts/searchable-multi-select" { load, pick }
     src.host ++> "src/core/schemas/base.schema" { rec }
@@ -1562,24 +1573,6 @@ graph import {
     "src/core/artifact-graph/index" --> src.core.validation.validator {
         getPackageSchemasDir,
         getSchemaDir,
-    }
-    src.core.schemas.index --> "src/core/parsers/markdown-parser" {
-        Change,
-        Delta,
-        DeltaOperation,
-        Requirement,
-        Scenario,
-        Spec,
-    }
-    "src/core/parsers/requirement-text" --> "src/core/parsers/markdown-parser" {
-        buildCodeFenceMask,
-        extractRequirementText,
-        hasScenarioBody,
-    }
-    "src/core/parsers/requirement-blocks" --> "src/core/parsers/markdown-parser" {
-        normalizeRequirementName,
-        scenarioNameFromHeaderText,
-        stripClosingSequence,
     }
     "src/core/parsers/markdown-parser" --> "src/core/parsers/change-parser" {
         MarkdownParser,
