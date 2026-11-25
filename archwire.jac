@@ -7,6 +7,27 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/core/templates/workflows/verify-change" { rec }
+    "src/core/templates/workflows/store-selection" ++> "src/core/templates/workflows/verify-change" {
+        STORE_SELECTION_GUIDANCE,
+    }
+    "src/core/templates/workflows/project-root" ++> "src/core/templates/workflows/verify-change" {
+        PROJECT_ROOT_GUARD,
+    }
+    src.host ++> "src/core/templates/workflows/update-change" { rec }
+    "src/core/templates/workflows/store-selection" ++> "src/core/templates/workflows/update-change" {
+        STORE_SELECTION_GUIDANCE,
+    }
+    "src/core/templates/workflows/project-root" ++> "src/core/templates/workflows/update-change" {
+        PROJECT_ROOT_GUARD,
+    }
+    src.host ++> "src/core/templates/workflows/sync-specs" { rec }
+    "src/core/templates/workflows/store-selection" ++> "src/core/templates/workflows/sync-specs" {
+        STORE_SELECTION_GUIDANCE,
+    }
+    "src/core/templates/workflows/project-root" ++> "src/core/templates/workflows/sync-specs" {
+        PROJECT_ROOT_GUARD,
+    }
     src.host ++> "src/core/templates/workflows/continue-change" { rec }
     "src/core/templates/workflows/store-selection" ++> "src/core/templates/workflows/continue-change" {
         STORE_SELECTION_GUIDANCE,
@@ -1088,16 +1109,6 @@ graph import {
     "src/core/templates/workflows/project-root" --> "src/core/templates/workflows/apply-change" {
         PROJECT_ROOT_GUARD,
     }
-    src.core.templates.types --> "src/core/templates/workflows/update-change" {
-        CommandTemplate,
-        SkillTemplate,
-    }
-    "src/core/templates/workflows/store-selection" --> "src/core/templates/workflows/update-change" {
-        STORE_SELECTION_GUIDANCE,
-    }
-    "src/core/templates/workflows/project-root" --> "src/core/templates/workflows/update-change" {
-        PROJECT_ROOT_GUARD,
-    }
     src.core.templates.types --> "src/core/templates/workflows/ff-change" {
         CommandTemplate,
         SkillTemplate,
@@ -1106,16 +1117,6 @@ graph import {
         STORE_SELECTION_GUIDANCE,
     }
     "src/core/templates/workflows/project-root" --> "src/core/templates/workflows/ff-change" {
-        PROJECT_ROOT_GUARD,
-    }
-    src.core.templates.types --> "src/core/templates/workflows/sync-specs" {
-        CommandTemplate,
-        SkillTemplate,
-    }
-    "src/core/templates/workflows/store-selection" --> "src/core/templates/workflows/sync-specs" {
-        STORE_SELECTION_GUIDANCE,
-    }
-    "src/core/templates/workflows/project-root" --> "src/core/templates/workflows/sync-specs" {
         PROJECT_ROOT_GUARD,
     }
     src.core.templates.types --> "src/core/templates/workflows/archive-change" {
@@ -1139,16 +1140,6 @@ graph import {
         STORE_SELECTION_GUIDANCE,
     }
     "src/core/templates/workflows/project-root" --> "src/core/templates/workflows/bulk-archive-change" {
-        PROJECT_ROOT_GUARD,
-    }
-    src.core.templates.types --> "src/core/templates/workflows/verify-change" {
-        CommandTemplate,
-        SkillTemplate,
-    }
-    "src/core/templates/workflows/store-selection" --> "src/core/templates/workflows/verify-change" {
-        STORE_SELECTION_GUIDANCE,
-    }
-    "src/core/templates/workflows/project-root" --> "src/core/templates/workflows/verify-change" {
         PROJECT_ROOT_GUARD,
     }
     src.core.templates.types --> src.core.templates.workflows.onboard {
