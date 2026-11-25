@@ -7,6 +7,26 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/core/global-skills" {
+        JsNull,
+        at,
+        js_error,
+        kind,
+        merge,
+        missing,
+        rec,
+        truthy,
+    }
+    src.lazy ++> "src/core/global-skills" { need }
+    src.core.config ++> "src/core/global-skills" { AI_TOOLS, OPENSPEC_SKILL_NAMES, installerAgent }
+    "src/core/global-config" ++> "src/core/global-skills" { getGlobalDataDir }
+    src.core.profiles ++> "src/core/global-skills" { withRouter }
+    "src/core/shared/tool-detection" ++> "src/core/global-skills" { getConfiguredTools }
+    "src/core/skill-installer" ++> "src/core/global-skills" {
+        expectedSkillFiles,
+        installReleaseSkills,
+        removeManagedSkills,
+    }
     src.host ++> "src/core/available-tools" { truthy }
     src.core.config ++> "src/core/available-tools" { AI_TOOLS }
     "src/core/shared-skill-target" ++> "src/core/available-tools" { readSkillToolList }
@@ -2059,7 +2079,6 @@ graph import {
         removeCopilotCloudFiles,
         writeCopilotCloudFiles,
     }
-    "src/core/global-skills" --> src.core.update;
     src.core.init --> src.core.update;
     "src/prompts/searchable-multi-select" --> src.core.update;
     src.core.config --> "src/core/retired-tools" {
@@ -2075,16 +2094,6 @@ graph import {
     "src/core/released-output-sweep" --> "src/core/retired-tools" { pruneEmptyParents }
     src.core.profiles --> "src/core/retired-tools" { ALL_WORKFLOWS }
     "src/core/file-view" --> "src/core/retired-tools" { FileView }
-    src.core.config --> "src/core/global-skills" { AI_TOOLS, OPENSPEC_SKILL_NAMES, installerAgent }
-    "src/core/global-config" --> "src/core/global-skills" { getGlobalDataDir }
-    src.core.profiles --> "src/core/global-skills" { withRouter }
-    "src/core/shared/tool-detection" --> "src/core/global-skills" { getConfiguredTools }
-    "src/core/skill-installer" --> "src/core/global-skills" {
-        SkillScope,
-        expectedSkillFiles,
-        installReleaseSkills,
-        removeManagedSkills,
-    }
     "src/utils/file-system" --> src.core.init { FileSystemUtils }
     "src/core/project-skills-scope" --> src.core.init { forgetProjectSkills }
     "src/core/project-config" --> src.core.init {
@@ -2147,17 +2156,6 @@ graph import {
     }
     "src/core/released-output-sweep" --> src.core.init { pruneEmptyParents }
     "src/core/global-config" --> src.core.init { Delivery, Profile, getGlobalConfig }
-    "src/core/global-skills" --> src.core.init {
-        SKILL_SCOPES,
-        SkillScope,
-        describeRemovedSkills,
-        describeSkillsError,
-        installGlobalSkills,
-        isHomeFolder,
-        projectHasOwnSkills,
-        readGlobalSkills,
-        supportsGlobalSkills,
-    }
     src.core.profiles --> src.core.init { getProfileWorkflows, withRouter }
     "src/core/available-tools" --> src.core.init { getAvailableTools }
     "src/core/onboarding-commands" --> src.core.init { formatOptionalWorkflowsNote }
@@ -3987,7 +3985,6 @@ graph import {
     src.core.update --> "test/core/update-skill-tamper.test" { UpdateCommand }
     src.core.init --> "test/core/update-skill-tamper.test" { InitCommand }
     "src/core/global-config" --> "test/core/update-skill-tamper.test" { GlobalConfig }
-    "src/core/global-skills" --> "test/core/update.test";
     "src/core/skill-installer" --> "test/core/update.test";
     src.core.update --> "test/core/update.test" { UpdateCommand, scanInstalledWorkflows }
     src.core.init --> "test/core/update.test" { InitCommand }
@@ -4277,4 +4274,17 @@ graph import {
         stripVolatileFrontmatter,
     }
     "dist/cli/index.d" --> bin.openspec { runCli }
+    "src/core/global-skills" --> src.core.update;
+    "src/core/global-skills" --> src.core.init {
+        SKILL_SCOPES,
+        SkillScope,
+        describeRemovedSkills,
+        describeSkillsError,
+        installGlobalSkills,
+        isHomeFolder,
+        projectHasOwnSkills,
+        readGlobalSkills,
+        supportsGlobalSkills,
+    }
+    "src/core/global-skills" --> "test/core/update.test";
 }
