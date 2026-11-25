@@ -7,6 +7,13 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/commands/install-standalone" { JsNull, at, found, merge, missing, rec, sub }
+    src.lazy ++> "src/commands/install-standalone" { pick }
+    "src/utils/executable-path" ++> "src/commands/install-standalone" { findCopiesOnPath, samePath }
+    "src/core/version-check" ++> "src/commands/install-standalone" {
+        getCliInstallInfo,
+        getStandaloneBinaryPath,
+    }
     src.host ++> "src/core/version-check" {
         JsNull,
         at,
@@ -2124,12 +2131,6 @@ graph import {
         resolveInstallTarget,
     }
     "src/utils/executable-path" --> "test/commands/install-standalone.test" { findCopiesOnPath }
-    "src/utils/executable-path" --> "src/commands/install-standalone" { findCopiesOnPath, samePath }
-    "src/core/version-check" --> "src/commands/install-standalone" {
-        CliInstallInfo,
-        getCliInstallInfo,
-        getStandaloneBinaryPath,
-    }
     src.core.index --> "test/commands/legacy-groups-removed.test" {
         getGlobalDataDir,
         registerStore,
