@@ -7,6 +7,12 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/core/shared/skill-content-equivalence" { sub }
+    src.core.config ++> "src/core/shared/skill-content-equivalence" { OPENSPEC_SKILL_NAMES }
+    "src/core/shared/generated-fingerprint" ++> "src/core/shared/skill-content-equivalence" {
+        isReleasedGeneratedContent,
+        normalizeGeneratedContent,
+    }
     src.host ++> "src/core/shared/generated-fingerprint" { found, matchOf, sub }
     "src/core/shared/released-generated-fingerprints" ++> "src/core/shared/generated-fingerprint" {
         RELEASED_GENERATED_FINGERPRINTS,
@@ -1220,11 +1226,6 @@ graph import {
         resolveToolSkillsDir,
         toolSupportsSkills,
         usesSharedSkills,
-    }
-    src.core.config --> "src/core/shared/skill-content-equivalence" { OPENSPEC_SKILL_NAMES }
-    "src/core/shared/generated-fingerprint" --> "src/core/shared/skill-content-equivalence" {
-        isReleasedGeneratedContent,
-        normalizeGeneratedContent,
     }
     src.core.config --> "src/core/shared/shared-skill-install" {
         AIToolOption,
