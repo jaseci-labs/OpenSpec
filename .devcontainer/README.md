@@ -4,11 +4,10 @@ This directory contains the VS Code dev container configuration for OpenSpec dev
 
 ## What's Included
 
-- **Node.js 22 LTS** - TypeScript/JavaScript runtime (OpenSpec itself supports Node 22.20.0 and newer)
-- **pnpm** - Fast, disk space efficient package manager
+- **neojac** - the Jac toolchain OpenSpec is built with (it carries its own Node; the published CLI supports Node 22.20.0 and newer)
 - **Git + GitHub CLI** - Version control tools
 - **VS Code Extensions**:
-  - ESLint & Prettier for code quality
+  - Prettier for the TypeScript tests
   - Vitest Explorer for running tests
   - GitLens for enhanced git integration
   - Error Lens for inline error highlighting
@@ -37,7 +36,7 @@ This directory contains the VS Code dev container configuration for OpenSpec dev
 
 3. **Wait for Setup**:
    - The container will build (first time takes a few minutes)
-   - `pnpm install` runs automatically via `postCreateCommand`
+   - neojac is installed and `neojac install` runs automatically via `postCreateCommand`
    - All extensions install automatically
 
 ### Daily Development
@@ -45,20 +44,20 @@ This directory contains the VS Code dev container configuration for OpenSpec dev
 Once set up, the container preserves your development environment:
 
 ```bash
-# Run development build
-pnpm run dev
+# Check every Jac module
+neojac check
 
-# Run CLI in development
-pnpm run dev:cli
+# Run the CLI from source
+neojac npm run dev:cli -- --help
 
 # Run tests
-pnpm test
+neojac test
 
-# Run tests in watch mode
-pnpm test:watch
+# Run one test file
+neojac npx vitest run test/core/list.test.ts
 
 # Build the project
-pnpm run build
+neojac npm run build
 ```
 
 ### SSH Keys

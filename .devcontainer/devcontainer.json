@@ -32,7 +32,6 @@
       // Add extensions you want installed when the container is created
       "extensions": [
         // TypeScript/JavaScript essentials
-        "dbaeumer.vscode-eslint",
         "esbenp.prettier-vscode",
 
         // Testing
@@ -53,7 +52,7 @@
   // "forwardPorts": [],
 
   // Use 'postCreateCommand' to run commands after the container is created
-  "postCreateCommand": "corepack enable && corepack prepare pnpm@latest --activate && pnpm install",
+  "postCreateCommand": "curl -fsSL https://github.com/jaseci-labs/neojac/releases/latest/download/install.sh | bash -s -- --version 0.5.1 && ~/.local/bin/neojac install",
 
   // Configure mounts to preserve SSH keys for git operations
   "mounts": [
