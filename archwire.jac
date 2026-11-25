@@ -7,6 +7,31 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/core/specs-apply" { at, js_error, matchOf, merge, missing, rec, sub, found }
+    src.lazy ++> "src/core/specs-apply" { pick }
+    "src/core/parsers/requirement-blocks" ++> "src/core/specs-apply" {
+        describeScenarioBalance,
+        describeUnappliedContent,
+        diffScenarioNames,
+        extractRequirementsSection,
+        findFrontmatterEnd,
+        foldRequirementName,
+        isUnrecognizedDeltaSection,
+        normalizeRequirementName,
+        parseDeltaSpec,
+    }
+    "src/core/parsers/spec-structure" ++> "src/core/specs-apply" { findMainSpecStructureIssues }
+    "src/core/parsers/code-fence" ++> "src/core/specs-apply" { buildCodeFenceMask }
+    "src/core/parsers/markdown-parser" ++> "src/core/specs-apply" { MarkdownParser }
+    src.core.validation.constants ++> "src/core/specs-apply" {
+        MIN_PURPOSE_LENGTH,
+        PURPOSE_PLACEHOLDER_PREFIX,
+        PURPOSE_PLACEHOLDER_SUFFIX,
+    }
+    "src/utils/spec-discovery" ++> "src/core/specs-apply" { discoverSpecFiles }
+    "src/utils/file-system" ++> "src/core/specs-apply" { FileSystemUtils }
+    "src/utils/spec-path-containment" ++> "src/core/specs-apply" { assertSpecFileWithin }
+    "src/utils/line-endings" ++> "src/core/specs-apply" { matchLineEnding }
     src.lazy ++> src.commands.feedback { need, packageRoot }
     src.host ++> "src/commands/install-standalone" { JsNull, at, found, merge, missing, rec, sub }
     src.lazy ++> "src/commands/install-standalone" { pick }
@@ -1691,31 +1716,6 @@ graph import {
         DiscoveredSpec,
         discoverSpecFiles,
     }
-    "src/core/parsers/requirement-blocks" --> "src/core/specs-apply" {
-        RequirementBlock,
-        RequirementsSectionParts,
-        describeScenarioBalance,
-        describeUnappliedContent,
-        diffScenarioNames,
-        extractRequirementsSection,
-        findFrontmatterEnd,
-        foldRequirementName,
-        isUnrecognizedDeltaSection,
-        normalizeRequirementName,
-        parseDeltaSpec,
-    }
-    "src/core/parsers/spec-structure" --> "src/core/specs-apply" { findMainSpecStructureIssues }
-    "src/core/parsers/code-fence" --> "src/core/specs-apply" { buildCodeFenceMask }
-    "src/core/parsers/markdown-parser" --> "src/core/specs-apply" { MarkdownParser }
-    src.core.validation.constants --> "src/core/specs-apply" {
-        MIN_PURPOSE_LENGTH,
-        PURPOSE_PLACEHOLDER_PREFIX,
-        PURPOSE_PLACEHOLDER_SUFFIX,
-    }
-    "src/utils/spec-discovery" --> "src/core/specs-apply" { discoverSpecFiles }
-    "src/utils/file-system" --> "src/core/specs-apply" { FileSystemUtils }
-    "src/utils/spec-path-containment" --> "src/core/specs-apply" { assertSpecFileWithin }
-    "src/utils/line-endings" --> "src/core/specs-apply" { matchLineEnding }
     "src/utils/task-progress" --> "src/core/validation/task-numbering" { parseTaskLines }
     "src/utils/task-progress" --> "src/core/validation/task-checkboxes" { parseTaskLines }
     "test/helpers/run-cli" --> "test/commands/artifact-workflow.test" { runCLI }
