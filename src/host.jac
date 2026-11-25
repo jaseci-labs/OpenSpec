@@ -37,3 +37,31 @@ def at(value: any, *keys: str) -> any {
     }
     return value;
 }
+
+glob:priv typeOf: any = new(globalThis.Function, "x", "return typeof x"),
+          truthyOf: any = new(globalThis.Function, "x", "return !!x"),
+          sameOf: any = new(globalThis.Function, "a", "b", "return a === b");
+
+def kind(value: any) -> str {
+    return typeOf(value);
+}
+
+def truthy(value: any) -> bool {
+    return truthyOf(value);
+}
+
+def same(a: any, b: any) -> bool {
+    return sameOf(a, b);
+}
+
+def owns(target: any, key: str) -> bool {
+    return not missing(target) and globalThis.Object.hasOwn(target, key);
+}
+
+def promise(work: any) -> any {
+    return globalThis.Promise.resolve().then(lambda -> any { work });
+}
+
+def matchOf(text: str, pattern: str, flags: str = "") -> any {
+    return rx(pattern, flags).exec(text);
+}
