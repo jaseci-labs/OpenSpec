@@ -9,34 +9,6 @@ graph spaces {
 graph import {
     src.host ++> src.core.validation.constants { rec }
     src.host ++> "src/ui/ascii-patterns" { rec }
-    src.host ++> "src/core/schemas/base.schema" { rec }
-    src.core.validation.constants ++> "src/core/schemas/base.schema" { VALIDATION_MESSAGES }
-    src.host ++> "src/core/schemas/spec.schema" { rec }
-    "src/core/schemas/base.schema" ++> "src/core/schemas/spec.schema" { RequirementSchema }
-    src.core.validation.constants ++> "src/core/schemas/spec.schema" { VALIDATION_MESSAGES }
-    src.host ++> "src/core/schemas/change.schema" { rec }
-    "src/core/schemas/base.schema" ++> "src/core/schemas/change.schema" { RequirementSchema }
-    src.core.validation.constants ++> "src/core/schemas/change.schema" {
-        MAX_DELTAS_PER_CHANGE,
-        MAX_WHY_SECTION_LENGTH,
-        MIN_WHY_SECTION_LENGTH,
-        VALIDATION_MESSAGES,
-    }
-    include "src/core/schemas/base.schema" ++> src.core.schemas.index {
-        Requirement,
-        RequirementSchema,
-        Scenario,
-        ScenarioSchema,
-    }
-    include "src/core/schemas/spec.schema" ++> src.core.schemas.index { Spec, SpecSchema }
-    include "src/core/schemas/change.schema" ++> src.core.schemas.index {
-        Change,
-        ChangeSchema,
-        Delta,
-        DeltaOperation,
-        DeltaOperationType,
-        DeltaSchema,
-    }
     src.host ++> src.core.store.errors { merge, rec }
     src.host ++> src.core.id { JsNull, rx, sub }
     "test/helpers/run-cli" --> "test/cli-e2e/apply-wrapped-tasks.test" { runCLI }
@@ -4583,4 +4555,29 @@ graph import {
     src.core.index --> src.index;
     "src/utils/file-system" --> "src/core/file-state" { FileSystemUtils }
     src.core.store.errors --> "src/core/file-state" { StoreError }
+    src.core.validation.constants --> "src/core/schemas/base.schema" { VALIDATION_MESSAGES }
+    "src/core/schemas/base.schema" --> "src/core/schemas/change.schema" { RequirementSchema }
+    src.core.validation.constants --> "src/core/schemas/change.schema" {
+        MAX_DELTAS_PER_CHANGE,
+        MAX_WHY_SECTION_LENGTH,
+        MIN_WHY_SECTION_LENGTH,
+        VALIDATION_MESSAGES,
+    }
+    "src/core/schemas/base.schema" --> "src/core/schemas/spec.schema" { RequirementSchema }
+    src.core.validation.constants --> "src/core/schemas/spec.schema" { VALIDATION_MESSAGES }
+    "src/core/schemas/base.schema" --> src.core.schemas.index {
+        Requirement,
+        RequirementSchema,
+        Scenario,
+        ScenarioSchema,
+    }
+    "src/core/schemas/spec.schema" --> src.core.schemas.index { Spec, SpecSchema }
+    "src/core/schemas/change.schema" --> src.core.schemas.index {
+        Change,
+        ChangeSchema,
+        Delta,
+        DeltaOperation,
+        DeltaOperationType,
+        DeltaSchema,
+    }
 }
