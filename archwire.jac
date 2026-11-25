@@ -7,7 +7,6 @@ graph spaces {
 }
 
 graph import {
-    src.host ++> "src/prompts/searchable-multi-select" { JsNull, kind, missing, rec, same }
     src.host ++> src.core.validation.constants { rec }
     src.host ++> "src/ui/ascii-patterns" { rec }
     src.host ++> "src/core/schemas/base.schema" { rec }
