@@ -7,6 +7,43 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/commands/install-standalone" { JsNull, at, found, merge, missing, rec, sub }
+    src.lazy ++> "src/commands/install-standalone" { pick }
+    "src/utils/executable-path" ++> "src/commands/install-standalone" { findCopiesOnPath, samePath }
+    "src/core/version-check" ++> "src/commands/install-standalone" {
+        getCliInstallInfo,
+        getStandaloneBinaryPath,
+    }
+    src.host ++> "src/core/version-check" {
+        JsNull,
+        at,
+        found,
+        js_error,
+        kind,
+        merge,
+        missing,
+        rec,
+        rx,
+        same,
+        sub,
+        truthy,
+    }
+    src.lazy ++> "src/core/version-check" { load, need, pick }
+    src.utils.ci ++> "src/core/version-check" { isCiEnvironment }
+    "src/telemetry/opt-out" ++> "src/core/version-check" { isTelemetryOptedOutByEnv }
+    "src/utils/file-system" ++> "src/core/version-check" { FileSystemUtils }
+    "src/core/global-config" ++> "src/core/version-check" {
+        getGlobalConfig,
+        isGlobalConfigUnreadable,
+    }
+    "src/utils/executable-path" ++> "src/core/version-check" { findCopiesOnPath, samePath }
+    src.host ++> "src/core/openspec-root" { JsNull, at, js_error, rec }
+    "src/utils/file-system" ++> "src/core/openspec-root" { FileSystemUtils }
+    "src/core/config-prompts" ++> "src/core/openspec-root" { serializeConfig }
+    src.core.store.errors ++> "src/core/openspec-root" { makeStoreDiagnostic }
+    src.host ++> "src/core/known-projects" { at, js_error, kind, found, rec }
+    "src/core/project-dir" ++> "src/core/known-projects" { OPENSPEC_DIR_NAME }
+    "src/core/global-config" ++> "src/core/known-projects" { getGlobalDataDir }
     src.host ++> "src/core/completion-tip" { JsNull, at, kind, merge, missing, rec, same }
     "src/core/global-config" ++> "src/core/completion-tip" { getGlobalConfigPath }
     "src/core/file-state" ++> "src/core/completion-tip" { writeFileAtomically }
@@ -945,9 +982,6 @@ graph import {
     }
     "src/core/global-config" --> "src/core/root-selection" { getGlobalConfig }
     "src/utils/file-system" --> "src/core/root-selection" { FileSystemUtils }
-    "src/utils/file-system" --> "src/core/openspec-root" { FileSystemUtils }
-    "src/core/config-prompts" --> "src/core/openspec-root" { serializeConfig }
-    src.core.store.errors --> "src/core/openspec-root" { StoreDiagnostic, makeStoreDiagnostic }
     src.core.store.foundation --> src.core.store.index;
     src.core.store.errors --> src.core.store.index;
     src.core.store.registry --> src.core.store.index;
@@ -1876,8 +1910,6 @@ graph import {
         usesSharedSkills,
     }
     "src/core/file-view" --> "src/core/available-tools" { DISK_VIEW, FileView }
-    src.core.config --> "src/core/known-projects" { OPENSPEC_DIR_NAME }
-    "src/core/global-config" --> "src/core/known-projects" { getGlobalDataDir }
     "src/utils/file-system" --> "src/core/github-copilot/cloud-agent" { FileSystemUtils }
     "src/core/project-config" --> "src/core/github-copilot/cloud-agent" {
         readProjectConfig,
@@ -2047,20 +2079,6 @@ graph import {
         resolveInstallTarget,
     }
     "src/utils/executable-path" --> "test/commands/install-standalone.test" { findCopiesOnPath }
-    "src/utils/executable-path" --> "src/commands/install-standalone" { findCopiesOnPath, samePath }
-    "src/core/version-check" --> "src/commands/install-standalone" {
-        CliInstallInfo,
-        getCliInstallInfo,
-        getStandaloneBinaryPath,
-    }
-    src.utils.ci --> "src/core/version-check" { isCiEnvironment }
-    "src/telemetry/opt-out" --> "src/core/version-check" { isTelemetryOptedOutByEnv }
-    "src/utils/file-system" --> "src/core/version-check" { FileSystemUtils }
-    "src/core/global-config" --> "src/core/version-check" {
-        getGlobalConfig,
-        isGlobalConfigUnreadable,
-    }
-    "src/utils/executable-path" --> "src/core/version-check" { findCopiesOnPath, samePath }
     src.core.index --> "test/commands/legacy-groups-removed.test" {
         getGlobalDataDir,
         registerStore,
