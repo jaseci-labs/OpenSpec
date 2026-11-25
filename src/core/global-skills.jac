@@ -19,10 +19,6 @@ glob SKILL_SCOPES: list[str] = ["global", "project"];
 glob:priv LOCK_WAIT_MS: int = 60000,
           LOCK_STALE_MS: int = 600000;
 
-def:priv unique(items: any) -> list[any] {
-    return globalThis.Array.from(new(globalThis.Set, items));
-}
-
 def:priv supportedAgents -> any {
     return need("skills").getSupportedAgents();
 }

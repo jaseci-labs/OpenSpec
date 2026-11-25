@@ -21,11 +21,6 @@ obj TemplateLoadError(globalThis.Error) {
     }
 }
 
-def:priv messageOf(e: any) -> str {
-    err = js_error(e);
-    return err.message if globalThis.Error.prototype.isPrototypeOf(err) else globalThis.String(err);
-}
-
 def:priv skips(context: any, id: str) -> bool {
     skipped = context["skippedArtifacts"];
     return truthy(skipped) and skipped.has(id);

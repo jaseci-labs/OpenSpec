@@ -42,9 +42,5 @@ obj JsonConverter(globalThis.Object) {
 }
 
 with entry {
-    new(
-        globalThis.Function,
-        "C",
-        "const f = C.prototype.convertChangeToJson; C.prototype.convertChangeToJson = function (...a) { return f.apply(this, a).then(); };",
-    )(JsonConverter);
+    jsAsync(JsonConverter, ["convertChangeToJson"]);
 }

@@ -122,9 +122,5 @@ obj ChangeParser(MarkdownParser) {
 }
 
 with entry {
-    new(
-        globalThis.Function,
-        "C",
-        "const f = C.prototype.parseChangeWithDeltas; C.prototype.parseChangeWithDeltas = function (...a) { return f.apply(this, a).then(); };",
-    )(ChangeParser);
+    jsAsync(ChangeParser, ["parseChangeWithDeltas"]);
 }

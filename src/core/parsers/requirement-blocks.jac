@@ -15,14 +15,6 @@ glob:priv REQ: str = "^###\\s*Requirement:\\s*(.+)\\s*$",
               "renamed requirements",
           ];
 
-def:priv trim(s: any) -> str {
-    return s.trim();
-}
-
-def:priv rtrim(s: any) -> str {
-    return s.trimEnd();
-}
-
 def stripClosingSequence(title: str) -> str {
     return trim(sub(title, "[ \\t]+#+[ \\t]*$", "", ""));
 }

@@ -5,10 +5,6 @@ import from "node:console" { default as console }
 
 glob:priv fs: any = nodeFs.promises;
 
-def:priv fail(message: str) -> any {
-    return new(globalThis.Error, message);
-}
-
 def:priv codeOf(e: any) -> any {
     return at(js_error(e), "code");
 }

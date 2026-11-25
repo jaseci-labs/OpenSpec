@@ -48,10 +48,6 @@ def:priv chain(start: str) -> list[str] {
     return out;
 }
 
-def:priv unique(items: any) -> list[any] {
-    return globalThis.Array.from(new(globalThis.Set, items));
-}
-
 def:priv isLink(target: str) -> bool {
     try {
         return fs.lstatSync(target).isSymbolicLink();
@@ -438,9 +434,15 @@ def formatUpdatePlan(plan: any) -> str {
 }
 
 with entry {
-    new(
-        globalThis.Function,
-        "C",
-        "for (const k of ['writeFile', 'removeFile', 'removeEmptyDirectory', 'linkSkill', 'removeDirectory', 'moveFile']) { const f = C.prototype[k]; C.prototype[k] = function (...a) { return f.apply(this, a).then(); }; }",
-    )(UpdatePlanRecorder);
+    jsAsync(
+        UpdatePlanRecorder,
+        [
+            "writeFile",
+            "removeFile",
+            "removeEmptyDirectory",
+            "linkSkill",
+            "removeDirectory",
+            "moveFile",
+        ],
+    );
 }

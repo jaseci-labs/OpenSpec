@@ -6,14 +6,6 @@ type SharedSkillInstallResult = any;
 
 glob:priv run: any = new(globalThis.Function, "o", "k", "a", "return Promise.resolve(o[k](...a))");
 
-def:priv linkOf(view: any, p: str) -> any {
-    return None if missing(view["linkTarget"]) else view.linkTarget(p);
-}
-
-def:priv unique(items: any) -> list[any] {
-    return globalThis.Array.from(new(globalThis.Set, items));
-}
-
 def:priv readSkill(dir: str, name: str, view: any, forTool: any = None) -> any {
     try {
         text = normalizeGeneratedFile(view.read(path.join(dir, name, "SKILL.md")));

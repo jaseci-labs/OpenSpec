@@ -9,14 +9,6 @@ glob:priv OPENS_HTML_BLOCK: str = "^<(?:(?:script|pre|style|textarea)(?:[ \\t>]|
           HTML_TAG_ALONE: str = "^(?:<[A-Za-z][A-Za-z0-9-]*(?:\\s+[A-Za-z_:][\\w.:-]*(?:\\s*=\\s*(?:[^\\s\"'=<>`]+|'[^']*'|\"[^\"]*\"))?)*\\s*\\/?>|<\\/[A-Za-z][A-Za-z0-9-]*\\s*>)\\s*$",
           LIST_ITEM: str = "^(\\s*(?:[-*+]|\\d{1,9}[.)])\\s+)";
 
-def:priv trim(s: any) -> str {
-    return s.trim();
-}
-
-def:priv rtrim(s: any) -> str {
-    return s.trimEnd();
-}
-
 def:priv lf(s: any) -> str {
     return sub(s, "\\r\\n?", "\n");
 }
@@ -27,11 +19,6 @@ def:priv fail(message: str) {
 
 def:priv hdr(name: any) -> str {
     return f'"### Requirement: {name}"';
-}
-
-def:priv messageOf(error: any) -> str {
-    err = js_error(error);
-    return err.message if globalThis.Error.prototype.isPrototypeOf(err) else globalThis.String(err);
 }
 
 def:priv isLexicallyWithin(allowedDirectory: str, targetPath: str) -> bool {

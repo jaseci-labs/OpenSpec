@@ -31,7 +31,7 @@ graph import {
     "src/core/legacy-cleanup" ++> "src/core/retired-tools" { reachesWithoutLink }
     "src/core/released-output-sweep" ++> "src/core/retired-tools" { pruneEmptyParents }
     src.core.profiles ++> "src/core/retired-tools" { ALL_WORKFLOWS }
-    src.host ++> src.core.migration { JsNull, at, merge, missing, rec, rx }
+    src.host ++> src.core.migration { JsNull, at, linkOf, merge, missing, rec, rx }
     src.core.config ++> src.core.migration { AI_TOOLS }
     "src/core/global-config" ++> src.core.migration {
         getGlobalConfig,
@@ -77,7 +77,7 @@ graph import {
         toolSupportsSkills,
         usesSharedSkills,
     }
-    src.host ++> "src/core/released-output-sweep" { at, missing }
+    src.host ++> "src/core/released-output-sweep" { at, missing, unique }
     src.core.config ++> "src/core/released-output-sweep" {
         AI_TOOLS,
         SKILL_LINKED_TOOL_IDS,
@@ -104,7 +104,7 @@ graph import {
         usesSharedSkills,
     }
     "src/core/skill-installer" ++> "src/core/released-output-sweep" { expectedSkillFiles }
-    src.host ++> "src/core/shared/command-reconcile" { at, missing, rec }
+    src.host ++> "src/core/shared/command-reconcile" { at, linkOf, rec }
     "src/utils/file-system" ++> "src/core/shared/command-reconcile" { FileSystemUtils }
     "src/core/command-generation/index" ++> "src/core/shared/command-reconcile" {
         CommandAdapterRegistry,
@@ -126,7 +126,15 @@ graph import {
         isReleasedGeneratedContent,
     }
     "src/core/file-view" ++> "src/core/shared/command-reconcile" { DISK_VIEW }
-    src.host ++> "src/core/shared/shared-skill-install" { js_error, merge, missing, rec, truthy }
+    src.host ++> "src/core/shared/shared-skill-install" {
+        js_error,
+        linkOf,
+        merge,
+        missing,
+        rec,
+        truthy,
+        unique,
+    }
     src.lazy ++> "src/core/shared/shared-skill-install" { need }
     src.core.config ++> "src/core/shared/shared-skill-install" {
         OPENSPEC_SKILL_NAMES,
@@ -165,6 +173,7 @@ graph import {
         missing,
         rec,
         truthy,
+        unique,
     }
     src.lazy ++> "src/core/global-skills" { need }
     src.core.config ++> "src/core/global-skills" { AI_TOOLS, OPENSPEC_SKILL_NAMES, installerAgent }
@@ -193,9 +202,9 @@ graph import {
     src.host ++> "src/core/shared/tool-detection" {
         JsNull,
         at,
+        linkOf,
         matchOf,
         merge,
-        missing,
         rec,
         rx,
         sub,
@@ -340,8 +349,8 @@ graph import {
     src.host ++> "src/core/artifact-graph/instruction-loader" {
         JsNull,
         at,
-        js_error,
         merge,
+        messageOf,
         missing,
         owns,
         rec,
@@ -653,21 +662,21 @@ graph import {
     "src/core/completions/command-registry" ++> src.cli.commands.workset { COMMAND_REGISTRY }
     "src/commands/shared-output" ++> src.cli.commands.workset { printJson }
     src.commands.workset ++> src.cli.commands.workset { WorksetCommand }
-    src.host ++> "src/core/update-plan" { at, js_error, kind, rec }
+    src.host ++> "src/core/update-plan" { at, jsAsync, js_error, kind, rec, unique }
     "src/utils/file-system" ++> "src/core/update-plan" { FileSystemUtils }
     "src/core/file-view" ++> "src/core/update-plan" { DISK_VIEW }
     "src/core/shared/skill-links" ++> "src/core/update-plan" { createSkillLink, skillLinkText }
-    src.host ++> "src/core/converters/json-converter" { merge, rec }
+    src.host ++> "src/core/converters/json-converter" { jsAsync, merge, rec }
     "src/core/parsers/markdown-parser" ++> "src/core/converters/json-converter" { MarkdownParser }
     "src/core/parsers/change-parser" ++> "src/core/converters/json-converter" { ChangeParser }
     "src/utils/file-system" ++> "src/core/converters/json-converter" { FileSystemUtils }
-    src.host ++> "src/core/shared/skill-links" { kind, missing, rec }
+    src.host ++> "src/core/shared/skill-links" { kind, linkOf, missing, rec }
     "src/core/shared/generated-fingerprint" ++> "src/core/shared/skill-links" {
         isReleasedGeneratedContent,
         normalizeGeneratedContent,
     }
     "src/core/file-view" ++> "src/core/shared/skill-links" { DISK_VIEW }
-    src.host ++> "src/core/parsers/change-parser" { at, found, merge, rec, sub, truthy }
+    src.host ++> "src/core/parsers/change-parser" { at, found, jsAsync, merge, rec, sub, truthy }
     "src/core/parsers/markdown-parser" ++> "src/core/parsers/change-parser" { MarkdownParser }
     "src/core/parsers/requirement-blocks" ++> "src/core/parsers/change-parser" { parseDeltaSpec }
     "src/utils/spec-discovery" ++> "src/core/parsers/change-parser" { discoverSpecFiles }
@@ -678,20 +687,15 @@ graph import {
         readProjectConfig,
         resolveConfigFilePath,
     }
-    src.host ++> src.commands.completion { at, truthy }
+    src.host ++> src.commands.completion { at, jsAsync, truthy }
     src.lazy ++> src.commands.completion { load }
-    src.core.completions.factory ++> src.commands.completion {
-        CompletionFactory,
-        errorText,
-        jsAsync,
-    }
+    src.core.completions.factory ++> src.commands.completion { CompletionFactory, errorText }
     "src/core/completions/installers/zsh-installer" ++> src.commands.completion { zshrcDisplayPath }
     "src/core/completions/command-registry" ++> src.commands.completion { COMMAND_REGISTRY }
     "src/utils/shell-detection" ++> src.commands.completion { detectShell }
     "src/core/completions/completion-provider" ++> src.commands.completion { CompletionProvider }
     "src/utils/item-discovery" ++> src.commands.completion { getArchivedChangeIds }
-    src.host ++> "src/core/completions/completion-provider" { rec }
-    src.core.completions.factory ++> "src/core/completions/completion-provider" { jsAsync }
+    src.host ++> "src/core/completions/completion-provider" { jsAsync, rec }
     "src/utils/item-discovery" ++> "src/core/completions/completion-provider" {
         getActiveChangeIds,
         getSpecIds,
@@ -1043,7 +1047,19 @@ graph import {
         getBulkArchiveChangeSkillTemplate,
         getOpsxBulkArchiveCommandTemplate,
     }
-    src.host ++> "src/core/specs-apply" { at, js_error, matchOf, merge, missing, rec, sub, found }
+    src.host ++> "src/core/specs-apply" {
+        at,
+        found,
+        js_error,
+        matchOf,
+        merge,
+        messageOf,
+        missing,
+        rec,
+        rtrim,
+        sub,
+        trim,
+    }
     src.lazy ++> "src/core/specs-apply" { pick }
     "src/core/parsers/requirement-blocks" ++> "src/core/specs-apply" {
         describeScenarioBalance,
@@ -1171,17 +1187,16 @@ graph import {
     "src/core/completions/installers/powershell-installer" ++> src.core.completions.factory {
         PowerShellInstaller,
     }
-    src.host ++> "src/core/completions/installers/fish-installer" { rec }
+    src.host ++> "src/core/completions/installers/fish-installer" { jsAsync, rec }
     src.core.completions.factory ++> "src/core/completions/installers/fish-installer" {
         UP_TO_DATE,
         backupFile,
         failed,
         isScriptFile,
-        jsAsync,
         placeScript,
         uninstallScript,
     }
-    src.host ++> "src/core/completions/installers/bash-installer" { rec }
+    src.host ++> "src/core/completions/installers/bash-installer" { jsAsync, rec }
     "src/core/completions/installers/shell-quote" ++> "src/core/completions/installers/bash-installer" {
         shellSingleQuote,
     }
@@ -1191,12 +1206,16 @@ graph import {
         configureRc,
         failed,
         isScriptFile,
-        jsAsync,
         placeScript,
         removeRcBlock,
         uninstallScript,
     }
-    src.host ++> "src/core/completions/installers/powershell-installer" { at, js_error, rec }
+    src.host ++> "src/core/completions/installers/powershell-installer" {
+        at,
+        jsAsync,
+        js_error,
+        rec,
+    }
     src.core.completions.factory ++> "src/core/completions/installers/powershell-installer" {
         END_MARKER,
         START_MARKER,
@@ -1205,11 +1224,10 @@ graph import {
         ensureWritable,
         failed,
         isScriptFile,
-        jsAsync,
         placeScript,
         uninstallScript,
     }
-    src.host ++> "src/core/completions/installers/zsh-installer" { rec }
+    src.host ++> "src/core/completions/installers/zsh-installer" { jsAsync, rec }
     "src/core/completions/installers/shell-quote" ++> "src/core/completions/installers/zsh-installer" {
         shellSingleQuote,
     }
@@ -1220,7 +1238,6 @@ graph import {
         backupFile,
         configureRc,
         failed,
-        jsAsync,
         placeScript,
         removeRcBlock,
     }
@@ -1251,6 +1268,7 @@ graph import {
         same,
         sub,
         truthy,
+        unique,
     }
     src.lazy ++> "src/core/legacy-cleanup" { pick }
     "src/utils/file-system" ++> "src/core/legacy-cleanup" {
@@ -1722,7 +1740,7 @@ graph import {
     "src/core/artifact-graph/types" ++> "src/core/artifact-graph/schema" { SchemaYamlSchema }
     src.lazy ++> "src/core/artifact-graph/outputs" { need }
     src.lazy ++> src.utils.interactive { load }
-    src.host ++> "src/core/artifact-graph/outputs" { at, found, js_error, rec, sub }
+    src.host ++> "src/core/artifact-graph/outputs" { at, fail, found, js_error, rec, sub }
     "src/utils/file-system" ++> "src/core/artifact-graph/outputs" { FileSystemUtils }
     "src/core/artifact-graph/outputs" ++> "src/core/artifact-graph/state" { artifactOutputExists }
     src.host ++> "src/core/file-state" { at, js_error, rec }
@@ -1730,7 +1748,7 @@ graph import {
     "src/utils/file-system" ++> "src/core/file-state" { FileSystemUtils }
     src.host ++> "src/core/planning-home" { JsNull, at, rec }
     "src/utils/file-system" ++> "src/core/planning-home" { FileSystemUtils }
-    src.host ++> "src/utils/file-system" { at, found, js_error, rec, sub }
+    src.host ++> "src/utils/file-system" { at, fail, found, js_error, rec, sub }
     "src/utils/line-endings" ++> "src/utils/file-system" { detectLineEnding, matchLineEnding }
     src.host ++> src.utils.interactive { at, kind, owns, rec, truthy }
     src.host ++> "src/utils/shell-detection" { found, matchOf, rec, sub, truthy }
@@ -1966,13 +1984,15 @@ graph import {
         buildCodeFenceMask,
     }
     src.host ++> "src/core/parsers/requirement-blocks" {
-        rx,
-        sub,
+        JsNull,
         found,
         matchOf,
-        rec,
-        JsNull,
         missing,
+        rec,
+        rtrim,
+        rx,
+        sub,
+        trim,
     }
     "src/core/parsers/requirement-text" ++> "src/core/parsers/requirement-blocks" {
         buildCodeFenceMask,

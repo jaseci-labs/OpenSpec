@@ -12,15 +12,6 @@ glob START_MARKER: str = "# OPENSPEC:START",
      END_MARKER: str = "# OPENSPEC:END",
      UP_TO_DATE: str = "Completion script is already installed (up to date)";
 
-def jsAsync(C: any, names: list[str]) {
-    new(
-        globalThis.Function,
-        "C",
-        "names",
-        "for (const k of names) { const f = C.prototype[k]; C.prototype[k] = function (...a) { return f.apply(this, a).then(); }; }",
-    )(C, names);
-}
-
 def errorText(e: any) -> str {
     err = js_error(e);
     return err.message if isinstance(err, globalThis.Error) else globalThis.String(err);

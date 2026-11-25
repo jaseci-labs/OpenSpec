@@ -12,10 +12,6 @@ def:priv findTool(toolId: str) -> any {
     return AI_TOOLS.find(lambda (t: any) -> bool { t.value == toolId });
 }
 
-def:priv linkOf(view: any, p: str) -> any {
-    return None if missing(view["linkTarget"]) else view.linkTarget(p);
-}
-
 def:priv hasSkillIn(view: any, dirs: list[any], name: str) -> bool {
     for dir in dirs {
         if view.exists(path.join(dir, name, "SKILL.md")) {

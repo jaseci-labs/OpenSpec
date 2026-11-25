@@ -106,10 +106,6 @@ def:priv asList(pattern: any) -> list[any] {
     return pattern if globalThis.Array.isArray(pattern) else [pattern];
 }
 
-def:priv unique(items: any) -> list[any] {
-    return globalThis.Array.from(new(globalThis.Set, items));
-}
-
 def:priv errorText(e: any) -> any {
     return js_error(e).message;
 }
