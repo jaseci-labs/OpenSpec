@@ -1321,7 +1321,7 @@ graph import {
         sub,
         truthy,
     }
-    src.lazy ++> "src/core/version-check" { load, need, packageRoot, pick }
+    src.lazy ++> "src/core/version-check" { load, need, packageJson, packageRoot, pick }
     src.utils.ci ++> "src/core/version-check" { isCiEnvironment }
     "src/core/root-selection" ++> "src/core/working-set" { toRootOutput }
     src.core.references ++> "src/core/working-set" { fetchRecipe }
@@ -3246,7 +3246,7 @@ graph import {
     }
     src.host ++> src.commands.doctor { JsNull, at, js_error, merge, missing, promise, rec, truthy }
     src.host ++> src.commands.feedback { at, found, js_error, missing, rec, sub, truthy }
-    src.lazy ++> src.commands.feedback { need, packageRoot }
+    src.lazy ++> src.commands.feedback { packageJson }
     "src/core/artifact-graph/resolver" ++> src.commands.schema {
         getPackageSchemasDir,
         getProjectSchemasDir,
@@ -3828,7 +3828,7 @@ graph import {
         rec,
         truthy,
     }
-    src.lazy ++> src.core.init { load, need, packageRoot, pick }
+    src.lazy ++> src.core.init { load, packageJson, pick }
     src.utils.interactive ++> src.core.init { isInteractive }
     "src/core/parsers/markdown-parser" ++> src.core.list { MarkdownParser }
     "src/utils/nested-change" ++> src.core.list { describeNestedChange, findNestedChanges }
@@ -4232,7 +4232,7 @@ graph import {
         toolSupportsSkills,
     }
     src.host ++> src.core.update { JsNull, at, jsAsync, js_error, merge, missing, rec, truthy }
-    src.lazy ++> src.core.update { load, need, packageRoot, pick }
+    src.lazy ++> src.core.update { load, packageJson, pick }
     src.utils.interactive ++> src.core.update { isInteractive }
     src.host ++> src.core.validation.constants { rec }
     "src/core/artifact-graph/index" ++> src.core.validation.validator {

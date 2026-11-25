@@ -1,7 +1,7 @@
 import from "node:path" { default as path }
 import from "node:process" { default as process }
 
-glob:priv VERSION: str = need(path.join(packageRoot(), "package.json")).version,
+glob:priv VERSION: str = packageJson().version,
           LEARN_MORE: str = "https://github.com/Fission-AI/OpenSpec";
 
 def:priv chalk -> any {

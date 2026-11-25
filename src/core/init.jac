@@ -3,7 +3,7 @@ import from "node:fs" { existsSync, promises as fsp }
 import from "node:process" { default as process }
 
 glob:priv DEFAULT_SCHEMA: str = "spec-driven",
-          VERSION: str = need(path.join(packageRoot(), "package.json")).version,
+          VERSION: str = packageJson().version,
           PROGRESS_SPINNER: any = rec(
               interval=80, frames=["░░░", "▒░░", "▒▒░", "▒▒▒", "▓▒▒", "▓▓▒", "▓▓▓", "▒▓▓", "░▒▓"]
           );

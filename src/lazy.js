@@ -8,11 +8,14 @@ import { fileURLToPath } from 'node:url';
 const require = createRequire(import.meta.url);
 
 const required = {
+  '@inquirer/core': () => require('@inquirer/core'),
+  '@inquirer/prompts': () => require('@inquirer/prompts'),
   'brace-expansion': () => require('brace-expansion'),
   chalk: () => require('chalk'),
   commander: () => require('commander'),
   'cross-spawn': () => require('cross-spawn'),
   diff: () => require('diff'),
+  ora: () => require('ora'),
   picomatch: () => require('picomatch'),
   skills: () => require('skills'),
   tinyglobby: () => require('tinyglobby'),
@@ -39,3 +42,6 @@ export const pick = (name, key = 'default') => need(name)[key];
 
 /** The package's root directory: the one holding package.json and schemas/ (this file is src/lazy.js). */
 export const packageRoot = () => fileURLToPath(new URL('..', import.meta.url));
+
+/** The package's own package.json, by a static path a bundler can include. */
+export const packageJson = () => require('../package.json');

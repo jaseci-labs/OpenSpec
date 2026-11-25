@@ -40,15 +40,13 @@ jobs:
           fetch-depth: 0
           token: ${{ steps.app-token.outputs.token }}
 
-      - uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
-
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: '24' # Node 24 includes npm 11.5.1+ required for OIDC
-          cache: 'pnpm'
           registry-url: 'https://registry.npmjs.org'
 
-      - run: pnpm install --frozen-lockfile
+      # neojac builds the CLI from its Jac sources and installs the npm packages.
+      - uses: ./.github/actions/setup-neojac
 
       # Opens/updates the Version Packages PR; publishes when the Version PR merges
       - name: Create/Update Version PR
@@ -63,7 +61,10 @@ jobs:
           push-with-git-cli: true
           # Use CI-specific release script: relies on version PR having been merged
           # so package.json already contains the bumped version.
-          publish-script: pnpm run release:ci
+          # neojac writes package.json from jac.toml: the version bump is carried
+          # back into jac.toml, and publishing runs in the tree neojac lays out.
+          version: npm run version:packages
+          publish-script: neojac npm run release:ci
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
           # npm authentication handled via OIDC trusted publishing (no token needed)
@@ -84,15 +85,13 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
-
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: '24' # Node 24 includes npm 11.5.1+ required for OIDC
-          cache: 'pnpm'
           registry-url: 'https://registry.npmjs.org'
 
-      - run: pnpm install --frozen-lockfile
+      # neojac builds the CLI from its Jac sources and installs the npm packages.
+      - uses: ./.github/actions/setup-neojac
 
       # Beta version = next stable version per pending changesets, plus a
       # -beta.N suffix that increments over existing beta tags for that version.
@@ -102,7 +101,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           git fetch --tags --force origin
-          pnpm exec changeset status --output=changeset-status.json
+          npx changeset status --output=changeset-status.json
           NEXT=$(node -p "JSON.parse(require('fs').readFileSync('changeset-status.json','utf8')).releases[0]?.newVersion ?? ''")
           rm changeset-status.json
           if [ -z "$NEXT" ]; then
@@ -143,9 +142,12 @@ jobs:
       - name: Set package version
         env:
           VERSION: ${{ steps.version.outputs.version }}
-        run: npm version "$VERSION" --no-git-tag-version
+        run: |
+          npm version "$VERSION" --no-git-tag-version
+          node scripts/sync-version.mjs
 
-      # prepublishOnly runs the build. npm authentication handled via OIDC
+      # Publishes from the tree neojac lays out, whose prepublishOnly runs the
+      # build. npm authentication handled via OIDC
       # trusted publishing (no token needed).
       - name: Publish to npm under the beta dist-tag
         env:
@@ -155,7 +157,7 @@ jobs:
             echo "@fission-ai/openspec@${VERSION} is already on npm; skipping publish."
             exit 0
           fi
-          npm publish --tag beta
+          neojac npm run publish:beta
 
       - name: Tag and create GitHub prerelease
         env:

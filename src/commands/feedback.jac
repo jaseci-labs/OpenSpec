@@ -1,5 +1,4 @@
 import from "child_process" { execFileSync }
-import from "node:path" { join }
 import from "os" { default as os }
 import from "node:process" { default as process }
 
@@ -18,7 +17,7 @@ def:priv ghRuns(cmd: str, args: list[str]) -> bool {
 
 def:priv getVersion -> any {
     try {
-        return need(join(packageRoot(), "package.json"))["version"];
+        return packageJson()["version"];
     } except Exception {
         return "unknown";
     }
