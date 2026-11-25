@@ -434,7 +434,7 @@ obj InitCommand(globalThis.Object) {
         paths = unique([f.cmdPath for files in commands for f in files.generated]);
         for file in paths {
             await realFileOps.removeFile(
-                FileSystemUtils.resolveProjectArtifactPath(projectPath, file), "openspec"
+                FileSystemUtils.resolveProjectArtifactPath(projectPath, file)
             );
         }
         await pruneEmptyParents(projectPath, [FileSystemUtils.toPosixPath(p) for p in paths]);
