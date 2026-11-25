@@ -7,9 +7,40 @@ graph spaces {
 }
 
 graph import {
-    src.host ++> src.core.profiles { missing }
+    src.lazy ++> src.core.config { need }
+    src.lazy ++> src.core.openers { need }
+    src.lazy ++> "src/core/artifact-graph/types" { need }
+    src.lazy ++> "src/core/artifact-graph/schema" { need }
+    src.lazy ++> "src/core/change-metadata/schema" { need }
+    "src/core/artifact-graph/schema" ++> "src/core/artifact-graph/graph" { loadSchema, parseSchema }
+    src.host ++> src.core.openers { JsNull, at, found, merge, missing, rec }
+    src.core.store.errors ++> src.core.openers { StoreError }
+    "src/core/zod-issues" ++> src.core.openers { formatZodIssues }
+    src.host ++> src.core.config { rec }
+    include "src/core/project-dir" ++> src.core.config { OPENSPEC_DIR_NAME }
     src.host ++> "src/core/onboarding-commands" { JsNull, rec }
     src.core.profiles ++> "src/core/onboarding-commands" { ALL_WORKFLOWS }
+    src.host ++> "src/core/shared/ide-restart" { JsNull }
+    src.core.config ++> "src/core/shared/ide-restart" { AI_TOOLS }
+    src.host ++> "src/core/shared/skill-paths" { at, missing, truthy }
+    src.core.config ++> "src/core/shared/skill-paths" {
+        AI_TOOLS,
+        SKILL_LINKED_TOOL_IDS,
+        installerAgent,
+    }
+    src.host ++> src.core.profiles { missing }
+    src.host ++> "src/core/artifact-graph/types" { found, rec }
+    src.host ++> "src/core/change-metadata/schema" { rec, rx }
+    include src.core.id ++> "src/core/change-metadata/schema" { isKebabId }
+    include "src/core/change-metadata/schema" ++> "src/core/change-metadata/index" {
+        isKebabId,
+        InitiativeLinkSchema,
+        CHANGE_METADATA_KNOWN_KEYS,
+        ChangeMetadataSchema,
+        ChangeMetadata,
+    }
+    src.host ++> "src/core/artifact-graph/schema" { at, missing }
+    "src/core/artifact-graph/types" ++> "src/core/artifact-graph/schema" { SchemaYamlSchema }
     src.host ++> src.core.store.errors { merge, rec }
     src.host ++> src.core.id { JsNull, rx, sub }
     src.core.validation.constants --> "src/core/schemas/base.schema" { VALIDATION_MESSAGES }
@@ -197,7 +228,6 @@ graph import {
         listRegisteredStores,
         unregisterStoreRegistration,
     }
-    "src/core/project-dir" --> src.core.config { OPENSPEC_DIR_NAME }
     src.core.index --> "test/cli-e2e/capstone-journeys.test" { getGlobalDataDir, registerStore }
     "test/helpers/run-cli" --> "test/cli-e2e/capstone-journeys.test" { runCLI }
     "test/helpers/openspec-fixtures" --> "test/cli-e2e/capstone-journeys.test" {
@@ -850,12 +880,6 @@ graph import {
         RELEASED_GENERATED_FINGERPRINTS,
     }
     "src/utils/file-system" --> "src/core/shared/generated-fingerprint" { findMarkerBlock }
-    src.core.config --> "src/core/shared/skill-paths" {
-        AIToolOption,
-        AI_TOOLS,
-        SKILL_LINKED_TOOL_IDS,
-        installerAgent,
-    }
     "src/core/shared/generated-fingerprint" --> "src/core/shared/skill-links" {
         isReleasedGeneratedContent,
         normalizeGeneratedContent,
@@ -1087,8 +1111,6 @@ graph import {
     }
     src.core.templates.types --> src.core.templates.workflows.feedback { SkillTemplate }
     src.core.templates.types --> src.core.templates.workflows.router { SkillTemplate }
-    src.core.config --> "src/core/shared/ide-restart" { AI_TOOLS }
-    "src/core/global-config" --> "src/core/shared/ide-restart" { Delivery }
     "src/utils/file-system" --> "src/core/shared/command-reconcile" { FileSystemUtils }
     "src/core/command-generation/index" --> "src/core/shared/command-reconcile" {
         CommandAdapterRegistry,
@@ -1312,18 +1334,6 @@ graph import {
         ActionContext,
         PlanningHomeSummary,
     }
-    "src/core/artifact-graph/types" --> "src/core/artifact-graph/schema" {
-        Artifact,
-        SchemaYaml,
-        SchemaYamlSchema,
-    }
-    "src/core/artifact-graph/types" --> "src/core/artifact-graph/graph" {
-        Artifact,
-        BlockedArtifacts,
-        CompletedSet,
-        SchemaYaml,
-    }
-    "src/core/artifact-graph/schema" --> "src/core/artifact-graph/graph" { loadSchema, parseSchema }
     "src/core/artifact-graph/types" --> "src/core/artifact-graph/state" { CompletedSet }
     "src/core/artifact-graph/graph" --> "src/core/artifact-graph/state" { ArtifactGraph }
     "src/core/artifact-graph/outputs" --> "src/core/artifact-graph/state" { artifactOutputExists }
@@ -1390,8 +1400,6 @@ graph import {
     }
     "src/core/project-config" --> "src/utils/change-metadata" { ProjectConfig, readProjectConfig }
     src.core.references --> "src/utils/change-metadata" { sanitizeInline }
-    "src/core/change-metadata/schema" --> "src/core/change-metadata/index";
-    src.core.id --> "src/core/change-metadata/schema" { isKebabId }
     "src/core/planning-home" --> "src/core/change-status-policy" { PlanningHome }
     "src/utils/nested-change" --> src.commands.workflow.shared {
         describeNestedChange,
@@ -2409,9 +2417,6 @@ graph import {
         promptOpenNow,
         promptToolFromChoices,
     }
-    src.core.store.errors --> src.core.openers { StoreError }
-    "src/core/zod-issues" --> src.core.openers { formatZodIssues }
-    src.core.worksets --> src.core.openers { WorksetMember }
     "src/core/file-state" --> "src/commands/workset-input" { pathIsDirectory }
     src.core.openers --> "src/commands/workset-input" {
         OpenerDefinition,
