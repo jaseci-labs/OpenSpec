@@ -7,6 +7,73 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> src.core.templates.workflows.explore { rec }
+    "src/core/templates/workflows/store-selection" ++> src.core.templates.workflows.explore {
+        STORE_SELECTION_GUIDANCE,
+    }
+    "src/core/templates/workflows/project-root" ++> src.core.templates.workflows.explore {
+        PROJECT_ROOT_GUARD,
+    }
+    src.host ++> src.core.templates.workflows.propose { rec }
+    "src/core/templates/workflows/store-selection" ++> src.core.templates.workflows.propose {
+        STORE_SELECTION_GUIDANCE,
+    }
+    "src/core/templates/workflows/project-root" ++> src.core.templates.workflows.propose {
+        PROJECT_ROOT_GUARD,
+    }
+    "src/core/templates/workflows/new-change" ++> src.core.templates.workflows.propose {
+        changeInput,
+        ASK_WHAT_TO_BUILD,
+    }
+    "src/core/templates/workflows/ff-change" ++> src.core.templates.workflows.propose {
+        artifactBuildSteps,
+    }
+    src.host ++> "src/core/templates/workflows/ff-change" { rec }
+    "src/core/templates/workflows/new-change" ++> "src/core/templates/workflows/ff-change" {
+        newChangeIntro,
+    }
+    src.host ++> src.core.templates.workflows.onboard { rec }
+    "src/core/templates/workflows/store-selection" ++> src.core.templates.workflows.onboard {
+        STORE_SELECTION_GUIDANCE,
+    }
+    "src/core/templates/workflows/project-root" ++> src.core.templates.workflows.onboard {
+        PROJECT_ROOT_GUARD,
+    }
+    src.host ++> "src/core/templates/workflows/new-change" { rec }
+    "src/core/templates/workflows/store-selection" ++> "src/core/templates/workflows/new-change" {
+        STORE_SELECTION_GUIDANCE,
+    }
+    "src/core/templates/workflows/project-root" ++> "src/core/templates/workflows/new-change" {
+        PROJECT_ROOT_GUARD,
+    }
+    src.host ++> "src/core/templates/workflows/verify-change" { rec }
+    "src/core/templates/workflows/store-selection" ++> "src/core/templates/workflows/verify-change" {
+        STORE_SELECTION_GUIDANCE,
+    }
+    "src/core/templates/workflows/project-root" ++> "src/core/templates/workflows/verify-change" {
+        PROJECT_ROOT_GUARD,
+    }
+    src.host ++> "src/core/templates/workflows/update-change" { rec }
+    "src/core/templates/workflows/store-selection" ++> "src/core/templates/workflows/update-change" {
+        STORE_SELECTION_GUIDANCE,
+    }
+    "src/core/templates/workflows/project-root" ++> "src/core/templates/workflows/update-change" {
+        PROJECT_ROOT_GUARD,
+    }
+    src.host ++> "src/core/templates/workflows/sync-specs" { rec }
+    "src/core/templates/workflows/store-selection" ++> "src/core/templates/workflows/sync-specs" {
+        STORE_SELECTION_GUIDANCE,
+    }
+    "src/core/templates/workflows/project-root" ++> "src/core/templates/workflows/sync-specs" {
+        PROJECT_ROOT_GUARD,
+    }
+    src.host ++> "src/core/templates/workflows/continue-change" { rec }
+    "src/core/templates/workflows/store-selection" ++> "src/core/templates/workflows/continue-change" {
+        STORE_SELECTION_GUIDANCE,
+    }
+    "src/core/templates/workflows/project-root" ++> "src/core/templates/workflows/continue-change" {
+        PROJECT_ROOT_GUARD,
+    }
     src.host ++> "src/core/project-skills-scope" { JsNull, at }
     src.lazy ++> "src/core/project-skills-scope" { need }
     "src/utils/file-system" ++> "src/core/project-skills-scope" { FileSystemUtils }
@@ -1050,36 +1117,6 @@ graph import {
         ROUTER_SKILL_NAME,
         getRouterSkillTemplate,
     }
-    src.core.templates.types --> src.core.templates.workflows.explore {
-        CommandTemplate,
-        SkillTemplate,
-    }
-    "src/core/templates/workflows/store-selection" --> src.core.templates.workflows.explore {
-        STORE_SELECTION_GUIDANCE,
-    }
-    "src/core/templates/workflows/project-root" --> src.core.templates.workflows.explore {
-        PROJECT_ROOT_GUARD,
-    }
-    src.core.templates.types --> "src/core/templates/workflows/new-change" {
-        CommandTemplate,
-        SkillTemplate,
-    }
-    "src/core/templates/workflows/store-selection" --> "src/core/templates/workflows/new-change" {
-        STORE_SELECTION_GUIDANCE,
-    }
-    "src/core/templates/workflows/project-root" --> "src/core/templates/workflows/new-change" {
-        PROJECT_ROOT_GUARD,
-    }
-    src.core.templates.types --> "src/core/templates/workflows/continue-change" {
-        CommandTemplate,
-        SkillTemplate,
-    }
-    "src/core/templates/workflows/store-selection" --> "src/core/templates/workflows/continue-change" {
-        STORE_SELECTION_GUIDANCE,
-    }
-    "src/core/templates/workflows/project-root" --> "src/core/templates/workflows/continue-change" {
-        PROJECT_ROOT_GUARD,
-    }
     src.core.templates.types --> "src/core/templates/workflows/apply-change" {
         CommandTemplate,
         SkillTemplate,
@@ -1088,36 +1125,6 @@ graph import {
         STORE_SELECTION_GUIDANCE,
     }
     "src/core/templates/workflows/project-root" --> "src/core/templates/workflows/apply-change" {
-        PROJECT_ROOT_GUARD,
-    }
-    src.core.templates.types --> "src/core/templates/workflows/update-change" {
-        CommandTemplate,
-        SkillTemplate,
-    }
-    "src/core/templates/workflows/store-selection" --> "src/core/templates/workflows/update-change" {
-        STORE_SELECTION_GUIDANCE,
-    }
-    "src/core/templates/workflows/project-root" --> "src/core/templates/workflows/update-change" {
-        PROJECT_ROOT_GUARD,
-    }
-    src.core.templates.types --> "src/core/templates/workflows/ff-change" {
-        CommandTemplate,
-        SkillTemplate,
-    }
-    "src/core/templates/workflows/store-selection" --> "src/core/templates/workflows/ff-change" {
-        STORE_SELECTION_GUIDANCE,
-    }
-    "src/core/templates/workflows/project-root" --> "src/core/templates/workflows/ff-change" {
-        PROJECT_ROOT_GUARD,
-    }
-    src.core.templates.types --> "src/core/templates/workflows/sync-specs" {
-        CommandTemplate,
-        SkillTemplate,
-    }
-    "src/core/templates/workflows/store-selection" --> "src/core/templates/workflows/sync-specs" {
-        STORE_SELECTION_GUIDANCE,
-    }
-    "src/core/templates/workflows/project-root" --> "src/core/templates/workflows/sync-specs" {
         PROJECT_ROOT_GUARD,
     }
     src.core.templates.types --> "src/core/templates/workflows/archive-change" {
@@ -1141,36 +1148,6 @@ graph import {
         STORE_SELECTION_GUIDANCE,
     }
     "src/core/templates/workflows/project-root" --> "src/core/templates/workflows/bulk-archive-change" {
-        PROJECT_ROOT_GUARD,
-    }
-    src.core.templates.types --> "src/core/templates/workflows/verify-change" {
-        CommandTemplate,
-        SkillTemplate,
-    }
-    "src/core/templates/workflows/store-selection" --> "src/core/templates/workflows/verify-change" {
-        STORE_SELECTION_GUIDANCE,
-    }
-    "src/core/templates/workflows/project-root" --> "src/core/templates/workflows/verify-change" {
-        PROJECT_ROOT_GUARD,
-    }
-    src.core.templates.types --> src.core.templates.workflows.onboard {
-        CommandTemplate,
-        SkillTemplate,
-    }
-    "src/core/templates/workflows/store-selection" --> src.core.templates.workflows.onboard {
-        STORE_SELECTION_GUIDANCE,
-    }
-    "src/core/templates/workflows/project-root" --> src.core.templates.workflows.onboard {
-        PROJECT_ROOT_GUARD,
-    }
-    src.core.templates.types --> src.core.templates.workflows.propose {
-        CommandTemplate,
-        SkillTemplate,
-    }
-    "src/core/templates/workflows/store-selection" --> src.core.templates.workflows.propose {
-        STORE_SELECTION_GUIDANCE,
-    }
-    "src/core/templates/workflows/project-root" --> src.core.templates.workflows.propose {
         PROJECT_ROOT_GUARD,
     }
     "src/utils/file-system" --> "src/core/shared/command-reconcile" { FileSystemUtils }
