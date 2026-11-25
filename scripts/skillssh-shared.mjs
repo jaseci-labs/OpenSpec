@@ -9,8 +9,10 @@ import { join } from 'node:path';
 export const SKILLS_DIR = 'skills';
 
 // Drops the per-release `generatedBy` frontmatter line, so the committed
-// skills.sh copies stay byte-stable across OpenSpec version bumps.
-export { stripVolatileFrontmatter } from '../dist/core/shared/skill-generation.js';
+// skills.sh copies stay byte-stable across OpenSpec version bumps. Imported from
+// the build by a computed URL, so neojac's import graph stays out of dist/.
+const built = new URL('../dist/core/shared/skill-generation.js', import.meta.url).href;
+export const { stripVolatileFrontmatter } = await import(built);
 
 /**
  * Remove existing skill subdirectories (clears any renamed/removed skills)

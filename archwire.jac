@@ -3171,7 +3171,6 @@ graph import {
         generateCommands,
     }
     "src/core/shared/skill-generation" --> "test/core/global-skills.test" { getCommandContents }
-    "scripts/skillssh-shared" --> "test/core/global-skills.test" { stripVolatileFrontmatter }
     src.core.init --> "test/core/init.test" { InitCommand }
     "src/core/global-config" --> "test/core/init.test" { getGlobalConfig, saveGlobalConfig }
     "src/core/project-config" --> "test/core/init.test" { MAX_CONTEXT_SIZE, readProjectConfig }
@@ -3745,9 +3744,6 @@ graph import {
         ALL_WORKFLOWS,
         SKILL_WORKFLOWS,
     }
-    "scripts/parity-hash-shared" --> "test/core/templates/parity-hash-shared.test" {
-        rewriteParityHashes,
-    }
     "src/core/templates/workflows/project-root" --> "test/core/templates/project-root-guard.test" {
         PROJECT_ROOT_GUARD,
     }
@@ -3837,20 +3833,12 @@ graph import {
     "src/core/artifact-graph/schema" --> "test/core/templates/skill-templates-parity.test" {
         parseSchema,
     }
-    "scripts/skillssh-shared" --> "test/core/templates/skillssh-generator-guards.test" {
-        cleanSkillSubdirectories,
-        prepareSkillDirectory,
-    }
     "src/core/shared/skill-generation" --> "test/core/templates/skillssh-parity.test" {
         generateSkillFiles,
         getSkillTemplates,
     }
     "src/utils/command-references" --> "test/core/templates/skillssh-parity.test" {
         transformToSharedSkillReferences,
-    }
-    "scripts/skillssh-shared" --> "test/core/templates/skillssh-parity.test" {
-        SKILLS_DIR,
-        stripVolatileFrontmatter,
     }
     "src/core/shared/skill-generation" --> "test/core/templates/spec-inventory.test" {
         getCommandTemplates,
@@ -4193,100 +4181,19 @@ graph import {
     "src/core/artifact-graph/index" --> "test/utils/task-progress.test" { resolveArtifactOutputs }
     website.scripts.preview --> "test/website-preview.test";
     "test/helpers/run-cli" --> "vitest.setup" { ensureCliBuilt, terminateActiveCliChildren }
-    "scripts/skillssh-shared" --> "scripts/generate-skillssh" {
-        SKILLS_DIR,
-        cleanSkillSubdirectories,
-        prepareSkillDirectory,
-        stripVolatileFrontmatter,
-    }
-    "scripts/parity-hash-shared" --> "scripts/regen-parity-hashes" {
-        rewriteParityHashes,
-        stableStringify,
-    }
     src.cli.index --> src.index;
     src.core.index --> src.index;
-    "dist/core/shared/skill-generation.d" --> "scripts/skillssh-shared" { stripVolatileFrontmatter }
-    "dist/core/templates/skill-templates.d" --> "dist/core/shared/skill-generation.d" {
-        SkillTemplate,
-        getOpsxExploreCommandTemplate,
+    "scripts/skillssh-shared" --> "test/core/global-skills.test" { stripVolatileFrontmatter }
+    "scripts/parity-hash-shared" --> "test/core/templates/parity-hash-shared.test" {
+        rewriteParityHashes,
     }
-    "dist/core/command-generation/index.d" --> "dist/core/shared/skill-generation.d" {
-        CommandContent,
+    "scripts/skillssh-shared" --> "test/core/templates/skillssh-generator-guards.test" {
+        cleanSkillSubdirectories,
+        prepareSkillDirectory,
     }
-    "dist/core/templates/workflows/explore.d" --> "dist/core/templates/skill-templates.d" {
-        getExploreSkillTemplate,
-        getOpsxExploreCommandTemplate,
-    }
-    "dist/core/templates/workflows/new-change.d" --> "dist/core/templates/skill-templates.d" {
-        getNewChangeSkillTemplate,
-        getOpsxNewCommandTemplate,
-    }
-    "dist/core/templates/workflows/continue-change.d" --> "dist/core/templates/skill-templates.d" {
-        getContinueChangeSkillTemplate,
-        getOpsxContinueCommandTemplate,
-    }
-    "dist/core/templates/workflows/apply-change.d" --> "dist/core/templates/skill-templates.d" {
-        getApplyChangeSkillTemplate,
-        getApplyInstructions,
-        getOpsxApplyCommandTemplate,
-    }
-    "dist/core/templates/workflows/update-change.d" --> "dist/core/templates/skill-templates.d" {
-        getOpsxUpdateCommandTemplate,
-        getUpdateChangeSkillTemplate,
-    }
-    "dist/core/templates/workflows/ff-change.d" --> "dist/core/templates/skill-templates.d" {
-        getFfChangeSkillTemplate,
-        getOpsxFfCommandTemplate,
-    }
-    "dist/core/templates/workflows/sync-specs.d" --> "dist/core/templates/skill-templates.d" {
-        getOpsxSyncCommandTemplate,
-        getSyncSpecsSkillTemplate,
-    }
-    "dist/core/templates/workflows/archive-change.d" --> "dist/core/templates/skill-templates.d" {
-        getArchiveChangeSkillTemplate,
-        getOpsxArchiveCommandTemplate,
-    }
-    "dist/core/templates/workflows/bulk-archive-change.d" --> "dist/core/templates/skill-templates.d" {
-        getBulkArchiveChangeSkillTemplate,
-        getOpsxBulkArchiveCommandTemplate,
-    }
-    "dist/core/templates/workflows/verify-change.d" --> "dist/core/templates/skill-templates.d" {
-        getOpsxVerifyCommandTemplate,
-        getVerifyChangeSkillTemplate,
-    }
-    "dist/core/templates/workflows/onboard.d" --> "dist/core/templates/skill-templates.d" {
-        getOnboardSkillTemplate,
-        getOpsxOnboardCommandTemplate,
-    }
-    "dist/core/templates/workflows/propose.d" --> "dist/core/templates/skill-templates.d" {
-        getOpsxProposeCommandTemplate,
-        getOpsxProposeSkillTemplate,
-    }
-    "dist/core/command-generation/registry.d" --> "dist/core/command-generation/index.d" {
-        CommandAdapterRegistry,
-    }
-    "dist/core/command-generation/generator.d" --> "dist/core/command-generation/index.d" {
-        generateCommand,
-        generateCommands,
-    }
-    "dist/core/command-generation/adapters/index.d" --> "dist/core/command-generation/index.d" {
-        claudeAdapter,
-        cursorAdapter,
-        devinAdapter,
-    }
-    "dist/core/command-generation/adapters/claude.d" --> "dist/core/command-generation/adapters/index.d" {
-        claudeAdapter,
+    "scripts/skillssh-shared" --> "test/core/templates/skillssh-parity.test" {
+        SKILLS_DIR,
+        stripVolatileFrontmatter,
     }
     "dist/cli/index.d" --> bin.openspec { runCli }
-    "dist/core/artifact-graph/resolver.d" --> scripts.binary.entry { setPackageSchemasDir }
-    "dist/core/version-check.d" --> scripts.binary.entry { markStandaloneBinary }
-    "dist/cli/index.d" --> scripts.binary.entry;
-    "dist/core/shared/skill-generation.d" --> "scripts/generate-skillssh" {
-        generateSkillFiles,
-        getSkillTemplates,
-    }
-    "dist/utils/command-references.d" --> "scripts/generate-skillssh" {
-        transformToSharedSkillReferences,
-    }
-    "dist/core/command-surface.d" --> "dist/utils/command-references.d" { CommandSurfaceCapability }
 }

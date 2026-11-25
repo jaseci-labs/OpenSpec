@@ -67,7 +67,7 @@ zod = "^4.4.3"
 script = "test"
 
 [project]
-exclude = ["website", "dist"]
+exclude = ["website", "dist", "scripts/binary/entry.mjs", "scripts/skillssh-shared.mjs", "scripts/generate-skillssh.mjs", "scripts/regen-parity-hashes.mjs", "scripts/capture-released-fingerprints.mjs"]
 
 [check.lint]
 ignore = ["separate-impls"]
