@@ -7,6 +7,108 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/core/completion-tip" { JsNull, at, kind, merge, missing, rec, same }
+    "src/core/global-config" ++> "src/core/completion-tip" { getGlobalConfigPath }
+    "src/core/file-state" ++> "src/core/completion-tip" { writeFileAtomically }
+    src.utils.ci ++> "src/core/completion-tip" { isCiEnvironment }
+    "src/utils/shell-detection" ++> "src/core/completion-tip" { detectShell }
+    src.core.completions.factory ++> "src/core/completion-tip" { CompletionFactory }
+    src.lazy ++> src.core.completions.factory { load }
+    src.host ++> src.core.completions.factory { at, js_error, merge, rec, sub }
+    "src/utils/file-system" ++> src.core.completions.factory { FileSystemUtils }
+    "src/core/completions/generators/zsh-generator" ++> src.core.completions.factory {
+        ZshGenerator,
+    }
+    "src/core/completions/generators/bash-generator" ++> src.core.completions.factory {
+        BashGenerator,
+    }
+    "src/core/completions/generators/fish-generator" ++> src.core.completions.factory {
+        FishGenerator,
+    }
+    "src/core/completions/generators/powershell-generator" ++> src.core.completions.factory {
+        PowerShellGenerator,
+    }
+    "src/core/completions/installers/zsh-installer" ++> src.core.completions.factory {
+        ZshInstaller,
+    }
+    "src/core/completions/installers/bash-installer" ++> src.core.completions.factory {
+        BashInstaller,
+    }
+    "src/core/completions/installers/fish-installer" ++> src.core.completions.factory {
+        FishInstaller,
+    }
+    "src/core/completions/installers/powershell-installer" ++> src.core.completions.factory {
+        PowerShellInstaller,
+    }
+    src.host ++> "src/core/completions/installers/fish-installer" { rec }
+    src.core.completions.factory ++> "src/core/completions/installers/fish-installer" {
+        UP_TO_DATE,
+        backupFile,
+        failed,
+        isScriptFile,
+        jsAsync,
+        placeScript,
+        uninstallScript,
+    }
+    src.host ++> "src/core/completions/installers/bash-installer" { rec }
+    "src/core/completions/installers/shell-quote" ++> "src/core/completions/installers/bash-installer" {
+        shellSingleQuote,
+    }
+    src.core.completions.factory ++> "src/core/completions/installers/bash-installer" {
+        UP_TO_DATE,
+        backupFile,
+        configureRc,
+        failed,
+        isScriptFile,
+        jsAsync,
+        placeScript,
+        removeRcBlock,
+        uninstallScript,
+    }
+    src.host ++> "src/core/completions/installers/powershell-installer" { at, js_error, rec }
+    src.core.completions.factory ++> "src/core/completions/installers/powershell-installer" {
+        END_MARKER,
+        START_MARKER,
+        UP_TO_DATE,
+        backupFile,
+        ensureWritable,
+        failed,
+        isScriptFile,
+        jsAsync,
+        placeScript,
+        uninstallScript,
+    }
+    src.host ++> "src/core/completions/installers/zsh-installer" { rec }
+    "src/core/completions/installers/shell-quote" ++> "src/core/completions/installers/zsh-installer" {
+        shellSingleQuote,
+    }
+    src.core.completions.factory ++> "src/core/completions/installers/zsh-installer" {
+        END_MARKER,
+        START_MARKER,
+        UP_TO_DATE,
+        backupFile,
+        configureRc,
+        failed,
+        jsAsync,
+        placeScript,
+        removeRcBlock,
+    }
+    src.host ++> "src/core/completions/generators/fish-generator" { truthy }
+    "src/core/completions/templates/fish-templates" ++> "src/core/completions/generators/fish-generator" {
+        FISH_DYNAMIC_HELPERS,
+        FISH_STATIC_HELPERS,
+    }
+    src.host ++> "src/core/completions/generators/powershell-generator" { sub }
+    "src/core/completions/templates/powershell-templates" ++> "src/core/completions/generators/powershell-generator" {
+        POWERSHELL_DYNAMIC_HELPERS,
+    }
+    "src/core/completions/templates/zsh-templates" ++> "src/core/completions/generators/zsh-generator" {
+        ZSH_DYNAMIC_HELPERS,
+    }
+    src.host ++> "src/core/completions/generators/bash-generator" { sub }
+    "src/core/completions/templates/bash-templates" ++> "src/core/completions/generators/bash-generator" {
+        BASH_DYNAMIC_HELPERS,
+    }
     src.host ++> "src/core/legacy-cleanup" {
         at,
         found,
@@ -1597,92 +1699,6 @@ graph import {
     "src/utils/shell-detection" --> src.commands.completion { SupportedShell, detectShell }
     "src/core/completions/completion-provider" --> src.commands.completion { CompletionProvider }
     "src/utils/item-discovery" --> src.commands.completion { getArchivedChangeIds }
-    src.core.completions.types --> src.core.completions.factory { CompletionGenerator }
-    "src/core/completions/generators/zsh-generator" --> src.core.completions.factory {
-        ZshGenerator,
-    }
-    "src/core/completions/generators/bash-generator" --> src.core.completions.factory {
-        BashGenerator,
-    }
-    "src/core/completions/generators/fish-generator" --> src.core.completions.factory {
-        FishGenerator,
-    }
-    "src/core/completions/generators/powershell-generator" --> src.core.completions.factory {
-        PowerShellGenerator,
-    }
-    "src/core/completions/installers/zsh-installer" --> src.core.completions.factory {
-        ZshInstaller,
-    }
-    "src/core/completions/installers/bash-installer" --> src.core.completions.factory {
-        BashInstaller,
-    }
-    "src/core/completions/installers/fish-installer" --> src.core.completions.factory {
-        FishInstaller,
-    }
-    "src/core/completions/installers/powershell-installer" --> src.core.completions.factory {
-        PowerShellInstaller,
-    }
-    "src/utils/shell-detection" --> src.core.completions.factory { SupportedShell }
-    src.core.completions.types --> "src/core/completions/generators/zsh-generator" {
-        CommandDefinition,
-        CompletionGenerator,
-        FlagDefinition,
-        PositionalDefinition,
-    }
-    "src/core/completions/templates/zsh-templates" --> "src/core/completions/generators/zsh-generator" {
-        ZSH_DYNAMIC_HELPERS,
-    }
-    src.core.completions.types --> "src/core/completions/generators/bash-generator" {
-        CommandDefinition,
-        CompletionGenerator,
-        FlagDefinition,
-        PositionalDefinition,
-    }
-    "src/core/completions/templates/bash-templates" --> "src/core/completions/generators/bash-generator" {
-        BASH_DYNAMIC_HELPERS,
-    }
-    src.core.completions.types --> "src/core/completions/generators/fish-generator" {
-        CommandDefinition,
-        CompletionGenerator,
-        FlagDefinition,
-    }
-    "src/core/completions/templates/fish-templates" --> "src/core/completions/generators/fish-generator" {
-        FISH_DYNAMIC_HELPERS,
-        FISH_STATIC_HELPERS,
-    }
-    src.core.completions.types --> "src/core/completions/generators/powershell-generator" {
-        CommandDefinition,
-        CompletionGenerator,
-        FlagDefinition,
-        PositionalDefinition,
-    }
-    "src/core/completions/templates/powershell-templates" --> "src/core/completions/generators/powershell-generator" {
-        POWERSHELL_DYNAMIC_HELPERS,
-    }
-    "src/utils/file-system" --> "src/core/completions/installers/zsh-installer" { FileSystemUtils }
-    src.core.completions.factory --> "src/core/completions/installers/zsh-installer" {
-        InstallationResult,
-    }
-    "src/core/completions/installers/shell-quote" --> "src/core/completions/installers/zsh-installer" {
-        shellSingleQuote,
-    }
-    "src/utils/file-system" --> "src/core/completions/installers/bash-installer" { FileSystemUtils }
-    src.core.completions.factory --> "src/core/completions/installers/bash-installer" {
-        InstallationResult,
-    }
-    "src/core/completions/installers/shell-quote" --> "src/core/completions/installers/bash-installer" {
-        shellSingleQuote,
-    }
-    "src/utils/file-system" --> "src/core/completions/installers/fish-installer" { FileSystemUtils }
-    src.core.completions.factory --> "src/core/completions/installers/fish-installer" {
-        InstallationResult,
-    }
-    "src/utils/file-system" --> "src/core/completions/installers/powershell-installer" {
-        FileSystemUtils,
-    }
-    src.core.completions.factory --> "src/core/completions/installers/powershell-installer" {
-        InstallationResult,
-    }
     "src/utils/item-discovery" --> "src/core/completions/completion-provider" {
         getActiveChangeIds,
         getSpecIds,
@@ -2741,11 +2757,6 @@ graph import {
     "src/core/artifact-graph/resolver" --> "src/utils/change-utils" { resolveSchema }
     "src/core/artifact-graph/outputs" --> "src/utils/change-utils" { isSpecsArtifactPath }
     "src/core/change-metadata/index" --> "src/utils/change-utils" { ChangeMetadata }
-    "src/core/global-config" --> "src/core/completion-tip" { getGlobalConfigPath }
-    "src/core/file-state" --> "src/core/completion-tip" { writeFileAtomically }
-    src.utils.ci --> "src/core/completion-tip" { isCiEnvironment }
-    "src/utils/shell-detection" --> "src/core/completion-tip" { detectShell }
-    src.core.completions.factory --> "src/core/completion-tip";
     src.utils.ci --> "src/core/standalone-tip" { isCiEnvironment }
     "src/core/completion-tip" --> "src/core/standalone-tip" { markConfigFlag, readRawConfig }
     "src/core/version-check" --> "src/core/standalone-tip" {
