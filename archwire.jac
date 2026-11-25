@@ -7,6 +7,13 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> src.core.templates.workflows.explore { rec }
+    "src/core/templates/workflows/store-selection" ++> src.core.templates.workflows.explore {
+        STORE_SELECTION_GUIDANCE,
+    }
+    "src/core/templates/workflows/project-root" ++> src.core.templates.workflows.explore {
+        PROJECT_ROOT_GUARD,
+    }
     src.host ++> src.core.templates.workflows.propose { rec }
     "src/core/templates/workflows/store-selection" ++> src.core.templates.workflows.propose {
         STORE_SELECTION_GUIDANCE,
@@ -1106,16 +1113,6 @@ graph import {
     src.core.templates.workflows.router --> "src/core/templates/skill-templates" {
         ROUTER_SKILL_NAME,
         getRouterSkillTemplate,
-    }
-    src.core.templates.types --> src.core.templates.workflows.explore {
-        CommandTemplate,
-        SkillTemplate,
-    }
-    "src/core/templates/workflows/store-selection" --> src.core.templates.workflows.explore {
-        STORE_SELECTION_GUIDANCE,
-    }
-    "src/core/templates/workflows/project-root" --> src.core.templates.workflows.explore {
-        PROJECT_ROOT_GUARD,
     }
     src.core.templates.types --> "src/core/templates/workflows/apply-change" {
         CommandTemplate,
