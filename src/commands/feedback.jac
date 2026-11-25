@@ -1,5 +1,5 @@
 import from "child_process" { execFileSync }
-import from "module" { createRequire }
+import from "node:path" { join }
 import from "os" { default as os }
 import from "node:process" { default as process }
 
@@ -17,16 +17,10 @@ def:priv ghRuns(cmd: str, args: list[str]) -> bool {
 }
 
 def:priv getVersion -> any {
-    keep = globalThis.Error.prepareStackTrace;
     try {
-        globalThis.Error.prepareStackTrace = lambda (e: any, sites: any) -> any { sites };
-        return createRequire(new(globalThis.Error).stack[0].getFileName())(
-            "../../../package.json"
-        )["version"];
+        return need(join(packageRoot(), "package.json"))["version"];
     } except Exception {
         return "unknown";
-    } finally {
-        globalThis.Error.prepareStackTrace = keep;
     }
 }
 

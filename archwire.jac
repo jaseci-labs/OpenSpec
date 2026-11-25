@@ -7,6 +7,7 @@ graph spaces {
 }
 
 graph import {
+    src.lazy ++> src.commands.feedback { need, packageRoot }
     src.host ++> "src/commands/install-standalone" { JsNull, at, found, merge, missing, rec, sub }
     src.lazy ++> "src/commands/install-standalone" { pick }
     "src/utils/executable-path" ++> "src/commands/install-standalone" { findCopiesOnPath, samePath }
@@ -28,7 +29,7 @@ graph import {
         sub,
         truthy,
     }
-    src.lazy ++> "src/core/version-check" { load, need, pick }
+    src.lazy ++> "src/core/version-check" { load, need, packageRoot, pick }
     src.utils.ci ++> "src/core/version-check" { isCiEnvironment }
     "src/telemetry/opt-out" ++> "src/core/version-check" { isTelemetryOptedOutByEnv }
     "src/utils/file-system" ++> "src/core/version-check" { FileSystemUtils }

@@ -3,23 +3,11 @@ import from "http" { default as http }
 import from "https" { default as https }
 import from "path" { default as path }
 import from "module" { createRequire }
-import from "url" { fileURLToPath }
 import from "node:process" { default as process }
 
 type CliInstallInfo = any;
 
-def:priv ownFile -> str {
-    keep = globalThis.Error.prepareStackTrace;
-    try {
-        globalThis.Error.prepareStackTrace = lambda (e: any, sites: any) -> any { sites };
-        file: any = new(globalThis.Error).stack[0].getFileName();
-        return fileURLToPath(file) if file.startsWith("file:") else file;
-    } finally {
-        globalThis.Error.prepareStackTrace = keep;
-    }
-}
-
-glob:priv PACKAGE_JSON: str = path.resolve(path.dirname(ownFile()), "../../../package.json"),
+glob:priv PACKAGE_JSON: str = path.join(packageRoot(), "package.json"),
           pkg: any = createRequire(PACKAGE_JSON)(PACKAGE_JSON),
           PACKAGE_NAME: str = pkg.name,
           OPENSPEC_VERSION: str = pkg.version,
