@@ -1,5 +1,17 @@
 glob JsNull: any = globalThis.JSON.parse("null");
 
+def rec(**fields: any) -> any {
+    return globalThis.Object.fromEntries(list(fields.items()));
+}
+
+def merge(*parts: any) -> any {
+    return globalThis.Object.assign(rec(), *parts);
+}
+
+def js_error(e: any) -> any {
+    return getattr(e, "js", e);
+}
+
 def rx(pattern: str, flags: str = "") -> any {
     return new(globalThis.RegExp, pattern, flags);
 }

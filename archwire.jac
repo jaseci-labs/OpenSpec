@@ -7,6 +7,7 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> src.core.store.errors { merge, rec }
     src.host ++> src.core.id { JsNull, rx, sub }
     src.core.validation.constants --> "src/core/schemas/base.schema" { VALIDATION_MESSAGES }
     "src/core/schemas/base.schema" --> "src/core/schemas/change.schema" { RequirementSchema }
