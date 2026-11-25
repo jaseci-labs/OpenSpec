@@ -7,6 +7,147 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/core/validation/task-checkboxes" { matchOf, missing, rec, rx, sub }
+    "src/utils/task-progress" ++> "src/core/validation/task-checkboxes" { parseTaskLines }
+    src.host ++> "src/core/validation/task-numbering" { at, found, matchOf, rec, rx, sub }
+    "src/utils/task-progress" ++> "src/core/validation/task-numbering" { parseTaskLines }
+    src.host ++> "src/utils/task-progress" { at, js_error, matchOf, missing, rec, rx, truthy }
+    "src/core/artifact-graph/outputs" ++> "src/utils/task-progress" { resolveArtifactOutputs }
+    "src/core/artifact-graph/resolver" ++> "src/utils/task-progress" { resolveSchema }
+    "src/utils/change-metadata" ++> "src/utils/task-progress" { resolveSchemaForChange }
+    include "src/core/artifact-graph/types" ++> "src/core/artifact-graph/index" {
+        Artifact,
+        ArtifactSchema,
+        BlockedArtifacts,
+        CompletedSet,
+        SchemaYaml,
+        SchemaYamlSchema,
+    }
+    include "src/core/artifact-graph/schema" ++> "src/core/artifact-graph/index" {
+        SchemaValidationError,
+        loadSchema,
+        parseSchema,
+    }
+    include "src/core/artifact-graph/graph" ++> "src/core/artifact-graph/index" { ArtifactGraph }
+    include "src/core/artifact-graph/state" ++> "src/core/artifact-graph/index" { detectCompleted }
+    include "src/core/artifact-graph/outputs" ++> "src/core/artifact-graph/index" {
+        artifactOutputExists,
+        isGlobPattern,
+        resolveArtifactOutputPath,
+        resolveArtifactOutputs,
+    }
+    include "src/core/artifact-graph/resolver" ++> "src/core/artifact-graph/index" {
+        SchemaInfo,
+        SchemaLoadError,
+        getPackageSchemasDir,
+        getSchemaDir,
+        getUserSchemasDir,
+        listSchemas,
+        listSchemasWithInfo,
+        resolveSchema,
+    }
+    include "src/core/artifact-graph/instruction-loader" ++> "src/core/artifact-graph/index" {
+        ArtifactInstructions,
+        ArtifactPathSummary,
+        ArtifactStatus,
+        ChangeContext,
+        ChangeStatus,
+        DependencyInfo,
+        LoadChangeContextOptions,
+        TemplateLoadError,
+        formatChangeStatus,
+        generateInstructions,
+        loadChangeContext,
+        loadTemplate,
+    }
+    include "src/core/change-status-policy" ++> "src/core/artifact-graph/index" {
+        ActionContext,
+        PlanningHomeSummary,
+    }
+    src.host ++> "src/core/artifact-graph/instruction-loader" {
+        JsNull,
+        at,
+        js_error,
+        merge,
+        missing,
+        owns,
+        rec,
+        truthy,
+    }
+    "src/core/artifact-graph/resolver" ++> "src/core/artifact-graph/instruction-loader" {
+        getSchemaDir,
+        listSchemasWithInfo,
+        resolveSchema,
+    }
+    "src/core/artifact-graph/graph" ++> "src/core/artifact-graph/instruction-loader" {
+        ArtifactGraph,
+    }
+    "src/core/artifact-graph/state" ++> "src/core/artifact-graph/instruction-loader" {
+        detectCompleted,
+    }
+    "src/core/artifact-graph/outputs" ++> "src/core/artifact-graph/instruction-loader" {
+        isSpecsArtifactPath,
+        resolveArtifactOutputPath,
+        resolveArtifactOutputs,
+    }
+    "src/utils/change-metadata" ++> "src/core/artifact-graph/instruction-loader" {
+        formatUnknownChangeMetadataKeysMessage,
+        readChangeMetadata,
+        readUnknownChangeMetadataKeys,
+        resolveSchemaForChange,
+    }
+    "src/utils/file-system" ++> "src/core/artifact-graph/instruction-loader" { FileSystemUtils }
+    "src/core/change-status-policy" ++> "src/core/artifact-graph/instruction-loader" {
+        buildActionContext,
+        buildNextSteps,
+        summarizePlanningHome,
+    }
+    "src/core/project-config" ++> "src/core/artifact-graph/instruction-loader" {
+        readProjectConfig,
+        validateConfigRules,
+    }
+    src.host ++> "src/utils/nested-change" { promise, rec }
+    "src/core/artifact-graph/outputs" ++> "src/utils/nested-change" { artifactOutputExists }
+    "src/core/artifact-graph/resolver" ++> "src/utils/nested-change" { resolveSchema }
+    "src/utils/change-metadata" ++> "src/utils/nested-change" {
+        METADATA_FILENAME,
+        resolveSchemaForChange,
+    }
+    "src/utils/spec-discovery" ++> "src/utils/nested-change" { hasAnyFileUnder }
+    src.host ++> "src/utils/change-utils" { at, found, merge, rec }
+    "src/utils/file-system" ++> "src/utils/change-utils" { FileSystemUtils }
+    "src/utils/change-metadata" ++> "src/utils/change-utils" {
+        validateSchemaName,
+        writeChangeMetadata,
+    }
+    src.utils.date ++> "src/utils/change-utils" { formatLocalDate }
+    "src/core/project-config" ++> "src/utils/change-utils" { readProjectConfig }
+    src.core.id ++> "src/utils/change-utils" { isKebabId }
+    "src/core/artifact-graph/resolver" ++> "src/utils/change-utils" { resolveSchema }
+    "src/core/artifact-graph/outputs" ++> "src/utils/change-utils" { isSpecsArtifactPath }
+    src.host ++> "src/utils/change-metadata" {
+        JsNull,
+        at,
+        found,
+        js_error,
+        kind,
+        missing,
+        rec,
+        rx,
+        same,
+        sub,
+    }
+    src.lazy ++> "src/utils/change-metadata" { need }
+    "src/core/change-metadata/index" ++> "src/utils/change-metadata" { ChangeMetadataSchema }
+    include "src/core/change-metadata/index" ++> "src/utils/change-metadata" {
+        CHANGE_METADATA_KNOWN_KEYS,
+    }
+    "src/core/artifact-graph/resolver" ++> "src/utils/change-metadata" {
+        listSchemas,
+        resolveSchema,
+    }
+    "src/core/project-config" ++> "src/utils/change-metadata" { readProjectConfig }
+    src.core.references ++> "src/utils/change-metadata" { sanitizeInline }
     src.host ++> src.commands.context { JsNull, at, js_error, rec, same, truthy }
     "src/commands/shared-output" ++> src.commands.context { emitFailure, printJson }
     "src/commands/shared-gather" ++> src.commands.context { gatherRelationshipData }
@@ -1892,110 +2033,6 @@ graph import {
         parseLocatedTaskLines,
     }
     "src/utils/change-metadata" --> src.commands.workflow.instructions { METADATA_FILENAME }
-    "src/core/artifact-graph/types" --> "src/core/artifact-graph/index" {
-        Artifact,
-        ArtifactSchema,
-        BlockedArtifacts,
-        CompletedSet,
-        SchemaYaml,
-        SchemaYamlSchema,
-    }
-    "src/core/artifact-graph/schema" --> "src/core/artifact-graph/index" {
-        SchemaValidationError,
-        loadSchema,
-        parseSchema,
-    }
-    "src/core/artifact-graph/graph" --> "src/core/artifact-graph/index" { ArtifactGraph }
-    "src/core/artifact-graph/state" --> "src/core/artifact-graph/index" { detectCompleted }
-    "src/core/artifact-graph/outputs" --> "src/core/artifact-graph/index" {
-        artifactOutputExists,
-        isGlobPattern,
-        resolveArtifactOutputPath,
-        resolveArtifactOutputs,
-    }
-    "src/core/artifact-graph/resolver" --> "src/core/artifact-graph/index" {
-        SchemaInfo,
-        SchemaLoadError,
-        getPackageSchemasDir,
-        getSchemaDir,
-        getUserSchemasDir,
-        listSchemas,
-        listSchemasWithInfo,
-        resolveSchema,
-    }
-    "src/core/artifact-graph/instruction-loader" --> "src/core/artifact-graph/index" {
-        ArtifactInstructions,
-        ArtifactPathSummary,
-        ArtifactStatus,
-        ChangeContext,
-        ChangeStatus,
-        DependencyInfo,
-        LoadChangeContextOptions,
-        TemplateLoadError,
-        formatChangeStatus,
-        generateInstructions,
-        loadChangeContext,
-        loadTemplate,
-    }
-    "src/core/change-status-policy" --> "src/core/artifact-graph/index" {
-        ActionContext,
-        PlanningHomeSummary,
-    }
-    "src/core/artifact-graph/resolver" --> "src/core/artifact-graph/instruction-loader" {
-        getSchemaDir,
-        listSchemasWithInfo,
-        resolveSchema,
-    }
-    "src/core/artifact-graph/graph" --> "src/core/artifact-graph/instruction-loader" {
-        ArtifactGraph,
-    }
-    "src/core/artifact-graph/state" --> "src/core/artifact-graph/instruction-loader" {
-        detectCompleted,
-    }
-    "src/core/artifact-graph/outputs" --> "src/core/artifact-graph/instruction-loader" {
-        isSpecsArtifactPath,
-        resolveArtifactOutputPath,
-        resolveArtifactOutputs,
-    }
-    "src/utils/change-metadata" --> "src/core/artifact-graph/instruction-loader" {
-        formatUnknownChangeMetadataKeysMessage,
-        readChangeMetadata,
-        readUnknownChangeMetadataKeys,
-        resolveSchemaForChange,
-    }
-    "src/utils/file-system" --> "src/core/artifact-graph/instruction-loader" { FileSystemUtils }
-    "src/core/change-status-policy" --> "src/core/artifact-graph/instruction-loader" {
-        ActionContext,
-        PlanningHomeSummary,
-        buildActionContext,
-        buildNextSteps,
-        summarizePlanningHome,
-    }
-    "src/core/project-config" --> "src/core/artifact-graph/instruction-loader" {
-        ProjectConfig,
-        readProjectConfig,
-        validateConfigRules,
-    }
-    src.core.references --> "src/core/artifact-graph/instruction-loader" { ReferenceIndexEntry }
-    "src/core/planning-home" --> "src/core/artifact-graph/instruction-loader" { PlanningHome }
-    "src/core/change-metadata/index" --> "src/core/artifact-graph/instruction-loader" {
-        ChangeMetadata,
-    }
-    "src/core/artifact-graph/types" --> "src/core/artifact-graph/instruction-loader" {
-        Artifact,
-        CompletedSet,
-    }
-    "src/core/change-metadata/index" --> "src/utils/change-metadata" {
-        CHANGE_METADATA_KNOWN_KEYS,
-        ChangeMetadata,
-        ChangeMetadataSchema,
-    }
-    "src/core/artifact-graph/resolver" --> "src/utils/change-metadata" {
-        listSchemas,
-        resolveSchema,
-    }
-    "src/core/project-config" --> "src/utils/change-metadata" { ProjectConfig, readProjectConfig }
-    src.core.references --> "src/utils/change-metadata" { sanitizeInline }
     "src/utils/nested-change" --> src.commands.workflow.shared {
         describeNestedChange,
         findNestedChangesIn,
@@ -2004,20 +2041,6 @@ graph import {
     src.core.references --> src.commands.workflow.shared { ReferenceIndexEntry }
     "src/core/root-selection" --> src.commands.workflow.shared { isRootSelectionError }
     "src/commands/workflow/default-schema" --> src.commands.workflow.shared { DEFAULT_SCHEMA }
-    "src/core/artifact-graph/outputs" --> "src/utils/nested-change" { artifactOutputExists }
-    "src/core/artifact-graph/resolver" --> "src/utils/nested-change" { resolveSchema }
-    "src/utils/change-metadata" --> "src/utils/nested-change" {
-        METADATA_FILENAME,
-        resolveSchemaForChange,
-    }
-    "src/utils/spec-discovery" --> "src/utils/nested-change" { hasAnyFileUnder }
-    "src/core/artifact-graph/index" --> "src/utils/task-progress" {
-        Artifact,
-        SchemaYaml,
-        resolveArtifactOutputs,
-        resolveSchema,
-    }
-    "src/utils/change-metadata" --> "src/utils/task-progress" { resolveSchemaForChange }
     src.commands.workflow.instructions --> "test/commands/apply-instructions-tasks.test" {
         generateApplyInstructions,
     }
@@ -2100,8 +2123,6 @@ graph import {
         getPackageSchemasDir,
         getSchemaDir,
     }
-    "src/utils/task-progress" --> "src/core/validation/task-numbering" { parseTaskLines }
-    "src/utils/task-progress" --> "src/core/validation/task-checkboxes" { parseTaskLines }
     "test/helpers/run-cli" --> "test/commands/artifact-workflow.test" { runCLI }
     "src/utils/file-system" --> "test/commands/artifact-workflow.test" { FileSystemUtils }
     "src/utils/change-metadata" --> "test/commands/change-initiative-link.test" {
@@ -2908,17 +2929,6 @@ graph import {
         statusFromError,
         validateSchemaExists,
     }
-    "src/utils/file-system" --> "src/utils/change-utils" { FileSystemUtils }
-    "src/utils/change-metadata" --> "src/utils/change-utils" {
-        validateSchemaName,
-        writeChangeMetadata,
-    }
-    src.utils.date --> "src/utils/change-utils" { formatLocalDate }
-    "src/core/project-config" --> "src/utils/change-utils" { readProjectConfig }
-    src.core.id --> "src/utils/change-utils" { isKebabId }
-    "src/core/artifact-graph/resolver" --> "src/utils/change-utils" { resolveSchema }
-    "src/core/artifact-graph/outputs" --> "src/utils/change-utils" { isSpecsArtifactPath }
-    "src/core/change-metadata/index" --> "src/utils/change-utils" { ChangeMetadata }
     "src/utils/task-progress" --> src.core.list { formatTaskStatus, getTaskProgressForChange }
     "src/core/parsers/markdown-parser" --> src.core.list { MarkdownParser }
     "src/core/root-selection" --> src.core.list { RootOutput }
