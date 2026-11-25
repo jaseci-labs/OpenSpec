@@ -7,6 +7,48 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/core/artifact-graph/instruction-loader" {
+        JsNull,
+        at,
+        js_error,
+        merge,
+        missing,
+        owns,
+        rec,
+        truthy,
+    }
+    "src/core/artifact-graph/resolver" ++> "src/core/artifact-graph/instruction-loader" {
+        getSchemaDir,
+        listSchemasWithInfo,
+        resolveSchema,
+    }
+    "src/core/artifact-graph/graph" ++> "src/core/artifact-graph/instruction-loader" {
+        ArtifactGraph,
+    }
+    "src/core/artifact-graph/state" ++> "src/core/artifact-graph/instruction-loader" {
+        detectCompleted,
+    }
+    "src/core/artifact-graph/outputs" ++> "src/core/artifact-graph/instruction-loader" {
+        isSpecsArtifactPath,
+        resolveArtifactOutputPath,
+        resolveArtifactOutputs,
+    }
+    "src/utils/change-metadata" ++> "src/core/artifact-graph/instruction-loader" {
+        formatUnknownChangeMetadataKeysMessage,
+        readChangeMetadata,
+        readUnknownChangeMetadataKeys,
+        resolveSchemaForChange,
+    }
+    "src/utils/file-system" ++> "src/core/artifact-graph/instruction-loader" { FileSystemUtils }
+    "src/core/change-status-policy" ++> "src/core/artifact-graph/instruction-loader" {
+        buildActionContext,
+        buildNextSteps,
+        summarizePlanningHome,
+    }
+    "src/core/project-config" ++> "src/core/artifact-graph/instruction-loader" {
+        readProjectConfig,
+        validateConfigRules,
+    }
     src.host ++> "src/utils/nested-change" { promise, rec }
     "src/core/artifact-graph/outputs" ++> "src/utils/nested-change" { artifactOutputExists }
     "src/core/artifact-graph/resolver" ++> "src/utils/nested-change" { resolveSchema }
@@ -1765,50 +1807,6 @@ graph import {
     "src/core/change-status-policy" --> "src/core/artifact-graph/index" {
         ActionContext,
         PlanningHomeSummary,
-    }
-    "src/core/artifact-graph/resolver" --> "src/core/artifact-graph/instruction-loader" {
-        getSchemaDir,
-        listSchemasWithInfo,
-        resolveSchema,
-    }
-    "src/core/artifact-graph/graph" --> "src/core/artifact-graph/instruction-loader" {
-        ArtifactGraph,
-    }
-    "src/core/artifact-graph/state" --> "src/core/artifact-graph/instruction-loader" {
-        detectCompleted,
-    }
-    "src/core/artifact-graph/outputs" --> "src/core/artifact-graph/instruction-loader" {
-        isSpecsArtifactPath,
-        resolveArtifactOutputPath,
-        resolveArtifactOutputs,
-    }
-    "src/utils/change-metadata" --> "src/core/artifact-graph/instruction-loader" {
-        formatUnknownChangeMetadataKeysMessage,
-        readChangeMetadata,
-        readUnknownChangeMetadataKeys,
-        resolveSchemaForChange,
-    }
-    "src/utils/file-system" --> "src/core/artifact-graph/instruction-loader" { FileSystemUtils }
-    "src/core/change-status-policy" --> "src/core/artifact-graph/instruction-loader" {
-        ActionContext,
-        PlanningHomeSummary,
-        buildActionContext,
-        buildNextSteps,
-        summarizePlanningHome,
-    }
-    "src/core/project-config" --> "src/core/artifact-graph/instruction-loader" {
-        ProjectConfig,
-        readProjectConfig,
-        validateConfigRules,
-    }
-    src.core.references --> "src/core/artifact-graph/instruction-loader" { ReferenceIndexEntry }
-    "src/core/planning-home" --> "src/core/artifact-graph/instruction-loader" { PlanningHome }
-    "src/core/change-metadata/index" --> "src/core/artifact-graph/instruction-loader" {
-        ChangeMetadata,
-    }
-    "src/core/artifact-graph/types" --> "src/core/artifact-graph/instruction-loader" {
-        Artifact,
-        CompletedSet,
     }
     "src/utils/nested-change" --> src.commands.workflow.shared {
         describeNestedChange,
