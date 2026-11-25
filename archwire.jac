@@ -7,6 +7,22 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/core/completions/generators/fish-generator" { truthy }
+    "src/core/completions/templates/fish-templates" ++> "src/core/completions/generators/fish-generator" {
+        FISH_DYNAMIC_HELPERS,
+        FISH_STATIC_HELPERS,
+    }
+    src.host ++> "src/core/completions/generators/powershell-generator" { sub }
+    "src/core/completions/templates/powershell-templates" ++> "src/core/completions/generators/powershell-generator" {
+        POWERSHELL_DYNAMIC_HELPERS,
+    }
+    "src/core/completions/templates/zsh-templates" ++> "src/core/completions/generators/zsh-generator" {
+        ZSH_DYNAMIC_HELPERS,
+    }
+    src.host ++> "src/core/completions/generators/bash-generator" { sub }
+    "src/core/completions/templates/bash-templates" ++> "src/core/completions/generators/bash-generator" {
+        BASH_DYNAMIC_HELPERS,
+    }
     src.host ++> "src/prompts/searchable-multi-select" { JsNull, kind, merge, missing, rec, same }
     src.lazy ++> "src/prompts/searchable-multi-select" { load, pick }
     src.host ++> "src/core/schemas/base.schema" { rec }
@@ -1677,42 +1693,6 @@ graph import {
         PowerShellInstaller,
     }
     "src/utils/shell-detection" --> src.core.completions.factory { SupportedShell }
-    src.core.completions.types --> "src/core/completions/generators/zsh-generator" {
-        CommandDefinition,
-        CompletionGenerator,
-        FlagDefinition,
-        PositionalDefinition,
-    }
-    "src/core/completions/templates/zsh-templates" --> "src/core/completions/generators/zsh-generator" {
-        ZSH_DYNAMIC_HELPERS,
-    }
-    src.core.completions.types --> "src/core/completions/generators/bash-generator" {
-        CommandDefinition,
-        CompletionGenerator,
-        FlagDefinition,
-        PositionalDefinition,
-    }
-    "src/core/completions/templates/bash-templates" --> "src/core/completions/generators/bash-generator" {
-        BASH_DYNAMIC_HELPERS,
-    }
-    src.core.completions.types --> "src/core/completions/generators/fish-generator" {
-        CommandDefinition,
-        CompletionGenerator,
-        FlagDefinition,
-    }
-    "src/core/completions/templates/fish-templates" --> "src/core/completions/generators/fish-generator" {
-        FISH_DYNAMIC_HELPERS,
-        FISH_STATIC_HELPERS,
-    }
-    src.core.completions.types --> "src/core/completions/generators/powershell-generator" {
-        CommandDefinition,
-        CompletionGenerator,
-        FlagDefinition,
-        PositionalDefinition,
-    }
-    "src/core/completions/templates/powershell-templates" --> "src/core/completions/generators/powershell-generator" {
-        POWERSHELL_DYNAMIC_HELPERS,
-    }
     "src/utils/file-system" --> "src/core/completions/installers/zsh-installer" { FileSystemUtils }
     src.core.completions.factory --> "src/core/completions/installers/zsh-installer" {
         InstallationResult,
