@@ -7,6 +7,10 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/ui/welcome-screen" { rec, merge, at, same, truthy }
+    src.lazy ++> "src/ui/welcome-screen" { load, pick }
+    "src/ui/ascii-patterns" ++> "src/ui/welcome-screen" { WELCOME_ANIMATION }
+    "src/core/onboarding-commands" ++> "src/ui/welcome-screen" { getOnboardingCommands }
     src.host ++> src.telemetry.index { JsNull, rec, at, same, truthy, promise }
     "src/core/global-config" ++> src.telemetry.index { getGlobalConfig, isGlobalConfigUnreadable }
     src.utils.ci ++> src.telemetry.index { isCiEnvironment }
@@ -2054,8 +2058,6 @@ graph import {
     }
     "src/ui/welcome-screen" --> src.core.init;
     "src/prompts/searchable-multi-select" --> src.core.init;
-    "src/ui/ascii-patterns" --> "src/ui/welcome-screen" { WELCOME_ANIMATION }
-    "src/core/onboarding-commands" --> "src/ui/welcome-screen" { getOnboardingCommands }
     src.cli.commands.config --> "test/commands/config-profile.test";
     src.commands.config --> "test/commands/config-profile.test";
     "src/core/global-config" --> "test/commands/config-profile.test";
