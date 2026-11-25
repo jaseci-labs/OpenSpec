@@ -7,6 +7,24 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/core/update-plan" { at, js_error, kind, rec }
+    "src/utils/file-system" ++> "src/core/update-plan" { FileSystemUtils }
+    "src/core/file-view" ++> "src/core/update-plan" { DISK_VIEW }
+    "src/core/shared/skill-links" ++> "src/core/update-plan" { createSkillLink, skillLinkText }
+    src.host ++> "src/core/converters/json-converter" { merge, rec }
+    "src/core/parsers/markdown-parser" ++> "src/core/converters/json-converter" { MarkdownParser }
+    "src/core/parsers/change-parser" ++> "src/core/converters/json-converter" { ChangeParser }
+    "src/utils/file-system" ++> "src/core/converters/json-converter" { FileSystemUtils }
+    src.host ++> "src/core/shared/skill-links" { kind, missing, rec }
+    "src/core/shared/generated-fingerprint" ++> "src/core/shared/skill-links" {
+        isReleasedGeneratedContent,
+        normalizeGeneratedContent,
+    }
+    "src/core/file-view" ++> "src/core/shared/skill-links" { DISK_VIEW }
+    src.host ++> "src/core/parsers/change-parser" { at, found, merge, rec, sub, truthy }
+    "src/core/parsers/markdown-parser" ++> "src/core/parsers/change-parser" { MarkdownParser }
+    "src/core/parsers/requirement-blocks" ++> "src/core/parsers/change-parser" { parseDeltaSpec }
+    "src/utils/spec-discovery" ++> "src/core/parsers/change-parser" { discoverSpecFiles }
     src.host ++> "src/core/github-copilot/cloud-agent" { JsNull, at, js_error, kind, missing, rec }
     src.lazy ++> "src/core/github-copilot/cloud-agent" { need }
     "src/utils/file-system" ++> "src/core/github-copilot/cloud-agent" { FileSystemUtils }
@@ -1508,11 +1526,6 @@ graph import {
         projectSkillText,
     }
     "src/utils/file-system" --> "src/core/shared/tool-detection" { FileSystemUtils }
-    "src/core/shared/generated-fingerprint" --> "src/core/shared/skill-links" {
-        isReleasedGeneratedContent,
-        normalizeGeneratedContent,
-    }
-    "src/core/file-view" --> "src/core/shared/skill-links" { DISK_VIEW, FileView }
     "src/utils/file-system" --> "src/core/shared/command-reconcile" { FileSystemUtils }
     "src/core/command-generation/index" --> "src/core/shared/command-reconcile" {
         CommandAdapterRegistry,
@@ -1590,9 +1603,6 @@ graph import {
         resolveSkillLinkDir,
         usesSharedSkills,
     }
-    "src/utils/file-system" --> "src/core/update-plan" { FileSystemUtils }
-    "src/core/file-view" --> "src/core/update-plan" { DISK_VIEW, FileView }
-    "src/core/shared/skill-links" --> "src/core/update-plan" { createSkillLink, skillLinkText }
     "test/helpers/run-cli" --> "test/cli-e2e/validate-archived-tasks.test" { runCLI }
     src.core.index --> "test/cli-e2e/validate-findings.test" { getGlobalDataDir, registerStore }
     "test/helpers/run-cli" --> "test/cli-e2e/validate-findings.test" { runCLI }
@@ -1872,27 +1882,6 @@ graph import {
     "src/core/artifact-graph/index" --> src.core.validation.validator {
         getPackageSchemasDir,
         getSchemaDir,
-    }
-    "src/core/parsers/markdown-parser" --> "src/core/parsers/change-parser" {
-        MarkdownParser,
-        Section,
-    }
-    "src/core/parsers/requirement-text" --> "src/core/parsers/change-parser" { buildCodeFenceMask }
-    "src/core/parsers/requirement-blocks" --> "src/core/parsers/change-parser" {
-        DeltaPlan,
-        RequirementBlock,
-        parseDeltaSpec,
-        stripClosingSequence,
-    }
-    src.core.schemas.index --> "src/core/parsers/change-parser" {
-        Change,
-        Delta,
-        DeltaOperation,
-        Requirement,
-    }
-    "src/utils/spec-discovery" --> "src/core/parsers/change-parser" {
-        DiscoveredSpec,
-        discoverSpecFiles,
     }
     "src/utils/task-progress" --> "src/core/validation/task-numbering" { parseTaskLines }
     "src/utils/task-progress" --> "src/core/validation/task-checkboxes" { parseTaskLines }
@@ -2922,9 +2911,6 @@ graph import {
         diffRequirementBlock,
         extractRequirementBlock,
     }
-    "src/core/parsers/markdown-parser" --> "src/core/converters/json-converter" { MarkdownParser }
-    "src/core/parsers/change-parser" --> "src/core/converters/json-converter" { ChangeParser }
-    "src/utils/file-system" --> "src/core/converters/json-converter" { FileSystemUtils }
     src.utils.interactive --> src.commands.show { isInteractive }
     "src/utils/item-discovery" --> src.commands.show { getActiveChangeIds, getSpecIds }
     "src/core/root-selection" --> src.commands.show {
