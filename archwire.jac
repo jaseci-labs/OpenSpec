@@ -7,6 +7,29 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/core/version-check" {
+        JsNull,
+        at,
+        found,
+        js_error,
+        kind,
+        merge,
+        missing,
+        rec,
+        rx,
+        same,
+        sub,
+        truthy,
+    }
+    src.lazy ++> "src/core/version-check" { load, need, pick }
+    src.utils.ci ++> "src/core/version-check" { isCiEnvironment }
+    "src/telemetry/opt-out" ++> "src/core/version-check" { isTelemetryOptedOutByEnv }
+    "src/utils/file-system" ++> "src/core/version-check" { FileSystemUtils }
+    "src/core/global-config" ++> "src/core/version-check" {
+        getGlobalConfig,
+        isGlobalConfigUnreadable,
+    }
+    "src/utils/executable-path" ++> "src/core/version-check" { findCopiesOnPath, samePath }
     src.host ++> "src/core/openspec-root" { JsNull, at, js_error, rec }
     "src/utils/file-system" ++> "src/core/openspec-root" { FileSystemUtils }
     "src/core/config-prompts" ++> "src/core/openspec-root" { serializeConfig }
@@ -2107,14 +2130,6 @@ graph import {
         getCliInstallInfo,
         getStandaloneBinaryPath,
     }
-    src.utils.ci --> "src/core/version-check" { isCiEnvironment }
-    "src/telemetry/opt-out" --> "src/core/version-check" { isTelemetryOptedOutByEnv }
-    "src/utils/file-system" --> "src/core/version-check" { FileSystemUtils }
-    "src/core/global-config" --> "src/core/version-check" {
-        getGlobalConfig,
-        isGlobalConfigUnreadable,
-    }
-    "src/utils/executable-path" --> "src/core/version-check" { findCopiesOnPath, samePath }
     src.core.index --> "test/commands/legacy-groups-removed.test" {
         getGlobalDataDir,
         registerStore,
@@ -4308,7 +4323,6 @@ graph import {
     }
     "dist/cli/index.d" --> bin.openspec { runCli }
     "dist/core/artifact-graph/resolver.d" --> scripts.binary.entry { setPackageSchemasDir }
-    "dist/core/version-check.d" --> scripts.binary.entry { markStandaloneBinary }
     "dist/cli/index.d" --> scripts.binary.entry;
     "dist/core/shared/skill-generation.d" --> "scripts/generate-skillssh" {
         generateSkillFiles,
