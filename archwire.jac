@@ -7,6 +7,13 @@ graph spaces {
 }
 
 graph import {
+    src.lazy ++> "src/utils/requirement-diff" { need }
+    src.host ++> "src/utils/requirement-diff" { JsNull, rec, missing }
+    "src/core/parsers/requirement-blocks" ++> "src/utils/requirement-diff" {
+        extractRequirementsSection,
+        foldRequirementName,
+        normalizeRequirementName,
+    }
     src.host ++> "src/core/parsers/requirement-text" { rx, found, sub, rec }
     include "src/core/parsers/code-fence" ++> "src/core/parsers/requirement-text" {
         buildCodeFenceMask,
@@ -4588,9 +4595,4 @@ graph import {
     src.core.index --> src.index;
     "src/utils/file-system" --> "src/core/file-state" { FileSystemUtils }
     src.core.store.errors --> "src/core/file-state" { StoreError }
-    "src/core/parsers/requirement-blocks" --> "src/utils/requirement-diff" {
-        extractRequirementsSection,
-        foldRequirementName,
-        normalizeRequirementName,
-    }
 }
