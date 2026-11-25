@@ -7,6 +7,46 @@ graph spaces {
 }
 
 graph import {
+    "src/commands/shared-output" ++> src.commands.config {
+        asErrorMessage,
+        isPromptCancellationError,
+    }
+    "src/core/config-schema" ++> src.commands.config {
+        DEFAULT_CONFIG,
+        coerceValue,
+        deleteNestedValue,
+        formatValueYaml,
+        getNestedValue,
+        hasUnsafeKeySegment,
+        setNestedValue,
+        validateConfig,
+        validateConfigKeyPath,
+    }
+    "src/core/global-config" ++> src.commands.config {
+        getGlobalConfig,
+        getGlobalConfigPath,
+        isConfigRootObject,
+        isGlobalConfigUnreadable,
+        saveGlobalConfig,
+    }
+    "src/core/profile-sync-drift" ++> src.commands.config { hasProjectConfigDrift }
+    src.core.config ++> src.commands.config { OPENSPEC_DIR_NAME }
+    src.core.profiles ++> src.commands.config { ALL_WORKFLOWS, CORE_WORKFLOWS, getProfileWorkflows }
+    src.core.update ++> src.commands.config { UpdateCommand }
+    src.host ++> src.commands.config {
+        JsNull,
+        at,
+        found,
+        js_error,
+        kind,
+        merge,
+        messageOf,
+        rec,
+        same,
+        truthy,
+        unique,
+    }
+    src.lazy ++> src.commands.config { load, need, pick }
     "src/core/version-check" ++> "src/commands/install-standalone" {
         getCliInstallInfo,
         getStandaloneBinaryPath,
@@ -3222,35 +3262,6 @@ graph import {
     src.core.completions.factory ++> src.commands.completion { CompletionFactory, errorText }
     src.host ++> src.commands.completion { at, jsAsync, truthy }
     src.lazy ++> src.commands.completion { load }
-    "src/commands/shared-output" --> src.commands.config {
-        asErrorMessage,
-        isPromptCancellationError,
-    }
-    "src/core/config-schema" --> src.commands.config {
-        DEFAULT_CONFIG,
-        coerceValue,
-        deleteNestedValue,
-        formatValueYaml,
-        getNestedValue,
-        hasUnsafeKeySegment,
-        setNestedValue,
-        validateConfig,
-        validateConfigKeyPath,
-    }
-    "src/core/global-config" --> src.commands.config {
-        Delivery,
-        GlobalConfig,
-        Profile,
-        getGlobalConfig,
-        getGlobalConfigPath,
-        isConfigRootObject,
-        isGlobalConfigUnreadable,
-        saveGlobalConfig,
-    }
-    "src/core/profile-sync-drift" --> src.commands.config;
-    src.core.config --> src.commands.config { OPENSPEC_DIR_NAME }
-    src.core.profiles --> src.commands.config { ALL_WORKFLOWS, CORE_WORKFLOWS, getProfileWorkflows }
-    src.core.update --> src.commands.config;
     "src/commands/shared-gather" ++> src.commands.context { gatherRelationshipData }
     "src/commands/shared-output" ++> src.commands.context { emitFailure, printJson }
     "src/core/relationship-health" ++> src.commands.context { inspectRelationships }
