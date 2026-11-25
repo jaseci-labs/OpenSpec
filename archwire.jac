@@ -7,6 +7,12 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/core/shared/skill-links" { kind, missing, rec }
+    "src/core/shared/generated-fingerprint" ++> "src/core/shared/skill-links" {
+        isReleasedGeneratedContent,
+        normalizeGeneratedContent,
+    }
+    "src/core/file-view" ++> "src/core/shared/skill-links" { DISK_VIEW }
     src.host ++> "src/core/parsers/change-parser" { at, found, merge, rec, sub, truthy }
     "src/core/parsers/markdown-parser" ++> "src/core/parsers/change-parser" { MarkdownParser }
     "src/core/parsers/requirement-blocks" ++> "src/core/parsers/change-parser" { parseDeltaSpec }
@@ -1195,11 +1201,6 @@ graph import {
         projectSkillText,
     }
     "src/utils/file-system" --> "src/core/shared/tool-detection" { FileSystemUtils }
-    "src/core/shared/generated-fingerprint" --> "src/core/shared/skill-links" {
-        isReleasedGeneratedContent,
-        normalizeGeneratedContent,
-    }
-    "src/core/file-view" --> "src/core/shared/skill-links" { DISK_VIEW, FileView }
     "src/utils/command-references" --> "src/core/skill-installer" {
         transformToSharedSkillReferences,
     }
