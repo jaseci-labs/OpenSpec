@@ -7,6 +7,11 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> src.telemetry.index { JsNull, rec, at, same, truthy, promise }
+    "src/core/global-config" ++> src.telemetry.index { getGlobalConfig, isGlobalConfigUnreadable }
+    src.utils.ci ++> src.telemetry.index { isCiEnvironment }
+    src.telemetry.config ++> src.telemetry.index { getTelemetryConfig, updateTelemetryConfig }
+    "src/telemetry/opt-out" ++> src.telemetry.index { isTelemetryOptedOutByEnv }
     src.host ++> "src/core/validation/purpose-placeholder" { JsNull, rec, sub, found }
     "src/core/parsers/code-fence" ++> "src/core/validation/purpose-placeholder" {
         buildCodeFenceMask,
@@ -2813,10 +2818,6 @@ graph import {
     "src/core/artifact-graph/resolver" --> "src/utils/change-utils" { resolveSchema }
     "src/core/artifact-graph/outputs" --> "src/utils/change-utils" { isSpecsArtifactPath }
     "src/core/change-metadata/index" --> "src/utils/change-utils" { ChangeMetadata }
-    "src/core/global-config" --> src.telemetry.index { getGlobalConfig, isGlobalConfigUnreadable }
-    src.utils.ci --> src.telemetry.index { isCiEnvironment }
-    src.telemetry.config --> src.telemetry.index { getTelemetryConfig, updateTelemetryConfig }
-    "src/telemetry/opt-out" --> src.telemetry.index { isTelemetryOptedOutByEnv }
     "src/core/global-config" --> "src/core/completion-tip" { getGlobalConfigPath }
     "src/core/file-state" --> "src/core/completion-tip" { writeFileAtomically }
     src.utils.ci --> "src/core/completion-tip" { isCiEnvironment }
