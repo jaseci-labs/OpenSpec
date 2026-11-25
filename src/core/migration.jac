@@ -94,9 +94,9 @@ def findLegacyToolMigrations(projectPath: str, timing: str = "before-generation"
 }
 
 def planLegacyToolMigrations(projectPath: str, timing: str, toolIds: any, view: any) -> list[any] {
-    ops: list[any] = [];
-    collectLegacyToolMigrations(projectPath, False, toolIds, timing, rec(view=view, ops=ops));
-    return ops;
+    plan = rec(view=view, ops=[]);
+    collectLegacyToolMigrations(projectPath, False, toolIds, timing, plan);
+    return plan.ops;
 }
 
 def migrateLegacyToolDirs(
