@@ -7,6 +7,29 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/utils/change-metadata" {
+        JsNull,
+        at,
+        found,
+        js_error,
+        kind,
+        missing,
+        rec,
+        rx,
+        same,
+        sub,
+    }
+    src.lazy ++> "src/utils/change-metadata" { need }
+    "src/core/change-metadata/index" ++> "src/utils/change-metadata" { ChangeMetadataSchema }
+    include "src/core/change-metadata/index" ++> "src/utils/change-metadata" {
+        CHANGE_METADATA_KNOWN_KEYS,
+    }
+    "src/core/artifact-graph/resolver" ++> "src/utils/change-metadata" {
+        listSchemas,
+        resolveSchema,
+    }
+    "src/core/project-config" ++> "src/utils/change-metadata" { readProjectConfig }
+    src.core.references ++> "src/utils/change-metadata" { sanitizeInline }
     src.host ++> "src/core/update-plan" { at, js_error, kind, rec }
     "src/utils/file-system" ++> "src/core/update-plan" { FileSystemUtils }
     "src/core/file-view" ++> "src/core/update-plan" { DISK_VIEW }
@@ -1768,17 +1791,6 @@ graph import {
         Artifact,
         CompletedSet,
     }
-    "src/core/change-metadata/index" --> "src/utils/change-metadata" {
-        CHANGE_METADATA_KNOWN_KEYS,
-        ChangeMetadata,
-        ChangeMetadataSchema,
-    }
-    "src/core/artifact-graph/resolver" --> "src/utils/change-metadata" {
-        listSchemas,
-        resolveSchema,
-    }
-    "src/core/project-config" --> "src/utils/change-metadata" { ProjectConfig, readProjectConfig }
-    src.core.references --> "src/utils/change-metadata" { sanitizeInline }
     "src/utils/nested-change" --> src.commands.workflow.shared {
         describeNestedChange,
         findNestedChangesIn,
