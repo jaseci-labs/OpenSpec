@@ -50,8 +50,14 @@ afterAll(() => {
   }
 });
 
+// Under neojac a Jac module is emitted to .jac/src/<path>.mjs, and its dist/
+// forwarder loads only for TypeScript callers. Every emitted Jac module is parsed
+// as the CLI starts (neojac's boot module imports them all) and started only when
+// first used, so `own` sees only what is still TypeScript; npm packages, the
+// part of start-up these tests can still pin, load only on first use.
 function loadedModules(args: string[], withProject = false): {
   own: string[];
+  jacModules: string[];
   packages: Set<string>;
   status: number | null;
 } {
@@ -84,6 +90,8 @@ function loadedModules(args: string[], withProject = false): {
 
   const urls = readFileSync(logFile, 'utf-8').split('\n').filter(Boolean);
   const own: string[] = [];
+  const jacModules: string[] = [];
+  const jacRoot = realpathSync.native(path.join(cliProjectRoot, '.jac', 'src'));
   const packages = new Set<string>();
   for (const url of urls) {
     if (!url.startsWith('file:')) continue;
@@ -95,12 +103,14 @@ function loadedModules(args: string[], withProject = false): {
       packages.add(name.startsWith('@') ? `${name}/${segments[lastNodeModules + 2]}` : name);
     } else if (file.startsWith(distRoot + path.sep)) {
       own.push(path.relative(distRoot, file).split(path.sep).join('/'));
+    } else if (file.startsWith(jacRoot + path.sep)) {
+      jacModules.push(path.relative(jacRoot, file).split(path.sep).join('/').replace(/\.mjs$/, '.js'));
     }
   }
   // An empty list means the paths didn't match, and every absence check
   // below would pass without checking anything.
   expect(own).not.toEqual([]);
-  return { own, packages, status: result.status };
+  return { own, jacModules, packages, status: result.status };
 }
 
 function implementationsLoaded(own: string[]): string[] {
@@ -140,7 +150,7 @@ describe('CLI startup loads only what the command needs', () => {
 
   it('`openspec __complete schemas` loads the schema reader but not tinyglobby or ora', async () => {
     await ensureCliBuilt();
-    const { own, packages, status } = loadedModules(['__complete', 'schemas']);
+    const { own, jacModules, packages, status } = loadedModules(['__complete', 'schemas']);
 
     expect(status).toBe(0);
     expect([...packages]).not.toContain('fast-glob');
@@ -150,8 +160,11 @@ describe('CLI startup loads only what the command needs', () => {
     expect(own).not.toContain('telemetry/index.js');
     // The name promises a schema reader, so pin it: the resolver directly, not
     // the artifact-graph barrel, which re-exports it but also pulls outputs.js
-    // and with it tinyglobby.
-    expect(own).toContain('core/artifact-graph/resolver.js');
+    // and with it tinyglobby. The resolver is a Jac module, which its Jac callers
+    // reach through its emission rather than its dist/ forwarder.
+    expect(
+      own.includes('core/artifact-graph/resolver.js') || jacModules.includes('core/artifact-graph/resolver.js')
+    ).toBe(true);
     expect(own).not.toContain('core/artifact-graph/index.js');
   });
 
