@@ -7,6 +7,69 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/core/legacy-cleanup" {
+        at,
+        found,
+        js_error,
+        merge,
+        missing,
+        rec,
+        rx,
+        same,
+        sub,
+        truthy,
+    }
+    src.lazy ++> "src/core/legacy-cleanup" { pick }
+    "src/utils/file-system" ++> "src/core/legacy-cleanup" {
+        FileSystemUtils,
+        removeMarkerBlock as removeMarkerBlockUtil,
+    }
+    src.core.config ++> "src/core/legacy-cleanup" { OPENSPEC_MARKERS, findRetiredTool }
+    "src/core/shared/generated-fingerprint" ++> "src/core/legacy-cleanup" {
+        hasReleasedOpenSpecBlock,
+        isReleasedGeneratedContent,
+    }
+    src.core.profiles ++> "src/core/legacy-cleanup" { ALL_WORKFLOWS }
+    src.host ++> "src/core/templates/workflows/apply-change" { rec }
+    "src/core/templates/workflows/store-selection" ++> "src/core/templates/workflows/apply-change" {
+        STORE_SELECTION_GUIDANCE,
+    }
+    "src/core/templates/workflows/project-root" ++> "src/core/templates/workflows/apply-change" {
+        PROJECT_ROOT_GUARD,
+    }
+    src.host ++> "src/core/templates/workflows/archive-change" { rec }
+    "src/core/templates/workflows/store-selection" ++> "src/core/templates/workflows/archive-change" {
+        STORE_SELECTION_GUIDANCE,
+    }
+    "src/core/templates/workflows/project-root" ++> "src/core/templates/workflows/archive-change" {
+        PROJECT_ROOT_GUARD,
+    }
+    src.host ++> "src/core/shared-skill-target" { at, kind, rec, rx, sub }
+    src.core.config ++> "src/core/shared-skill-target" {
+        AI_TOOLS,
+        OPENSPEC_SKILL_NAMES,
+        resolveToolIdAlias,
+    }
+    "src/utils/file-system" ++> "src/core/shared-skill-target" { FileSystemUtils }
+    "src/core/file-view" ++> "src/core/shared-skill-target" { DISK_VIEW }
+    "src/core/shared/generated-fingerprint" ++> "src/core/shared-skill-target" {
+        isReleasedGeneratedContent,
+    }
+    "src/core/shared/skill-paths" ++> "src/core/shared-skill-target" {
+        SHARED_SKILLS_ROOT,
+        resolveFormerOwnSkillsDir,
+    }
+    src.host ++> "src/core/shared/skill-content-equivalence" { sub }
+    src.core.config ++> "src/core/shared/skill-content-equivalence" { OPENSPEC_SKILL_NAMES }
+    "src/core/shared/generated-fingerprint" ++> "src/core/shared/skill-content-equivalence" {
+        isReleasedGeneratedContent,
+        normalizeGeneratedContent,
+    }
+    src.host ++> "src/core/shared/generated-fingerprint" { found, matchOf, sub }
+    "src/core/shared/released-generated-fingerprints" ++> "src/core/shared/generated-fingerprint" {
+        RELEASED_GENERATED_FINGERPRINTS,
+    }
+    "src/utils/file-system" ++> "src/core/shared/generated-fingerprint" { findMarkerBlock }
     src.host ++> src.core.templates.workflows.explore { rec }
     "src/core/templates/workflows/store-selection" ++> src.core.templates.workflows.explore {
         STORE_SELECTION_GUIDANCE,
@@ -992,25 +1055,6 @@ graph import {
         projectSkillText,
     }
     "src/utils/file-system" --> "src/core/shared/tool-detection" { FileSystemUtils }
-    src.core.config --> "src/core/shared-skill-target" {
-        AIToolOption,
-        AI_TOOLS,
-        OPENSPEC_SKILL_NAMES,
-        resolveToolIdAlias,
-    }
-    "src/utils/file-system" --> "src/core/shared-skill-target" { FileSystemUtils }
-    "src/core/file-view" --> "src/core/shared-skill-target" { DISK_VIEW, FileView }
-    "src/core/shared/generated-fingerprint" --> "src/core/shared-skill-target" {
-        isReleasedGeneratedContent,
-    }
-    "src/core/shared/skill-paths" --> "src/core/shared-skill-target" {
-        SHARED_SKILLS_ROOT,
-        resolveFormerOwnSkillsDir,
-    }
-    "src/core/shared/released-generated-fingerprints" --> "src/core/shared/generated-fingerprint" {
-        RELEASED_GENERATED_FINGERPRINTS,
-    }
-    "src/utils/file-system" --> "src/core/shared/generated-fingerprint" { findMarkerBlock }
     "src/core/shared/generated-fingerprint" --> "src/core/shared/skill-links" {
         isReleasedGeneratedContent,
         normalizeGeneratedContent,
@@ -1117,26 +1161,6 @@ graph import {
         ROUTER_SKILL_NAME,
         getRouterSkillTemplate,
     }
-    src.core.templates.types --> "src/core/templates/workflows/apply-change" {
-        CommandTemplate,
-        SkillTemplate,
-    }
-    "src/core/templates/workflows/store-selection" --> "src/core/templates/workflows/apply-change" {
-        STORE_SELECTION_GUIDANCE,
-    }
-    "src/core/templates/workflows/project-root" --> "src/core/templates/workflows/apply-change" {
-        PROJECT_ROOT_GUARD,
-    }
-    src.core.templates.types --> "src/core/templates/workflows/archive-change" {
-        CommandTemplate,
-        SkillTemplate,
-    }
-    "src/core/templates/workflows/store-selection" --> "src/core/templates/workflows/archive-change" {
-        STORE_SELECTION_GUIDANCE,
-    }
-    "src/core/templates/workflows/project-root" --> "src/core/templates/workflows/archive-change" {
-        PROJECT_ROOT_GUARD,
-    }
     src.core.templates.types --> "src/core/templates/workflows/bulk-archive-change" {
         CommandTemplate,
         SkillTemplate,
@@ -1195,11 +1219,6 @@ graph import {
         resolveToolSkillsDir,
         toolSupportsSkills,
         usesSharedSkills,
-    }
-    src.core.config --> "src/core/shared/skill-content-equivalence" { OPENSPEC_SKILL_NAMES }
-    "src/core/shared/generated-fingerprint" --> "src/core/shared/skill-content-equivalence" {
-        isReleasedGeneratedContent,
-        normalizeGeneratedContent,
     }
     src.core.config --> "src/core/shared/shared-skill-install" {
         AIToolOption,
@@ -1815,13 +1834,6 @@ graph import {
     "src/core/global-skills" --> src.core.update;
     src.core.init --> src.core.update;
     "src/prompts/searchable-multi-select" --> src.core.update;
-    "src/utils/file-system" --> "src/core/legacy-cleanup" { FileSystemUtils, removeMarkerBlock }
-    src.core.config --> "src/core/legacy-cleanup" { OPENSPEC_MARKERS, findRetiredTool }
-    "src/core/shared/generated-fingerprint" --> "src/core/legacy-cleanup" {
-        hasReleasedOpenSpecBlock,
-        isReleasedGeneratedContent,
-    }
-    src.core.profiles --> "src/core/legacy-cleanup" { ALL_WORKFLOWS, WorkflowId }
     src.core.config --> "src/core/retired-tools" {
         OPENSPEC_SKILL_NAMES,
         RETIRED_TOOLS,
