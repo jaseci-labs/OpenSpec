@@ -7,6 +7,42 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> src.commands.validate {
+        JsNull,
+        at,
+        jsAsync,
+        js_error,
+        merge,
+        promise,
+        rec,
+        truthy,
+    }
+    src.lazy ++> src.commands.validate { load }
+    "src/core/project-config" ++> src.commands.validate { readConfigParseError }
+    "src/core/root-selection" ++> src.commands.validate {
+        isStoreSelectedRoot,
+        resolveRootForCommand,
+        toRootOutput,
+        withStoreFlag,
+    }
+    "src/utils/file-system" ++> src.commands.validate { FileSystemUtils }
+    "src/utils/item-discovery" ++> src.commands.validate { getSpecIds }
+    "src/utils/nested-change" ++> src.commands.validate {
+        NESTED_CHANGE_ISSUE_MARKER,
+        describeNestedChange,
+        findNestedChangesIn,
+    }
+    "src/utils/task-progress" ++> src.commands.validate { getTaskProgressDetailForChange }
+    src.commands.workflow.shared ++> src.commands.validate { getAvailableChanges }
+    src.core.id ++> src.commands.validate { folderStyleNameProblem }
+    src.core.validation.constants ++> src.commands.validate { VALIDATION_MESSAGES }
+    src.core.validation.validator ++> src.commands.validate { Validator }
+    src.utils.interactive ++> src.commands.validate {
+        canRenderSpinner,
+        isInteractive,
+        resolveNoInteractive,
+    }
+    src.utils.match ++> src.commands.validate { nearestMatches }
     src.host ++> src.commands.show { JsNull, at, jsAsync, merge, owns, rec, truthy }
     src.lazy ++> src.commands.show { load }
     "src/core/root-selection" ++> src.commands.show {
@@ -3312,36 +3348,6 @@ graph import {
     src.host ++> src.commands.store { JsNull, at, js_error, merge, missing, rec, same, truthy }
     src.lazy ++> src.commands.store { load }
     src.utils.interactive ++> src.commands.store { isInteractive }
-    "src/core/project-config" --> src.commands.validate { readConfigParseError }
-    "src/core/root-selection" --> src.commands.validate {
-        ResolvedOpenSpecRoot,
-        isStoreSelectedRoot,
-        resolveRootForCommand,
-        toRootOutput,
-        withStoreFlag,
-    }
-    "src/utils/file-system" --> src.commands.validate { FileSystemUtils }
-    "src/utils/item-discovery" --> src.commands.validate { getSpecIds }
-    "src/utils/nested-change" --> src.commands.validate {
-        NESTED_CHANGE_ISSUE_MARKER,
-        describeNestedChange,
-        findNestedChangesIn,
-    }
-    "src/utils/task-progress" --> src.commands.validate {
-        SchemaGlobCache,
-        getTaskProgressDetailForChange,
-    }
-    src.commands.workflow.shared --> src.commands.validate { getAvailableChanges }
-    src.core.id --> src.commands.validate { folderStyleNameProblem }
-    src.core.validation.constants --> src.commands.validate { VALIDATION_MESSAGES }
-    src.core.validation.types --> src.commands.validate { ValidationIssue }
-    src.core.validation.validator --> src.commands.validate { Validator }
-    src.utils.interactive --> src.commands.validate {
-        canRenderSpinner,
-        isInteractive,
-        resolveNoInteractive,
-    }
-    src.utils.match --> src.commands.validate { nearestMatches }
     include "src/commands/workflow/new-change" ++> src.commands.workflow.index {
         NewChangeOptions,
         newChangeCommand,
