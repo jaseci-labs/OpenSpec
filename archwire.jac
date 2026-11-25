@@ -7,6 +7,10 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/core/converters/json-converter" { merge, rec }
+    "src/core/parsers/markdown-parser" ++> "src/core/converters/json-converter" { MarkdownParser }
+    "src/core/parsers/change-parser" ++> "src/core/converters/json-converter" { ChangeParser }
+    "src/utils/file-system" ++> "src/core/converters/json-converter" { FileSystemUtils }
     src.host ++> "src/core/shared/skill-links" { kind, missing, rec }
     "src/core/shared/generated-fingerprint" ++> "src/core/shared/skill-links" {
         isReleasedGeneratedContent,
@@ -2804,9 +2808,6 @@ graph import {
         diffRequirementBlock,
         extractRequirementBlock,
     }
-    "src/core/parsers/markdown-parser" --> "src/core/converters/json-converter" { MarkdownParser }
-    "src/core/parsers/change-parser" --> "src/core/converters/json-converter" { ChangeParser }
-    "src/utils/file-system" --> "src/core/converters/json-converter" { FileSystemUtils }
     src.utils.interactive --> src.commands.show { isInteractive }
     "src/utils/item-discovery" --> src.commands.show { getActiveChangeIds, getSpecIds }
     "src/core/root-selection" --> src.commands.show {
