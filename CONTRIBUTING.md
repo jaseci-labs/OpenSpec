@@ -62,6 +62,8 @@ Editors, agents and OpenSpec Desktop run the CLI many times, and each call pays 
 
 `test/cli-e2e/startup-modules.test.ts` checks which packages and command modules each command loads. When you add a command, add it to that test's list.
 
+One cost is neojac's own: its boot module imports every compiled Jac module, so each run parses all of them (about 100 ms more than the TypeScript build's `openspec --version`), while a module's code runs only when it is first used. The suite and the start-up test run the same unbundled tree that ships, so it is not bundled to hide that.
+
 ## PR checklist
 
 - Branch off `main` in your fork.
