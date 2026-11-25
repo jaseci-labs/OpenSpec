@@ -7,6 +7,20 @@ graph spaces {
 }
 
 graph import {
+    src.lazy ++> "src/core/artifact-graph/outputs" { need }
+    src.lazy ++> src.utils.interactive { load }
+    src.host ++> "src/core/artifact-graph/outputs" { at, found, js_error, rec, sub }
+    "src/utils/file-system" ++> "src/core/artifact-graph/outputs" { FileSystemUtils }
+    "src/core/artifact-graph/outputs" ++> "src/core/artifact-graph/state" { artifactOutputExists }
+    src.host ++> "src/core/file-state" { at, js_error, rec }
+    src.core.store.errors ++> "src/core/file-state" { StoreError }
+    "src/utils/file-system" ++> "src/core/file-state" { FileSystemUtils }
+    src.host ++> "src/core/planning-home" { JsNull, at, rec }
+    "src/utils/file-system" ++> "src/core/planning-home" { FileSystemUtils }
+    src.host ++> "src/utils/file-system" { at, found, js_error, rec, sub }
+    "src/utils/line-endings" ++> "src/utils/file-system" { detectLineEnding, matchLineEnding }
+    src.host ++> src.utils.interactive { at, kind, owns, rec, truthy }
+    src.host ++> "src/utils/shell-detection" { found, matchOf, rec, sub, truthy }
     "src/core/completions/shared-flags" ++> "src/core/completions/command-registry" { COMMON_FLAGS }
     "src/core/command-generation/types" ++> "src/core/command-generation/adapters/amazon-q" {
         commandAdapter,
@@ -338,7 +352,6 @@ graph import {
     }
     "src/core/zod-issues" --> src.core.store.foundation { formatZodIssues }
     src.core.store.errors --> src.core.store.foundation { StoreError }
-    "src/utils/line-endings" --> "src/utils/file-system" { detectLineEnding, matchLineEnding }
     src.core.store.foundation --> src.core.store.registry {
         StoreBackendConfig,
         StoreGitBackendConfig,
@@ -383,7 +396,6 @@ graph import {
     "src/core/config-prompts" --> "src/core/openspec-root" { serializeConfig }
     src.core.store.errors --> "src/core/openspec-root" { StoreDiagnostic, makeStoreDiagnostic }
     src.core.store.foundation --> "src/core/project-config" { getStoreMetadataPath }
-    "src/utils/file-system" --> "src/core/planning-home" { FileSystemUtils }
     "src/utils/spec-discovery" --> "src/utils/item-discovery" { discoverSpecFiles }
     "src/utils/spec-path-containment" --> "src/utils/spec-discovery" { assertDiscoveredSpecFile }
     "src/core/parsers/requirement-blocks" --> "src/utils/spec-discovery" { parseDeltaSpec }
@@ -1348,10 +1360,6 @@ graph import {
         SchemaYaml,
     }
     "src/core/artifact-graph/schema" --> "src/core/artifact-graph/graph" { loadSchema, parseSchema }
-    "src/core/artifact-graph/types" --> "src/core/artifact-graph/state" { CompletedSet }
-    "src/core/artifact-graph/graph" --> "src/core/artifact-graph/state" { ArtifactGraph }
-    "src/core/artifact-graph/outputs" --> "src/core/artifact-graph/state" { artifactOutputExists }
-    "src/utils/file-system" --> "src/core/artifact-graph/outputs" { FileSystemUtils }
     "src/core/global-config" --> "src/core/artifact-graph/resolver" { getGlobalDataDir }
     "src/utils/file-system" --> "src/core/artifact-graph/resolver" { FileSystemUtils }
     "src/core/artifact-graph/schema" --> "src/core/artifact-graph/resolver" {
@@ -1649,7 +1657,6 @@ graph import {
         PowerShellInstaller,
     }
     "src/utils/shell-detection" --> src.core.completions.factory { SupportedShell }
-    "src/utils/shell-detection" --> src.core.completions.types { SupportedShell }
     src.core.completions.types --> "src/core/completions/generators/zsh-generator" {
         CommandDefinition,
         CompletionGenerator,
@@ -4579,6 +4586,4 @@ graph import {
     }
     src.cli.index --> src.index;
     src.core.index --> src.index;
-    "src/utils/file-system" --> "src/core/file-state" { FileSystemUtils }
-    src.core.store.errors --> "src/core/file-state" { StoreError }
 }
