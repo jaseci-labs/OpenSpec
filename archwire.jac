@@ -7,6 +7,21 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/core/shared-skill-target" { at, kind, rec, rx, sub }
+    src.core.config ++> "src/core/shared-skill-target" {
+        AI_TOOLS,
+        OPENSPEC_SKILL_NAMES,
+        resolveToolIdAlias,
+    }
+    "src/utils/file-system" ++> "src/core/shared-skill-target" { FileSystemUtils }
+    "src/core/file-view" ++> "src/core/shared-skill-target" { DISK_VIEW }
+    "src/core/shared/generated-fingerprint" ++> "src/core/shared-skill-target" {
+        isReleasedGeneratedContent,
+    }
+    "src/core/shared/skill-paths" ++> "src/core/shared-skill-target" {
+        SHARED_SKILLS_ROOT,
+        resolveFormerOwnSkillsDir,
+    }
     src.host ++> "src/core/shared/skill-content-equivalence" { sub }
     src.core.config ++> "src/core/shared/skill-content-equivalence" { OPENSPEC_SKILL_NAMES }
     "src/core/shared/generated-fingerprint" ++> "src/core/shared/skill-content-equivalence" {
@@ -937,21 +952,6 @@ graph import {
         projectSkillText,
     }
     "src/utils/file-system" --> "src/core/shared/tool-detection" { FileSystemUtils }
-    src.core.config --> "src/core/shared-skill-target" {
-        AIToolOption,
-        AI_TOOLS,
-        OPENSPEC_SKILL_NAMES,
-        resolveToolIdAlias,
-    }
-    "src/utils/file-system" --> "src/core/shared-skill-target" { FileSystemUtils }
-    "src/core/file-view" --> "src/core/shared-skill-target" { DISK_VIEW, FileView }
-    "src/core/shared/generated-fingerprint" --> "src/core/shared-skill-target" {
-        isReleasedGeneratedContent,
-    }
-    "src/core/shared/skill-paths" --> "src/core/shared-skill-target" {
-        SHARED_SKILLS_ROOT,
-        resolveFormerOwnSkillsDir,
-    }
     "src/core/shared/generated-fingerprint" --> "src/core/shared/skill-links" {
         isReleasedGeneratedContent,
         normalizeGeneratedContent,
