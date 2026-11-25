@@ -7,6 +7,35 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/core/root-selection" {
+        JsNull,
+        at,
+        js_error,
+        merge,
+        missing,
+        rec,
+        same,
+        truthy,
+    }
+    src.core.store.errors ++> "src/core/root-selection" { StoreError }
+    src.core.store.foundation ++> "src/core/root-selection" {
+        getStoreMetadataPath,
+        listStoreRegistryEntries,
+        readOptionalStoreMetadataState,
+        readStoreRegistryState,
+        validateStoreId,
+    }
+    src.core.store.registry ++> "src/core/root-selection" { getStoreRootForBackend }
+    src.core.store.git ++> "src/core/root-selection" { gitOriginUrl, repoNameFromGitUrl }
+    src.core.id ++> "src/core/root-selection" { isKebabId, toKebabCase }
+    "src/core/openspec-root" ++> "src/core/root-selection" { inspectOpenSpecRoot }
+    "src/core/planning-home" ++> "src/core/root-selection" { findRepoPlanningRootSync }
+    "src/core/project-config" ++> "src/core/root-selection" {
+        classifyOpenSpecDir,
+        storePointerProblem,
+    }
+    "src/core/global-config" ++> "src/core/root-selection" { getGlobalConfig }
+    "src/utils/file-system" ++> "src/core/root-selection" { FileSystemUtils }
     src.host ++> "src/commands/workset-prompts" { JsNull, js_error, merge, missing, rec }
     src.lazy ++> "src/commands/workset-prompts" { load }
     "src/core/file-state" ++> "src/commands/workset-prompts" { pathIsDirectory }
@@ -1106,28 +1135,6 @@ graph import {
     "src/utils/item-discovery" --> src.core.references { getSpecIds }
     "src/utils/file-system" --> src.core.references { FileSystemUtils }
     "src/core/project-config" --> src.core.references { DeclarationEntry, MAX_CONTEXT_SIZE }
-    src.core.store.errors --> "src/core/root-selection" { StoreError }
-    src.core.store.foundation --> "src/core/root-selection" {
-        getStoreMetadataPath,
-        listStoreRegistryEntries,
-        readOptionalStoreMetadataState,
-        readStoreRegistryState,
-        validateStoreId,
-    }
-    src.core.store.registry --> "src/core/root-selection" { getStoreRootForBackend }
-    src.core.store.git --> "src/core/root-selection" { gitOriginUrl, repoNameFromGitUrl }
-    src.core.id --> "src/core/root-selection" { isKebabId, toKebabCase }
-    "src/core/openspec-root" --> "src/core/root-selection" { inspectOpenSpecRoot }
-    "src/core/planning-home" --> "src/core/root-selection" {
-        PlanningHome,
-        findRepoPlanningRootSync,
-    }
-    "src/core/project-config" --> "src/core/root-selection" {
-        classifyOpenSpecDir,
-        storePointerProblem,
-    }
-    "src/core/global-config" --> "src/core/root-selection" { getGlobalConfig }
-    "src/utils/file-system" --> "src/core/root-selection" { FileSystemUtils }
     src.core.index --> "test/cli-e2e/capstone-journeys.test" { getGlobalDataDir, registerStore }
     "test/helpers/run-cli" --> "test/cli-e2e/capstone-journeys.test" { runCLI }
     "test/helpers/openspec-fixtures" --> "test/cli-e2e/capstone-journeys.test" {
