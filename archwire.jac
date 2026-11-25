@@ -7,6 +7,10 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/core/artifact-graph/resolver" { JsNull, found, js_error, rec, sub }
+    "src/core/global-config" ++> "src/core/artifact-graph/resolver" { getGlobalDataDir }
+    "src/utils/file-system" ++> "src/core/artifact-graph/resolver" { FileSystemUtils }
+    "src/core/artifact-graph/schema" ++> "src/core/artifact-graph/resolver" { parseSchema }
     src.host ++> src.core.worksets { JsNull, at, js_error, merge, rec }
     src.lazy ++> src.core.worksets { need }
     "src/core/global-config" ++> src.core.worksets { getGlobalDataDir }
@@ -1323,13 +1327,6 @@ graph import {
         ActionContext,
         PlanningHomeSummary,
     }
-    "src/core/global-config" --> "src/core/artifact-graph/resolver" { getGlobalDataDir }
-    "src/utils/file-system" --> "src/core/artifact-graph/resolver" { FileSystemUtils }
-    "src/core/artifact-graph/schema" --> "src/core/artifact-graph/resolver" {
-        SchemaValidationError,
-        parseSchema,
-    }
-    "src/core/artifact-graph/types" --> "src/core/artifact-graph/resolver" { SchemaYaml }
     "src/core/artifact-graph/resolver" --> "src/core/artifact-graph/instruction-loader" {
         getSchemaDir,
         listSchemasWithInfo,
