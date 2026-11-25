@@ -1,6 +1,4 @@
 import from "fs" { default as fs }
-import from "http" { default as http }
-import from "https" { default as https }
 import from "path" { default as path }
 import from "node:process" { default as process }
 
@@ -219,7 +217,7 @@ def:priv httpsGet(url: any, deadline: int, followRedirects: bool) -> any {
                 response.on("end", lambda -> any { finish(rec(status=status, body=body)) });
                 response.on("error", lambda -> any { finish(None) });
             }
-            request = (http if target.protocol == "http:" else https).get(
+            request = need("http" if target.protocol == "http:" else "https").get(
                 target, rec(timeout=REQUEST_TIMEOUT_MS), onResponse
             );
             active = request;
