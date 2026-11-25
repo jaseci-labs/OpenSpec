@@ -1,7 +1,7 @@
 #!/bin/bash
 # alternate full test suites: orig, jac-before, jac-after; two rounds
 declare -A DIR=([orig]=/home/jayanaka/neojac-deslop/base/OpenSpec [before]=/tmp/osbench/jac-before [after]=/home/jayanaka/neojac-deslop/repos/Fission-AI_OpenSpec)
-for round in 1 2; do
+for round in ${ROUNDS:-1 2}; do
   order="orig before after"; [ $round = 2 ] && order="after before orig"
   for s in $order; do
     l0=$(cut -d' ' -f1 /proc/loadavg)

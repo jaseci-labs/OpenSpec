@@ -37,37 +37,39 @@ commands and the test suite.
   every run of every build. For `init` and `update` it also compares a hash of every file
   they wrote. Timing fields (`durationMs`) and temporary paths are normalised. All three
   builds gave identical output on every workload, in all 11 runs.
-- **Load**: the machine is shared. The load average was 10.9 when the command benchmark
-  started and 45.7 when it ended (20 cores). The rotation spreads this over the three builds,
-  but single numbers are noisy: treat differences under about 10% as noise. During
-  development I compared changes with A/B runs of 10–20 alternated launches, and read CPU
-  profiles (`node --cpu-prof`), which show proportions and do not depend on the load.
+- **Load**: the machine is shared. The table below is from a second full run, made when the
+  load average was 5.9 at the start and 6.9 at the end (20 cores). A first run, at load
+  10.9 → 45.7, gave medians within 1–4% of these on every command except `init` (943/1249/1013
+  ms, since disk-bound under that load), and the same output. The rotation spreads load over
+  the three builds, but treat differences under about 10% as noise. During development I
+  compared changes with A/B runs of 10–30 alternated launches, and read CPU profiles
+  (`node --cpu-prof`), which show proportions and do not depend on the load.
 
 ## Commands: before and after
 
-Median wall time in ms, 11 runs each.
+Median wall time in ms, 11 runs each, load 5.9–6.9.
 
 | Workload | original | Jac before | Jac after | before ÷ original | after ÷ original | after vs before |
 |---|---:|---:|---:|---:|---:|---:|
-| `--version` | 50 | 199 | 110 | 3.99× | 2.20× | −45% |
-| `--help` | 52 | 198 | 111 | 3.78× | 2.13× | −44% |
-| `list` | 152 | 290 | 183 | 1.91× | 1.20× | −37% |
-| `list --specs --json` | 154 | 383 | 220 | 2.49× | 1.43× | −43% |
-| `list --all --json` | 291 | 512 | 370 | 1.76× | 1.27× | −28% |
-| `validate --all --json` | 226 | 696 | 363 | 3.08× | 1.60× | −48% |
-| `validate --specs --strict` | 189 | 552 | 297 | 2.93× | 1.58× | −46% |
-| `show <spec> --json` | 159 | 288 | 179 | 1.81× | 1.12× | −38% |
-| `show <change> --json` | 157 | 285 | 182 | 1.81× | 1.16× | −36% |
-| `view` | 186 | 428 | 264 | 2.30× | 1.42× | −38% |
-| `status --change … --json` | 155 | 291 | 189 | 1.88× | 1.22× | −35% |
-| `instructions proposal --json` | 156 | 289 | 186 | 1.85× | 1.19× | −36% |
-| `schemas --json` | 142 | 272 | 173 | 1.92× | 1.22× | −36% |
-| `templates --json` | 143 | 267 | 168 | 1.86× | 1.18× | −37% |
-| `doctor --json` | 127 | 266 | 165 | 2.09× | 1.30× | −38% |
-| `context --json` | 129 | 267 | 169 | 2.07× | 1.31× | −37% |
-| `config list --json` | 136 | 284 | 171 | 2.09× | 1.26× | −40% |
-| `init --tools all` (fresh repo) | 943 | 1249 | 1013 | 1.32× | 1.07× | −19% |
-| `update` (after init) | 459 | 1032 | 629 | 2.25× | 1.37× | −39% |
+| `--version` | 50 | 201 | 108 | 4.04× | 2.17× | −46% |
+| `--help` | 52 | 203 | 113 | 3.87× | 2.16× | −44% |
+| `list` | 150 | 292 | 186 | 1.95× | 1.24× | −36% |
+| `list --specs --json` | 154 | 383 | 216 | 2.48× | 1.40× | −43% |
+| `list --all --json` | 278 | 495 | 353 | 1.78× | 1.27× | −29% |
+| `validate --all --json` | 227 | 693 | 367 | 3.05× | 1.61× | −47% |
+| `validate --specs --strict` | 188 | 552 | 290 | 2.94× | 1.54× | −47% |
+| `show <spec> --json` | 156 | 284 | 181 | 1.82× | 1.16× | −36% |
+| `show <change> --json` | 155 | 285 | 180 | 1.83× | 1.16× | −37% |
+| `view` | 186 | 432 | 265 | 2.33× | 1.43× | −39% |
+| `status --change … --json` | 157 | 299 | 194 | 1.90× | 1.24× | −35% |
+| `instructions proposal --json` | 162 | 305 | 197 | 1.88× | 1.21× | −36% |
+| `schemas --json` | 141 | 275 | 172 | 1.95× | 1.22× | −37% |
+| `templates --json` | 142 | 267 | 171 | 1.88× | 1.21× | −36% |
+| `doctor --json` | 127 | 266 | 165 | 2.08× | 1.30× | −38% |
+| `context --json` | 128 | 266 | 164 | 2.08× | 1.29× | −38% |
+| `config list --json` | 134 | 276 | 165 | 2.06× | 1.24× | −40% |
+| `init --tools all` (fresh repo) | 786 | 1062 | 852 | 1.35× | 1.08× | −20% |
+| `update` (after init) | 452 | 1015 | 605 | 2.24× | 1.34× | −40% |
 
 The Jac build is still slower than the original on every command: by about 60 ms of
 start-up, plus 10–60% on the commands that parse many specs. Where that cost comes from,
@@ -75,19 +77,20 @@ and why it stays, is under [Blockers](#what-neojac-blocks).
 
 ## Test suite: before and after
 
-`neojac npx vitest run` (vitest 5, at most 4 forked workers) on each tree, all 6,527 tests, run
-in two rounds in the order original → Jac before → Jac after, then the reverse
-([`perf/suites.sh`](perf/suites.sh)). The load moved a lot (54 → 12 over the runs), so CPU time
-(user + system, every process the suite starts) is the steadier figure.
+`neojac npx vitest run` (vitest 5, at most 4 forked workers) on each tree, all 6,527 tests, in
+three rounds: original → Jac before → Jac after, then the reverse, then the first order again
+([`perf/suites.sh`](perf/suites.sh), `ROUNDS="1 2 3"`). The load moved a lot (between 6 and 54),
+so CPU time (user + system, every process the suite starts) is the steadier figure.
 
 | Suite run | original | Jac before | Jac after |
 |---|---:|---:|---:|
 | Round 1, wall s (load at start) | 225.3 (54.7) | 335.8 (44.6) | 171.6 (21.6) |
 | Round 2, wall s (load at start) | 94.0 (12.3) | 196.0 (15.0) | 139.3 (30.3) |
-| Round 1, CPU s | 616.6 | 1135.7 | 714.6 |
-| Round 2, CPU s | 438.8 | 917.1 | 665.4 |
-| **Mean CPU s** | **527.7** | **1026.4** | **690.0** (−33% vs before; 1.31× original) |
-| Failed tests | 10, 9 | 12, 12 | 10, 10 |
+| Round 3, wall s (load at start) | 98.7 (6.2) | 295.2 (11.4) | 201.2 (32.0) |
+| Round 1 / 2 / 3, CPU s | 616.6 / 438.8 / 460.5 | 1135.7 / 917.1 / 1129.0 | 714.6 / 665.4 / 795.7 |
+| **Median wall s** | **98.7** | **295.2** | **171.6** (−42% vs before) |
+| **Median CPU s** | **460.5** | **1129.0** | **714.6** (−37% vs before; 1.55× original) |
+| Failed tests, per round | 10, 9, 9 | 12, 12, 12 | 10, 10, 10 |
 
 The failures are the same in every tree but two. The 8 `config-edit` tests and 1 `store-git`
 test fail on this machine for the original too (they spawn an editor and expect an
@@ -95,7 +98,7 @@ interactive git prompt). `global-skills` fails in the Jac branches' repository b
 `.agents/skills/` there also holds neojac's installed skills, which lack the
 `metadata: internal: true` that test asks for; it passes in the "Jac before" worktree, which
 does not have them. "Jac before" also fails `cli-e2e/basic` in that worktree. Round 1 of the
-original had one `init.test.ts` failure at load 54 that round 2 did not repeat. No test that
+original had one `init.test.ts` failure at load 54 that rounds 2 and 3 did not repeat. No test that
 passed before fails after.
 
 The suite's largest gains came from two places. Its CLI runs now start with the compile cache
@@ -210,7 +213,7 @@ export function run(flag) { if (flag) { $m0.$start(); ... } }
 
 On top of that, `__boot.mjs` imports every module of the space: here, all 226. A node space
 has no dynamic `import()` of a Jac module, so start-up always loads the whole program. This is
-the ~60 ms that the Jac build's `--version` still takes over the original's (110 vs 50 ms).
+the ~60 ms that the Jac build's `--version` still takes over the original's (108 vs 50 ms).
 
 ### 2. An npm or Node import inside a function: E5090
 
@@ -242,7 +245,7 @@ CLI's node space calls. Two things stop that:
   to be running as a server, and the node side needs `[apps.<app>.remote]` or
   `JAC_REMOTE_FAST`. Built with separate apps (`app svc { run fast; }`,
   `app tool { run cli; }`), a call measured **0.66 ms per crossing** on localhost (500 calls).
-  `validate --all` makes thousands of parser calls and takes 363 ms in total, so one crossing
+  `validate --all` makes thousands of parser calls and takes 367 ms in total, so one crossing
   per file would cost more than the parsing it replaces. It would also mean a background
   server for a one-shot CLI.
 - **Running both spaces in one process fails to build.** `app tool { run fast, cli; }` (native
@@ -287,6 +290,21 @@ on any Node ≥ 22.20, on Windows too, and the modules the vitest suite imports 
   module (`findTool`, `splitBy`), nor drop wires left unused (`E1146`). I edited them by hand.
 - Jac source may hold no comments or docstrings (`W3050`/`W3051`). The reasons for these
   changes are in the commit messages.
+
+## Tried, and measured no gain
+
+A second pass at load ~6 (A/B, 15–30 alternated runs each) tried three more changes, and
+dropped them because none moved the wall time beyond noise:
+
+- caching the resolve hook's results by directory and specifier (profiles showed ~20 ms in
+  the hook, but `--help` measured 110.6 vs 112.5 ms: that was profiler overhead);
+- module-constant fence patterns plus a substring pre-check in `buildCodeFenceMask`
+  (`validate --all`: 361 vs 363 ms; `list --specs`: 217 vs 222 ms);
+- a larger young generation (`--max-semi-space-size=32`) against the ~17 ms of GC in
+  `validate` (374 vs 369 ms).
+
+What remains is spread across neojac's runtime helpers (`call`, `callattr`, `plain`,
+`str_join`, `dict_of`…), each a few ms, with no single hot spot left in this project's code.
 
 ## Not done, and why
 
