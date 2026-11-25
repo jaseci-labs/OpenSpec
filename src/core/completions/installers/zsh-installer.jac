@@ -12,8 +12,9 @@ def:priv homeLabel(zshrcPath: str, homeDir: str) -> str {
     return "~/.zshrc" if zshrcPath == join(homeDir, ".zshrc") else zshrcPath;
 }
 
-def zshrcDisplayPath(homeDir: str = homedir()) -> str {
-    return homeLabel(join(zshrcDir(homeDir), ".zshrc"), homeDir);
+def zshrcDisplayPath(homeDir: any = None) -> str {
+    home = homeDir ?? homedir();
+    return homeLabel(join(zshrcDir(home), ".zshrc"), home);
 }
 
 async def:priv hasMarkers(zshrcPath: str) -> bool {
@@ -26,9 +27,9 @@ async def:priv hasMarkers(zshrcPath: str) -> bool {
 }
 
 obj ZshInstaller(globalThis.Object) {
-    def init(homeDir: str = homedir()) {
+    def init(homeDir: any = None) {
         super.init();
-        self.homeDir = homeDir;
+        self.homeDir = homeDir ?? homedir();
     }
 
     async def isOhMyZshInstalled -> bool {

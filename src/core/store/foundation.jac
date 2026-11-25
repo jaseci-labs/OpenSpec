@@ -218,7 +218,8 @@ async def writeStoreMetadataState(storeRoot: str, state: any) {
     );
 }
 
-async def resolveGitStoreBackendConfig(input: any, cwd: str = process.cwd()) -> any {
+async def resolveGitStoreBackendConfig(input: any, cwd: any = None) -> any {
+    cwd = cwd ?? process.cwd();
     localPath: any = input.localPath;
     if len(localPath) == 0 {
         raise new(globalThis.Error, "Store local path must not be empty.");

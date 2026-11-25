@@ -21,9 +21,9 @@ def:priv sourceLines(quotedDir: str, i: str) -> list[str] {
 }
 
 obj BashInstaller(globalThis.Object) {
-    def init(homeDir: str = homedir()) {
+    def init(homeDir: any = None) {
         super.init();
-        self.homeDir = homeDir;
+        self.homeDir = homeDir ?? homedir();
     }
 
     async def isBashCompletionInstalled -> bool {

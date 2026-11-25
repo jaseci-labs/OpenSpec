@@ -2,9 +2,9 @@ import from "node:path" { join }
 import from "node:os" { homedir }
 
 obj FishInstaller(globalThis.Object) {
-    def init(homeDir: str = homedir()) {
+    def init(homeDir: any = None) {
         super.init();
-        self.homeDir = homeDir;
+        self.homeDir = homeDir ?? homedir();
     }
 
     def getInstallationPath -> str {

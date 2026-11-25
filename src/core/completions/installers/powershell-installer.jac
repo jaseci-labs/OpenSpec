@@ -32,9 +32,9 @@ def:priv messageOf(e: any) -> any {
 }
 
 obj PowerShellInstaller(globalThis.Object) {
-    def init(homeDir: str = homedir()) {
+    def init(homeDir: any = None) {
         super.init();
-        self.homeDir = homeDir;
+        self.homeDir = homeDir ?? homedir();
     }
 
     def getProfilePath -> str {
