@@ -7,6 +7,20 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/core/available-tools" { truthy }
+    src.core.config ++> "src/core/available-tools" { AI_TOOLS }
+    "src/core/shared-skill-target" ++> "src/core/available-tools" { readSkillToolList }
+    "src/core/shared/tool-detection" ++> "src/core/available-tools" {
+        SKILL_NAMES,
+        isListedToolPresent,
+    }
+    "src/core/shared/skill-paths" ++> "src/core/available-tools" {
+        SHARED_SKILLS_ROOT,
+        resolveToolSkillsDir,
+        toolSupportsSkills,
+        usesSharedSkills,
+    }
+    "src/core/file-view" ++> "src/core/available-tools" { DISK_VIEW }
     src.host ++> "src/core/shared/tool-detection" {
         JsNull,
         at,
@@ -2061,19 +2075,6 @@ graph import {
     "src/core/released-output-sweep" --> "src/core/retired-tools" { pruneEmptyParents }
     src.core.profiles --> "src/core/retired-tools" { ALL_WORKFLOWS }
     "src/core/file-view" --> "src/core/retired-tools" { FileView }
-    src.core.config --> "src/core/available-tools" { AIToolOption, AI_TOOLS }
-    "src/core/shared-skill-target" --> "src/core/available-tools" { readSkillToolList }
-    "src/core/shared/tool-detection" --> "src/core/available-tools" {
-        SKILL_NAMES,
-        isListedToolPresent,
-    }
-    "src/core/shared/skill-paths" --> "src/core/available-tools" {
-        SHARED_SKILLS_ROOT,
-        resolveToolSkillsDir,
-        toolSupportsSkills,
-        usesSharedSkills,
-    }
-    "src/core/file-view" --> "src/core/available-tools" { DISK_VIEW, FileView }
     src.core.config --> "src/core/global-skills" { AI_TOOLS, OPENSPEC_SKILL_NAMES, installerAgent }
     "src/core/global-config" --> "src/core/global-skills" { getGlobalDataDir }
     src.core.profiles --> "src/core/global-skills" { withRouter }
