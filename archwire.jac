@@ -7,6 +7,38 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/core/shared/skill-generation" { at, merge, missing, rec, sub }
+    "src/core/shared/allowed-tools" ++> "src/core/shared/skill-generation" {
+        OPENSPEC_CLI_ALLOWED_TOOLS,
+    }
+    "src/core/templates/skill-templates" ++> "src/core/shared/skill-generation" {
+        getExploreSkillTemplate,
+        getNewChangeSkillTemplate,
+        getContinueChangeSkillTemplate,
+        getApplyChangeSkillTemplate,
+        getUpdateChangeSkillTemplate,
+        getFfChangeSkillTemplate,
+        getSyncSpecsSkillTemplate,
+        getArchiveChangeSkillTemplate,
+        getBulkArchiveChangeSkillTemplate,
+        getVerifyChangeSkillTemplate,
+        getOnboardSkillTemplate,
+        getOpsxProposeSkillTemplate,
+        getRouterSkillTemplate,
+        ROUTER_SKILL_NAME,
+        getOpsxExploreCommandTemplate,
+        getOpsxNewCommandTemplate,
+        getOpsxContinueCommandTemplate,
+        getOpsxApplyCommandTemplate,
+        getOpsxUpdateCommandTemplate,
+        getOpsxFfCommandTemplate,
+        getOpsxSyncCommandTemplate,
+        getOpsxArchiveCommandTemplate,
+        getOpsxBulkArchiveCommandTemplate,
+        getOpsxVerifyCommandTemplate,
+        getOpsxOnboardCommandTemplate,
+        getOpsxProposeCommandTemplate,
+    }
     src.host ++> "src/core/templates/workflows/bulk-archive-change" { rec }
     "src/core/templates/workflows/archive-change" ++> "src/core/templates/workflows/bulk-archive-change" {
         SYNC_FALLBACK_SAFEGUARDS,
@@ -1213,39 +1245,6 @@ graph import {
         generateSkillFiles,
         getSkillTemplates,
         stripVolatileFrontmatter,
-    }
-    "src/core/templates/skill-templates" --> "src/core/shared/skill-generation" {
-        ROUTER_SKILL_NAME,
-        SkillTemplate,
-        getApplyChangeSkillTemplate,
-        getArchiveChangeSkillTemplate,
-        getBulkArchiveChangeSkillTemplate,
-        getContinueChangeSkillTemplate,
-        getExploreSkillTemplate,
-        getFfChangeSkillTemplate,
-        getNewChangeSkillTemplate,
-        getOnboardSkillTemplate,
-        getOpsxApplyCommandTemplate,
-        getOpsxArchiveCommandTemplate,
-        getOpsxBulkArchiveCommandTemplate,
-        getOpsxContinueCommandTemplate,
-        getOpsxExploreCommandTemplate,
-        getOpsxFfCommandTemplate,
-        getOpsxNewCommandTemplate,
-        getOpsxOnboardCommandTemplate,
-        getOpsxProposeCommandTemplate,
-        getOpsxProposeSkillTemplate,
-        getOpsxSyncCommandTemplate,
-        getOpsxUpdateCommandTemplate,
-        getOpsxVerifyCommandTemplate,
-        getRouterSkillTemplate,
-        getSyncSpecsSkillTemplate,
-        getUpdateChangeSkillTemplate,
-        getVerifyChangeSkillTemplate,
-    }
-    "src/core/command-generation/index" --> "src/core/shared/skill-generation" { CommandContent }
-    "src/core/shared/allowed-tools" --> "src/core/shared/skill-generation" {
-        OPENSPEC_CLI_ALLOWED_TOOLS,
     }
     include src.core.templates.types ++> "src/core/templates/skill-templates" {
         CommandTemplate,
