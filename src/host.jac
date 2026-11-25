@@ -65,3 +65,37 @@ def promise(work: any) -> any {
 def matchOf(text: str, pattern: str, flags: str = "") -> any {
     return rx(pattern, flags).exec(text);
 }
+
+def unique(items: any) -> list[any] {
+    return globalThis.Array.from(new(globalThis.Set, items));
+}
+
+def trim(s: any) -> str {
+    return s.trim();
+}
+
+def rtrim(s: any) -> str {
+    return s.trimEnd();
+}
+
+def fail(message: str) -> any {
+    return new(globalThis.Error, message);
+}
+
+def messageOf(error: any) -> str {
+    err = js_error(error);
+    return err.message if globalThis.Error.prototype.isPrototypeOf(err) else globalThis.String(err);
+}
+
+def linkOf(view: any, p: str) -> any {
+    return None if missing(view["linkTarget"]) else view.linkTarget(p);
+}
+
+def jsAsync(C: any, names: list[str]) {
+    new(
+        globalThis.Function,
+        "C",
+        "names",
+        "for (const k of names) { const f = C.prototype[k]; C.prototype[k] = function (...a) { return f.apply(this, a).then(); }; }",
+    )(C, names);
+}

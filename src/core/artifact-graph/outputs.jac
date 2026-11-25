@@ -8,10 +8,6 @@ glob:priv EXTGLOB: str = "[!*+?@]\\([^(]*\\)",
           LITERAL_BRACE_OPEN: str = "\x00<",
           LITERAL_BRACE_CLOSE: str = "\x00>";
 
-def:priv fail(message: str) -> any {
-    return new(globalThis.Error, message);
-}
-
 def:priv shown(pattern: str) -> str {
     return f"{pattern[:80]}..." if len(pattern) > 80 else pattern;
 }

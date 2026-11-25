@@ -4,10 +4,6 @@ import from "node:fs" { promises as fsp }
 type CommandReconcileResult = any;
 type CommandReconcileIo = any;
 
-def:priv linkOf(view: any, p: str) -> any {
-    return None if missing(view["linkTarget"]) else view.linkTarget(p);
-}
-
 def classifyCommandFiles(
     projectPath: str,
     toolId: str,
@@ -28,7 +24,9 @@ def classifyCommandFiles(
         current = adapter.getFilePath(workflow);
         paths: list[any] = [current];
         for former in formerRoots {
-            formerPath = legacyCommandPath(current, currentRoot, former.root) if currentRoot else None;
+            formerPath = legacyCommandPath(current, currentRoot, former.root)
+                if currentRoot
+                else None;
             if formerPath {
                 paths.append(formerPath);
             }
@@ -63,13 +61,16 @@ def classifyCommandFiles(
             continue;
         }
         for cmd in commands {
-            generatedByPath.setdefault(cmd.path, []).append(normalizeCommandContent(cmd.fileContent));
+            generatedByPath.setdefault(cmd.path, []).append(
+                normalizeCommandContent(cmd.fileContent)
+            );
         }
     }
     for (workflow, cmdPath, fullPath) in present {
         try {
             content = view.read(fullPath);
-            if normalizeCommandContent(content) in generatedByPath.get(adapter.getFilePath(workflow), [])
+            if normalizeCommandContent(content)
+                in generatedByPath.get(adapter.getFilePath(workflow), [])
                 or isReleasedGeneratedContent(content)
             {
                 result.generated.append(rec(cmdPath=cmdPath, fullPath=fullPath));
@@ -87,7 +88,9 @@ glob:priv DISK_IO: any = rec(
     view=DISK_VIEW, remove=lambda (fullPath: str) -> any { fsp.unlink(fullPath) }
 );
 
-async def reconcileCommandFiles(projectPath: str, toolId: str, workflows: any, io: any = None) -> any {
+async def reconcileCommandFiles(
+    projectPath: str, toolId: str, workflows: any, io: any = None
+) -> any {
     io = io ?? DISK_IO;
     found = classifyCommandFiles(projectPath, toolId, workflows, io.view);
     removed: list[str] = [];
@@ -121,7 +124,7 @@ def formatKeptCommandFiles(result: any) -> list[list[str]] {
                 kept,
                 f"Kept {len(kept)} {files(len(kept))} that {'does' if len(kept) == 1 else 'do'} not match what OpenSpec generated (likely edited):",
                 "Move anything worth keeping into the skill, then delete by hand.",
-            )
+            ),
         );
     }
     if len(unchecked) > 0 {
@@ -130,7 +133,7 @@ def formatKeptCommandFiles(result: any) -> list[list[str]] {
                 unchecked,
                 f"Left {len(unchecked)} {files(len(unchecked))} in place because {'it' if len(unchecked) == 1 else 'they'} could not be read or removed:",
                 "Check the file permissions or symbolic links, then delete by hand.",
-            )
+            ),
         );
     }
     return blocks;

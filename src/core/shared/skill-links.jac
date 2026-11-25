@@ -38,10 +38,6 @@ def:priv linkPointsTo(linkPath: str, linked: str, targetDir: str) -> bool {
     }
 }
 
-def:priv linkOf(view: any, p: str) -> any {
-    return None if missing(view["linkTarget"]) else view.linkTarget(p);
-}
-
 def:priv classifyContent(view: any, skillFile: str, sharedContent: any) -> str {
     try {
         content = view.read(skillFile);

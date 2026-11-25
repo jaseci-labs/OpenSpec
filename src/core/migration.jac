@@ -22,10 +22,6 @@ glob LEGACY_TOOL_ROOTS: any = rec(
     antigravity=[rec(root=".agent", needsConsent=False, timing="after-generation")],
 );
 
-def:priv linkOf(view: any, p: str) -> any {
-    return None if missing(view["linkTarget"]) else view.linkTarget(p);
-}
-
 def:priv splitPath(p: str) -> any {
     return globalThis.String.prototype.split.call(p, rx("[\\\\/]"));
 }

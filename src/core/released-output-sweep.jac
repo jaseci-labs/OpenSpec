@@ -15,10 +15,6 @@ def:priv findTool(toolId: str) -> any {
     return AI_TOOLS.find(lambda (t: any) -> bool { t.value == toolId });
 }
 
-def:priv unique(items: any) -> list[any] {
-    return globalThis.Array.from(new(globalThis.Set, items));
-}
-
 def:priv skillFiles(dirName: str) -> list[any] {
     files: any = expectedSkillFiles("current").get(dirName);
     return ["SKILL.md"] if missing(files) else globalThis.Array.from(files.keys());
@@ -35,7 +31,10 @@ def:priv toolSpecificPathsForTool(toolId: str) -> list[str] {
         for workflow in SKILL_WORKFLOWS {
             skillDir = f"{ownSkillsRoot}/{WORKFLOW_TO_SKILL_DIR[workflow]}";
             paths.append(skillDir);
-            paths.extend([f"{skillDir}/{file}" for file in skillFiles(WORKFLOW_TO_SKILL_DIR[workflow])]);
+            paths.extend([
+                f"{skillDir}/{file}"
+                for file in skillFiles(WORKFLOW_TO_SKILL_DIR[workflow])
+            ]);
         }
     }
     adapter = CommandAdapterRegistry.get(tool.value);
@@ -55,7 +54,10 @@ def:priv currentPathsForTool(tool: any) -> list[str] {
     if usesSharedSkills(tool) {
         for workflow in SKILL_WORKFLOWS {
             dirName = WORKFLOW_TO_SKILL_DIR[workflow];
-            paths.extend([f"{SHARED_SKILLS_ROOT}/skills/{dirName}/{file}" for file in skillFiles(dirName)]);
+            paths.extend([
+                f"{SHARED_SKILLS_ROOT}/skills/{dirName}/{file}"
+                for file in skillFiles(dirName)
+            ]);
         }
     }
     return paths;
@@ -141,7 +143,8 @@ async def findStaleReleasedFiles(projectPath: str, view: any = None) -> list[str
     hasReplacement: dict[str, bool] = {};
     def replaced(toolId: str) -> bool {
         if toolId not in hasReplacement {
-            hasReplacement[toolId] = len([p for p in toolSpecificPathsForTool(toolId) if exists(p)]) > 0
+            hasReplacement[toolId] = len([p for p in toolSpecificPathsForTool(toolId) if exists(p)])
+                > 0
                 or isToolListed(projectPath, toolId, view);
         }
         return hasReplacement[toolId];
@@ -167,7 +170,10 @@ async def findStaleReleasedFiles(projectPath: str, view: any = None) -> list[str
             continue;
         }
         ids = owners.get(topFolder(rel), []);
-        if not ids or len([id for id in ids if not replaced(id)]) > 0 or migrationPending(topFolder(rel)) {
+        if not ids
+            or len([id for id in ids if not replaced(id)]) > 0
+            or migrationPending(topFolder(rel))
+        {
             continue;
         }
         file = path.join(projectPath, *rel.split("/"));
