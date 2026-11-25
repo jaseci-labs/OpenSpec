@@ -7,6 +7,9 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/core/known-projects" { at, js_error, kind, found, rec }
+    "src/core/project-dir" ++> "src/core/known-projects" { OPENSPEC_DIR_NAME }
+    "src/core/global-config" ++> "src/core/known-projects" { getGlobalDataDir }
     src.host ++> "src/prompts/searchable-multi-select" { JsNull, kind, merge, missing, rec, same }
     src.lazy ++> "src/prompts/searchable-multi-select" { load, pick }
     src.host ++> "src/core/schemas/base.schema" { rec }
@@ -1926,8 +1929,6 @@ graph import {
         usesSharedSkills,
     }
     "src/core/file-view" --> "src/core/available-tools" { DISK_VIEW, FileView }
-    src.core.config --> "src/core/known-projects" { OPENSPEC_DIR_NAME }
-    "src/core/global-config" --> "src/core/known-projects" { getGlobalDataDir }
     "src/utils/file-system" --> "src/core/github-copilot/cloud-agent" { FileSystemUtils }
     "src/core/project-config" --> "src/core/github-copilot/cloud-agent" {
         readProjectConfig,
