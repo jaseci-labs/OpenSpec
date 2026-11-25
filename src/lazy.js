@@ -9,3 +9,7 @@ export const need = (name) => require(name);
 
 /** The package's namespace, loaded with a real `import()` (which test mocks intercept). */
 export const load = (name) => import(name);
+
+/** One export of a package (its default unless named), as the value itself: reading a function
+ *  off a package from Jac (`need("chalk").default`) gives a wrapper that loses its properties. */
+export const pick = (name, key = 'default') => require(name)[key];

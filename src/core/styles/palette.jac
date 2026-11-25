@@ -1,4 +1,4 @@
-glob:priv chalk: any = need("chalk").default;
+glob:priv chalk: any = pick("chalk");
 
 glob PALETTE: any = rec(
     white=chalk.hex("#f4f4f4"),

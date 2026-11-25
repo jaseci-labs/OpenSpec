@@ -343,7 +343,7 @@ graph import {
     src.host ++> src.core.store.git { rec, merge, js_error, at, kind, same, JsNull, sub, matchOf }
     src.core.store.errors ++> src.core.store.git { StoreError }
     src.host ++> "src/core/parsers/code-fence" { matchOf }
-    src.lazy ++> src.core.styles.palette { need }
+    src.lazy ++> src.core.styles.palette { pick }
     src.host ++> src.core.styles.palette { rec }
     src.host ++> "src/core/change-status-policy" { rec, truthy }
     src.host ++> "src/commands/shared-output" { kind, merge, rec, truthy }

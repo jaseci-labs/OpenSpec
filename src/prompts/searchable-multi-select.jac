@@ -1,4 +1,4 @@
-glob:priv chalk: any = globalThis.Reflect.get(need("chalk"), "default");
+glob:priv chalk: any = pick("chalk");
 
 def:priv isPrintable(text: any) -> bool {
     return kind(text) == "string"
