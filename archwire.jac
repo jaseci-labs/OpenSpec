@@ -7,6 +7,75 @@ graph spaces {
 }
 
 graph import {
+    include src.core.store.foundation ++> src.core.store.index {
+        STORES_DIR_NAME,
+        STORE_METADATA_DIR_NAME,
+        STORE_METADATA_FILE_NAME,
+        STORE_REGISTRY_FILE_NAME,
+        StoreBackendConfig,
+        StoreGitBackendConfig,
+        StorePathOptions,
+        StoreRegistryEntry,
+        StoreRegistryState,
+        getStoreMetadataDir,
+        getStoreMetadataPath,
+        getStoreRegistryPath,
+        getStoresDir,
+        isStoreRoot,
+        isValidStoreId,
+        listStoreRegistryEntries,
+        parseStoreMetadataState,
+        parseStoreRegistryState,
+        readOptionalStoreMetadataState,
+        readStoreMetadataState,
+        readStoreRegistryState,
+        resolveGitStoreBackendConfig,
+        serializeStoreMetadataState,
+        serializeStoreRegistryState,
+        updateStoreRegistryState,
+        validateStoreId,
+        writeStoreMetadataState,
+        writeStoreRegistryState,
+    }
+    include src.core.store.errors ++> src.core.store.index {
+        StoreDiagnostic,
+        StoreDiagnosticSeverity,
+        StoreError,
+        makeStoreDiagnostic,
+    }
+    include src.core.store.registry ++> src.core.store.index {
+        RegistrySnapshot,
+        assertNoRegisteredStoreConflict,
+        commitStoreRegistration,
+        getRegisteredStore,
+        getStoreRootForBackend,
+        listRegisteredStores,
+        readRegistrySnapshot,
+        registerStore,
+        resolveRegisteredStore,
+        unregisterStoreRegistration,
+    }
+    include src.core.store.operations ++> src.core.store.index {
+        SetupStoreInput,
+        StoreCleanupResult,
+        StoreDoctorResult,
+        StoreInfo,
+        StoreInspection,
+        StoreListResult,
+        StoreMutationResult,
+        doctorStores,
+        expandUserPath,
+        listStores,
+        normalizeStorePathForComparison,
+        prepareStoreCleanup,
+        prepareStoreSetup,
+        registerExistingStore,
+        removeStore,
+        resolveSetupGitEnabled,
+        setupPreparedStore,
+        setupStore,
+        unregisterStore,
+    }
     src.host ++> src.core.store.operations {
         JsNull,
         at,
@@ -1035,10 +1104,6 @@ graph import {
     }
     "src/core/global-config" --> "src/core/root-selection" { getGlobalConfig }
     "src/utils/file-system" --> "src/core/root-selection" { FileSystemUtils }
-    src.core.store.foundation --> src.core.store.index;
-    src.core.store.errors --> src.core.store.index;
-    src.core.store.registry --> src.core.store.index;
-    src.core.store.operations --> src.core.store.index;
     src.core.index --> "test/cli-e2e/capstone-journeys.test" { getGlobalDataDir, registerStore }
     "test/helpers/run-cli" --> "test/cli-e2e/capstone-journeys.test" { runCLI }
     "test/helpers/openspec-fixtures" --> "test/cli-e2e/capstone-journeys.test" {
