@@ -7,6 +7,19 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> src.commands.show { JsNull, at, jsAsync, merge, owns, rec, truthy }
+    src.lazy ++> src.commands.show { load }
+    "src/core/root-selection" ++> src.commands.show {
+        isStoreSelectedRoot,
+        resolveRootForCommand,
+        toRootOutput,
+        withStoreFlag,
+    }
+    "src/utils/item-discovery" ++> src.commands.show { getActiveChangeIds, getSpecIds }
+    src.commands.change ++> src.commands.show { ChangeCommand }
+    src.commands.spec ++> src.commands.show { SpecCommand }
+    src.utils.interactive ++> src.commands.show { isInteractive }
+    src.utils.match ++> src.commands.show { nearestMatches }
     src.host ++> src.commands.change { JsNull, at, jsAsync, js_error, matchOf, merge, rec, truthy }
     src.lazy ++> src.commands.change { load, pick }
     "src/core/converters/json-converter" ++> src.commands.change { JsonConverter }
@@ -3282,19 +3295,6 @@ graph import {
         truthy,
     }
     src.lazy ++> src.commands.schema { load, need }
-    "src/core/root-selection" --> src.commands.show {
-        ResolvedOpenSpecRoot,
-        RootOutput,
-        isStoreSelectedRoot,
-        resolveRootForCommand,
-        toRootOutput,
-        withStoreFlag,
-    }
-    "src/utils/item-discovery" --> src.commands.show { getActiveChangeIds, getSpecIds }
-    src.commands.change --> src.commands.show { ChangeCommand }
-    src.commands.spec --> src.commands.show { SpecCommand }
-    src.utils.interactive --> src.commands.show { isInteractive }
-    src.utils.match --> src.commands.show { nearestMatches }
     "src/commands/shared-output" ++> src.commands.store { asErrorMessage, emitFailure, printJson }
     src.core.store.index ++> src.commands.store {
         StoreError,
