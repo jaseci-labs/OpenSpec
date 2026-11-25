@@ -7,6 +7,19 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> src.commands.spec { JsNull, at, jsAsync, js_error, merge, rec, truthy }
+    src.lazy ++> src.commands.spec { load }
+    "src/core/parsers/markdown-parser" ++> src.commands.spec { MarkdownParser }
+    "src/utils/item-discovery" ++> src.commands.spec { getSpecIds }
+    "src/utils/spec-discovery" ++> src.commands.spec { discoverSpecFiles }
+    "src/utils/spec-path-containment" ++> src.commands.spec { assertDiscoveredSpecFile }
+    src.core.validation.validator ++> src.commands.spec { Validator }
+    src.utils.interactive ++> src.commands.spec { isInteractive }
+    src.commands.spec ++> src.cli.commands.spec {
+        specListCommand,
+        specShowCommand,
+        specValidateCommand,
+    }
     "src/core/version-check" ++> "src/commands/install-standalone" {
         getCliInstallInfo,
         getStandaloneBinaryPath,
@@ -3104,7 +3117,6 @@ graph import {
         schemaValidateCommand,
         schemaWhichCommand,
     }
-    src.commands.spec --> src.cli.commands.spec;
     "src/commands/shared-output" ++> src.cli.commands.store { printJson }
     "src/core/completions/command-registry" ++> src.cli.commands.store { COMMAND_REGISTRY }
     src.commands.store ++> src.cli.commands.store { runStoreAction }
@@ -3283,14 +3295,6 @@ graph import {
     src.commands.spec --> src.commands.show { SpecCommand }
     src.utils.interactive --> src.commands.show { isInteractive }
     src.utils.match --> src.commands.show { nearestMatches }
-    "src/core/parsers/markdown-parser" --> src.commands.spec { MarkdownParser }
-    "src/core/root-selection" --> src.commands.spec { RootOutput }
-    "src/utils/item-discovery" --> src.commands.spec { getSpecIds }
-    "src/utils/spec-discovery" --> src.commands.spec { discoverSpecFiles }
-    "src/utils/spec-path-containment" --> src.commands.spec { assertDiscoveredSpecFile }
-    src.core.schemas.index --> src.commands.spec { Spec }
-    src.core.validation.validator --> src.commands.spec { Validator }
-    src.utils.interactive --> src.commands.spec { isInteractive }
     "src/commands/shared-output" ++> src.commands.store { asErrorMessage, emitFailure, printJson }
     src.core.store.index ++> src.commands.store {
         StoreError,
@@ -4344,7 +4348,6 @@ graph import {
         resolveSchema,
     }
     src.core.archive --> src.cli.index { ArchiveOptions }
-    src.commands.spec --> src.cli.commands.spec { ShowOptions }
     src.core.store.foundation --> "test/core/root-selection.test" {
         writeStoreMetadataState,
         writeStoreRegistryState,
