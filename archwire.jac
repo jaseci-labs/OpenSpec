@@ -8,7 +8,7 @@ graph spaces {
 
 graph import {
     src.host ++> "src/prompts/searchable-multi-select" { JsNull, kind, merge, missing, rec, same }
-    src.lazy ++> "src/prompts/searchable-multi-select" { load, need }
+    src.lazy ++> "src/prompts/searchable-multi-select" { load, pick }
     src.host ++> "src/core/schemas/base.schema" { rec }
     src.lazy ++> "src/core/schemas/base.schema" { need }
     src.core.validation.constants ++> "src/core/schemas/base.schema" { VALIDATION_MESSAGES }
