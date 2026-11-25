@@ -7,6 +7,18 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> src.commands.completion { at, truthy }
+    src.lazy ++> src.commands.completion { load }
+    src.core.completions.factory ++> src.commands.completion {
+        CompletionFactory,
+        errorText,
+        jsAsync,
+    }
+    "src/core/completions/installers/zsh-installer" ++> src.commands.completion { zshrcDisplayPath }
+    "src/core/completions/command-registry" ++> src.commands.completion { COMMAND_REGISTRY }
+    "src/utils/shell-detection" ++> src.commands.completion { detectShell }
+    "src/core/completions/completion-provider" ++> src.commands.completion { CompletionProvider }
+    "src/utils/item-discovery" ++> src.commands.completion { getArchivedChangeIds }
     src.host ++> "src/core/completions/completion-provider" { rec }
     src.core.completions.factory ++> "src/core/completions/completion-provider" { jsAsync }
     "src/utils/item-discovery" ++> "src/core/completions/completion-provider" {
@@ -1743,12 +1755,6 @@ graph import {
     src.commands.completion --> "test/commands/completion.test" { CompletionCommand }
     "src/utils/shell-detection" --> "test/commands/completion.test";
     "src/core/completions/installers/zsh-installer" --> "test/commands/completion.test";
-    src.core.completions.factory --> src.commands.completion { CompletionFactory }
-    "src/core/completions/installers/zsh-installer" --> src.commands.completion { zshrcDisplayPath }
-    "src/core/completions/command-registry" --> src.commands.completion { COMMAND_REGISTRY }
-    "src/utils/shell-detection" --> src.commands.completion { SupportedShell, detectShell }
-    "src/core/completions/completion-provider" --> src.commands.completion { CompletionProvider }
-    "src/utils/item-discovery" --> src.commands.completion { getArchivedChangeIds }
     "test/helpers/run-cli" --> "test/commands/config-edit.test" { runCLI }
     src.cli.commands.config --> "test/commands/config-edit.test";
     src.commands.config --> "test/commands/config-edit.test";
