@@ -7,6 +7,20 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> src.core.store.registry { JsNull, at, js_error, merge, missing, rec, same, truthy }
+    src.core.store.errors ++> src.core.store.registry { StoreError }
+    "src/utils/file-system" ++> src.core.store.registry { FileSystemUtils }
+    src.core.store.foundation ++> src.core.store.registry {
+        getStoreMetadataDir,
+        getStoreMetadataPath,
+        listStoreRegistryEntries,
+        readOptionalStoreMetadataState,
+        readStoreRegistryState,
+        resolveGitStoreBackendConfig,
+        updateStoreRegistryState,
+        validateStoreId,
+        writeStoreMetadataState,
+    }
     src.lazy ++> src.commands.feedback { need, packageRoot }
     src.host ++> "src/commands/install-standalone" { JsNull, at, found, merge, missing, rec, sub }
     src.lazy ++> "src/commands/install-standalone" { pick }
@@ -942,24 +956,6 @@ graph import {
     "src/utils/item-discovery" --> src.core.references { getSpecIds }
     "src/utils/file-system" --> src.core.references { FileSystemUtils }
     "src/core/project-config" --> src.core.references { DeclarationEntry, MAX_CONTEXT_SIZE }
-    src.core.store.foundation --> src.core.store.registry {
-        StoreBackendConfig,
-        StoreGitBackendConfig,
-        StorePathOptions,
-        StoreRegistryEntry,
-        StoreRegistryState,
-        getStoreMetadataDir,
-        getStoreMetadataPath,
-        listStoreRegistryEntries,
-        readOptionalStoreMetadataState,
-        readStoreRegistryState,
-        resolveGitStoreBackendConfig,
-        updateStoreRegistryState,
-        validateStoreId,
-        writeStoreMetadataState,
-    }
-    src.core.store.errors --> src.core.store.registry { StoreError }
-    "src/utils/file-system" --> src.core.store.registry { FileSystemUtils }
     src.core.store.errors --> "src/core/root-selection" { StoreError }
     src.core.store.foundation --> "src/core/root-selection" {
         getStoreMetadataPath,
