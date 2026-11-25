@@ -7,6 +7,15 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/core/completions/completion-provider" { rec }
+    src.core.completions.factory ++> "src/core/completions/completion-provider" { jsAsync }
+    "src/utils/item-discovery" ++> "src/core/completions/completion-provider" {
+        getActiveChangeIds,
+        getSpecIds,
+    }
+    "src/core/artifact-graph/resolver" ++> "src/core/completions/completion-provider" {
+        listSchemas,
+    }
     src.host ++> "src/core/standalone-tip" { JsNull, at, same }
     src.utils.ci ++> "src/core/standalone-tip" { isCiEnvironment }
     "src/core/completion-tip" ++> "src/core/standalone-tip" { markConfigFlag, readRawConfig }
@@ -1740,11 +1749,6 @@ graph import {
     "src/utils/shell-detection" --> src.commands.completion { SupportedShell, detectShell }
     "src/core/completions/completion-provider" --> src.commands.completion { CompletionProvider }
     "src/utils/item-discovery" --> src.commands.completion { getArchivedChangeIds }
-    "src/utils/item-discovery" --> "src/core/completions/completion-provider" {
-        getActiveChangeIds,
-        getSpecIds,
-    }
-    "src/core/artifact-graph/resolver" --> "src/core/completions/completion-provider";
     "test/helpers/run-cli" --> "test/commands/config-edit.test" { runCLI }
     src.cli.commands.config --> "test/commands/config-edit.test";
     src.commands.config --> "test/commands/config-edit.test";
