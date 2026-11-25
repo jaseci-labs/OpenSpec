@@ -7,6 +7,56 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/core/shared/tool-detection" {
+        JsNull,
+        at,
+        matchOf,
+        merge,
+        missing,
+        rec,
+        rx,
+        sub,
+    }
+    src.core.config ++> "src/core/shared/tool-detection" {
+        AI_TOOLS,
+        OPENSPEC_SKILL_NAMES,
+        agentsByProjectFolder,
+        installerAgent,
+    }
+    "src/core/command-generation/index" ++> "src/core/shared/tool-detection" {
+        CommandAdapterRegistry,
+    }
+    "src/core/shared-skill-target" ++> "src/core/shared/tool-detection" {
+        hasLegacySkills,
+        isToolListed,
+        readListedToolsWithOwnFiles,
+        readSkillToolList,
+    }
+    "src/core/command-surface" ++> "src/core/shared/tool-detection" {
+        resolveCommandSurfaceCapability,
+    }
+    "src/core/shared/skill-paths" ++> "src/core/shared/tool-detection" {
+        getSkillCapableTools,
+        resolveFormerOwnSkillsDir,
+        resolveSharedSkillsDir,
+        resolveSkillLinkDir,
+        resolveToolSkillsDir,
+        toolSupportsSkills,
+        usesSharedSkills,
+    }
+    "src/core/file-view" ++> "src/core/shared/tool-detection" { DISK_VIEW }
+    "src/core/shared/skill-links" ++> "src/core/shared/tool-detection" {
+        classifySkillLinkSpot,
+        isCheckedOutLink,
+    }
+    "src/core/shared/generated-fingerprint" ++> "src/core/shared/tool-detection" {
+        normalizeGeneratedContent,
+    }
+    "src/core/skill-installer" ++> "src/core/shared/tool-detection" {
+        expectedSkillContents,
+        projectSkillText,
+    }
+    "src/utils/file-system" ++> "src/core/shared/tool-detection" { FileSystemUtils }
     src.host ++> "src/core/update-plan" { at, js_error, kind, rec }
     "src/utils/file-system" ++> "src/core/update-plan" { FileSystemUtils }
     "src/core/file-view" ++> "src/core/update-plan" { DISK_VIEW }
@@ -1484,48 +1534,6 @@ graph import {
         formatIdeRestart,
         resolveIdeRestartSurface,
     }
-    src.core.config --> "src/core/shared/tool-detection" {
-        AIToolOption,
-        AI_TOOLS,
-        OPENSPEC_SKILL_NAMES,
-        agentsByProjectFolder,
-        installerAgent,
-    }
-    "src/core/command-generation/index" --> "src/core/shared/tool-detection" {
-        CommandAdapterRegistry,
-    }
-    "src/core/shared-skill-target" --> "src/core/shared/tool-detection" {
-        hasLegacySkills,
-        isToolListed,
-        readListedToolsWithOwnFiles,
-        readSkillToolList,
-    }
-    "src/core/command-surface" --> "src/core/shared/tool-detection" {
-        resolveCommandSurfaceCapability,
-    }
-    "src/core/shared/skill-paths" --> "src/core/shared/tool-detection" {
-        SkillCapableTool,
-        getSkillCapableTools,
-        resolveFormerOwnSkillsDir,
-        resolveSharedSkillsDir,
-        resolveSkillLinkDir,
-        resolveToolSkillsDir,
-        toolSupportsSkills,
-        usesSharedSkills,
-    }
-    "src/core/file-view" --> "src/core/shared/tool-detection" { DISK_VIEW, FileView }
-    "src/core/shared/skill-links" --> "src/core/shared/tool-detection" {
-        classifySkillLinkSpot,
-        isCheckedOutLink,
-    }
-    "src/core/shared/generated-fingerprint" --> "src/core/shared/tool-detection" {
-        normalizeGeneratedContent,
-    }
-    "src/core/skill-installer" --> "src/core/shared/tool-detection" {
-        expectedSkillContents,
-        projectSkillText,
-    }
-    "src/utils/file-system" --> "src/core/shared/tool-detection" { FileSystemUtils }
     "src/utils/file-system" --> "src/core/shared/command-reconcile" { FileSystemUtils }
     "src/core/command-generation/index" --> "src/core/shared/command-reconcile" {
         CommandAdapterRegistry,
