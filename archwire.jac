@@ -7,6 +7,27 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> src.commands.store { JsNull, at, js_error, merge, missing, rec, same, truthy }
+    src.lazy ++> src.commands.store { load }
+    "src/commands/shared-output" ++> src.commands.store { asErrorMessage, emitFailure, printJson }
+    src.core.store.index ++> src.commands.store {
+        StoreError,
+        doctorStores,
+        listStores,
+        prepareStoreCleanup,
+        prepareStoreSetup,
+        registerExistingStore,
+        removeStore,
+        resolveSetupGitEnabled,
+        setupPreparedStore,
+        unregisterStore,
+        validateStoreId,
+    }
+    src.utils.interactive ++> src.commands.store { isInteractive }
+    src.host ++> src.cli.commands.store { at, rec }
+    "src/core/completions/command-registry" ++> src.cli.commands.store { COMMAND_REGISTRY }
+    "src/commands/shared-output" ++> src.cli.commands.store { printJson }
+    src.lazy ++> src.cli.commands.store { load, packageRoot }
     src.host ++> "src/commands/shared-gather" { at, missing, rec }
     src.core.store.registry ++> "src/commands/shared-gather" { readRegistrySnapshot }
     "src/core/project-config" ++> "src/commands/shared-gather" {
@@ -2400,39 +2421,6 @@ graph import {
     }
     "test/helpers/temp-cleanup" --> "test/commands/store-git.test" { cleanupTempPath }
     src.cli.commands.store --> "test/commands/store-git.test";
-    "src/core/completions/command-registry" --> src.cli.commands.store { COMMAND_REGISTRY }
-    "src/commands/shared-output" --> src.cli.commands.store { printJson }
-    src.commands.store --> src.cli.commands.store;
-    src.commands.store --> src.cli.commands.store {
-        StoreCommand,
-        StoreJsonOptions,
-        StoreRegisterOptions,
-        StoreRemoveOptions,
-        StoreSetupOptions,
-    }
-    "src/commands/shared-output" --> src.commands.store { asErrorMessage, emitFailure, printJson }
-    src.core.store.index --> src.commands.store {
-        SetupStoreInput,
-        StoreCleanupResult,
-        StoreDiagnostic,
-        StoreDoctorResult,
-        StoreError,
-        StoreInfo,
-        StoreInspection,
-        StoreListResult,
-        StoreMutationResult,
-        doctorStores,
-        listStores,
-        prepareStoreCleanup,
-        prepareStoreSetup,
-        registerExistingStore,
-        removeStore,
-        resolveSetupGitEnabled,
-        setupPreparedStore,
-        unregisterStore,
-        validateStoreId,
-    }
-    src.utils.interactive --> src.commands.store { isInteractive }
     "src/core/project-config" --> "test/commands/store-phantom-root.test" { classifyOpenSpecDir }
     "test/helpers/run-cli" --> "test/commands/store-phantom-root.test" { RunCLIResult, runCLI }
     "test/helpers/openspec-fixtures" --> "test/commands/store-phantom-root.test" {
