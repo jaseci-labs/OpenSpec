@@ -1247,59 +1247,59 @@ graph import {
     "src/core/shared/allowed-tools" --> "src/core/shared/skill-generation" {
         OPENSPEC_CLI_ALLOWED_TOOLS,
     }
-    src.core.templates.types --> "src/core/templates/skill-templates" {
+    include src.core.templates.types ++> "src/core/templates/skill-templates" {
         CommandTemplate,
         SkillTemplate,
     }
-    src.core.templates.workflows.explore --> "src/core/templates/skill-templates" {
+    include src.core.templates.workflows.explore ++> "src/core/templates/skill-templates" {
         getExploreSkillTemplate,
         getOpsxExploreCommandTemplate,
     }
-    "src/core/templates/workflows/new-change" --> "src/core/templates/skill-templates" {
+    include "src/core/templates/workflows/new-change" ++> "src/core/templates/skill-templates" {
         getNewChangeSkillTemplate,
         getOpsxNewCommandTemplate,
     }
-    "src/core/templates/workflows/continue-change" --> "src/core/templates/skill-templates" {
+    include "src/core/templates/workflows/continue-change" ++> "src/core/templates/skill-templates" {
         getContinueChangeSkillTemplate,
         getOpsxContinueCommandTemplate,
     }
-    "src/core/templates/workflows/apply-change" --> "src/core/templates/skill-templates" {
+    include "src/core/templates/workflows/apply-change" ++> "src/core/templates/skill-templates" {
         getApplyChangeSkillTemplate,
         getApplyInstructions,
         getOpsxApplyCommandTemplate,
     }
-    "src/core/templates/workflows/update-change" --> "src/core/templates/skill-templates" {
+    include "src/core/templates/workflows/update-change" ++> "src/core/templates/skill-templates" {
         getOpsxUpdateCommandTemplate,
         getUpdateChangeSkillTemplate,
     }
-    "src/core/templates/workflows/ff-change" --> "src/core/templates/skill-templates" {
+    include "src/core/templates/workflows/ff-change" ++> "src/core/templates/skill-templates" {
         getFfChangeSkillTemplate,
         getOpsxFfCommandTemplate,
     }
-    "src/core/templates/workflows/sync-specs" --> "src/core/templates/skill-templates" {
+    include "src/core/templates/workflows/sync-specs" ++> "src/core/templates/skill-templates" {
         getOpsxSyncCommandTemplate,
         getSyncSpecsSkillTemplate,
     }
-    "src/core/templates/workflows/archive-change" --> "src/core/templates/skill-templates" {
+    include "src/core/templates/workflows/archive-change" ++> "src/core/templates/skill-templates" {
         getArchiveChangeSkillTemplate,
         getOpsxArchiveCommandTemplate,
     }
-    "src/core/templates/workflows/verify-change" --> "src/core/templates/skill-templates" {
+    include "src/core/templates/workflows/verify-change" ++> "src/core/templates/skill-templates" {
         getOpsxVerifyCommandTemplate,
         getVerifyChangeSkillTemplate,
     }
-    src.core.templates.workflows.onboard --> "src/core/templates/skill-templates" {
+    include src.core.templates.workflows.onboard ++> "src/core/templates/skill-templates" {
         getOnboardSkillTemplate,
         getOpsxOnboardCommandTemplate,
     }
-    src.core.templates.workflows.propose --> "src/core/templates/skill-templates" {
+    include src.core.templates.workflows.propose ++> "src/core/templates/skill-templates" {
         getOpsxProposeCommandTemplate,
         getOpsxProposeSkillTemplate,
     }
-    src.core.templates.workflows.feedback --> "src/core/templates/skill-templates" {
+    include src.core.templates.workflows.feedback ++> "src/core/templates/skill-templates" {
         getFeedbackSkillTemplate,
     }
-    src.core.templates.workflows.router --> "src/core/templates/skill-templates" {
+    include src.core.templates.workflows.router ++> "src/core/templates/skill-templates" {
         ROUTER_SKILL_NAME,
         getRouterSkillTemplate,
     }
@@ -4182,7 +4182,7 @@ graph import {
     }
     src.cli.index --> src.index;
     src.core.index --> src.index;
-    "src/core/templates/workflows/bulk-archive-change" --> "src/core/templates/skill-templates" {
+    include "src/core/templates/workflows/bulk-archive-change" ++> "src/core/templates/skill-templates" {
         getBulkArchiveChangeSkillTemplate,
         getOpsxBulkArchiveCommandTemplate,
     }
