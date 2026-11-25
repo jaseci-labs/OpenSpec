@@ -7,6 +7,18 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/core/project-config" {
+        JsNull,
+        at,
+        js_error,
+        kind,
+        merge,
+        missing,
+        rec,
+        truthy,
+    }
+    src.lazy ++> "src/core/project-config" { need }
+    src.core.store.foundation ++> "src/core/project-config" { getStoreMetadataPath }
     src.host ++> src.core.store.foundation { JsNull, at, js_error, merge, rec, truthy }
     src.lazy ++> src.core.store.foundation { need }
     src.core.id ++> src.core.store.foundation {
@@ -467,7 +479,6 @@ graph import {
     "src/utils/file-system" --> "src/core/openspec-root" { FileSystemUtils }
     "src/core/config-prompts" --> "src/core/openspec-root" { serializeConfig }
     src.core.store.errors --> "src/core/openspec-root" { StoreDiagnostic, makeStoreDiagnostic }
-    src.core.store.foundation --> "src/core/project-config" { getStoreMetadataPath }
     "src/utils/spec-discovery" --> "src/utils/item-discovery" { discoverSpecFiles }
     "src/utils/spec-path-containment" --> "src/utils/spec-discovery" { assertDiscoveredSpecFile }
     "src/core/parsers/requirement-blocks" --> "src/utils/spec-discovery" { parseDeltaSpec }
