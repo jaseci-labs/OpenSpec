@@ -7,6 +7,14 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/utils/spec-path-containment" { js_error }
+    "src/core/project-dir" ++> "src/utils/spec-path-containment" { OPENSPEC_DIR_NAME }
+    "src/utils/file-system" ++> "src/utils/spec-path-containment" { FileSystemUtils }
+    src.host ++> "src/utils/spec-discovery" { rec, at, js_error }
+    "src/utils/spec-path-containment" ++> "src/utils/spec-discovery" { assertDiscoveredSpecFile }
+    "src/core/parsers/requirement-blocks" ++> "src/utils/spec-discovery" { parseDeltaSpec }
+    src.host ++> "src/utils/item-discovery" { rec }
+    "src/utils/spec-discovery" ++> "src/utils/item-discovery" { discoverSpecFiles }
     src.host ++> "src/prompts/searchable-multi-select" { JsNull, kind, merge, missing, rec, same }
     src.lazy ++> "src/prompts/searchable-multi-select" { load, pick }
     src.host ++> "src/core/schemas/base.schema" { rec }
@@ -455,11 +463,6 @@ graph import {
     "src/core/config-prompts" --> "src/core/openspec-root" { serializeConfig }
     src.core.store.errors --> "src/core/openspec-root" { StoreDiagnostic, makeStoreDiagnostic }
     src.core.store.foundation --> "src/core/project-config" { getStoreMetadataPath }
-    "src/utils/spec-discovery" --> "src/utils/item-discovery" { discoverSpecFiles }
-    "src/utils/spec-path-containment" --> "src/utils/spec-discovery" { assertDiscoveredSpecFile }
-    "src/core/parsers/requirement-blocks" --> "src/utils/spec-discovery" { parseDeltaSpec }
-    "src/core/project-dir" --> "src/utils/spec-path-containment" { OPENSPEC_DIR_NAME }
-    "src/utils/file-system" --> "src/utils/spec-path-containment" { FileSystemUtils }
     src.core.store.foundation --> src.core.store.index;
     src.core.store.errors --> src.core.store.index;
     src.core.store.registry --> src.core.store.index;
