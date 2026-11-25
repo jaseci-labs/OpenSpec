@@ -7,6 +7,7 @@ graph spaces {
 }
 
 graph import {
+    "src/core/completions/shared-flags" ++> "src/core/completions/command-registry" { COMMON_FLAGS }
     "src/core/command-generation/types" ++> "src/core/command-generation/adapters/amazon-q" {
         commandAdapter,
     }
@@ -1661,8 +1662,6 @@ graph import {
     src.core.completions.factory --> "src/core/completions/installers/powershell-installer" {
         InstallationResult,
     }
-    "src/core/completions/shared-flags" --> "src/core/completions/command-registry" { COMMON_FLAGS }
-    src.core.completions.types --> "src/core/completions/command-registry" { CommandDefinition }
     "src/utils/item-discovery" --> "src/core/completions/completion-provider" {
         getActiveChangeIds,
         getSpecIds,
