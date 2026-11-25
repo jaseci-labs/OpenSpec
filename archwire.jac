@@ -78,8 +78,6 @@ graph import {
     "src/core/zod-issues" --> src.core.store.foundation { formatZodIssues }
     src.core.store.errors --> src.core.store.foundation { StoreError }
     "src/utils/line-endings" --> "src/utils/file-system" { detectLineEnding, matchLineEnding }
-    "src/utils/file-system" --> "src/core/file-state" { FileSystemUtils }
-    src.core.store.errors --> "src/core/file-state" { StoreError }
     src.core.store.foundation --> src.core.store.registry {
         StoreBackendConfig,
         StoreGitBackendConfig,
@@ -4578,4 +4576,6 @@ graph import {
     }
     src.cli.index --> src.index;
     src.core.index --> src.index;
+    "src/utils/file-system" --> "src/core/file-state" { FileSystemUtils }
+    src.core.store.errors --> "src/core/file-state" { StoreError }
 }
