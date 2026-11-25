@@ -7,6 +7,131 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> src.core.migration { JsNull, at, merge, missing, rec, rx }
+    src.core.config ++> src.core.migration { AI_TOOLS }
+    "src/core/global-config" ++> src.core.migration {
+        getGlobalConfig,
+        getGlobalConfigPath,
+        isGlobalConfigUnreadable,
+        saveGlobalConfig,
+    }
+    "src/core/command-generation/index" ++> src.core.migration { CommandAdapterRegistry }
+    "src/core/profile-sync-drift" ++> src.core.migration { WORKFLOW_TO_SKILL_DIR }
+    "src/core/shared/tool-detection" ++> src.core.migration { COMMAND_IDS }
+    src.core.profiles ++> src.core.migration { ALL_WORKFLOWS, CORE_WORKFLOWS, SKILL_WORKFLOWS }
+    "src/utils/command-references" ++> src.core.migration { getSkillReferenceTransformer }
+    "src/utils/file-system" ++> src.core.migration { FileSystemUtils }
+    "src/core/shared-skill-target" ++> src.core.migration { isToolListed }
+    "src/core/file-view" ++> src.core.migration { DISK_VIEW }
+    "src/core/shared/skill-content-equivalence" ++> src.core.migration { isRedundantLegacyCopy }
+    "src/core/shared/skill-paths" ++> src.core.migration {
+        resolveFormerOwnSkillsDir,
+        resolveToolSkillsDir,
+        toolSupportsSkills,
+        usesSharedSkills,
+    }
+    src.host ++> "src/core/profile-sync-drift" { missing, truthy }
+    src.core.config ++> "src/core/profile-sync-drift" { AI_TOOLS }
+    src.core.profiles ++> "src/core/profile-sync-drift" { SKILL_WORKFLOWS, withRouter }
+    "src/core/command-generation/index" ++> "src/core/profile-sync-drift" { CommandAdapterRegistry }
+    "src/core/shared/tool-detection" ++> "src/core/profile-sync-drift" { getConfiguredTools }
+    "src/core/shared/command-reconcile" ++> "src/core/profile-sync-drift" { classifyCommandFiles }
+    "src/core/command-surface" ++> "src/core/profile-sync-drift" {
+        shouldReconcileCommandFilesForTool,
+    }
+    "src/core/shared-skill-target" ++> "src/core/profile-sync-drift" { isToolListed }
+    "src/core/shared/shared-skill-install" ++> "src/core/profile-sync-drift" {
+        ownSkillFolderNeedsWork,
+    }
+    "src/utils/file-system" ++> "src/core/profile-sync-drift" { FileSystemUtils }
+    "src/core/file-view" ++> "src/core/profile-sync-drift" { DISK_VIEW }
+    "src/core/shared/skill-content-equivalence" ++> "src/core/profile-sync-drift" {
+        isRedundantLegacyCopy,
+    }
+    "src/core/shared/skill-paths" ++> "src/core/profile-sync-drift" {
+        resolveToolSkillsDir,
+        toolSupportsSkills,
+        usesSharedSkills,
+    }
+    src.host ++> "src/core/released-output-sweep" { at, missing }
+    src.core.config ++> "src/core/released-output-sweep" {
+        AI_TOOLS,
+        SKILL_LINKED_TOOL_IDS,
+        installerAgent,
+    }
+    "src/core/command-generation/index" ++> "src/core/released-output-sweep" {
+        CommandAdapterRegistry,
+    }
+    src.core.profiles ++> "src/core/released-output-sweep" { SKILL_WORKFLOWS }
+    "src/core/profile-sync-drift" ++> "src/core/released-output-sweep" { WORKFLOW_TO_SKILL_DIR }
+    "src/core/shared/tool-detection" ++> "src/core/released-output-sweep" { COMMAND_IDS }
+    "src/core/shared/generated-fingerprint" ++> "src/core/released-output-sweep" {
+        isReleasedGeneratedContent,
+    }
+    "src/core/shared/released-generated-fingerprints" ++> "src/core/released-output-sweep" {
+        RELEASED_GENERATED_PATHS,
+    }
+    src.core.migration ++> "src/core/released-output-sweep" { LEGACY_TOOL_ROOTS, legacyCommandPath }
+    "src/utils/file-system" ++> "src/core/released-output-sweep" { FileSystemUtils }
+    "src/core/file-view" ++> "src/core/released-output-sweep" { DISK_VIEW }
+    "src/core/shared-skill-target" ++> "src/core/released-output-sweep" { isToolListed }
+    "src/core/shared/skill-paths" ++> "src/core/released-output-sweep" {
+        SHARED_SKILLS_ROOT,
+        usesSharedSkills,
+    }
+    "src/core/skill-installer" ++> "src/core/released-output-sweep" { expectedSkillFiles }
+    src.host ++> "src/core/shared/command-reconcile" { at, missing, rec }
+    "src/utils/file-system" ++> "src/core/shared/command-reconcile" { FileSystemUtils }
+    "src/core/command-generation/index" ++> "src/core/shared/command-reconcile" {
+        CommandAdapterRegistry,
+        generateCommands,
+    }
+    src.core.config ++> "src/core/shared/command-reconcile" { AI_TOOLS }
+    src.core.migration ++> "src/core/shared/command-reconcile" {
+        LEGACY_TOOL_ROOTS,
+        legacyCommandPath,
+    }
+    src.core.profiles ++> "src/core/shared/command-reconcile" { ALL_WORKFLOWS }
+    "src/core/shared/skill-generation" ++> "src/core/shared/command-reconcile" {
+        getCommandContents,
+    }
+    "src/core/shared/tool-detection" ++> "src/core/shared/command-reconcile" {
+        normalizeCommandContent,
+    }
+    "src/core/shared/generated-fingerprint" ++> "src/core/shared/command-reconcile" {
+        isReleasedGeneratedContent,
+    }
+    "src/core/file-view" ++> "src/core/shared/command-reconcile" { DISK_VIEW }
+    src.host ++> "src/core/shared/shared-skill-install" { js_error, merge, missing, rec, truthy }
+    src.lazy ++> "src/core/shared/shared-skill-install" { need }
+    src.core.config ++> "src/core/shared/shared-skill-install" {
+        OPENSPEC_SKILL_NAMES,
+        installerAgent,
+    }
+    "src/utils/file-system" ++> "src/core/shared/shared-skill-install" { FileSystemUtils }
+    "src/core/shared/generated-fingerprint" ++> "src/core/shared/shared-skill-install" {
+        normalizeGeneratedFile,
+    }
+    "src/core/released-output-sweep" ++> "src/core/shared/shared-skill-install" {
+        pruneEmptyParents,
+    }
+    "src/core/shared-skill-target" ++> "src/core/shared/shared-skill-install" {
+        formatSkillToolList,
+        readListedToolsWithOwnFiles,
+        skillToolListPath,
+    }
+    "src/core/skill-installer" ++> "src/core/shared/shared-skill-install" {
+        expectedSkillFiles,
+        installReleaseSkills,
+        projectSkillText,
+        removeManagedSkills,
+    }
+    "src/core/shared/skill-paths" ++> "src/core/shared/shared-skill-install" {
+        resolveFormerOwnSkillsDir,
+        resolveSharedSkillsDir,
+        resolveSkillLinkDir,
+        usesSharedSkills,
+    }
     src.host ++> "src/core/global-skills" {
         JsNull,
         at,
@@ -1482,55 +1607,6 @@ graph import {
         findStaleReleasedFiles,
     }
     src.core.migration --> "test/cli-e2e/upgrade-from-releases.test" { LEGACY_TOOL_ROOTS }
-    src.core.config --> "src/core/released-output-sweep" {
-        AI_TOOLS,
-        SKILL_LINKED_TOOL_IDS,
-        installerAgent,
-    }
-    "src/core/command-generation/index" --> "src/core/released-output-sweep" {
-        CommandAdapterRegistry,
-    }
-    src.core.profiles --> "src/core/released-output-sweep" { SKILL_WORKFLOWS }
-    "src/core/profile-sync-drift" --> "src/core/released-output-sweep" { WORKFLOW_TO_SKILL_DIR }
-    "src/core/shared/tool-detection" --> "src/core/released-output-sweep" { COMMAND_IDS }
-    "src/core/shared/generated-fingerprint" --> "src/core/released-output-sweep" {
-        isReleasedGeneratedContent,
-    }
-    "src/core/shared/released-generated-fingerprints" --> "src/core/released-output-sweep" {
-        RELEASED_GENERATED_PATHS,
-    }
-    src.core.migration --> "src/core/released-output-sweep" { LEGACY_TOOL_ROOTS, legacyCommandPath }
-    "src/utils/file-system" --> "src/core/released-output-sweep" { FileSystemUtils }
-    "src/core/file-view" --> "src/core/released-output-sweep" { DISK_VIEW, FileView }
-    "src/core/shared-skill-target" --> "src/core/released-output-sweep" { isToolListed }
-    "src/core/shared/skill-paths" --> "src/core/released-output-sweep" {
-        SHARED_SKILLS_ROOT,
-        usesSharedSkills,
-    }
-    "src/core/skill-installer" --> "src/core/released-output-sweep" { expectedSkillFiles }
-    src.core.config --> "src/core/profile-sync-drift" { AI_TOOLS }
-    "src/core/global-config" --> "src/core/profile-sync-drift" { Delivery }
-    src.core.profiles --> "src/core/profile-sync-drift" { SKILL_WORKFLOWS, withRouter }
-    "src/core/command-generation/index" --> "src/core/profile-sync-drift" { CommandAdapterRegistry }
-    src.core.shared.index --> "src/core/profile-sync-drift" { getConfiguredTools }
-    "src/core/shared/command-reconcile" --> "src/core/profile-sync-drift" { classifyCommandFiles }
-    "src/core/command-surface" --> "src/core/profile-sync-drift" {
-        shouldReconcileCommandFilesForTool,
-    }
-    "src/core/shared-skill-target" --> "src/core/profile-sync-drift" { isToolListed }
-    "src/core/shared/shared-skill-install" --> "src/core/profile-sync-drift" {
-        ownSkillFolderNeedsWork,
-    }
-    "src/utils/file-system" --> "src/core/profile-sync-drift" { FileSystemUtils }
-    "src/core/file-view" --> "src/core/profile-sync-drift" { DISK_VIEW, FileView }
-    "src/core/shared/skill-content-equivalence" --> "src/core/profile-sync-drift" {
-        isRedundantLegacyCopy,
-    }
-    "src/core/shared/skill-paths" --> "src/core/profile-sync-drift" {
-        resolveToolSkillsDir,
-        toolSupportsSkills,
-        usesSharedSkills,
-    }
     include "src/core/shared/tool-detection" ++> src.core.shared.index {
         COMMAND_IDS,
         CommandId,
@@ -1567,83 +1643,6 @@ graph import {
         IdeRestartSurface,
         formatIdeRestart,
         resolveIdeRestartSurface,
-    }
-    "src/utils/file-system" --> "src/core/shared/command-reconcile" { FileSystemUtils }
-    "src/core/command-generation/index" --> "src/core/shared/command-reconcile" {
-        CommandAdapterRegistry,
-        generateCommands,
-    }
-    "src/core/command-generation/types" --> "src/core/shared/command-reconcile" { GeneratedCommand }
-    src.core.config --> "src/core/shared/command-reconcile" { AI_TOOLS }
-    src.core.migration --> "src/core/shared/command-reconcile" {
-        LEGACY_TOOL_ROOTS,
-        legacyCommandPath,
-    }
-    src.core.profiles --> "src/core/shared/command-reconcile" { ALL_WORKFLOWS }
-    "src/core/shared/skill-generation" --> "src/core/shared/command-reconcile" {
-        getCommandContents,
-    }
-    "src/core/shared/tool-detection" --> "src/core/shared/command-reconcile" {
-        normalizeCommandContent,
-    }
-    "src/core/shared/generated-fingerprint" --> "src/core/shared/command-reconcile" {
-        isReleasedGeneratedContent,
-    }
-    "src/core/file-view" --> "src/core/shared/command-reconcile" { DISK_VIEW, FileView }
-    src.core.config --> src.core.migration { AIToolOption, AI_TOOLS }
-    "src/core/global-config" --> src.core.migration {
-        GlobalConfig,
-        Profile,
-        getGlobalConfig,
-        getGlobalConfigPath,
-        isGlobalConfigUnreadable,
-        saveGlobalConfig,
-    }
-    "src/core/command-generation/index" --> src.core.migration { CommandAdapterRegistry }
-    "src/core/profile-sync-drift" --> src.core.migration { WORKFLOW_TO_SKILL_DIR }
-    "src/core/shared/tool-detection" --> src.core.migration { COMMAND_IDS }
-    src.core.profiles --> src.core.migration { ALL_WORKFLOWS, CORE_WORKFLOWS, SKILL_WORKFLOWS }
-    "src/utils/command-references" --> src.core.migration { getSkillReferenceTransformer }
-    "src/utils/file-system" --> src.core.migration { FileSystemUtils }
-    "src/core/shared-skill-target" --> src.core.migration { isToolListed }
-    "src/core/file-view" --> src.core.migration { DISK_VIEW, FileView }
-    "src/core/shared/skill-content-equivalence" --> src.core.migration { isRedundantLegacyCopy }
-    "src/core/shared/skill-paths" --> src.core.migration {
-        resolveFormerOwnSkillsDir,
-        resolveToolSkillsDir,
-        toolSupportsSkills,
-        usesSharedSkills,
-    }
-    src.core.config --> "src/core/shared/shared-skill-install" {
-        AIToolOption,
-        OPENSPEC_SKILL_NAMES,
-        installerAgent,
-    }
-    "src/utils/file-system" --> "src/core/shared/shared-skill-install" { FileSystemUtils }
-    "src/core/shared/generated-fingerprint" --> "src/core/shared/shared-skill-install" {
-        normalizeGeneratedFile,
-    }
-    "src/core/file-view" --> "src/core/shared/shared-skill-install" { FileView }
-    "src/core/update-plan" --> "src/core/shared/shared-skill-install" { UpdateFileOps }
-    "src/core/released-output-sweep" --> "src/core/shared/shared-skill-install" {
-        pruneEmptyParents,
-    }
-    "src/core/shared-skill-target" --> "src/core/shared/shared-skill-install" {
-        formatSkillToolList,
-        readListedToolsWithOwnFiles,
-        skillToolListPath,
-    }
-    "src/core/skill-installer" --> "src/core/shared/shared-skill-install" {
-        expectedSkillFiles,
-        installReleaseSkills,
-        projectSkillText,
-        removeManagedSkills,
-    }
-    "src/core/shared/skill-paths" --> "src/core/shared/shared-skill-install" {
-        resolveFormerOwnSkillsDir,
-        resolveSharedSkillsDir,
-        resolveSkillLinkDir,
-        usesSharedSkills,
     }
     "test/helpers/run-cli" --> "test/cli-e2e/validate-archived-tasks.test" { runCLI }
     src.core.index --> "test/cli-e2e/validate-findings.test" { getGlobalDataDir, registerStore }
