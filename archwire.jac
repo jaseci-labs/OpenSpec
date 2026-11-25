@@ -7,6 +7,67 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> src.core.validation.validator { JsNull, at, found, js_error, missing, rec, sub }
+    src.core.schemas.index ++> src.core.validation.validator { ChangeSchema, SpecSchema }
+    "src/core/parsers/markdown-parser" ++> src.core.validation.validator { MarkdownParser }
+    "src/core/parsers/change-parser" ++> src.core.validation.validator { ChangeParser }
+    "src/core/specs-apply" ++> src.core.validation.validator { buildUpdatedSpec, findSpecUpdates }
+    src.core.validation.constants ++> src.core.validation.validator {
+        MAX_REQUIREMENT_TEXT_LENGTH,
+        MIN_PURPOSE_LENGTH,
+        VALIDATION_MESSAGES,
+    }
+    "src/core/parsers/requirement-blocks" ++> src.core.validation.validator {
+        describeScenarioBalance,
+        describeUnappliedContent,
+        diffScenarioNames,
+        extractRequirementsSection,
+        foldRequirementName,
+        isScenarioLabeledHeader,
+        isUnrecognizedDeltaSection,
+        normalizeRequirementName,
+        parseDeltaSpec,
+        parseScenarioBlocks,
+    }
+    "src/core/parsers/requirement-text" ++> src.core.validation.validator {
+        containsShallOrMust,
+        countEmptyScenarios,
+        countScenarios,
+        extractRequirementBody,
+        hasScenarioBody,
+        scenarioStepCoverage,
+    }
+    "src/core/parsers/spec-structure" ++> src.core.validation.validator {
+        findMainSpecStructureIssues,
+    }
+    "src/utils/file-system" ++> src.core.validation.validator { FileSystemUtils }
+    "src/utils/spec-path-containment" ++> src.core.validation.validator { assertDiscoveredSpecFile }
+    "src/utils/spec-discovery" ++> src.core.validation.validator {
+        discoverSpecFiles,
+        findUnreadDeltaFiles,
+        hasAnyFileUnder,
+    }
+    "src/utils/change-metadata" ++> src.core.validation.validator {
+        METADATA_FILENAME,
+        formatUnknownChangeMetadataKeysMessage,
+        readSkipSpecsMarker,
+        readUnknownChangeMetadataKeys,
+        resolveSchemaForChange,
+    }
+    "src/utils/task-progress" ++> src.core.validation.validator { resolveTaskFilesForChange }
+    "src/core/validation/task-numbering" ++> src.core.validation.validator {
+        findTaskNumberingIssues,
+    }
+    "src/core/validation/task-checkboxes" ++> src.core.validation.validator {
+        findMissingTaskCheckboxIssues,
+    }
+    "src/core/validation/purpose-placeholder" ++> src.core.validation.validator {
+        findPurposePlaceholderIssue,
+    }
+    "src/core/artifact-graph/index" ++> src.core.validation.validator {
+        getPackageSchemasDir,
+        getSchemaDir,
+    }
     src.host ++> "src/core/retired-tools" { rec }
     include src.core.config ++> "src/core/retired-tools" {
         RETIRED_TOOLS,
@@ -2108,77 +2169,6 @@ graph import {
         printApplyInstructionsText,
     }
     src.core.validation.validator --> "test/commands/apply-instructions-warnings.test" { Validator }
-    src.core.schemas.index --> src.core.validation.validator {
-        Change,
-        ChangeSchema,
-        Spec,
-        SpecSchema,
-    }
-    "src/core/parsers/markdown-parser" --> src.core.validation.validator { MarkdownParser }
-    "src/core/parsers/change-parser" --> src.core.validation.validator { ChangeParser }
-    src.core.validation.types --> src.core.validation.validator {
-        ValidationIssue,
-        ValidationLevel,
-        ValidationReport,
-    }
-    "src/core/specs-apply" --> src.core.validation.validator { buildUpdatedSpec, findSpecUpdates }
-    src.core.validation.constants --> src.core.validation.validator {
-        MAX_REQUIREMENT_TEXT_LENGTH,
-        MIN_PURPOSE_LENGTH,
-        VALIDATION_MESSAGES,
-    }
-    "src/core/parsers/requirement-blocks" --> src.core.validation.validator {
-        RequirementBlock,
-        describeScenarioBalance,
-        describeUnappliedContent,
-        diffScenarioNames,
-        extractRequirementsSection,
-        foldRequirementName,
-        isScenarioLabeledHeader,
-        isUnrecognizedDeltaSection,
-        normalizeRequirementName,
-        parseDeltaSpec,
-        parseScenarioBlocks,
-    }
-    "src/core/parsers/requirement-text" --> src.core.validation.validator {
-        containsShallOrMust,
-        countEmptyScenarios,
-        countScenarios,
-        extractRequirementBody,
-        hasScenarioBody,
-        scenarioStepCoverage,
-    }
-    "src/core/parsers/spec-structure" --> src.core.validation.validator {
-        findMainSpecStructureIssues,
-    }
-    "src/utils/file-system" --> src.core.validation.validator { FileSystemUtils }
-    "src/utils/spec-path-containment" --> src.core.validation.validator { assertDiscoveredSpecFile }
-    "src/utils/spec-discovery" --> src.core.validation.validator {
-        discoverSpecFiles,
-        findUnreadDeltaFiles,
-        hasAnyFileUnder,
-    }
-    "src/utils/change-metadata" --> src.core.validation.validator {
-        METADATA_FILENAME,
-        formatUnknownChangeMetadataKeysMessage,
-        readSkipSpecsMarker,
-        readUnknownChangeMetadataKeys,
-        resolveSchemaForChange,
-    }
-    "src/utils/task-progress" --> src.core.validation.validator { resolveTaskFilesForChange }
-    "src/core/validation/task-numbering" --> src.core.validation.validator {
-        findTaskNumberingIssues,
-    }
-    "src/core/validation/task-checkboxes" --> src.core.validation.validator {
-        findMissingTaskCheckboxIssues,
-    }
-    "src/core/validation/purpose-placeholder" --> src.core.validation.validator {
-        findPurposePlaceholderIssue,
-    }
-    "src/core/artifact-graph/index" --> src.core.validation.validator {
-        getPackageSchemasDir,
-        getSchemaDir,
-    }
     "test/helpers/run-cli" --> "test/commands/artifact-workflow.test" { runCLI }
     "src/utils/file-system" --> "test/commands/artifact-workflow.test" { FileSystemUtils }
     "src/utils/change-metadata" --> "test/commands/change-initiative-link.test" {
