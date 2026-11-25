@@ -30,12 +30,6 @@ graph import {
         normalizeRequirementName,
         REQUIREMENTS_SECTION_HEADER_REGEX,
     }
-    src.host ++> "src/utils/requirement-diff" { JsNull, rec, missing }
-    "src/core/parsers/requirement-blocks" ++> "src/utils/requirement-diff" {
-        extractRequirementsSection,
-        foldRequirementName,
-        normalizeRequirementName,
-    }
     src.host ++> src.core.store.git { rec, merge, js_error, at, kind, same, JsNull, sub, matchOf }
     src.core.store.errors ++> src.core.store.git { StoreError }
     src.host ++> "src/core/parsers/code-fence" { matchOf }
@@ -4594,4 +4588,9 @@ graph import {
     src.core.index --> src.index;
     "src/utils/file-system" --> "src/core/file-state" { FileSystemUtils }
     src.core.store.errors --> "src/core/file-state" { StoreError }
+    "src/core/parsers/requirement-blocks" --> "src/utils/requirement-diff" {
+        extractRequirementsSection,
+        foldRequirementName,
+        normalizeRequirementName,
+    }
 }
