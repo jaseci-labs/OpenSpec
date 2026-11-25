@@ -7,6 +7,27 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/commands/workflow/new-change" { JsNull, at, js_error, merge, rec, truthy }
+    src.lazy ++> "src/commands/workflow/new-change" { load, pick }
+    "src/utils/change-utils" ++> "src/commands/workflow/new-change" {
+        createChange,
+        validateChangeName,
+    }
+    "src/core/planning-home" ++> "src/commands/workflow/new-change" { formatChangeLocation }
+    "src/core/root-selection" ++> "src/commands/workflow/new-change" {
+        RootSelectionError,
+        isStoreSelectedRoot,
+        resolveRootForCommand,
+        toPlanningHome,
+        toRootOutput,
+        withStoreFlag,
+    }
+    "src/core/project-config" ++> "src/commands/workflow/new-change" { readProjectConfig }
+    src.commands.workflow.shared ++> "src/commands/workflow/new-change" {
+        printJson,
+        statusFromError,
+        validateSchemaExists,
+    }
     src.host ++> src.commands.workflow.templates { js_error, rec }
     src.lazy ++> src.commands.workflow.templates { load }
     "src/core/artifact-graph/index" ++> src.commands.workflow.templates {
@@ -2935,27 +2956,6 @@ graph import {
         newChangeCommand,
     }
     src.commands.workflow.shared --> src.commands.workflow.index { DEFAULT_SCHEMA }
-    "src/utils/change-utils" --> "src/commands/workflow/new-change" {
-        createChange,
-        validateChangeName,
-    }
-    "src/core/planning-home" --> "src/commands/workflow/new-change" { formatChangeLocation }
-    "src/core/root-selection" --> "src/commands/workflow/new-change" {
-        ResolvedOpenSpecRoot,
-        RootOutput,
-        RootSelectionError,
-        isStoreSelectedRoot,
-        resolveRootForCommand,
-        toPlanningHome,
-        toRootOutput,
-        withStoreFlag,
-    }
-    "src/core/project-config" --> "src/commands/workflow/new-change" { readProjectConfig }
-    src.commands.workflow.shared --> "src/commands/workflow/new-change" {
-        printJson,
-        statusFromError,
-        validateSchemaExists,
-    }
     "src/utils/task-progress" --> src.core.list { formatTaskStatus, getTaskProgressForChange }
     "src/core/parsers/markdown-parser" --> src.core.list { MarkdownParser }
     "src/core/root-selection" --> src.core.list { RootOutput }
