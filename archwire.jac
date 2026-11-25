@@ -7,6 +7,187 @@ graph spaces {
 }
 
 graph import {
+    "src/core/command-generation/types" ++> "src/core/command-generation/adapters/claude" {
+        commandAdapter,
+    }
+    "src/core/command-generation/yaml" ++> "src/core/command-generation/adapters/claude" {
+        frontmatter,
+    }
+    "src/core/shared/allowed-tools" ++> "src/core/command-generation/adapters/claude" {
+        OPENSPEC_CLI_ALLOWED_TOOLS,
+    }
+    include "src/core/command-generation/adapters/amazon-q" ++> "src/core/command-generation/adapters/index" {
+        amazonQAdapter,
+    }
+    include "src/core/command-generation/adapters/antigravity" ++> "src/core/command-generation/adapters/index" {
+        antigravityAdapter,
+    }
+    include "src/core/command-generation/adapters/atomcode" ++> "src/core/command-generation/adapters/index" {
+        atomcodeAdapter,
+    }
+    include "src/core/command-generation/adapters/auggie" ++> "src/core/command-generation/adapters/index" {
+        auggieAdapter,
+    }
+    include "src/core/command-generation/adapters/bob" ++> "src/core/command-generation/adapters/index" {
+        bobAdapter,
+    }
+    include "src/core/command-generation/adapters/claude" ++> "src/core/command-generation/adapters/index" {
+        claudeAdapter,
+    }
+    include "src/core/command-generation/adapters/cline" ++> "src/core/command-generation/adapters/index" {
+        clineAdapter,
+    }
+    include "src/core/command-generation/adapters/command-code" ++> "src/core/command-generation/adapters/index" {
+        commandCodeAdapter,
+    }
+    include "src/core/command-generation/adapters/codebuddy" ++> "src/core/command-generation/adapters/index" {
+        codebuddyAdapter,
+    }
+    include "src/core/command-generation/adapters/codestudio" ++> "src/core/command-generation/adapters/index" {
+        codeStudioAdapter,
+    }
+    include "src/core/command-generation/adapters/continue" ++> "src/core/command-generation/adapters/index" {
+        continueAdapter,
+    }
+    include "src/core/command-generation/adapters/costrict" ++> "src/core/command-generation/adapters/index" {
+        costrictAdapter,
+    }
+    include "src/core/command-generation/adapters/crush" ++> "src/core/command-generation/adapters/index" {
+        crushAdapter,
+    }
+    include "src/core/command-generation/adapters/cursor" ++> "src/core/command-generation/adapters/index" {
+        cursorAdapter,
+    }
+    include "src/core/command-generation/adapters/devin" ++> "src/core/command-generation/adapters/index" {
+        devinAdapter,
+    }
+    include "src/core/command-generation/adapters/easycode" ++> "src/core/command-generation/adapters/index" {
+        easycodeAdapter,
+    }
+    include "src/core/command-generation/adapters/factory" ++> "src/core/command-generation/adapters/index" {
+        factoryAdapter,
+    }
+    include "src/core/command-generation/adapters/gemini" ++> "src/core/command-generation/adapters/index" {
+        geminiAdapter,
+    }
+    include "src/core/command-generation/adapters/github-copilot" ++> "src/core/command-generation/adapters/index" {
+        githubCopilotAdapter,
+    }
+    include "src/core/command-generation/adapters/gigacode" ++> "src/core/command-generation/adapters/index" {
+        gigacodeAdapter,
+    }
+    include "src/core/command-generation/adapters/iflow" ++> "src/core/command-generation/adapters/index" {
+        iflowAdapter,
+    }
+    include "src/core/command-generation/adapters/junie" ++> "src/core/command-generation/adapters/index" {
+        junieAdapter,
+    }
+    include "src/core/command-generation/adapters/kilocode" ++> "src/core/command-generation/adapters/index" {
+        kilocodeAdapter,
+    }
+    include "src/core/command-generation/adapters/kiro" ++> "src/core/command-generation/adapters/index" {
+        kiroAdapter,
+    }
+    include "src/core/command-generation/adapters/oh-my-pi" ++> "src/core/command-generation/adapters/index" {
+        ohMyPiAdapter,
+    }
+    include "src/core/command-generation/adapters/opencode" ++> "src/core/command-generation/adapters/index" {
+        opencodeAdapter,
+    }
+    include "src/core/command-generation/adapters/pi" ++> "src/core/command-generation/adapters/index" {
+        piAdapter,
+    }
+    include "src/core/command-generation/adapters/codeassistant" ++> "src/core/command-generation/adapters/index" {
+        codeassistantAdapter,
+    }
+    include "src/core/command-generation/adapters/qoder" ++> "src/core/command-generation/adapters/index" {
+        qoderAdapter,
+    }
+    include "src/core/command-generation/adapters/lingma" ++> "src/core/command-generation/adapters/index" {
+        lingmaAdapter,
+    }
+    include "src/core/command-generation/adapters/qwen" ++> "src/core/command-generation/adapters/index" {
+        qwenAdapter,
+    }
+    include "src/core/command-generation/adapters/roocode" ++> "src/core/command-generation/adapters/index" {
+        roocodeAdapter,
+    }
+    include "src/core/command-generation/adapters/trae" ++> "src/core/command-generation/adapters/index" {
+        traeAdapter,
+    }
+    include "src/core/command-generation/adapters/zcode" ++> "src/core/command-generation/adapters/index" {
+        zcodeAdapter,
+    }
+    src.host ++> "src/core/command-generation/registry" { rec }
+    "src/core/command-generation/adapters/index" ++> "src/core/command-generation/registry" {
+        amazonQAdapter,
+        antigravityAdapter,
+        atomcodeAdapter,
+        auggieAdapter,
+        bobAdapter,
+        claudeAdapter,
+        clineAdapter,
+        commandCodeAdapter,
+        devinAdapter,
+        codebuddyAdapter,
+        codeStudioAdapter,
+        continueAdapter,
+        costrictAdapter,
+        crushAdapter,
+        cursorAdapter,
+        easycodeAdapter,
+        factoryAdapter,
+        geminiAdapter,
+        githubCopilotAdapter,
+        gigacodeAdapter,
+        iflowAdapter,
+        junieAdapter,
+        kilocodeAdapter,
+        kiroAdapter,
+        ohMyPiAdapter,
+        opencodeAdapter,
+        piAdapter,
+        codeassistantAdapter,
+        qoderAdapter,
+        lingmaAdapter,
+        qwenAdapter,
+        roocodeAdapter,
+        traeAdapter,
+        zcodeAdapter,
+    }
+    src.host ++> "src/utils/command-references" { sub }
+    "src/core/command-generation/invocation" ++> "src/utils/command-references" {
+        formatCommandInvocation,
+    }
+    src.host ++> "src/core/command-generation/generator" { merge, rec }
+    "src/core/command-generation/invocation" ++> "src/core/command-generation/generator" {
+        getInvocationForAdapter,
+        needsInvocationRewrite,
+    }
+    "src/utils/command-references" ++> "src/core/command-generation/generator" {
+        transformCommandInvocations,
+    }
+    include "src/core/command-generation/types" ++> "src/core/command-generation/index" {
+        CommandContent,
+        ToolCommandAdapter,
+        GeneratedCommand,
+    }
+    include "src/core/command-generation/registry" ++> "src/core/command-generation/index" {
+        CommandAdapterRegistry,
+    }
+    include "src/core/command-generation/generator" ++> "src/core/command-generation/index" {
+        generateCommand,
+        generateCommands,
+    }
+    include "src/core/command-generation/adapters/index" ++> "src/core/command-generation/index" {
+        claudeAdapter,
+        cursorAdapter,
+        devinAdapter,
+    }
+    "src/core/command-generation/index" ++> "src/core/command-surface" { CommandAdapterRegistry }
+    "src/core/command-generation/invocation" ++> "src/core/command-surface" {
+        getInvocationForAdapter,
+    }
     src.host ++> "src/prompts/searchable-multi-select" { JsNull, kind, merge, missing, rec, same }
     src.lazy ++> "src/prompts/searchable-multi-select" { load, pick }
     src.host ++> "src/core/schemas/base.schema" { rec }
@@ -567,263 +748,6 @@ graph import {
         usesSharedSkills,
     }
     "src/core/skill-installer" --> "src/core/released-output-sweep" { expectedSkillFiles }
-    "src/core/command-generation/types" --> "src/core/command-generation/index" {
-        CommandContent,
-        GeneratedCommand,
-        ToolCommandAdapter,
-    }
-    "src/core/command-generation/registry" --> "src/core/command-generation/index" {
-        CommandAdapterRegistry,
-    }
-    "src/core/command-generation/generator" --> "src/core/command-generation/index" {
-        generateCommand,
-        generateCommands,
-    }
-    "src/core/command-generation/adapters/index" --> "src/core/command-generation/index" {
-        claudeAdapter,
-        cursorAdapter,
-        devinAdapter,
-    }
-    "src/core/command-generation/types" --> "src/core/command-generation/registry" {
-        ToolCommandAdapter,
-    }
-    "src/core/command-generation/adapters/amazon-q" --> "src/core/command-generation/registry" {
-        amazonQAdapter,
-    }
-    "src/core/command-generation/adapters/antigravity" --> "src/core/command-generation/registry" {
-        antigravityAdapter,
-    }
-    "src/core/command-generation/adapters/atomcode" --> "src/core/command-generation/registry" {
-        atomcodeAdapter,
-    }
-    "src/core/command-generation/adapters/auggie" --> "src/core/command-generation/registry" {
-        auggieAdapter,
-    }
-    "src/core/command-generation/adapters/bob" --> "src/core/command-generation/registry" {
-        bobAdapter,
-    }
-    "src/core/command-generation/adapters/claude" --> "src/core/command-generation/registry" {
-        claudeAdapter,
-    }
-    "src/core/command-generation/adapters/cline" --> "src/core/command-generation/registry" {
-        clineAdapter,
-    }
-    "src/core/command-generation/adapters/command-code" --> "src/core/command-generation/registry" {
-        commandCodeAdapter,
-    }
-    "src/core/command-generation/adapters/devin" --> "src/core/command-generation/registry" {
-        devinAdapter,
-    }
-    "src/core/command-generation/adapters/codebuddy" --> "src/core/command-generation/registry" {
-        codebuddyAdapter,
-    }
-    "src/core/command-generation/adapters/codestudio" --> "src/core/command-generation/registry" {
-        codeStudioAdapter,
-    }
-    "src/core/command-generation/adapters/continue" --> "src/core/command-generation/registry" {
-        continueAdapter,
-    }
-    "src/core/command-generation/adapters/costrict" --> "src/core/command-generation/registry" {
-        costrictAdapter,
-    }
-    "src/core/command-generation/adapters/crush" --> "src/core/command-generation/registry" {
-        crushAdapter,
-    }
-    "src/core/command-generation/adapters/cursor" --> "src/core/command-generation/registry" {
-        cursorAdapter,
-    }
-    "src/core/command-generation/adapters/easycode" --> "src/core/command-generation/registry" {
-        easycodeAdapter,
-    }
-    "src/core/command-generation/adapters/factory" --> "src/core/command-generation/registry" {
-        factoryAdapter,
-    }
-    "src/core/command-generation/adapters/gemini" --> "src/core/command-generation/registry" {
-        geminiAdapter,
-    }
-    "src/core/command-generation/adapters/github-copilot" --> "src/core/command-generation/registry" {
-        githubCopilotAdapter,
-    }
-    "src/core/command-generation/adapters/gigacode" --> "src/core/command-generation/registry" {
-        gigacodeAdapter,
-    }
-    "src/core/command-generation/adapters/iflow" --> "src/core/command-generation/registry" {
-        iflowAdapter,
-    }
-    "src/core/command-generation/adapters/junie" --> "src/core/command-generation/registry" {
-        junieAdapter,
-    }
-    "src/core/command-generation/adapters/kilocode" --> "src/core/command-generation/registry" {
-        kilocodeAdapter,
-    }
-    "src/core/command-generation/adapters/kiro" --> "src/core/command-generation/registry" {
-        kiroAdapter,
-    }
-    "src/core/command-generation/adapters/oh-my-pi" --> "src/core/command-generation/registry" {
-        ohMyPiAdapter,
-    }
-    "src/core/command-generation/adapters/opencode" --> "src/core/command-generation/registry" {
-        opencodeAdapter,
-    }
-    "src/core/command-generation/adapters/pi" --> "src/core/command-generation/registry" {
-        piAdapter,
-    }
-    "src/core/command-generation/adapters/codeassistant" --> "src/core/command-generation/registry" {
-        codeassistantAdapter,
-    }
-    "src/core/command-generation/adapters/qoder" --> "src/core/command-generation/registry" {
-        qoderAdapter,
-    }
-    "src/core/command-generation/adapters/lingma" --> "src/core/command-generation/registry" {
-        lingmaAdapter,
-    }
-    "src/core/command-generation/adapters/qwen" --> "src/core/command-generation/registry" {
-        qwenAdapter,
-    }
-    "src/core/command-generation/adapters/roocode" --> "src/core/command-generation/registry" {
-        roocodeAdapter,
-    }
-    "src/core/command-generation/adapters/trae" --> "src/core/command-generation/registry" {
-        traeAdapter,
-    }
-    "src/core/command-generation/adapters/zcode" --> "src/core/command-generation/registry" {
-        zcodeAdapter,
-    }
-    "src/core/command-generation/types" --> "src/core/command-generation/adapters/claude" {
-        CommandContent,
-        ToolCommandAdapter,
-    }
-    "src/core/command-generation/yaml" --> "src/core/command-generation/adapters/claude" {
-        escapeYamlValue,
-        formatTagsArray,
-    }
-    "src/core/shared/allowed-tools" --> "src/core/command-generation/adapters/claude" {
-        OPENSPEC_CLI_ALLOWED_TOOLS,
-    }
-    "src/core/command-generation/types" --> "src/core/command-generation/generator" {
-        CommandContent,
-        GeneratedCommand,
-        ToolCommandAdapter,
-    }
-    "src/core/command-generation/invocation" --> "src/core/command-generation/generator" {
-        getInvocationForAdapter,
-        needsInvocationRewrite,
-    }
-    "src/utils/command-references" --> "src/core/command-generation/generator" {
-        transformCommandInvocations,
-    }
-    "src/core/command-surface" --> "src/utils/command-references" { CommandSurfaceCapability }
-    "src/core/command-generation/invocation" --> "src/utils/command-references" {
-        CommandInvocation,
-        formatCommandInvocation,
-    }
-    "src/core/command-generation/index" --> "src/core/command-surface" { CommandAdapterRegistry }
-    "src/core/command-generation/invocation" --> "src/core/command-surface" {
-        CommandInvocation,
-        getInvocationForAdapter,
-    }
-    "src/core/command-generation/adapters/amazon-q" --> "src/core/command-generation/adapters/index" {
-        amazonQAdapter,
-    }
-    "src/core/command-generation/adapters/antigravity" --> "src/core/command-generation/adapters/index" {
-        antigravityAdapter,
-    }
-    "src/core/command-generation/adapters/atomcode" --> "src/core/command-generation/adapters/index" {
-        atomcodeAdapter,
-    }
-    "src/core/command-generation/adapters/auggie" --> "src/core/command-generation/adapters/index" {
-        auggieAdapter,
-    }
-    "src/core/command-generation/adapters/bob" --> "src/core/command-generation/adapters/index" {
-        bobAdapter,
-    }
-    "src/core/command-generation/adapters/claude" --> "src/core/command-generation/adapters/index" {
-        claudeAdapter,
-    }
-    "src/core/command-generation/adapters/cline" --> "src/core/command-generation/adapters/index" {
-        clineAdapter,
-    }
-    "src/core/command-generation/adapters/command-code" --> "src/core/command-generation/adapters/index" {
-        commandCodeAdapter,
-    }
-    "src/core/command-generation/adapters/codebuddy" --> "src/core/command-generation/adapters/index" {
-        codebuddyAdapter,
-    }
-    "src/core/command-generation/adapters/codestudio" --> "src/core/command-generation/adapters/index" {
-        codeStudioAdapter,
-    }
-    "src/core/command-generation/adapters/continue" --> "src/core/command-generation/adapters/index" {
-        continueAdapter,
-    }
-    "src/core/command-generation/adapters/costrict" --> "src/core/command-generation/adapters/index" {
-        costrictAdapter,
-    }
-    "src/core/command-generation/adapters/crush" --> "src/core/command-generation/adapters/index" {
-        crushAdapter,
-    }
-    "src/core/command-generation/adapters/cursor" --> "src/core/command-generation/adapters/index" {
-        cursorAdapter,
-    }
-    "src/core/command-generation/adapters/devin" --> "src/core/command-generation/adapters/index" {
-        devinAdapter,
-    }
-    "src/core/command-generation/adapters/easycode" --> "src/core/command-generation/adapters/index" {
-        easycodeAdapter,
-    }
-    "src/core/command-generation/adapters/factory" --> "src/core/command-generation/adapters/index" {
-        factoryAdapter,
-    }
-    "src/core/command-generation/adapters/gemini" --> "src/core/command-generation/adapters/index" {
-        geminiAdapter,
-    }
-    "src/core/command-generation/adapters/github-copilot" --> "src/core/command-generation/adapters/index" {
-        githubCopilotAdapter,
-    }
-    "src/core/command-generation/adapters/gigacode" --> "src/core/command-generation/adapters/index" {
-        gigacodeAdapter,
-    }
-    "src/core/command-generation/adapters/iflow" --> "src/core/command-generation/adapters/index" {
-        iflowAdapter,
-    }
-    "src/core/command-generation/adapters/junie" --> "src/core/command-generation/adapters/index" {
-        junieAdapter,
-    }
-    "src/core/command-generation/adapters/kilocode" --> "src/core/command-generation/adapters/index" {
-        kilocodeAdapter,
-    }
-    "src/core/command-generation/adapters/kiro" --> "src/core/command-generation/adapters/index" {
-        kiroAdapter,
-    }
-    "src/core/command-generation/adapters/oh-my-pi" --> "src/core/command-generation/adapters/index" {
-        ohMyPiAdapter,
-    }
-    "src/core/command-generation/adapters/opencode" --> "src/core/command-generation/adapters/index" {
-        opencodeAdapter,
-    }
-    "src/core/command-generation/adapters/pi" --> "src/core/command-generation/adapters/index" {
-        piAdapter,
-    }
-    "src/core/command-generation/adapters/codeassistant" --> "src/core/command-generation/adapters/index" {
-        codeassistantAdapter,
-    }
-    "src/core/command-generation/adapters/qoder" --> "src/core/command-generation/adapters/index" {
-        qoderAdapter,
-    }
-    "src/core/command-generation/adapters/lingma" --> "src/core/command-generation/adapters/index" {
-        lingmaAdapter,
-    }
-    "src/core/command-generation/adapters/qwen" --> "src/core/command-generation/adapters/index" {
-        qwenAdapter,
-    }
-    "src/core/command-generation/adapters/roocode" --> "src/core/command-generation/adapters/index" {
-        roocodeAdapter,
-    }
-    "src/core/command-generation/adapters/trae" --> "src/core/command-generation/adapters/index" {
-        traeAdapter,
-    }
-    "src/core/command-generation/adapters/zcode" --> "src/core/command-generation/adapters/index" {
-        zcodeAdapter,
-    }
     src.core.config --> "src/core/profile-sync-drift" { AI_TOOLS }
     "src/core/global-config" --> "src/core/profile-sync-drift" { Delivery }
     src.core.profiles --> "src/core/profile-sync-drift" { SKILL_WORKFLOWS, withRouter }
