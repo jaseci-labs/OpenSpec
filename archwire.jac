@@ -7,6 +7,13 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/core/standalone-tip" { JsNull, at, same }
+    src.utils.ci ++> "src/core/standalone-tip" { isCiEnvironment }
+    "src/core/completion-tip" ++> "src/core/standalone-tip" { markConfigFlag, readRawConfig }
+    "src/core/version-check" ++> "src/core/standalone-tip" {
+        getCliInstallInfo,
+        getStandaloneBinaryPath,
+    }
     src.lazy ++> src.commands.feedback { need, packageRoot }
     src.host ++> "src/commands/install-standalone" { JsNull, at, found, merge, missing, rec, sub }
     src.lazy ++> "src/commands/install-standalone" { pick }
@@ -2775,12 +2782,6 @@ graph import {
     "src/core/artifact-graph/resolver" --> "src/utils/change-utils" { resolveSchema }
     "src/core/artifact-graph/outputs" --> "src/utils/change-utils" { isSpecsArtifactPath }
     "src/core/change-metadata/index" --> "src/utils/change-utils" { ChangeMetadata }
-    src.utils.ci --> "src/core/standalone-tip" { isCiEnvironment }
-    "src/core/completion-tip" --> "src/core/standalone-tip" { markConfigFlag, readRawConfig }
-    "src/core/version-check" --> "src/core/standalone-tip" {
-        getCliInstallInfo,
-        getStandaloneBinaryPath,
-    }
     "src/utils/task-progress" --> src.core.list { formatTaskStatus, getTaskProgressForChange }
     "src/core/parsers/markdown-parser" --> src.core.list { MarkdownParser }
     "src/core/root-selection" --> src.core.list { RootOutput }
