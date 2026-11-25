@@ -1,0 +1,3911 @@
+# Written by neojac: what each ecosystem's own resolver pinned for jac.toml.
+# `neojac install --frozen` installs exactly this.
+version = 2
+
+[npm."."]
+name = "@fission-ai/openspec"
+version = "2.2.0"
+lockfileVersion = 3
+requires = true
+
+[npm.".".packages.""]
+name = "@fission-ai/openspec"
+version = "2.2.0"
+license = "MIT"
+
+[npm.".".packages."".dependencies]
+"@inquirer/core" = "^12.0.0"
+"@inquirer/prompts" = "^8.5.2"
+brace-expansion = "^5.0.12"
+chalk = "^6.0.1"
+commander = "^14.0.0"
+cross-spawn = "7.0.6"
+diff = "^9.0.0"
+ora = "^9.4.1"
+picomatch = "^4.0.4"
+skills = "1.8.1"
+tinyglobby = "^0.2.17"
+yaml = "^2.8.3"
+zod = "^4.4.3"
+
+[npm.".".packages."".bin]
+openspec = "bin/openspec.js"
+
+[npm.".".packages."".devDependencies]
+"@changesets/changelog-github" = "^1.0.0"
+"@changesets/cli" = "^3.0.1"
+"@types/node" = "^22.12.0"
+"@types/picomatch" = "^4.0.3"
+"@vitest/ui" = "^5.0.3"
+eslint = "^10.5.0"
+smol-toml = "^1.7.1"
+typescript = "^6.0.3"
+typescript-eslint = "^8.65.0"
+vite = "^8.3.5"
+vitest = "^5.0.3"
+
+[npm.".".packages."".engines]
+node = ">=22.20.0"
+
+[npm.".".packages."node_modules/@cacheable/memory"]
+version = "2.2.0"
+resolved = "https://registry.npmjs.org/@cacheable/memory/-/memory-2.2.0.tgz"
+integrity = "sha512-CTLKqLItRCEixEAewD3/j9DB3/o96gpTPD4eJ1v+DGOlxZRZncRQkGYqqnAGCscYd6RNeXfGeiuCphsPtqyIfQ=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@cacheable/memory".dependencies]
+"@cacheable/utils" = "^2.5.0"
+"@keyv/bigmap" = "^1.3.1"
+hookified = "^1.15.1"
+keyv = "^5.6.0"
+
+[npm.".".packages."node_modules/@cacheable/utils"]
+version = "2.5.0"
+resolved = "https://registry.npmjs.org/@cacheable/utils/-/utils-2.5.0.tgz"
+integrity = "sha512-buipgOVDkkPXNR5+xBpDw7Zk2n1EvU7qBJCNUcL7rhQ//kfpOXPAvQ511Os0vpLYJ1pZnvudNytkQt2hst3wqA=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@cacheable/utils".dependencies]
+hashery = "^1.5.1"
+keyv = "^5.6.0"
+
+[npm.".".packages."node_modules/@changesets/apply-release-plan"]
+version = "8.1.1"
+resolved = "https://registry.npmjs.org/@changesets/apply-release-plan/-/apply-release-plan-8.1.1.tgz"
+integrity = "sha512-nk2Hbq3M9NeHMdaIRBDvawKrQJzXB9sGyBUE5yWnIKtvdcNCPj75zBekJYr0gTT2ecJH3eFeTrc8eisPImcv0Q=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@changesets/apply-release-plan".dependencies]
+"@changesets/config" = "^4.0.1"
+"@changesets/format" = "^0.1.2"
+"@changesets/git" = "^4.0.1"
+"@changesets/should-skip-package" = "^1.0.0"
+"@changesets/types" = "^7.0.0"
+import-meta-resolve = "^4.2.0"
+jsonc-parser = "^3.3.1"
+semver = "^7.8.1"
+
+[npm.".".packages."node_modules/@changesets/apply-release-plan".engines]
+node = "^22.11 || ^24 || >=26"
+
+[npm.".".packages."node_modules/@changesets/assemble-release-plan"]
+version = "7.0.0"
+resolved = "https://registry.npmjs.org/@changesets/assemble-release-plan/-/assemble-release-plan-7.0.0.tgz"
+integrity = "sha512-oEW8BxdA604kGGtDSCiHr5w9Tv4UWe9I2k61IBNZzCOE1kbYaJj4v+lFQNgcEZFkUc2pV/+hASErGDvpJOZCTg=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@changesets/assemble-release-plan".dependencies]
+"@changesets/errors" = "^1.0.0"
+"@changesets/get-dependents-graph" = "^3.0.0"
+"@changesets/should-skip-package" = "^1.0.0"
+"@changesets/types" = "^7.0.0"
+semver = "^7.8.1"
+
+[npm.".".packages."node_modules/@changesets/assemble-release-plan".engines]
+node = "^22.11 || ^24 || >=26"
+
+[npm.".".packages."node_modules/@changesets/changelog-git"]
+version = "1.0.0"
+resolved = "https://registry.npmjs.org/@changesets/changelog-git/-/changelog-git-1.0.0.tgz"
+integrity = "sha512-3Dst2Ime2Op5nd4XmWJLPIgp11ZFqJqSkVug9izK6TDcIV4YlhPS4ECbEVR+eGI0bk0r1ItogD4j2Oli87bJrA=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@changesets/changelog-git".dependencies]
+"@changesets/types" = "^7.0.0"
+
+[npm.".".packages."node_modules/@changesets/changelog-git".engines]
+node = "^22.11 || ^24 || >=26"
+
+[npm.".".packages."node_modules/@changesets/changelog-github"]
+version = "1.0.1"
+resolved = "https://registry.npmjs.org/@changesets/changelog-github/-/changelog-github-1.0.1.tgz"
+integrity = "sha512-QUcrV7878yHlWPXXPA6gqSxNKwtVHCd1K22L7ZAoJw2yGy8K4QvjwOStD75+1Q9KD9ZSUgGS94HuYdd7HOVtpA=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@changesets/changelog-github".dependencies]
+"@changesets/get-github-info" = "^1.0.1"
+"@changesets/types" = "^7.0.0"
+
+[npm.".".packages."node_modules/@changesets/changelog-github".engines]
+node = "^22.11 || ^24 || >=26"
+
+[npm.".".packages."node_modules/@changesets/cli"]
+version = "3.0.3"
+resolved = "https://registry.npmjs.org/@changesets/cli/-/cli-3.0.3.tgz"
+integrity = "sha512-L1i67bMfkK6iC/kDejuNO4pFgTRcWIObsD6Qof2woP1I4M8tj17DGlcpRaTzTv1DYSP5EMwWdEtR8X0Pj5Jg3Q=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@changesets/cli".dependencies]
+"@changesets/apply-release-plan" = "^8.1.1"
+"@changesets/assemble-release-plan" = "^7.0.0"
+"@changesets/changelog-git" = "^1.0.0"
+"@changesets/config" = "^4.0.1"
+"@changesets/errors" = "^1.0.0"
+"@changesets/get-dependents-graph" = "^3.0.0"
+"@changesets/git" = "^4.0.1"
+"@changesets/pre" = "^3.0.0"
+"@changesets/read" = "^1.0.1"
+"@changesets/should-skip-package" = "^1.0.0"
+"@changesets/types" = "^7.0.0"
+"@changesets/write" = "^1.0.1"
+"@clack/prompts" = "^1.7.0"
+"@manypkg/get-packages" = "^3.1.0"
+"@pnpm/deps.graph-sequencer" = "^1100.0.1"
+cac = "^7.0.0"
+import-meta-resolve = "^4.2.0"
+launch-editor = "^2.14.1"
+package-manager-detector = "^1.6.0"
+semver = "^7.8.1"
+tinyexec = "^1.3.1"
+
+[npm.".".packages."node_modules/@changesets/cli".bin]
+changeset = "bin.js"
+
+[npm.".".packages."node_modules/@changesets/cli".engines]
+node = "^22.11 || ^24 || >=26"
+npm = ">=10.9.0"
+pnpm = ">=10.0.0"
+yarn = ">=4.5.2"
+
+[npm.".".packages."node_modules/@changesets/config"]
+version = "4.0.1"
+resolved = "https://registry.npmjs.org/@changesets/config/-/config-4.0.1.tgz"
+integrity = "sha512-PxpxSQLQSLDjceAgRq+4FWlU+HflDIw03mmPVipxoQx9xrXFUjmqTy3SE+n/2t+DqPdpPiLWVr5NRiLZvjyLwg=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@changesets/config".dependencies]
+"@changesets/get-dependents-graph" = "^3.0.0"
+"@changesets/should-skip-package" = "^1.0.0"
+"@changesets/types" = "^7.0.0"
+"@manypkg/get-packages" = "^3.1.0"
+picomatch = "^4.0.7"
+
+[npm.".".packages."node_modules/@changesets/config".engines]
+node = "^22.11 || ^24 || >=26"
+
+[npm.".".packages."node_modules/@changesets/errors"]
+version = "1.0.0"
+resolved = "https://registry.npmjs.org/@changesets/errors/-/errors-1.0.0.tgz"
+integrity = "sha512-ElN/mEzn6zmETgjwf5MclCMa9ef59sAR0lfO8VSYIsiRvbC2FbLB/92EoYw10Sl0kGixxHFiJZUSv7dA+YpR8g=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@changesets/errors".engines]
+node = "^22.11 || ^24 || >=26"
+
+[npm.".".packages."node_modules/@changesets/format"]
+version = "0.1.2"
+resolved = "https://registry.npmjs.org/@changesets/format/-/format-0.1.2.tgz"
+integrity = "sha512-Caez5XtNXCFS/G5bwyav3wuXL0tMxVd2ZGbaumWbzN08tyzO21asCw7JZhNtVsAZDCvDRUzZN+Iit9SyRITSYA=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@changesets/format".dependencies]
+package-manager-detector = "^1.8.0"
+tinyexec = "^1.3.0"
+
+[npm.".".packages."node_modules/@changesets/format".engines]
+node = "^22.11 || ^24 || >=26"
+
+[npm.".".packages."node_modules/@changesets/get-dependents-graph"]
+version = "3.0.0"
+resolved = "https://registry.npmjs.org/@changesets/get-dependents-graph/-/get-dependents-graph-3.0.0.tgz"
+integrity = "sha512-ji/t5wFA1zREKXRUePE6Qi+Qu2UgxCeSSGQrphezwvQZrp49B7sJ+8+wvM0tA7zPeSxYKCojDy3WWgrl+s+awg=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@changesets/get-dependents-graph".dependencies]
+"@changesets/types" = "^7.0.0"
+semver = "^7.8.1"
+
+[npm.".".packages."node_modules/@changesets/get-dependents-graph".engines]
+node = "^22.11 || ^24 || >=26"
+
+[npm.".".packages."node_modules/@changesets/get-github-info"]
+version = "1.0.1"
+resolved = "https://registry.npmjs.org/@changesets/get-github-info/-/get-github-info-1.0.1.tgz"
+integrity = "sha512-ifLQCky/ZtDgZ4xCiUMjnLZSJ8xk52iIzMJbBBPlZWjr2CiTNTaTDddIVWKicrUAdWuLWL7PUw2fNa1yPwLpIg=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@changesets/get-github-info".dependencies]
+dataloader = "^2.2.3"
+
+[npm.".".packages."node_modules/@changesets/get-github-info".engines]
+node = "^22.11 || ^24 || >=26"
+
+[npm.".".packages."node_modules/@changesets/git"]
+version = "4.0.1"
+resolved = "https://registry.npmjs.org/@changesets/git/-/git-4.0.1.tgz"
+integrity = "sha512-6vWpIAC4LkpmlqaIu37ViT5enyd9+uBwAiGqCGhASvkSHBgx4PrtTGXWTMFYpDmZbjgyonyVgMciPrW4MqtJsA=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@changesets/git".dependencies]
+"@changesets/errors" = "^1.0.0"
+"@changesets/types" = "^7.0.0"
+"@manypkg/get-packages" = "^3.1.0"
+picomatch = "^4.0.4"
+tinyexec = "^1.3.0"
+
+[npm.".".packages."node_modules/@changesets/git".engines]
+node = "^22.11 || ^24 || >=26"
+
+[npm.".".packages."node_modules/@changesets/parse"]
+version = "1.0.0"
+resolved = "https://registry.npmjs.org/@changesets/parse/-/parse-1.0.0.tgz"
+integrity = "sha512-P0iaMb9p9CRYZiTgAllEIF9AUMQHIy1G72tKlcIqJp61icZSsKQNiOPdxAMZG8m/DvZwt/oz5xEbTpike//dWg=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@changesets/parse".dependencies]
+"@changesets/types" = "^7.0.0"
+yaml = "^2.9.0"
+
+[npm.".".packages."node_modules/@changesets/parse".engines]
+node = "^22.11 || ^24 || >=26"
+
+[npm.".".packages."node_modules/@changesets/pre"]
+version = "3.0.0"
+resolved = "https://registry.npmjs.org/@changesets/pre/-/pre-3.0.0.tgz"
+integrity = "sha512-Zm/6YliV/a2oeWTqHJf6KxLrQwgcK1i/BRDl2m0EKZvbnxV5fG9QRhwJJGshjsZTUTS6dkfURQ2K6aAvgNw/3Q=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@changesets/pre".dependencies]
+"@changesets/errors" = "^1.0.0"
+"@changesets/types" = "^7.0.0"
+"@manypkg/get-packages" = "^3.1.0"
+
+[npm.".".packages."node_modules/@changesets/pre".engines]
+node = "^22.11 || ^24 || >=26"
+
+[npm.".".packages."node_modules/@changesets/read"]
+version = "1.0.1"
+resolved = "https://registry.npmjs.org/@changesets/read/-/read-1.0.1.tgz"
+integrity = "sha512-nzvSC6RcTiWf/dsuwZFXpLzGGsRHYCL68U3uHV7srsulU93aVWY7u2GEJiDZ+4GIIElfaW5EqtKC0UHroY+LTQ=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@changesets/read".dependencies]
+"@changesets/git" = "^4.0.1"
+"@changesets/parse" = "^1.0.0"
+"@changesets/types" = "^7.0.0"
+
+[npm.".".packages."node_modules/@changesets/read".engines]
+node = "^22.11 || ^24 || >=26"
+
+[npm.".".packages."node_modules/@changesets/should-skip-package"]
+version = "1.0.0"
+resolved = "https://registry.npmjs.org/@changesets/should-skip-package/-/should-skip-package-1.0.0.tgz"
+integrity = "sha512-pwqoJmbONn1XgXmZXPEExgAaT+HdZLjALFTDgIm+PnS5KeO2nLtzA2/Q+4aMFY14kFMuXKG30MObhvDzWgzDgg=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@changesets/should-skip-package".dependencies]
+"@changesets/types" = "^7.0.0"
+
+[npm.".".packages."node_modules/@changesets/should-skip-package".engines]
+node = "^22.11 || ^24 || >=26"
+
+[npm.".".packages."node_modules/@changesets/types"]
+version = "7.0.0"
+resolved = "https://registry.npmjs.org/@changesets/types/-/types-7.0.0.tgz"
+integrity = "sha512-c5GoiQyt3pxiXjrWSNoP8/GRf4kG+VnKzovx1OQM8dYYALlSwgedmkPmJ+ZqGxqwg9D3Bkj85Uo4KLd5BN3A0w=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@changesets/types".engines]
+node = "^22.11 || ^24 || >=26"
+
+[npm.".".packages."node_modules/@changesets/write"]
+version = "1.0.1"
+resolved = "https://registry.npmjs.org/@changesets/write/-/write-1.0.1.tgz"
+integrity = "sha512-q/ThtP9gcnEP6xlv7LrY26C2mHqdGBti/MmOVngt/M/oIGYkssmQGxPK9WzBNt2juVcH/vml2WQ+ra8LXYOTaA=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@changesets/write".dependencies]
+"@changesets/format" = "^0.1.1"
+"@changesets/types" = "^7.0.0"
+human-id = "^4.2.0"
+
+[npm.".".packages."node_modules/@changesets/write".engines]
+node = "^22.11 || ^24 || >=26"
+
+[npm.".".packages."node_modules/@clack/core"]
+version = "1.5.0"
+resolved = "https://registry.npmjs.org/@clack/core/-/core-1.5.0.tgz"
+integrity = "sha512-zNikCcd8BbcEvzzG1sbXFrRHFk5kHPrpwZwksPvf9qyQO1Teb7JaXaOAxXZei9nZLDW0gaZawiuTCji88bTBhw=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@clack/core".dependencies]
+fast-wrap-ansi = "^0.2.0"
+sisteransi = "^1.0.5"
+
+[npm.".".packages."node_modules/@clack/core".engines]
+node = ">= 20.12.0"
+
+[npm.".".packages."node_modules/@clack/prompts"]
+version = "1.8.0"
+resolved = "https://registry.npmjs.org/@clack/prompts/-/prompts-1.8.0.tgz"
+integrity = "sha512-PXzLZ8N34rxmuo4dJg3xtOXhcBse94qGjDqsteoEYrFrrZ5FSjIGwMAuOcv64ln8rHVBBD06XeVGr+/JX+plcA=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@clack/prompts".dependencies]
+"@clack/core" = "1.5.0"
+fast-string-width = "^3.0.2"
+fast-wrap-ansi = "^0.2.0"
+sisteransi = "^1.0.5"
+
+[npm.".".packages."node_modules/@clack/prompts".engines]
+node = ">= 20.12.0"
+
+[npm.".".packages."node_modules/@emnapi/core"]
+version = "2.0.0-beta.2"
+resolved = "https://registry.npmjs.org/@emnapi/core/-/core-2.0.0-beta.2.tgz"
+integrity = "sha512-MzCVoWtcg4Pm2B3je5mMvYMvj3MmBKw+fU7vbsJc9/iT8ip6/eYIHo/Dsm/mr+wsHB6SEyJDuxB09Yy6r/8+4A=="
+dev = true
+license = "MIT"
+optional = true
+
+[npm.".".packages."node_modules/@emnapi/core".dependencies]
+"@emnapi/wasi-threads" = "2.2.0"
+tslib = "^2.4.0"
+
+[npm.".".packages."node_modules/@emnapi/runtime"]
+version = "2.0.0-beta.2"
+resolved = "https://registry.npmjs.org/@emnapi/runtime/-/runtime-2.0.0-beta.2.tgz"
+integrity = "sha512-JcrSPzPvZuNZvJqPTF9Fw25LbOJ8avzFVlaf2grmH4Cku0oGP47tRgqPZadcfj3YoZMHkFVnCYFbQM8I+i5QEw=="
+dev = true
+license = "MIT"
+optional = true
+
+[npm.".".packages."node_modules/@emnapi/runtime".dependencies]
+tslib = "^2.4.0"
+
+[npm.".".packages."node_modules/@emnapi/wasi-threads"]
+version = "2.2.0"
+resolved = "https://registry.npmjs.org/@emnapi/wasi-threads/-/wasi-threads-2.2.0.tgz"
+integrity = "sha512-JP7OYH38Q7+pyTAe14raZHLQIK7BDKbdwji+Xi3pcd/6QkJYQH3SX4wu6EplGrGJWRepoNzedfm0G3B9Z4e9Rw=="
+dev = true
+license = "MIT"
+optional = true
+
+[npm.".".packages."node_modules/@emnapi/wasi-threads".dependencies]
+tslib = "^2.4.0"
+
+[npm.".".packages."node_modules/@eslint-community/eslint-utils"]
+version = "4.10.1"
+resolved = "https://registry.npmjs.org/@eslint-community/eslint-utils/-/eslint-utils-4.10.1.tgz"
+integrity = "sha512-cuadcxVFE8sDK6iWJbs8Sn0av2Nrh2QSGQhVlBW9AaAHqHwjWsZHT8LJ4hFGPh7ASBV2deFdM7H/DPjulmh8rg=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@eslint-community/eslint-utils".dependencies]
+eslint-visitor-keys = "^3.4.3"
+
+[npm.".".packages."node_modules/@eslint-community/eslint-utils".engines]
+node = "^12.22.0 || ^14.17.0 || >=16.0.0"
+
+[npm.".".packages."node_modules/@eslint-community/eslint-utils".funding]
+url = "https://opencollective.com/eslint"
+
+[npm.".".packages."node_modules/@eslint-community/eslint-utils".peerDependencies]
+eslint = "^6.0.0 || ^7.0.0 || >=8.0.0"
+
+[npm.".".packages."node_modules/@eslint-community/eslint-utils/node_modules/eslint-visitor-keys"]
+version = "3.4.3"
+resolved = "https://registry.npmjs.org/eslint-visitor-keys/-/eslint-visitor-keys-3.4.3.tgz"
+integrity = "sha512-wpc+LXeiyiisxPlEkUzU6svyS1frIO3Mgxj1fdy7Pm8Ygzguax2N3Fa/D/ag1WqbOprdI+uY6wMUl8/a2G+iag=="
+dev = true
+license = "Apache-2.0"
+
+[npm.".".packages."node_modules/@eslint-community/eslint-utils/node_modules/eslint-visitor-keys".engines]
+node = "^12.22.0 || ^14.17.0 || >=16.0.0"
+
+[npm.".".packages."node_modules/@eslint-community/eslint-utils/node_modules/eslint-visitor-keys".funding]
+url = "https://opencollective.com/eslint"
+
+[npm.".".packages."node_modules/@eslint-community/regexpp"]
+version = "4.12.3"
+resolved = "https://registry.npmjs.org/@eslint-community/regexpp/-/regexpp-4.12.3.tgz"
+integrity = "sha512-R76UKbvsqI68DJJVTVyqFKqU98CN4+B+acxNfEA2IFarSzP0SjtKf/3+fFiXzTyv5Fj3PxLkGHe2wnVWWMxobQ=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@eslint-community/regexpp".engines]
+node = "^12.0.0 || ^14.0.0 || >=16.0.0"
+
+[npm.".".packages."node_modules/@eslint/config-array"]
+version = "0.23.5"
+resolved = "https://registry.npmjs.org/@eslint/config-array/-/config-array-0.23.5.tgz"
+integrity = "sha512-Y3kKLvC1dvTOT+oGlqNQ1XLqK6D1HU2YXPc52NmAlJZbMMWDzGYXMiPRJ8TYD39muD/OTjlZmNJ4ib7dvSrMBA=="
+dev = true
+license = "Apache-2.0"
+
+[npm.".".packages."node_modules/@eslint/config-array".dependencies]
+"@eslint/object-schema" = "^3.0.5"
+debug = "^4.3.1"
+minimatch = "^10.2.4"
+
+[npm.".".packages."node_modules/@eslint/config-array".engines]
+node = "^20.19.0 || ^22.13.0 || >=24"
+
+[npm.".".packages."node_modules/@eslint/config-helpers"]
+version = "0.7.0"
+resolved = "https://registry.npmjs.org/@eslint/config-helpers/-/config-helpers-0.7.0.tgz"
+integrity = "sha512-DObd/KKUsU+FaFv4PLxSRenpXfQWmPXXP3pPZ6/K1PCrMu2vQpMDMuQe/BqYeoLcz8ro0bVDF1RxOJgfVEdhUw=="
+dev = true
+license = "Apache-2.0"
+
+[npm.".".packages."node_modules/@eslint/config-helpers".dependencies]
+"@eslint/core" = "^1.2.1"
+
+[npm.".".packages."node_modules/@eslint/config-helpers".engines]
+node = "^20.19.0 || ^22.13.0 || >=24"
+
+[npm.".".packages."node_modules/@eslint/core"]
+version = "1.2.1"
+resolved = "https://registry.npmjs.org/@eslint/core/-/core-1.2.1.tgz"
+integrity = "sha512-MwcE1P+AZ4C6DWlpin/OmOA54mmIZ/+xZuJiQd4SyB29oAJjN30UW9wkKNptW2ctp4cEsvhlLY/CsQ1uoHDloQ=="
+dev = true
+license = "Apache-2.0"
+
+[npm.".".packages."node_modules/@eslint/core".dependencies]
+"@types/json-schema" = "^7.0.15"
+
+[npm.".".packages."node_modules/@eslint/core".engines]
+node = "^20.19.0 || ^22.13.0 || >=24"
+
+[npm.".".packages."node_modules/@eslint/object-schema"]
+version = "3.0.5"
+resolved = "https://registry.npmjs.org/@eslint/object-schema/-/object-schema-3.0.5.tgz"
+integrity = "sha512-vqTaUEgxzm+YDSdElad6PiRoX4t8VGDjCtt05zn4nU810UIx/uNEV7/lZJ6KwFThKZOzOxzXy48da+No7HZaMw=="
+dev = true
+license = "Apache-2.0"
+
+[npm.".".packages."node_modules/@eslint/object-schema".engines]
+node = "^20.19.0 || ^22.13.0 || >=24"
+
+[npm.".".packages."node_modules/@eslint/plugin-kit"]
+version = "0.7.3"
+resolved = "https://registry.npmjs.org/@eslint/plugin-kit/-/plugin-kit-0.7.3.tgz"
+integrity = "sha512-IkO+/KEUvwbVpiURZg+P7zF74z5Jxe0UgJxVni+RtoHQ6IZieXaO02kmadomap/q+l6bc/jdPGGqTjhuZnuz1Q=="
+dev = true
+license = "Apache-2.0"
+
+[npm.".".packages."node_modules/@eslint/plugin-kit".dependencies]
+"@eslint/core" = "^1.2.1"
+levn = "^0.4.1"
+
+[npm.".".packages."node_modules/@eslint/plugin-kit".engines]
+node = "^20.19.0 || ^22.13.0 || >=24"
+
+[npm.".".packages."node_modules/@humanfs/core"]
+version = "0.19.2"
+resolved = "https://registry.npmjs.org/@humanfs/core/-/core-0.19.2.tgz"
+integrity = "sha512-UhXNm+CFMWcbChXywFwkmhqjs3PRCmcSa/hfBgLIb7oQ5HNb1wS0icWsGtSAUNgefHeI+eBrA8I1fxmbHsGdvA=="
+dev = true
+license = "Apache-2.0"
+
+[npm.".".packages."node_modules/@humanfs/core".dependencies]
+"@humanfs/types" = "^0.15.0"
+
+[npm.".".packages."node_modules/@humanfs/core".engines]
+node = ">=18.18.0"
+
+[npm.".".packages."node_modules/@humanfs/node"]
+version = "0.16.8"
+resolved = "https://registry.npmjs.org/@humanfs/node/-/node-0.16.8.tgz"
+integrity = "sha512-gE1eQNZ3R++kTzFUpdGlpmy8kDZD/MLyHqDwqjkVQI0JMdI1D51sy1H958PNXYkM2rAac7e5/CnIKZrHtPh3BQ=="
+dev = true
+license = "Apache-2.0"
+
+[npm.".".packages."node_modules/@humanfs/node".dependencies]
+"@humanfs/core" = "^0.19.2"
+"@humanfs/types" = "^0.15.0"
+"@humanwhocodes/retry" = "^0.4.0"
+
+[npm.".".packages."node_modules/@humanfs/node".engines]
+node = ">=18.18.0"
+
+[npm.".".packages."node_modules/@humanfs/types"]
+version = "0.15.0"
+resolved = "https://registry.npmjs.org/@humanfs/types/-/types-0.15.0.tgz"
+integrity = "sha512-ZZ1w0aoQkwuUuC7Yf+7sdeaNfqQiiLcSRbfI08oAxqLtpXQr9AIVX7Ay7HLDuiLYAaFPu8oBYNq/QIi9URHJ3Q=="
+dev = true
+license = "Apache-2.0"
+
+[npm.".".packages."node_modules/@humanfs/types".engines]
+node = ">=18.18.0"
+
+[npm.".".packages."node_modules/@humanwhocodes/module-importer"]
+version = "1.0.1"
+resolved = "https://registry.npmjs.org/@humanwhocodes/module-importer/-/module-importer-1.0.1.tgz"
+integrity = "sha512-bxveV4V8v5Yb4ncFTT3rPSgZBOpCkjfK0y4oVVVJwIuDVBRMDXrPyXRL988i5ap9m9bnyEEjWfm5WkBmtffLfA=="
+dev = true
+license = "Apache-2.0"
+
+[npm.".".packages."node_modules/@humanwhocodes/module-importer".engines]
+node = ">=12.22"
+
+[npm.".".packages."node_modules/@humanwhocodes/module-importer".funding]
+type = "github"
+url = "https://github.com/sponsors/nzakas"
+
+[npm.".".packages."node_modules/@humanwhocodes/retry"]
+version = "0.4.3"
+resolved = "https://registry.npmjs.org/@humanwhocodes/retry/-/retry-0.4.3.tgz"
+integrity = "sha512-bV0Tgo9K4hfPCek+aMAn81RppFKv2ySDQeMoSZuvTASywNTnVJCArCZE2FWqpvIatKu7VMRLWlR1EazvVhDyhQ=="
+dev = true
+license = "Apache-2.0"
+
+[npm.".".packages."node_modules/@humanwhocodes/retry".engines]
+node = ">=18.18"
+
+[npm.".".packages."node_modules/@humanwhocodes/retry".funding]
+type = "github"
+url = "https://github.com/sponsors/nzakas"
+
+[npm.".".packages."node_modules/@inquirer/ansi"]
+version = "2.0.10"
+resolved = "https://registry.npmjs.org/@inquirer/ansi/-/ansi-2.0.10.tgz"
+integrity = "sha512-dwrc+1aqVZpHNkNDswXGtn1typ+Pxpo5FHZRyBw1le7onEJUkPUkYOY1FIFC1LvFMYUqqLuWBwElhAmencL7MQ=="
+license = "MIT"
+
+[npm.".".packages."node_modules/@inquirer/ansi".engines]
+node = ">=23.5.0 || ^22.13.0 || ^20.17.0"
+
+[npm.".".packages."node_modules/@inquirer/checkbox"]
+version = "5.2.1"
+resolved = "https://registry.npmjs.org/@inquirer/checkbox/-/checkbox-5.2.1.tgz"
+integrity = "sha512-b6xmA/VlTe0ZgDQHDui+Nav470u7u49nRd8/iuhOcQPO9Ch7lGuogydhi2VOmNlZ+zXcM8IcPuNSwQcdJaF/kw=="
+license = "MIT"
+
+[npm.".".packages."node_modules/@inquirer/checkbox".dependencies]
+"@inquirer/ansi" = "^2.0.7"
+"@inquirer/core" = "^11.2.1"
+"@inquirer/figures" = "^2.0.7"
+"@inquirer/type" = "^4.0.7"
+
+[npm.".".packages."node_modules/@inquirer/checkbox".engines]
+node = ">=23.5.0 || ^22.13.0 || ^20.17.0"
+
+[npm.".".packages."node_modules/@inquirer/checkbox".peerDependencies]
+"@types/node" = ">=18"
+
+[npm.".".packages."node_modules/@inquirer/checkbox".peerDependenciesMeta."@types/node"]
+optional = true
+
+[npm.".".packages."node_modules/@inquirer/checkbox/node_modules/@inquirer/core"]
+version = "11.2.1"
+resolved = "https://registry.npmjs.org/@inquirer/core/-/core-11.2.1.tgz"
+integrity = "sha512-Qd6GJT1yVyrZZCfN8W2qKF5ApmqryXRhRKCuip8h01x2w/esJQ2XIYc6f9abMIHgKQdBfFTSOdbHRLAhuM09UA=="
+license = "MIT"
+
+[npm.".".packages."node_modules/@inquirer/checkbox/node_modules/@inquirer/core".dependencies]
+"@inquirer/ansi" = "^2.0.7"
+"@inquirer/figures" = "^2.0.7"
+"@inquirer/type" = "^4.0.7"
+cli-width = "^4.1.0"
+fast-wrap-ansi = "^0.2.0"
+mute-stream = "^3.0.0"
+signal-exit = "^4.1.0"
+
+[npm.".".packages."node_modules/@inquirer/checkbox/node_modules/@inquirer/core".engines]
+node = ">=23.5.0 || ^22.13.0 || ^20.17.0"
+
+[npm.".".packages."node_modules/@inquirer/checkbox/node_modules/@inquirer/core".peerDependencies]
+"@types/node" = ">=18"
+
+[npm.".".packages."node_modules/@inquirer/checkbox/node_modules/@inquirer/core".peerDependenciesMeta."@types/node"]
+optional = true
+
+[npm.".".packages."node_modules/@inquirer/confirm"]
+version = "6.1.1"
+resolved = "https://registry.npmjs.org/@inquirer/confirm/-/confirm-6.1.1.tgz"
+integrity = "sha512-eb8DBZcz/2qHWQda4rk2JiQk5h9QV/cVHi1yjt0f69WFZMRFn0sJTye3EAP8icut8UDMjQPsaH5KbcOogefrFQ=="
+license = "MIT"
+
+[npm.".".packages."node_modules/@inquirer/confirm".dependencies]
+"@inquirer/core" = "^11.2.1"
+"@inquirer/type" = "^4.0.7"
+
+[npm.".".packages."node_modules/@inquirer/confirm".engines]
+node = ">=23.5.0 || ^22.13.0 || ^20.17.0"
+
+[npm.".".packages."node_modules/@inquirer/confirm".peerDependencies]
+"@types/node" = ">=18"
+
+[npm.".".packages."node_modules/@inquirer/confirm".peerDependenciesMeta."@types/node"]
+optional = true
+
+[npm.".".packages."node_modules/@inquirer/confirm/node_modules/@inquirer/core"]
+version = "11.2.1"
+resolved = "https://registry.npmjs.org/@inquirer/core/-/core-11.2.1.tgz"
+integrity = "sha512-Qd6GJT1yVyrZZCfN8W2qKF5ApmqryXRhRKCuip8h01x2w/esJQ2XIYc6f9abMIHgKQdBfFTSOdbHRLAhuM09UA=="
+license = "MIT"
+
+[npm.".".packages."node_modules/@inquirer/confirm/node_modules/@inquirer/core".dependencies]
+"@inquirer/ansi" = "^2.0.7"
+"@inquirer/figures" = "^2.0.7"
+"@inquirer/type" = "^4.0.7"
+cli-width = "^4.1.0"
+fast-wrap-ansi = "^0.2.0"
+mute-stream = "^3.0.0"
+signal-exit = "^4.1.0"
+
+[npm.".".packages."node_modules/@inquirer/confirm/node_modules/@inquirer/core".engines]
+node = ">=23.5.0 || ^22.13.0 || ^20.17.0"
+
+[npm.".".packages."node_modules/@inquirer/confirm/node_modules/@inquirer/core".peerDependencies]
+"@types/node" = ">=18"
+
+[npm.".".packages."node_modules/@inquirer/confirm/node_modules/@inquirer/core".peerDependenciesMeta."@types/node"]
+optional = true
+
+[npm.".".packages."node_modules/@inquirer/core"]
+version = "12.0.6"
+resolved = "https://registry.npmjs.org/@inquirer/core/-/core-12.0.6.tgz"
+integrity = "sha512-5yxn2LsJ8Tu4ei2a+yNkmFRhM/cb+JMEsEs/AW6CCOnBnpMy4IjYiPMFyHtYq8weOmlTyqqCx40y0DsD7OsEPw=="
+license = "MIT"
+
+[npm.".".packages."node_modules/@inquirer/core".dependencies]
+"@inquirer/ansi" = "^2.0.10"
+"@inquirer/figures" = "^2.0.10"
+"@inquirer/type" = "4.2.1"
+cli-width = "^4.1.0"
+fast-wrap-ansi = "^0.2.0"
+mute-stream = "^3.0.0"
+signal-exit = "^4.1.0"
+
+[npm.".".packages."node_modules/@inquirer/core".engines]
+node = ">=23.5.0 || ^22.13.0 || ^20.17.0"
+
+[npm.".".packages."node_modules/@inquirer/core".peerDependencies]
+"@types/node" = ">=18"
+
+[npm.".".packages."node_modules/@inquirer/core".peerDependenciesMeta."@types/node"]
+optional = true
+
+[npm.".".packages."node_modules/@inquirer/editor"]
+version = "5.2.2"
+resolved = "https://registry.npmjs.org/@inquirer/editor/-/editor-5.2.2.tgz"
+integrity = "sha512-ZRVd/oD+sYsUd5zVm0NflqEzlqfYCyHNsqkHl2oWXEUHs12tCbcSFi+wVFEvD8+LGRaMUsVrE7qeo6lSG/S1Vg=="
+license = "MIT"
+
+[npm.".".packages."node_modules/@inquirer/editor".dependencies]
+"@inquirer/core" = "^11.2.1"
+"@inquirer/external-editor" = "^3.0.3"
+"@inquirer/type" = "^4.0.7"
+
+[npm.".".packages."node_modules/@inquirer/editor".engines]
+node = ">=23.5.0 || ^22.13.0 || ^20.17.0"
+
+[npm.".".packages."node_modules/@inquirer/editor".peerDependencies]
+"@types/node" = ">=18"
+
+[npm.".".packages."node_modules/@inquirer/editor".peerDependenciesMeta."@types/node"]
+optional = true
+
+[npm.".".packages."node_modules/@inquirer/editor/node_modules/@inquirer/core"]
+version = "11.2.1"
+resolved = "https://registry.npmjs.org/@inquirer/core/-/core-11.2.1.tgz"
+integrity = "sha512-Qd6GJT1yVyrZZCfN8W2qKF5ApmqryXRhRKCuip8h01x2w/esJQ2XIYc6f9abMIHgKQdBfFTSOdbHRLAhuM09UA=="
+license = "MIT"
+
+[npm.".".packages."node_modules/@inquirer/editor/node_modules/@inquirer/core".dependencies]
+"@inquirer/ansi" = "^2.0.7"
+"@inquirer/figures" = "^2.0.7"
+"@inquirer/type" = "^4.0.7"
+cli-width = "^4.1.0"
+fast-wrap-ansi = "^0.2.0"
+mute-stream = "^3.0.0"
+signal-exit = "^4.1.0"
+
+[npm.".".packages."node_modules/@inquirer/editor/node_modules/@inquirer/core".engines]
+node = ">=23.5.0 || ^22.13.0 || ^20.17.0"
+
+[npm.".".packages."node_modules/@inquirer/editor/node_modules/@inquirer/core".peerDependencies]
+"@types/node" = ">=18"
+
+[npm.".".packages."node_modules/@inquirer/editor/node_modules/@inquirer/core".peerDependenciesMeta."@types/node"]
+optional = true
+
+[npm.".".packages."node_modules/@inquirer/expand"]
+version = "5.1.1"
+resolved = "https://registry.npmjs.org/@inquirer/expand/-/expand-5.1.1.tgz"
+integrity = "sha512-YmQpenjbFSHAK3sOd44puHh3V1KXXr+JiNpUztoSQ4drLh2rTVzTap/YtlAVu/5xavifIlBfNEzJ/neZJ1a/1g=="
+license = "MIT"
+
+[npm.".".packages."node_modules/@inquirer/expand".dependencies]
+"@inquirer/core" = "^11.2.1"
+"@inquirer/type" = "^4.0.7"
+
+[npm.".".packages."node_modules/@inquirer/expand".engines]
+node = ">=23.5.0 || ^22.13.0 || ^20.17.0"
+
+[npm.".".packages."node_modules/@inquirer/expand".peerDependencies]
+"@types/node" = ">=18"
+
+[npm.".".packages."node_modules/@inquirer/expand".peerDependenciesMeta."@types/node"]
+optional = true
+
+[npm.".".packages."node_modules/@inquirer/expand/node_modules/@inquirer/core"]
+version = "11.2.1"
+resolved = "https://registry.npmjs.org/@inquirer/core/-/core-11.2.1.tgz"
+integrity = "sha512-Qd6GJT1yVyrZZCfN8W2qKF5ApmqryXRhRKCuip8h01x2w/esJQ2XIYc6f9abMIHgKQdBfFTSOdbHRLAhuM09UA=="
+license = "MIT"
+
+[npm.".".packages."node_modules/@inquirer/expand/node_modules/@inquirer/core".dependencies]
+"@inquirer/ansi" = "^2.0.7"
+"@inquirer/figures" = "^2.0.7"
+"@inquirer/type" = "^4.0.7"
+cli-width = "^4.1.0"
+fast-wrap-ansi = "^0.2.0"
+mute-stream = "^3.0.0"
+signal-exit = "^4.1.0"
+
+[npm.".".packages."node_modules/@inquirer/expand/node_modules/@inquirer/core".engines]
+node = ">=23.5.0 || ^22.13.0 || ^20.17.0"
+
+[npm.".".packages."node_modules/@inquirer/expand/node_modules/@inquirer/core".peerDependencies]
+"@types/node" = ">=18"
+
+[npm.".".packages."node_modules/@inquirer/expand/node_modules/@inquirer/core".peerDependenciesMeta."@types/node"]
+optional = true
+
+[npm.".".packages."node_modules/@inquirer/external-editor"]
+version = "3.0.3"
+resolved = "https://registry.npmjs.org/@inquirer/external-editor/-/external-editor-3.0.3.tgz"
+integrity = "sha512-6thf5I8q7lZwzGLAxPaaGEREEkZ3nyePPDQ1oyobblxmEE8mqTLguScP7pDjUTAibiyb4hfXl+qjUEJ+di/aNA=="
+license = "MIT"
+
+[npm.".".packages."node_modules/@inquirer/external-editor".dependencies]
+chardet = "^2.1.1"
+iconv-lite = "^0.7.2"
+
+[npm.".".packages."node_modules/@inquirer/external-editor".engines]
+node = ">=23.5.0 || ^22.13.0 || ^20.17.0"
+
+[npm.".".packages."node_modules/@inquirer/external-editor".peerDependencies]
+"@types/node" = ">=18"
+
+[npm.".".packages."node_modules/@inquirer/external-editor".peerDependenciesMeta."@types/node"]
+optional = true
+
+[npm.".".packages."node_modules/@inquirer/figures"]
+version = "2.0.10"
+resolved = "https://registry.npmjs.org/@inquirer/figures/-/figures-2.0.10.tgz"
+integrity = "sha512-51elrUJV3jZpvD0ygz8+U10Kc6+Lzqln+/tYmnbhy6jo5oXpE6hMCcv+OTBC0enwJXsb3JIuT3VtEinRNCSK2A=="
+license = "MIT"
+
+[npm.".".packages."node_modules/@inquirer/figures".engines]
+node = ">=23.5.0 || ^22.13.0 || ^20.17.0"
+
+[npm.".".packages."node_modules/@inquirer/input"]
+version = "5.1.2"
+resolved = "https://registry.npmjs.org/@inquirer/input/-/input-5.1.2.tgz"
+integrity = "sha512-9K/DDBSQpOyZSkt6sOVP9Vo0TR7atX2kuILsUu0x3wVcVbe97lJwIJKMLdMw25tDYuXl/qp6erT0Xs1rfmcfZg=="
+license = "MIT"
+
+[npm.".".packages."node_modules/@inquirer/input".dependencies]
+"@inquirer/core" = "^11.2.1"
+"@inquirer/type" = "^4.0.7"
+
+[npm.".".packages."node_modules/@inquirer/input".engines]
+node = ">=23.5.0 || ^22.13.0 || ^20.17.0"
+
+[npm.".".packages."node_modules/@inquirer/input".peerDependencies]
+"@types/node" = ">=18"
+
+[npm.".".packages."node_modules/@inquirer/input".peerDependenciesMeta."@types/node"]
+optional = true
+
+[npm.".".packages."node_modules/@inquirer/input/node_modules/@inquirer/core"]
+version = "11.2.1"
+resolved = "https://registry.npmjs.org/@inquirer/core/-/core-11.2.1.tgz"
+integrity = "sha512-Qd6GJT1yVyrZZCfN8W2qKF5ApmqryXRhRKCuip8h01x2w/esJQ2XIYc6f9abMIHgKQdBfFTSOdbHRLAhuM09UA=="
+license = "MIT"
+
+[npm.".".packages."node_modules/@inquirer/input/node_modules/@inquirer/core".dependencies]
+"@inquirer/ansi" = "^2.0.7"
+"@inquirer/figures" = "^2.0.7"
+"@inquirer/type" = "^4.0.7"
+cli-width = "^4.1.0"
+fast-wrap-ansi = "^0.2.0"
+mute-stream = "^3.0.0"
+signal-exit = "^4.1.0"
+
+[npm.".".packages."node_modules/@inquirer/input/node_modules/@inquirer/core".engines]
+node = ">=23.5.0 || ^22.13.0 || ^20.17.0"
+
+[npm.".".packages."node_modules/@inquirer/input/node_modules/@inquirer/core".peerDependencies]
+"@types/node" = ">=18"
+
+[npm.".".packages."node_modules/@inquirer/input/node_modules/@inquirer/core".peerDependenciesMeta."@types/node"]
+optional = true
+
+[npm.".".packages."node_modules/@inquirer/number"]
+version = "4.1.1"
+resolved = "https://registry.npmjs.org/@inquirer/number/-/number-4.1.1.tgz"
+integrity = "sha512-XF4IXAbPnGPgw0wsbC/i2tPcyfdZgDpUlhsqU0SfT4IRIGWha6Xm9VRgN5yYxJq+jnyXlfXI/nQ3ulfk0iEICA=="
+license = "MIT"
+
+[npm.".".packages."node_modules/@inquirer/number".dependencies]
+"@inquirer/core" = "^11.2.1"
+"@inquirer/type" = "^4.0.7"
+
+[npm.".".packages."node_modules/@inquirer/number".engines]
+node = ">=23.5.0 || ^22.13.0 || ^20.17.0"
+
+[npm.".".packages."node_modules/@inquirer/number".peerDependencies]
+"@types/node" = ">=18"
+
+[npm.".".packages."node_modules/@inquirer/number".peerDependenciesMeta."@types/node"]
+optional = true
+
+[npm.".".packages."node_modules/@inquirer/number/node_modules/@inquirer/core"]
+version = "11.2.1"
+resolved = "https://registry.npmjs.org/@inquirer/core/-/core-11.2.1.tgz"
+integrity = "sha512-Qd6GJT1yVyrZZCfN8W2qKF5ApmqryXRhRKCuip8h01x2w/esJQ2XIYc6f9abMIHgKQdBfFTSOdbHRLAhuM09UA=="
+license = "MIT"
+
+[npm.".".packages."node_modules/@inquirer/number/node_modules/@inquirer/core".dependencies]
+"@inquirer/ansi" = "^2.0.7"
+"@inquirer/figures" = "^2.0.7"
+"@inquirer/type" = "^4.0.7"
+cli-width = "^4.1.0"
+fast-wrap-ansi = "^0.2.0"
+mute-stream = "^3.0.0"
+signal-exit = "^4.1.0"
+
+[npm.".".packages."node_modules/@inquirer/number/node_modules/@inquirer/core".engines]
+node = ">=23.5.0 || ^22.13.0 || ^20.17.0"
+
+[npm.".".packages."node_modules/@inquirer/number/node_modules/@inquirer/core".peerDependencies]
+"@types/node" = ">=18"
+
+[npm.".".packages."node_modules/@inquirer/number/node_modules/@inquirer/core".peerDependenciesMeta."@types/node"]
+optional = true
+
+[npm.".".packages."node_modules/@inquirer/password"]
+version = "5.1.1"
+resolved = "https://registry.npmjs.org/@inquirer/password/-/password-5.1.1.tgz"
+integrity = "sha512-3XBfF7DAsp5qeDsvN5Rd1HmbNokVvEQoUM0QLrRcybC9nX96w3Pbmu7qUsb3IT3J3jBvs2+mTXaKHOUsgHMLzg=="
+license = "MIT"
+
+[npm.".".packages."node_modules/@inquirer/password".dependencies]
+"@inquirer/ansi" = "^2.0.7"
+"@inquirer/core" = "^11.2.1"
+"@inquirer/type" = "^4.0.7"
+
+[npm.".".packages."node_modules/@inquirer/password".engines]
+node = ">=23.5.0 || ^22.13.0 || ^20.17.0"
+
+[npm.".".packages."node_modules/@inquirer/password".peerDependencies]
+"@types/node" = ">=18"
+
+[npm.".".packages."node_modules/@inquirer/password".peerDependenciesMeta."@types/node"]
+optional = true
+
+[npm.".".packages."node_modules/@inquirer/password/node_modules/@inquirer/core"]
+version = "11.2.1"
+resolved = "https://registry.npmjs.org/@inquirer/core/-/core-11.2.1.tgz"
+integrity = "sha512-Qd6GJT1yVyrZZCfN8W2qKF5ApmqryXRhRKCuip8h01x2w/esJQ2XIYc6f9abMIHgKQdBfFTSOdbHRLAhuM09UA=="
+license = "MIT"
+
+[npm.".".packages."node_modules/@inquirer/password/node_modules/@inquirer/core".dependencies]
+"@inquirer/ansi" = "^2.0.7"
+"@inquirer/figures" = "^2.0.7"
+"@inquirer/type" = "^4.0.7"
+cli-width = "^4.1.0"
+fast-wrap-ansi = "^0.2.0"
+mute-stream = "^3.0.0"
+signal-exit = "^4.1.0"
+
+[npm.".".packages."node_modules/@inquirer/password/node_modules/@inquirer/core".engines]
+node = ">=23.5.0 || ^22.13.0 || ^20.17.0"
+
+[npm.".".packages."node_modules/@inquirer/password/node_modules/@inquirer/core".peerDependencies]
+"@types/node" = ">=18"
+
+[npm.".".packages."node_modules/@inquirer/password/node_modules/@inquirer/core".peerDependenciesMeta."@types/node"]
+optional = true
+
+[npm.".".packages."node_modules/@inquirer/prompts"]
+version = "8.5.2"
+resolved = "https://registry.npmjs.org/@inquirer/prompts/-/prompts-8.5.2.tgz"
+integrity = "sha512-IYR/3C/paEVVQYQvdDlFZVjRCJVYHHON0XXMH91KO9GSxs0TdKYWlUdvfQl2EfAHDxUaN3IBffkE/BDTh5nJ6g=="
+license = "MIT"
+
+[npm.".".packages."node_modules/@inquirer/prompts".dependencies]
+"@inquirer/checkbox" = "^5.2.1"
+"@inquirer/confirm" = "^6.1.1"
+"@inquirer/editor" = "^5.2.2"
+"@inquirer/expand" = "^5.1.1"
+"@inquirer/input" = "^5.1.2"
+"@inquirer/number" = "^4.1.1"
+"@inquirer/password" = "^5.1.1"
+"@inquirer/rawlist" = "^5.3.1"
+"@inquirer/search" = "^4.2.1"
+"@inquirer/select" = "^5.2.1"
+
+[npm.".".packages."node_modules/@inquirer/prompts".engines]
+node = ">=23.5.0 || ^22.13.0 || ^20.17.0"
+
+[npm.".".packages."node_modules/@inquirer/prompts".peerDependencies]
+"@types/node" = ">=18"
+
+[npm.".".packages."node_modules/@inquirer/prompts".peerDependenciesMeta."@types/node"]
+optional = true
+
+[npm.".".packages."node_modules/@inquirer/rawlist"]
+version = "5.3.1"
+resolved = "https://registry.npmjs.org/@inquirer/rawlist/-/rawlist-5.3.1.tgz"
+integrity = "sha512-QqdTqQddL3qPX/PPrjobpsO25NZ4dWXgTLenrR445L2ptLEYE6Z+PD5c5CNDJNx4ugRgELAIpSIJxZaO2jJ2Og=="
+license = "MIT"
+
+[npm.".".packages."node_modules/@inquirer/rawlist".dependencies]
+"@inquirer/core" = "^11.2.1"
+"@inquirer/type" = "^4.0.7"
+
+[npm.".".packages."node_modules/@inquirer/rawlist".engines]
+node = ">=23.5.0 || ^22.13.0 || ^20.17.0"
+
+[npm.".".packages."node_modules/@inquirer/rawlist".peerDependencies]
+"@types/node" = ">=18"
+
+[npm.".".packages."node_modules/@inquirer/rawlist".peerDependenciesMeta."@types/node"]
+optional = true
+
+[npm.".".packages."node_modules/@inquirer/rawlist/node_modules/@inquirer/core"]
+version = "11.2.1"
+resolved = "https://registry.npmjs.org/@inquirer/core/-/core-11.2.1.tgz"
+integrity = "sha512-Qd6GJT1yVyrZZCfN8W2qKF5ApmqryXRhRKCuip8h01x2w/esJQ2XIYc6f9abMIHgKQdBfFTSOdbHRLAhuM09UA=="
+license = "MIT"
+
+[npm.".".packages."node_modules/@inquirer/rawlist/node_modules/@inquirer/core".dependencies]
+"@inquirer/ansi" = "^2.0.7"
+"@inquirer/figures" = "^2.0.7"
+"@inquirer/type" = "^4.0.7"
+cli-width = "^4.1.0"
+fast-wrap-ansi = "^0.2.0"
+mute-stream = "^3.0.0"
+signal-exit = "^4.1.0"
+
+[npm.".".packages."node_modules/@inquirer/rawlist/node_modules/@inquirer/core".engines]
+node = ">=23.5.0 || ^22.13.0 || ^20.17.0"
+
+[npm.".".packages."node_modules/@inquirer/rawlist/node_modules/@inquirer/core".peerDependencies]
+"@types/node" = ">=18"
+
+[npm.".".packages."node_modules/@inquirer/rawlist/node_modules/@inquirer/core".peerDependenciesMeta."@types/node"]
+optional = true
+
+[npm.".".packages."node_modules/@inquirer/search"]
+version = "4.2.1"
+resolved = "https://registry.npmjs.org/@inquirer/search/-/search-4.2.1.tgz"
+integrity = "sha512-xJj8QWKRSrfKoBIITLZK61dD3zwo0Rz11fgDImku30/Oe81zMdIdGgrLY2h6RkJ+KZ/GhNYIRMKnH/62qBTA5g=="
+license = "MIT"
+
+[npm.".".packages."node_modules/@inquirer/search".dependencies]
+"@inquirer/core" = "^11.2.1"
+"@inquirer/figures" = "^2.0.7"
+"@inquirer/type" = "^4.0.7"
+
+[npm.".".packages."node_modules/@inquirer/search".engines]
+node = ">=23.5.0 || ^22.13.0 || ^20.17.0"
+
+[npm.".".packages."node_modules/@inquirer/search".peerDependencies]
+"@types/node" = ">=18"
+
+[npm.".".packages."node_modules/@inquirer/search".peerDependenciesMeta."@types/node"]
+optional = true
+
+[npm.".".packages."node_modules/@inquirer/search/node_modules/@inquirer/core"]
+version = "11.2.1"
+resolved = "https://registry.npmjs.org/@inquirer/core/-/core-11.2.1.tgz"
+integrity = "sha512-Qd6GJT1yVyrZZCfN8W2qKF5ApmqryXRhRKCuip8h01x2w/esJQ2XIYc6f9abMIHgKQdBfFTSOdbHRLAhuM09UA=="
+license = "MIT"
+
+[npm.".".packages."node_modules/@inquirer/search/node_modules/@inquirer/core".dependencies]
+"@inquirer/ansi" = "^2.0.7"
+"@inquirer/figures" = "^2.0.7"
+"@inquirer/type" = "^4.0.7"
+cli-width = "^4.1.0"
+fast-wrap-ansi = "^0.2.0"
+mute-stream = "^3.0.0"
+signal-exit = "^4.1.0"
+
+[npm.".".packages."node_modules/@inquirer/search/node_modules/@inquirer/core".engines]
+node = ">=23.5.0 || ^22.13.0 || ^20.17.0"
+
+[npm.".".packages."node_modules/@inquirer/search/node_modules/@inquirer/core".peerDependencies]
+"@types/node" = ">=18"
+
+[npm.".".packages."node_modules/@inquirer/search/node_modules/@inquirer/core".peerDependenciesMeta."@types/node"]
+optional = true
+
+[npm.".".packages."node_modules/@inquirer/select"]
+version = "5.2.1"
+resolved = "https://registry.npmjs.org/@inquirer/select/-/select-5.2.1.tgz"
+integrity = "sha512-FlDndEUww8m7BfukO2nJa25vhD+H5jxxCv4oGioKqzyWz3nPHhhw4LKdYRSlXuAx7DsdWia7iyaBPKKS95Evfw=="
+license = "MIT"
+
+[npm.".".packages."node_modules/@inquirer/select".dependencies]
+"@inquirer/ansi" = "^2.0.7"
+"@inquirer/core" = "^11.2.1"
+"@inquirer/figures" = "^2.0.7"
+"@inquirer/type" = "^4.0.7"
+
+[npm.".".packages."node_modules/@inquirer/select".engines]
+node = ">=23.5.0 || ^22.13.0 || ^20.17.0"
+
+[npm.".".packages."node_modules/@inquirer/select".peerDependencies]
+"@types/node" = ">=18"
+
+[npm.".".packages."node_modules/@inquirer/select".peerDependenciesMeta."@types/node"]
+optional = true
+
+[npm.".".packages."node_modules/@inquirer/select/node_modules/@inquirer/core"]
+version = "11.2.1"
+resolved = "https://registry.npmjs.org/@inquirer/core/-/core-11.2.1.tgz"
+integrity = "sha512-Qd6GJT1yVyrZZCfN8W2qKF5ApmqryXRhRKCuip8h01x2w/esJQ2XIYc6f9abMIHgKQdBfFTSOdbHRLAhuM09UA=="
+license = "MIT"
+
+[npm.".".packages."node_modules/@inquirer/select/node_modules/@inquirer/core".dependencies]
+"@inquirer/ansi" = "^2.0.7"
+"@inquirer/figures" = "^2.0.7"
+"@inquirer/type" = "^4.0.7"
+cli-width = "^4.1.0"
+fast-wrap-ansi = "^0.2.0"
+mute-stream = "^3.0.0"
+signal-exit = "^4.1.0"
+
+[npm.".".packages."node_modules/@inquirer/select/node_modules/@inquirer/core".engines]
+node = ">=23.5.0 || ^22.13.0 || ^20.17.0"
+
+[npm.".".packages."node_modules/@inquirer/select/node_modules/@inquirer/core".peerDependencies]
+"@types/node" = ">=18"
+
+[npm.".".packages."node_modules/@inquirer/select/node_modules/@inquirer/core".peerDependenciesMeta."@types/node"]
+optional = true
+
+[npm.".".packages."node_modules/@inquirer/type"]
+version = "4.2.1"
+resolved = "https://registry.npmjs.org/@inquirer/type/-/type-4.2.1.tgz"
+integrity = "sha512-lDkPsnv5M5CcYB2T1qTc3dobNTPkVr4DU3Ic2Q6SW8/qVRHgvzdRdmVZ6YqG9Ag1aJTeMsLU0s0WPRh3CZWDQQ=="
+license = "MIT"
+
+[npm.".".packages."node_modules/@inquirer/type".engines]
+node = ">=23.5.0 || ^22.13.0 || ^20.17.0"
+
+[npm.".".packages."node_modules/@inquirer/type".peerDependencies]
+"@types/node" = ">=18"
+
+[npm.".".packages."node_modules/@inquirer/type".peerDependenciesMeta."@types/node"]
+optional = true
+
+[npm.".".packages."node_modules/@isaacs/fs-minipass"]
+version = "4.0.1"
+resolved = "https://registry.npmjs.org/@isaacs/fs-minipass/-/fs-minipass-4.0.1.tgz"
+integrity = "sha512-wgm9Ehl2jpeqP3zw/7mo3kRHFp5MEDhqAdwy1fTGkHAwnkGOVsgpvQhL8B5n1qlb01jV3n/bI0ZfZp5lWA1k4w=="
+license = "ISC"
+
+[npm.".".packages."node_modules/@isaacs/fs-minipass".dependencies]
+minipass = "^7.0.4"
+
+[npm.".".packages."node_modules/@isaacs/fs-minipass".engines]
+node = ">=18.0.0"
+
+[npm.".".packages."node_modules/@jridgewell/resolve-uri"]
+version = "3.1.3"
+resolved = "https://registry.npmjs.org/@jridgewell/resolve-uri/-/resolve-uri-3.1.3.tgz"
+integrity = "sha512-lhTtjtoEArWBjismtfS761S9Hlyn+nIZqOZVYoZ1Xn82PMNMVnk+jj/NhC4fAXGTs7ydONcJiR5vyQBTMDu27g=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@jridgewell/resolve-uri".engines]
+node = ">=6.0.0"
+
+[npm.".".packages."node_modules/@jridgewell/sourcemap-codec"]
+version = "1.6.0"
+resolved = "https://registry.npmjs.org/@jridgewell/sourcemap-codec/-/sourcemap-codec-1.6.0.tgz"
+integrity = "sha512-T7jf+5zgsZHwNJ4lvQ7/aezbyk0nNX+zJVWpmHA7VYsEx7a7qr5Rg5IbtJFqkgze5Y2sruq1RUY8Q837Od7iFw=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@jridgewell/trace-mapping"]
+version = "0.3.31"
+resolved = "https://registry.npmjs.org/@jridgewell/trace-mapping/-/trace-mapping-0.3.31.tgz"
+integrity = "sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@jridgewell/trace-mapping".dependencies]
+"@jridgewell/resolve-uri" = "^3.1.0"
+"@jridgewell/sourcemap-codec" = "^1.4.14"
+
+[npm.".".packages."node_modules/@keyv/bigmap"]
+version = "1.3.1"
+resolved = "https://registry.npmjs.org/@keyv/bigmap/-/bigmap-1.3.1.tgz"
+integrity = "sha512-WbzE9sdmQtKy8vrNPa9BRnwZh5UF4s1KTmSK0KUVLo3eff5BlQNNWDnFOouNpKfPKDnms9xynJjsMYjMaT/aFQ=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@keyv/bigmap".dependencies]
+hashery = "^1.4.0"
+hookified = "^1.15.0"
+
+[npm.".".packages."node_modules/@keyv/bigmap".engines]
+node = ">= 18"
+
+[npm.".".packages."node_modules/@keyv/bigmap".peerDependencies]
+keyv = "^5.6.0"
+
+[npm.".".packages."node_modules/@keyv/serialize"]
+version = "1.1.1"
+resolved = "https://registry.npmjs.org/@keyv/serialize/-/serialize-1.1.1.tgz"
+integrity = "sha512-dXn3FZhPv0US+7dtJsIi2R+c7qWYiReoEh5zUntWCf4oSpMNib8FDhSoed6m3QyZdx5hK7iLFkYk3rNxwt8vTA=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@manypkg/find-root"]
+version = "3.1.0"
+resolved = "https://registry.npmjs.org/@manypkg/find-root/-/find-root-3.1.0.tgz"
+integrity = "sha512-BcSqCyKhBVZ5YkSzOiheMCV41kqAFptW6xGqYSTjkVTl9XQpr+pqHhwgGCOHQtjDCv7Is6EFyA14Sm5GVbVABA=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@manypkg/find-root".dependencies]
+"@manypkg/tools" = "^2.1.0"
+
+[npm.".".packages."node_modules/@manypkg/find-root".engines]
+node = ">=20.0.0"
+
+[npm.".".packages."node_modules/@manypkg/get-packages"]
+version = "3.1.0"
+resolved = "https://registry.npmjs.org/@manypkg/get-packages/-/get-packages-3.1.0.tgz"
+integrity = "sha512-0TbBVyvPrP7xGYBI/cP8UP+yl/z+HtbTttAD7FMAJgn/kXOTwh5/60TsqP9ZYY710forNfyV0N8P/IE/ujGZJg=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@manypkg/get-packages".dependencies]
+"@manypkg/find-root" = "^3.1.0"
+"@manypkg/tools" = "^2.1.0"
+
+[npm.".".packages."node_modules/@manypkg/get-packages".engines]
+node = ">=20.0.0"
+
+[npm.".".packages."node_modules/@manypkg/tools"]
+version = "2.1.2"
+resolved = "https://registry.npmjs.org/@manypkg/tools/-/tools-2.1.2.tgz"
+integrity = "sha512-6QEf6yqFbETdwGITKq57aYoPfX/3K8XFNwsAlx0C1M7o8cb79sv1M3w+tWuWvIcSbNqrLF7OD7YpZMVVz335hQ=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@manypkg/tools".dependencies]
+jju = "^1.4.0"
+tinyglobby = "^0.2.13"
+yaml = "^2.9.0"
+
+[npm.".".packages."node_modules/@manypkg/tools".engines]
+node = ">=20.0.0"
+
+[npm.".".packages."node_modules/@napi-rs/wasm-runtime"]
+version = "1.2.6"
+resolved = "https://registry.npmjs.org/@napi-rs/wasm-runtime/-/wasm-runtime-1.2.6.tgz"
+integrity = "sha512-mRyDmEw9/fCDXCGfL1sbgIw/GUK0PVxRW4YwgPN61F3LQ+fSyoBFarJVzgGyhF6kRzEQZ0FejDqm4WLXSeqQmw=="
+dev = true
+license = "MIT"
+optional = true
+
+[npm.".".packages."node_modules/@napi-rs/wasm-runtime".dependencies]
+"@tybys/wasm-util" = "^0.10.3"
+
+[npm.".".packages."node_modules/@napi-rs/wasm-runtime".engines]
+node = "^20.19.0 || ^22.13.0 || >=23.5.0"
+
+[npm.".".packages."node_modules/@napi-rs/wasm-runtime".funding]
+type = "github"
+url = "https://github.com/sponsors/Brooooooklyn"
+
+[npm.".".packages."node_modules/@napi-rs/wasm-runtime".peerDependencies]
+"@emnapi/core" = "^1.7.1 || 2.0.0-beta.2"
+"@emnapi/runtime" = "^1.7.1 || 2.0.0-beta.2"
+
+[npm.".".packages."node_modules/@oxc-project/types"]
+version = "0.156.0"
+resolved = "https://registry.npmjs.org/@oxc-project/types/-/types-0.156.0.tgz"
+integrity = "sha512-1Duyg48TdJNdyhEB8Xn1L36bT9Pv6GUtlKjHxOys8xkaF/rQq3XJE+bAurSK/AgIz5mGFsb77cn9Pb20+WCScw=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@oxc-project/types".funding]
+url = "https://github.com/sponsors/oxc-project"
+
+[npm.".".packages."node_modules/@pnpm/deps.graph-sequencer"]
+version = "1100.0.1"
+resolved = "https://registry.npmjs.org/@pnpm/deps.graph-sequencer/-/deps.graph-sequencer-1100.0.1.tgz"
+integrity = "sha512-pOr5+q1fLYKwFN3LAJuGZEnfXDcQ73zqgDHMtGy+K+uIoUqyY+6MeDCWFwfu+4EFuq76I5EPFofoNAI+Bmmq4A=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@pnpm/deps.graph-sequencer".engines]
+node = ">=22.13"
+
+[npm.".".packages."node_modules/@pnpm/deps.graph-sequencer".funding]
+url = "https://opencollective.com/pnpm"
+
+[npm.".".packages."node_modules/@polka/url"]
+version = "1.0.0-next.29"
+resolved = "https://registry.npmjs.org/@polka/url/-/url-1.0.0-next.29.tgz"
+integrity = "sha512-wwQAWhWSuHaag8c4q/KN/vCoeOJYshAIvMQwD4GpSb3OiZklFfvAgmj0VCBBImRpuF/aFgIRzllXlVX93Jevww=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@rolldown/binding-android-arm-eabi"]
+version = "1.2.19"
+resolved = "https://registry.npmjs.org/@rolldown/binding-android-arm-eabi/-/binding-android-arm-eabi-1.2.19.tgz"
+integrity = "sha512-e+Ebe0WT+9tbXmNKPIiC8YrWAHYwug3m6i4p3rZGGulfZri1jtI4HslT+OZnFf/OIHowWF71DTlHwXBP2SiA7A=="
+cpu = ["arm"]
+dev = true
+license = "MIT"
+optional = true
+os = ["android"]
+
+[npm.".".packages."node_modules/@rolldown/binding-android-arm-eabi".engines]
+node = "^20.19.0 || >=22.12.0"
+
+[npm.".".packages."node_modules/@rolldown/binding-android-arm64"]
+version = "1.2.19"
+resolved = "https://registry.npmjs.org/@rolldown/binding-android-arm64/-/binding-android-arm64-1.2.19.tgz"
+integrity = "sha512-hOombrTJ+szt2ciEzS7oCA78lMPBgF5UMQWCJIyNfnrI7GLl8HYoFqCnpL2gcPOaXMqryGCU5ExdQKyDDcC+yA=="
+cpu = ["arm64"]
+dev = true
+license = "MIT"
+optional = true
+os = ["android"]
+
+[npm.".".packages."node_modules/@rolldown/binding-android-arm64".engines]
+node = "^20.19.0 || >=22.12.0"
+
+[npm.".".packages."node_modules/@rolldown/binding-darwin-arm64"]
+version = "1.2.19"
+resolved = "https://registry.npmjs.org/@rolldown/binding-darwin-arm64/-/binding-darwin-arm64-1.2.19.tgz"
+integrity = "sha512-XoMA2pwCKGTQzUjPgtRwkedH4WmXhdIPKT6l6oOxd1PUbNodGI6DcBekgN7EC//+x3pfBYX/qL1gNmZAqivw5g=="
+cpu = ["arm64"]
+dev = true
+license = "MIT"
+optional = true
+os = ["darwin"]
+
+[npm.".".packages."node_modules/@rolldown/binding-darwin-arm64".engines]
+node = "^20.19.0 || >=22.12.0"
+
+[npm.".".packages."node_modules/@rolldown/binding-darwin-x64"]
+version = "1.2.19"
+resolved = "https://registry.npmjs.org/@rolldown/binding-darwin-x64/-/binding-darwin-x64-1.2.19.tgz"
+integrity = "sha512-zo8EsSSwMZCY/e+fRnGaX02YGgvJD0yvhNi/9hpGPA2MJ9ZF8dPCw75UGfpI6OpQ/myR/dIYmogRvqiZD0TrXg=="
+cpu = ["x64"]
+dev = true
+license = "MIT"
+optional = true
+os = ["darwin"]
+
+[npm.".".packages."node_modules/@rolldown/binding-darwin-x64".engines]
+node = "^20.19.0 || >=22.12.0"
+
+[npm.".".packages."node_modules/@rolldown/binding-freebsd-x64"]
+version = "1.2.19"
+resolved = "https://registry.npmjs.org/@rolldown/binding-freebsd-x64/-/binding-freebsd-x64-1.2.19.tgz"
+integrity = "sha512-O8ISAOfI1nj7AuBPd30FSF47z7f7lzlk5poQVGgiikvQuGEBFYvW8ki+UEnT+YJPnNGjQzn304klt4O9FUE7mA=="
+cpu = ["x64"]
+dev = true
+license = "MIT"
+optional = true
+os = ["freebsd"]
+
+[npm.".".packages."node_modules/@rolldown/binding-freebsd-x64".engines]
+node = "^20.19.0 || >=22.12.0"
+
+[npm.".".packages."node_modules/@rolldown/binding-linux-arm-gnueabihf"]
+version = "1.2.19"
+resolved = "https://registry.npmjs.org/@rolldown/binding-linux-arm-gnueabihf/-/binding-linux-arm-gnueabihf-1.2.19.tgz"
+integrity = "sha512-/lYCba5NO0yq4S0jGMH8QTBtkvQxoXjoQWzF5BcWp9MjB9jxVRD1GQDNofkVjcOj30DWyhLIN/4Oe60JKzaONw=="
+cpu = ["arm"]
+dev = true
+license = "MIT"
+optional = true
+os = ["linux"]
+
+[npm.".".packages."node_modules/@rolldown/binding-linux-arm-gnueabihf".engines]
+node = "^20.19.0 || >=22.12.0"
+
+[npm.".".packages."node_modules/@rolldown/binding-linux-arm64-gnu"]
+version = "1.2.19"
+resolved = "https://registry.npmjs.org/@rolldown/binding-linux-arm64-gnu/-/binding-linux-arm64-gnu-1.2.19.tgz"
+integrity = "sha512-pm/apFMBnSbFb3O6nG5pHO1iqHhZrjGDFEjSm+ot9J17XXPvH9L90y5h+jgfHCE+Qdlsvy8qKEcU4VKxgjD+vA=="
+cpu = ["arm64"]
+dev = true
+libc = ["glibc"]
+license = "MIT"
+optional = true
+os = ["linux"]
+
+[npm.".".packages."node_modules/@rolldown/binding-linux-arm64-gnu".engines]
+node = "^20.19.0 || >=22.12.0"
+
+[npm.".".packages."node_modules/@rolldown/binding-linux-arm64-musl"]
+version = "1.2.19"
+resolved = "https://registry.npmjs.org/@rolldown/binding-linux-arm64-musl/-/binding-linux-arm64-musl-1.2.19.tgz"
+integrity = "sha512-K1SmQp3FFichn8oqrNIwvFoZ5wcvjC7goBzpaMNvLf9FZc+QB/QvLmnpJZgAAGHiD980tP8FZZnXk2K94rvlxg=="
+cpu = ["arm64"]
+dev = true
+libc = ["musl"]
+license = "MIT"
+optional = true
+os = ["linux"]
+
+[npm.".".packages."node_modules/@rolldown/binding-linux-arm64-musl".engines]
+node = "^20.19.0 || >=22.12.0"
+
+[npm.".".packages."node_modules/@rolldown/binding-linux-ppc64-gnu"]
+version = "1.2.19"
+resolved = "https://registry.npmjs.org/@rolldown/binding-linux-ppc64-gnu/-/binding-linux-ppc64-gnu-1.2.19.tgz"
+integrity = "sha512-I0xwD57jP/3A7+5UPZin2w8Y7XHEmEM5zqpYZOcQ45MlNW6tUJUziymV3yRr7rL4vwyfEcRsRksC4a7Kc08p5Q=="
+cpu = ["ppc64"]
+dev = true
+libc = ["glibc"]
+license = "MIT"
+optional = true
+os = ["linux"]
+
+[npm.".".packages."node_modules/@rolldown/binding-linux-ppc64-gnu".engines]
+node = "^20.19.0 || >=22.12.0"
+
+[npm.".".packages."node_modules/@rolldown/binding-linux-s390x-gnu"]
+version = "1.2.19"
+resolved = "https://registry.npmjs.org/@rolldown/binding-linux-s390x-gnu/-/binding-linux-s390x-gnu-1.2.19.tgz"
+integrity = "sha512-BrtEHT24SNXj9HiXqy+s/kXiSiQGt6EKCPUlRirAoIioVxKGnbXBUEkbZASAei7iZJB0/Ynm+0JP00Ipx7AnSw=="
+cpu = ["s390x"]
+dev = true
+libc = ["glibc"]
+license = "MIT"
+optional = true
+os = ["linux"]
+
+[npm.".".packages."node_modules/@rolldown/binding-linux-s390x-gnu".engines]
+node = "^20.19.0 || >=22.12.0"
+
+[npm.".".packages."node_modules/@rolldown/binding-linux-x64-gnu"]
+version = "1.2.19"
+resolved = "https://registry.npmjs.org/@rolldown/binding-linux-x64-gnu/-/binding-linux-x64-gnu-1.2.19.tgz"
+integrity = "sha512-rm75/9DkHKeU2WnA8w4X94WGYgLlDCFCfkQC+4bguVJmC/jvDRv2B+2wLOYhyE0fVuv7//Ckk39OoOufyCu76Q=="
+cpu = ["x64"]
+dev = true
+libc = ["glibc"]
+license = "MIT"
+optional = true
+os = ["linux"]
+
+[npm.".".packages."node_modules/@rolldown/binding-linux-x64-gnu".engines]
+node = "^20.19.0 || >=22.12.0"
+
+[npm.".".packages."node_modules/@rolldown/binding-linux-x64-musl"]
+version = "1.2.19"
+resolved = "https://registry.npmjs.org/@rolldown/binding-linux-x64-musl/-/binding-linux-x64-musl-1.2.19.tgz"
+integrity = "sha512-irh/4+iYFM4GAzpluDErgjz89bj6NDtqqMAG/6O1LG38Ed3NpyebzCpcVNkFW8uhy+/3/BocUvnXDR33CXWe9A=="
+cpu = ["x64"]
+dev = true
+libc = ["musl"]
+license = "MIT"
+optional = true
+os = ["linux"]
+
+[npm.".".packages."node_modules/@rolldown/binding-linux-x64-musl".engines]
+node = "^20.19.0 || >=22.12.0"
+
+[npm.".".packages."node_modules/@rolldown/binding-openharmony-arm64"]
+version = "1.2.19"
+resolved = "https://registry.npmjs.org/@rolldown/binding-openharmony-arm64/-/binding-openharmony-arm64-1.2.19.tgz"
+integrity = "sha512-+KWTWNoPt+CfSq94CiceWu3yPE+QzkaG+phPyz9G60tmZLwfQkcA4AeksafzvJAw4pvg1mcd5a1TkUqVv0s4JA=="
+cpu = ["arm64"]
+dev = true
+license = "MIT"
+optional = true
+os = ["openharmony"]
+
+[npm.".".packages."node_modules/@rolldown/binding-openharmony-arm64".engines]
+node = "^20.19.0 || >=22.12.0"
+
+[npm.".".packages."node_modules/@rolldown/binding-wasm32-wasi"]
+version = "1.2.19"
+resolved = "https://registry.npmjs.org/@rolldown/binding-wasm32-wasi/-/binding-wasm32-wasi-1.2.19.tgz"
+integrity = "sha512-7EH+skOsl5qpWnK0vzamgJFhOv1cwxQpsxm8tI883K9fur5c27p8q87fzEO6BbBPabA2/+s/zR63/pLc137iOg=="
+cpu = ["wasm32"]
+dev = true
+license = "MIT"
+optional = true
+
+[npm.".".packages."node_modules/@rolldown/binding-wasm32-wasi".dependencies]
+"@emnapi/core" = "2.0.0-beta.2"
+"@emnapi/runtime" = "2.0.0-beta.2"
+"@napi-rs/wasm-runtime" = "1.2.6"
+
+[npm.".".packages."node_modules/@rolldown/binding-wasm32-wasi".engines]
+node = "^20.19.0 || ^22.13.0 || >=23.5.0"
+
+[npm.".".packages."node_modules/@rolldown/binding-win32-arm64-msvc"]
+version = "1.2.19"
+resolved = "https://registry.npmjs.org/@rolldown/binding-win32-arm64-msvc/-/binding-win32-arm64-msvc-1.2.19.tgz"
+integrity = "sha512-3Q1Yg1Q7tEvBWoZf5rFvG/GKZQPgwfru+p4wBajDfJFBs0SHCpL++dfTjW9gyAKd1T7ZpIYvdaUax7Pa/IhFVQ=="
+cpu = ["arm64"]
+dev = true
+license = "MIT"
+optional = true
+os = ["win32"]
+
+[npm.".".packages."node_modules/@rolldown/binding-win32-arm64-msvc".engines]
+node = "^20.19.0 || >=22.12.0"
+
+[npm.".".packages."node_modules/@rolldown/binding-win32-x64-msvc"]
+version = "1.2.19"
+resolved = "https://registry.npmjs.org/@rolldown/binding-win32-x64-msvc/-/binding-win32-x64-msvc-1.2.19.tgz"
+integrity = "sha512-y/sqRRc6d7hECzOFc5n3LSeqctmIp9mMjY1Kq4s14uLPd/LZ4z7i1zrW6fMtp2mPeuQIC4e6ULMcwQzMomqQag=="
+cpu = ["x64"]
+dev = true
+license = "MIT"
+optional = true
+os = ["win32"]
+
+[npm.".".packages."node_modules/@rolldown/binding-win32-x64-msvc".engines]
+node = "^20.19.0 || >=22.12.0"
+
+[npm.".".packages."node_modules/@rolldown/pluginutils"]
+version = "1.1.0"
+resolved = "https://registry.npmjs.org/@rolldown/pluginutils/-/pluginutils-1.1.0.tgz"
+integrity = "sha512-K+NU2HDCEem4sClgHH4ZZXwdJeNFkJo+hRk479DIwdIviAPN2hFJH1KHHwg8CxHQXvi0M5XY4deTXINfIiSG6w=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@tybys/wasm-util"]
+version = "0.10.4"
+resolved = "https://registry.npmjs.org/@tybys/wasm-util/-/wasm-util-0.10.4.tgz"
+integrity = "sha512-W3c4gRigFS0T/Ma4qIYF3GDAc5AQdHb1yL5znJT1Zv1YaD9Kitx656wBjvr19qbiosmZT8lWDM5BEMynUqX65A=="
+dev = true
+license = "MIT"
+optional = true
+
+[npm.".".packages."node_modules/@tybys/wasm-util".dependencies]
+tslib = "^2.4.0"
+
+[npm.".".packages."node_modules/@types/chai"]
+version = "5.2.3"
+resolved = "https://registry.npmjs.org/@types/chai/-/chai-5.2.3.tgz"
+integrity = "sha512-Mw558oeA9fFbv65/y4mHtXDs9bPnFMZAL/jxdPFUpOHHIXX91mcgEHbS5Lahr+pwZFR8A7GQleRWeI6cGFC2UA=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@types/chai".dependencies]
+"@types/deep-eql" = "*"
+assertion-error = "^2.0.1"
+
+[npm.".".packages."node_modules/@types/deep-eql"]
+version = "4.0.2"
+resolved = "https://registry.npmjs.org/@types/deep-eql/-/deep-eql-4.0.2.tgz"
+integrity = "sha512-c9h9dVVMigMPc4bwTvC5dxqtqJZwQPePsWjPlpSOnojbor6pGqdk541lfA7AqFQr5pB1BRdq0juY9db81BwyFw=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@types/esrecurse"]
+version = "4.3.1"
+resolved = "https://registry.npmjs.org/@types/esrecurse/-/esrecurse-4.3.1.tgz"
+integrity = "sha512-xJBAbDifo5hpffDBuHl0Y8ywswbiAp/Wi7Y/GtAgSlZyIABppyurxVueOPE8LUQOxdlgi6Zqce7uoEpqNTeiUw=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@types/estree"]
+version = "1.0.10"
+resolved = "https://registry.npmjs.org/@types/estree/-/estree-1.0.10.tgz"
+integrity = "sha512-lTyOMnOcmRBzdCv6/4zUZCrEhV0xrqQiUZBZtVcbmLHBXKLnN8q89v/wKRF/Q0HbwVsqbIG3o5HDoFl9sduM+g=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@types/json-schema"]
+version = "7.0.15"
+resolved = "https://registry.npmjs.org/@types/json-schema/-/json-schema-7.0.15.tgz"
+integrity = "sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@types/node"]
+version = "22.20.5"
+resolved = "https://registry.npmjs.org/@types/node/-/node-22.20.5.tgz"
+integrity = "sha512-U2+DNr+wSjpsTS/wZGYHq7GcwfuSmKiKvoPvK22zwTlRhU91yOniN4qRR5KhIjvif7ysw/dz/hKmfDH0Ris4aA=="
+devOptional = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@types/node".dependencies]
+undici-types = "~6.21.0"
+
+[npm.".".packages."node_modules/@types/picomatch"]
+version = "4.0.3"
+resolved = "https://registry.npmjs.org/@types/picomatch/-/picomatch-4.0.3.tgz"
+integrity = "sha512-iG0T6+nYJ9FAPmx9SsUlnwcq1ZVRuCXcVEvWnntoPlrOpwtSTKNDC9uVAxTsC3PUvJ+99n4RpAcNgBbHX3JSnQ=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@typescript-eslint/eslint-plugin"]
+version = "8.72.2"
+resolved = "https://registry.npmjs.org/@typescript-eslint/eslint-plugin/-/eslint-plugin-8.72.2.tgz"
+integrity = "sha512-222PKFXKihmFpi/pS5njoBgdAqsPhj2/GBmFbrNw8Tq8gEG9Sv+kSlKFy4u2q+mJv9ZzJgM2Gkv/bUzRZwZw5g=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@typescript-eslint/eslint-plugin".dependencies]
+"@eslint-community/regexpp" = "^4.12.2"
+"@typescript-eslint/scope-manager" = "8.72.2"
+"@typescript-eslint/type-utils" = "8.72.2"
+"@typescript-eslint/utils" = "8.72.2"
+"@typescript-eslint/visitor-keys" = "8.72.2"
+ignore = "^7.0.5"
+natural-compare = "^1.4.0"
+ts-api-utils = "^2.5.0"
+
+[npm.".".packages."node_modules/@typescript-eslint/eslint-plugin".engines]
+node = "^18.18.0 || ^20.9.0 || >=21.1.0"
+
+[npm.".".packages."node_modules/@typescript-eslint/eslint-plugin".funding]
+type = "opencollective"
+url = "https://opencollective.com/typescript-eslint"
+
+[npm.".".packages."node_modules/@typescript-eslint/eslint-plugin".peerDependencies]
+"@typescript-eslint/parser" = "^8.72.2"
+eslint = "^8.57.0 || ^9.0.0 || ^10.0.0"
+typescript = ">=4.8.4 <6.1.0"
+
+[npm.".".packages."node_modules/@typescript-eslint/eslint-plugin/node_modules/ignore"]
+version = "7.0.14"
+resolved = "https://registry.npmjs.org/ignore/-/ignore-7.0.14.tgz"
+integrity = "sha512-wCBiZ77u1tuWde6G/nfOtLaCTYcFDU5yCzARzK10y+rLhzYoL7a7yEemcopcc2Mzow7gZOIjnV2ym1NYmdiJOQ=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@typescript-eslint/eslint-plugin/node_modules/ignore".engines]
+node = ">= 4"
+
+[npm.".".packages."node_modules/@typescript-eslint/parser"]
+version = "8.72.2"
+resolved = "https://registry.npmjs.org/@typescript-eslint/parser/-/parser-8.72.2.tgz"
+integrity = "sha512-llP+T1YuJOLlxEciP6OyQGtz5SMxyn+9LA2BvZw5RmToGVa1y4beEDVQL6Gje7T5WFYh19WREjDCN9Ev4gm5AA=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@typescript-eslint/parser".dependencies]
+"@typescript-eslint/scope-manager" = "8.72.2"
+"@typescript-eslint/types" = "8.72.2"
+"@typescript-eslint/typescript-estree" = "8.72.2"
+"@typescript-eslint/visitor-keys" = "8.72.2"
+debug = "^4.4.3"
+
+[npm.".".packages."node_modules/@typescript-eslint/parser".engines]
+node = "^18.18.0 || ^20.9.0 || >=21.1.0"
+
+[npm.".".packages."node_modules/@typescript-eslint/parser".funding]
+type = "opencollective"
+url = "https://opencollective.com/typescript-eslint"
+
+[npm.".".packages."node_modules/@typescript-eslint/parser".peerDependencies]
+eslint = "^8.57.0 || ^9.0.0 || ^10.0.0"
+typescript = ">=4.8.4 <6.1.0"
+
+[npm.".".packages."node_modules/@typescript-eslint/project-service"]
+version = "8.72.2"
+resolved = "https://registry.npmjs.org/@typescript-eslint/project-service/-/project-service-8.72.2.tgz"
+integrity = "sha512-6y5dLTZdHhI8Eh3yIQ/bfQhRKwn5e+TpJj64o18Cngc0iW/BCrVvrr6zGYqXPnYH31u6YXAYiFh0+qxX5mybJw=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@typescript-eslint/project-service".dependencies]
+"@typescript-eslint/tsconfig-utils" = "^8.72.2"
+"@typescript-eslint/types" = "^8.72.2"
+debug = "^4.4.3"
+
+[npm.".".packages."node_modules/@typescript-eslint/project-service".engines]
+node = "^18.18.0 || ^20.9.0 || >=21.1.0"
+
+[npm.".".packages."node_modules/@typescript-eslint/project-service".funding]
+type = "opencollective"
+url = "https://opencollective.com/typescript-eslint"
+
+[npm.".".packages."node_modules/@typescript-eslint/project-service".peerDependencies]
+typescript = ">=4.8.4 <6.1.0"
+
+[npm.".".packages."node_modules/@typescript-eslint/scope-manager"]
+version = "8.72.2"
+resolved = "https://registry.npmjs.org/@typescript-eslint/scope-manager/-/scope-manager-8.72.2.tgz"
+integrity = "sha512-iIoMJ6/8c1/QpFNyFjU0d1YzPco4MsZjQw0k3V+vfzNWAFmUmvhlyMoYEoYYDQZXc+J6Gi1X5XcxlzW2taIIGQ=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@typescript-eslint/scope-manager".dependencies]
+"@typescript-eslint/types" = "8.72.2"
+"@typescript-eslint/visitor-keys" = "8.72.2"
+
+[npm.".".packages."node_modules/@typescript-eslint/scope-manager".engines]
+node = "^18.18.0 || ^20.9.0 || >=21.1.0"
+
+[npm.".".packages."node_modules/@typescript-eslint/scope-manager".funding]
+type = "opencollective"
+url = "https://opencollective.com/typescript-eslint"
+
+[npm.".".packages."node_modules/@typescript-eslint/tsconfig-utils"]
+version = "8.72.2"
+resolved = "https://registry.npmjs.org/@typescript-eslint/tsconfig-utils/-/tsconfig-utils-8.72.2.tgz"
+integrity = "sha512-+h3iCgZXuTNtoLXcnnjP12ZUHLMqoUcIHPfQrFEXTUqvb9dF8QK9b5nv5VtSo5fLkdHuks8ehbTzZj3rImAm9w=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@typescript-eslint/tsconfig-utils".engines]
+node = "^18.18.0 || ^20.9.0 || >=21.1.0"
+
+[npm.".".packages."node_modules/@typescript-eslint/tsconfig-utils".funding]
+type = "opencollective"
+url = "https://opencollective.com/typescript-eslint"
+
+[npm.".".packages."node_modules/@typescript-eslint/tsconfig-utils".peerDependencies]
+typescript = ">=4.8.4 <6.1.0"
+
+[npm.".".packages."node_modules/@typescript-eslint/type-utils"]
+version = "8.72.2"
+resolved = "https://registry.npmjs.org/@typescript-eslint/type-utils/-/type-utils-8.72.2.tgz"
+integrity = "sha512-STfkR38qIdhfkLpgtXnUjAzsNy4xouqiBO0lrVc/Wpk9Kem5/aHXUx1J8dGC16zpdYN1+yc2ILQ28er1kXX7ag=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@typescript-eslint/type-utils".dependencies]
+"@typescript-eslint/types" = "8.72.2"
+"@typescript-eslint/typescript-estree" = "8.72.2"
+"@typescript-eslint/utils" = "8.72.2"
+debug = "^4.4.3"
+ts-api-utils = "^2.5.0"
+
+[npm.".".packages."node_modules/@typescript-eslint/type-utils".engines]
+node = "^18.18.0 || ^20.9.0 || >=21.1.0"
+
+[npm.".".packages."node_modules/@typescript-eslint/type-utils".funding]
+type = "opencollective"
+url = "https://opencollective.com/typescript-eslint"
+
+[npm.".".packages."node_modules/@typescript-eslint/type-utils".peerDependencies]
+eslint = "^8.57.0 || ^9.0.0 || ^10.0.0"
+typescript = ">=4.8.4 <6.1.0"
+
+[npm.".".packages."node_modules/@typescript-eslint/types"]
+version = "8.72.2"
+resolved = "https://registry.npmjs.org/@typescript-eslint/types/-/types-8.72.2.tgz"
+integrity = "sha512-Xfn37OLZx03+PCU7qWx9DTv2FCRh1E6fk2+wONeNY15HXIwtcwuveaSwVpGAUptkNmPQegRxW5JyRel9T7wrog=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@typescript-eslint/types".engines]
+node = "^18.18.0 || ^20.9.0 || >=21.1.0"
+
+[npm.".".packages."node_modules/@typescript-eslint/types".funding]
+type = "opencollective"
+url = "https://opencollective.com/typescript-eslint"
+
+[npm.".".packages."node_modules/@typescript-eslint/typescript-estree"]
+version = "8.72.2"
+resolved = "https://registry.npmjs.org/@typescript-eslint/typescript-estree/-/typescript-estree-8.72.2.tgz"
+integrity = "sha512-pQEGqIK/cqEvKivVWaFLYpe7XYejFxfuAOi4mu1oAWFvIo36aRHI9esRFTUxcIy/z8N482RJyH+LpZB0ZIU7Ow=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@typescript-eslint/typescript-estree".dependencies]
+"@typescript-eslint/project-service" = "8.72.2"
+"@typescript-eslint/tsconfig-utils" = "8.72.2"
+"@typescript-eslint/types" = "8.72.2"
+"@typescript-eslint/visitor-keys" = "8.72.2"
+debug = "^4.4.3"
+minimatch = "^10.2.2"
+semver = "^7.7.3"
+tinyglobby = "^0.2.15"
+ts-api-utils = "^2.5.0"
+
+[npm.".".packages."node_modules/@typescript-eslint/typescript-estree".engines]
+node = "^18.18.0 || ^20.9.0 || >=21.1.0"
+
+[npm.".".packages."node_modules/@typescript-eslint/typescript-estree".funding]
+type = "opencollective"
+url = "https://opencollective.com/typescript-eslint"
+
+[npm.".".packages."node_modules/@typescript-eslint/typescript-estree".peerDependencies]
+typescript = ">=4.8.4 <6.1.0"
+
+[npm.".".packages."node_modules/@typescript-eslint/utils"]
+version = "8.72.2"
+resolved = "https://registry.npmjs.org/@typescript-eslint/utils/-/utils-8.72.2.tgz"
+integrity = "sha512-hv3eRYbpPbbpezuax1EfGrzpa3C4ySgNZkPUkLOWOAjU8HsOKowEDAr8C7nsNl1C+SBSKDpvno6VKHnlhvp9iA=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@typescript-eslint/utils".dependencies]
+"@eslint-community/eslint-utils" = "^4.9.1"
+"@typescript-eslint/scope-manager" = "8.72.2"
+"@typescript-eslint/types" = "8.72.2"
+"@typescript-eslint/typescript-estree" = "8.72.2"
+
+[npm.".".packages."node_modules/@typescript-eslint/utils".engines]
+node = "^18.18.0 || ^20.9.0 || >=21.1.0"
+
+[npm.".".packages."node_modules/@typescript-eslint/utils".funding]
+type = "opencollective"
+url = "https://opencollective.com/typescript-eslint"
+
+[npm.".".packages."node_modules/@typescript-eslint/utils".peerDependencies]
+eslint = "^8.57.0 || ^9.0.0 || ^10.0.0"
+typescript = ">=4.8.4 <6.1.0"
+
+[npm.".".packages."node_modules/@typescript-eslint/visitor-keys"]
+version = "8.72.2"
+resolved = "https://registry.npmjs.org/@typescript-eslint/visitor-keys/-/visitor-keys-8.72.2.tgz"
+integrity = "sha512-NAGrjn0Pitjqzq/GkgMC4kBYm233PQ8GffyQ9+kTA3AlNQYEzOf25EIM02BAHZv5FRJSpHpJk+OGUxVkOB93GQ=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@typescript-eslint/visitor-keys".dependencies]
+"@typescript-eslint/types" = "8.72.2"
+eslint-visitor-keys = "^5.0.0"
+
+[npm.".".packages."node_modules/@typescript-eslint/visitor-keys".engines]
+node = "^18.18.0 || ^20.9.0 || >=21.1.0"
+
+[npm.".".packages."node_modules/@typescript-eslint/visitor-keys".funding]
+type = "opencollective"
+url = "https://opencollective.com/typescript-eslint"
+
+[npm.".".packages."node_modules/@vitest/mocker"]
+version = "5.1.1"
+resolved = "https://registry.npmjs.org/@vitest/mocker/-/mocker-5.1.1.tgz"
+integrity = "sha512-b2OgTB4+3ImWIVafXKazJXwLKwQxUNnix6b3xUvUTMh7RyXlrtzoxfZr8aEz9zkHOMAS4K5lu3TvFWoiVeVTQg=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@vitest/mocker".dependencies]
+"@jridgewell/trace-mapping" = "0.3.31"
+"@vitest/spy" = "5.1.1"
+estree-walker = "^3.0.3"
+magic-string = "^1.4.5"
+
+[npm.".".packages."node_modules/@vitest/mocker".funding]
+url = "https://opencollective.com/vitest"
+
+[npm.".".packages."node_modules/@vitest/mocker".peerDependencies]
+msw = "^2.4.9 || ^3.0.0"
+vite = "^6.0.0 || ^7.0.0 || ^8.0.0"
+
+[npm.".".packages."node_modules/@vitest/mocker".peerDependenciesMeta.msw]
+optional = true
+
+[npm.".".packages."node_modules/@vitest/mocker".peerDependenciesMeta.vite]
+optional = true
+
+[npm.".".packages."node_modules/@vitest/pretty-format"]
+version = "5.1.1"
+resolved = "https://registry.npmjs.org/@vitest/pretty-format/-/pretty-format-5.1.1.tgz"
+integrity = "sha512-25VrNCa2fxNyRv7VTtYBjJnC7hQkAzDLuSWJb8kHJATfCPe+5YPferPPDrSO7pcxik4+cBo4IXS2H7rf4OOXgg=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@vitest/pretty-format".dependencies]
+tinyrainbow = "^3.2.0"
+
+[npm.".".packages."node_modules/@vitest/pretty-format".funding]
+url = "https://opencollective.com/vitest"
+
+[npm.".".packages."node_modules/@vitest/spy"]
+version = "5.1.1"
+resolved = "https://registry.npmjs.org/@vitest/spy/-/spy-5.1.1.tgz"
+integrity = "sha512-6K8C6alQG1/Yc8/ZI22iJS7JEsxPdVzqtqDq+/xM4Z0mGVykemMVjLhqMy/q6/IHYG3kKD8hKSwRen/ZdyI9vQ=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@vitest/spy".funding]
+url = "https://opencollective.com/vitest"
+
+[npm.".".packages."node_modules/@vitest/ui"]
+version = "5.1.1"
+resolved = "https://registry.npmjs.org/@vitest/ui/-/ui-5.1.1.tgz"
+integrity = "sha512-qpNyZ9CAKhBCnWMZSYQMFJzcBvpqb7ssC9NHJUq8haNZkjC4rSMSmKZzMu7IYR1XMqiKOSIAF34FmOQkGP77Mw=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@vitest/ui".dependencies]
+"@vitest/utils" = "5.1.1"
+fflate = "^0.8.3"
+flatted = "^3.4.4"
+pathe = "^2.0.3"
+sirv = "^3.0.2"
+tinyrainbow = "^3.2.0"
+
+[npm.".".packages."node_modules/@vitest/ui".funding]
+url = "https://opencollective.com/vitest"
+
+[npm.".".packages."node_modules/@vitest/ui".peerDependencies]
+vitest = "5.1.1"
+
+[npm.".".packages."node_modules/@vitest/utils"]
+version = "5.1.1"
+resolved = "https://registry.npmjs.org/@vitest/utils/-/utils-5.1.1.tgz"
+integrity = "sha512-CtwJP89ozg9RLHb70HM9jwzHnzZDaLTCovwr313CSRM6IkwNuIcORlZluW0zVNkmjJWBxPRLpvjnX6XhztjS2w=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/@vitest/utils".dependencies]
+"@vitest/pretty-format" = "5.1.1"
+convert-source-map = "^2.0.0"
+tinyrainbow = "^3.2.0"
+
+[npm.".".packages."node_modules/@vitest/utils".funding]
+url = "https://opencollective.com/vitest"
+
+[npm.".".packages."node_modules/acorn"]
+version = "8.19.0"
+resolved = "https://registry.npmjs.org/acorn/-/acorn-8.19.0.tgz"
+integrity = "sha512-oJlA3XiRm7Cyk6qFD2Jn8ak9B7jSy0qy00ADO3+8dpT0LSjFihQYv4C02LFCSYJV3Q37xYwwRy5m+IpIiUzqWw=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/acorn".bin]
+acorn = "bin/acorn"
+
+[npm.".".packages."node_modules/acorn".engines]
+node = ">=0.4.0"
+
+[npm.".".packages."node_modules/acorn-jsx"]
+version = "5.3.2"
+resolved = "https://registry.npmjs.org/acorn-jsx/-/acorn-jsx-5.3.2.tgz"
+integrity = "sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/acorn-jsx".peerDependencies]
+acorn = "^6.0.0 || ^7.0.0 || ^8.0.0"
+
+[npm.".".packages."node_modules/ajv"]
+version = "6.15.0"
+resolved = "https://registry.npmjs.org/ajv/-/ajv-6.15.0.tgz"
+integrity = "sha512-fgFx7Hfoq60ytK2c7DhnF8jIvzYgOMxfugjLOSMHjLIPgenqa7S7oaagATUq99mV6IYvN2tRmC0wnTYX6iPbMw=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/ajv".dependencies]
+fast-deep-equal = "^3.1.1"
+fast-json-stable-stringify = "^2.0.0"
+json-schema-traverse = "^0.4.1"
+uri-js = "^4.2.2"
+
+[npm.".".packages."node_modules/ajv".funding]
+type = "github"
+url = "https://github.com/sponsors/epoberezkin"
+
+[npm.".".packages."node_modules/ansi-regex"]
+version = "6.2.2"
+resolved = "https://registry.npmjs.org/ansi-regex/-/ansi-regex-6.2.2.tgz"
+integrity = "sha512-Bq3SmSpyFHaWjPk8If9yc6svM8c56dB5BAtW4Qbw5jHTwwXXcTLoRMkpDJp6VL0XzlWaCHTXrkFURMYmD0sLqg=="
+license = "MIT"
+
+[npm.".".packages."node_modules/ansi-regex".engines]
+node = ">=12"
+
+[npm.".".packages."node_modules/ansi-regex".funding]
+url = "https://github.com/chalk/ansi-regex?sponsor=1"
+
+[npm.".".packages."node_modules/assertion-error"]
+version = "2.0.1"
+resolved = "https://registry.npmjs.org/assertion-error/-/assertion-error-2.0.1.tgz"
+integrity = "sha512-Izi8RQcffqCeNVgFigKli1ssklIbpHnCYc6AknXGYoB6grJqyeby7jv12JUQgmTAnIDnbck1uxksT4dzN3PWBA=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/assertion-error".engines]
+node = ">=12"
+
+[npm.".".packages."node_modules/balanced-match"]
+version = "4.0.4"
+resolved = "https://registry.npmjs.org/balanced-match/-/balanced-match-4.0.4.tgz"
+integrity = "sha512-BLrgEcRTwX2o6gGxGOCNyMvGSp35YofuYzw9h1IMTRmKqttAZZVU67bdb9Pr2vUHA8+j3i2tJfjO6C6+4myGTA=="
+license = "MIT"
+
+[npm.".".packages."node_modules/balanced-match".engines]
+node = "18 || 20 || >=22"
+
+[npm.".".packages."node_modules/brace-expansion"]
+version = "5.0.13"
+resolved = "https://registry.npmjs.org/brace-expansion/-/brace-expansion-5.0.13.tgz"
+integrity = "sha512-Vh3dmFbc4wZeox7M9I/0L9GfFd83Su4+yCck/OF9Gi/P/dAHn0RT7X4K9R7gMNMhDck3DvhR6QXsnQdjjgwNvQ=="
+license = "MIT"
+
+[npm.".".packages."node_modules/brace-expansion".dependencies]
+balanced-match = "^4.0.2"
+
+[npm.".".packages."node_modules/brace-expansion".engines]
+node = "20 || >=22"
+
+[npm.".".packages."node_modules/cac"]
+version = "7.0.0"
+resolved = "https://registry.npmjs.org/cac/-/cac-7.0.0.tgz"
+integrity = "sha512-tixWYgm5ZoOD+3g6UTea91eow5z6AAHaho3g0V9CNSNb45gM8SmflpAc+GRd1InC4AqN/07Unrgp56Y94N9hJQ=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/cac".engines]
+node = ">=20.19.0"
+
+[npm.".".packages."node_modules/cacheable"]
+version = "2.5.0"
+resolved = "https://registry.npmjs.org/cacheable/-/cacheable-2.5.0.tgz"
+integrity = "sha512-60cyAOytib/OzBw1JNSoSV/boK1AtHryDIjvVBk7XbN4ugfkM3+Sry7fEjNgPMGgOjuaZPAp8ruZ0Cxafwyq9g=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/cacheable".dependencies]
+"@cacheable/memory" = "^2.2.0"
+"@cacheable/utils" = "^2.5.0"
+hookified = "^1.15.0"
+keyv = "^5.6.0"
+qified = "^0.10.1"
+
+[npm.".".packages."node_modules/chai"]
+version = "6.3.0"
+resolved = "https://registry.npmjs.org/chai/-/chai-6.3.0.tgz"
+integrity = "sha512-XWAtwJ6OHO+tj0EKCs0Y2UamnyOxseZWltU4x2U2wh8g4AigdjwvtUjvLP2tqkA/avxHEtzxNaqGq/YGNwckKg=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/chai".engines]
+node = ">=18"
+
+[npm.".".packages."node_modules/chalk"]
+version = "6.0.1"
+resolved = "https://registry.npmjs.org/chalk/-/chalk-6.0.1.tgz"
+integrity = "sha512-/Ce6KNm3vIbWdMlNna6RVIZ/ICQxnJxCicet5LBKK9ZffBkqzDw0xh9EiKSljdRtiIQ1S1z4YgcscUUGzNCWrA=="
+license = "MIT"
+
+[npm.".".packages."node_modules/chalk".engines]
+node = ">=22"
+
+[npm.".".packages."node_modules/chalk".funding]
+url = "https://github.com/chalk/chalk?sponsor=1"
+
+[npm.".".packages."node_modules/chardet"]
+version = "2.2.0"
+resolved = "https://registry.npmjs.org/chardet/-/chardet-2.2.0.tgz"
+integrity = "sha512-rddelWYNPRrXq6PtNEN2S3f6t9ILzvqaN5pVgi4kqt9jHQaXIial9PznB5iSPVlQSLNaaH22ItWz3EJtQ10+OA=="
+license = "MIT"
+
+[npm.".".packages."node_modules/chownr"]
+version = "3.0.0"
+resolved = "https://registry.npmjs.org/chownr/-/chownr-3.0.0.tgz"
+integrity = "sha512-+IxzY9BZOQd/XuYPRmrvEVjF/nqj5kgT4kEq7VofrDoM1MxoRjEWkrCC3EtLi59TVawxTAn+orJwFQcrqEN1+g=="
+license = "BlueOak-1.0.0"
+
+[npm.".".packages."node_modules/chownr".engines]
+node = ">=18"
+
+[npm.".".packages."node_modules/cli-cursor"]
+version = "5.0.0"
+resolved = "https://registry.npmjs.org/cli-cursor/-/cli-cursor-5.0.0.tgz"
+integrity = "sha512-aCj4O5wKyszjMmDT4tZj93kxyydN/K5zPWSCe6/0AV/AA1pqe5ZBIw0a2ZfPQV7lL5/yb5HsUreJ6UFAF1tEQw=="
+license = "MIT"
+
+[npm.".".packages."node_modules/cli-cursor".dependencies]
+restore-cursor = "^5.0.0"
+
+[npm.".".packages."node_modules/cli-cursor".engines]
+node = ">=18"
+
+[npm.".".packages."node_modules/cli-cursor".funding]
+url = "https://github.com/sponsors/sindresorhus"
+
+[npm.".".packages."node_modules/cli-spinners"]
+version = "3.4.0"
+resolved = "https://registry.npmjs.org/cli-spinners/-/cli-spinners-3.4.0.tgz"
+integrity = "sha512-bXfOC4QcT1tKXGorxL3wbJm6XJPDqEnij2gQ2m7ESQuE+/z9YFIWnl/5RpTiKWbMq3EVKR4fRLJGn6DVfu0mpw=="
+license = "MIT"
+
+[npm.".".packages."node_modules/cli-spinners".engines]
+node = ">=18.20"
+
+[npm.".".packages."node_modules/cli-spinners".funding]
+url = "https://github.com/sponsors/sindresorhus"
+
+[npm.".".packages."node_modules/cli-width"]
+version = "4.1.0"
+resolved = "https://registry.npmjs.org/cli-width/-/cli-width-4.1.0.tgz"
+integrity = "sha512-ouuZd4/dm2Sw5Gmqy6bGyNNNe1qt9RpmxveLSO7KcgsTnU7RXfsw+/bukWGo1abgBiMAic068rclZsO4IWmmxQ=="
+license = "ISC"
+
+[npm.".".packages."node_modules/cli-width".engines]
+node = ">= 12"
+
+[npm.".".packages."node_modules/commander"]
+version = "14.0.3"
+resolved = "https://registry.npmjs.org/commander/-/commander-14.0.3.tgz"
+integrity = "sha512-H+y0Jo/T1RZ9qPP4Eh1pkcQcLRglraJaSLoyOtHxu6AapkjWVCy2Sit1QQ4x3Dng8qDlSsZEet7g5Pq06MvTgw=="
+license = "MIT"
+
+[npm.".".packages."node_modules/commander".engines]
+node = ">=20"
+
+[npm.".".packages."node_modules/convert-source-map"]
+version = "2.0.0"
+resolved = "https://registry.npmjs.org/convert-source-map/-/convert-source-map-2.0.0.tgz"
+integrity = "sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/cross-spawn"]
+version = "7.0.6"
+resolved = "https://registry.npmjs.org/cross-spawn/-/cross-spawn-7.0.6.tgz"
+integrity = "sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA=="
+license = "MIT"
+
+[npm.".".packages."node_modules/cross-spawn".dependencies]
+path-key = "^3.1.0"
+shebang-command = "^2.0.0"
+which = "^2.0.1"
+
+[npm.".".packages."node_modules/cross-spawn".engines]
+node = ">= 8"
+
+[npm.".".packages."node_modules/dataloader"]
+version = "2.2.3"
+resolved = "https://registry.npmjs.org/dataloader/-/dataloader-2.2.3.tgz"
+integrity = "sha512-y2krtASINtPFS1rSDjacrFgn1dcUuoREVabwlOGOe4SdxenREqwjwjElAdwvbGM7kgZz9a3KVicWR7vcz8rnzA=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/debug"]
+version = "4.4.3"
+resolved = "https://registry.npmjs.org/debug/-/debug-4.4.3.tgz"
+integrity = "sha512-RGwwWnwQvkVfavKVt22FGLw+xYSdzARwm0ru6DhTVA3umU5hZc28V3kO4stgYryrTlLpuvgI9GiijltAjNbcqA=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/debug".dependencies]
+ms = "^2.1.3"
+
+[npm.".".packages."node_modules/debug".engines]
+node = ">=6.0"
+
+[npm.".".packages."node_modules/debug".peerDependenciesMeta.supports-color]
+optional = true
+
+[npm.".".packages."node_modules/deep-is"]
+version = "0.1.4"
+resolved = "https://registry.npmjs.org/deep-is/-/deep-is-0.1.4.tgz"
+integrity = "sha512-oIPzksmTg4/MriiaYGO+okXDT7ztn/w3Eptv/+gSIdMdKsJo0u4CfYNFJPy+4SKMuCqGw2wxnA+URMg3t8a/bQ=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/detect-libc"]
+version = "2.1.2"
+resolved = "https://registry.npmjs.org/detect-libc/-/detect-libc-2.1.2.tgz"
+integrity = "sha512-Btj2BOOO83o3WyH59e8MgXsxEQVcarkUOpEYrubB0urwnN10yQ364rsiByU11nZlqWYZm05i/of7io4mzihBtQ=="
+dev = true
+license = "Apache-2.0"
+
+[npm.".".packages."node_modules/detect-libc".engines]
+node = ">=8"
+
+[npm.".".packages."node_modules/diff"]
+version = "9.0.0"
+resolved = "https://registry.npmjs.org/diff/-/diff-9.0.0.tgz"
+integrity = "sha512-svtcdpS8CgJyqAjEQIXdb3OjhFVVYjzGAPO8WGCmRbrml64SPw/jJD4GoE98aR7r25A0XcgrK3F02yw9R/vhQw=="
+license = "BSD-3-Clause"
+
+[npm.".".packages."node_modules/diff".engines]
+node = ">=0.3.1"
+
+[npm.".".packages."node_modules/es-module-lexer"]
+version = "2.3.2"
+resolved = "https://registry.npmjs.org/es-module-lexer/-/es-module-lexer-2.3.2.tgz"
+integrity = "sha512-poHGpORABojJJucnV9KbOavETW8lBVnphkW77ER5/BQ5Fz7oXSoCNek7IH3vR5nRjdsEz926ibFYX8KtLQmdyw=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/escape-string-regexp"]
+version = "4.0.0"
+resolved = "https://registry.npmjs.org/escape-string-regexp/-/escape-string-regexp-4.0.0.tgz"
+integrity = "sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/escape-string-regexp".engines]
+node = ">=10"
+
+[npm.".".packages."node_modules/escape-string-regexp".funding]
+url = "https://github.com/sponsors/sindresorhus"
+
+[npm.".".packages."node_modules/eslint"]
+version = "10.14.0"
+resolved = "https://registry.npmjs.org/eslint/-/eslint-10.14.0.tgz"
+integrity = "sha512-T0pNsxkb9IKmtQjhpK3d7nWOpFv+YHuMbTJnSVMoQblF0onvXfErrtp4V1jHtsQPan7dKaGVD0q1WCXnzMF31A=="
+dev = true
+license = "MIT"
+workspaces = ["packages/*"]
+
+[npm.".".packages."node_modules/eslint".dependencies]
+"@eslint-community/eslint-utils" = "^4.8.0"
+"@eslint-community/regexpp" = "^4.12.2"
+"@eslint/config-array" = "^0.23.5"
+"@eslint/config-helpers" = "^0.7.0"
+"@eslint/core" = "^1.2.1"
+"@eslint/plugin-kit" = "^0.7.3"
+"@humanfs/node" = "^0.16.8"
+"@humanwhocodes/module-importer" = "^1.0.1"
+"@humanwhocodes/retry" = "^0.4.2"
+"@types/estree" = "^1.0.6"
+ajv = "^6.14.0"
+cross-spawn = "^7.0.6"
+debug = "^4.3.2"
+escape-string-regexp = "^4.0.0"
+eslint-scope = "^9.1.2"
+eslint-visitor-keys = "^5.0.1"
+espree = "^11.2.0"
+esquery = "^1.7.0"
+esutils = "^2.0.2"
+fast-deep-equal = "^3.1.3"
+file-entry-cache = "11.1.5 || >11.1.6 <12"
+find-up = "^5.0.0"
+glob-parent = "^6.0.2"
+ignore = "^5.2.0"
+imurmurhash = "^0.1.4"
+is-glob = "^4.0.0"
+json-stable-stringify-without-jsonify = "^1.0.1"
+minimatch = "^10.2.6"
+natural-compare = "^1.4.0"
+optionator = "^0.9.3"
+
+[npm.".".packages."node_modules/eslint".bin]
+eslint = "bin/eslint.js"
+
+[npm.".".packages."node_modules/eslint".engines]
+node = "^20.19.0 || ^22.13.0 || >=24"
+
+[npm.".".packages."node_modules/eslint".funding]
+url = "https://eslint.org/donate"
+
+[npm.".".packages."node_modules/eslint".peerDependencies]
+jiti = "*"
+
+[npm.".".packages."node_modules/eslint".peerDependenciesMeta.jiti]
+optional = true
+
+[npm.".".packages."node_modules/eslint-scope"]
+version = "9.1.2"
+resolved = "https://registry.npmjs.org/eslint-scope/-/eslint-scope-9.1.2.tgz"
+integrity = "sha512-xS90H51cKw0jltxmvmHy2Iai1LIqrfbw57b79w/J7MfvDfkIkFZ+kj6zC3BjtUwh150HsSSdxXZcsuv72miDFQ=="
+dev = true
+license = "BSD-2-Clause"
+
+[npm.".".packages."node_modules/eslint-scope".dependencies]
+"@types/esrecurse" = "^4.3.1"
+"@types/estree" = "^1.0.8"
+esrecurse = "^4.3.0"
+estraverse = "^5.2.0"
+
+[npm.".".packages."node_modules/eslint-scope".engines]
+node = "^20.19.0 || ^22.13.0 || >=24"
+
+[npm.".".packages."node_modules/eslint-scope".funding]
+url = "https://opencollective.com/eslint"
+
+[npm.".".packages."node_modules/eslint-visitor-keys"]
+version = "5.0.1"
+resolved = "https://registry.npmjs.org/eslint-visitor-keys/-/eslint-visitor-keys-5.0.1.tgz"
+integrity = "sha512-tD40eHxA35h0PEIZNeIjkHoDR4YjjJp34biM0mDvplBe//mB+IHCqHDGV7pxF+7MklTvighcCPPZC7ynWyjdTA=="
+dev = true
+license = "Apache-2.0"
+
+[npm.".".packages."node_modules/eslint-visitor-keys".engines]
+node = "^20.19.0 || ^22.13.0 || >=24"
+
+[npm.".".packages."node_modules/eslint-visitor-keys".funding]
+url = "https://opencollective.com/eslint"
+
+[npm.".".packages."node_modules/espree"]
+version = "11.2.0"
+resolved = "https://registry.npmjs.org/espree/-/espree-11.2.0.tgz"
+integrity = "sha512-7p3DrVEIopW1B1avAGLuCSh1jubc01H2JHc8B4qqGblmg5gI9yumBgACjWo4JlIc04ufug4xJ3SQI8HkS/Rgzw=="
+dev = true
+license = "BSD-2-Clause"
+
+[npm.".".packages."node_modules/espree".dependencies]
+acorn = "^8.16.0"
+acorn-jsx = "^5.3.2"
+eslint-visitor-keys = "^5.0.1"
+
+[npm.".".packages."node_modules/espree".engines]
+node = "^20.19.0 || ^22.13.0 || >=24"
+
+[npm.".".packages."node_modules/espree".funding]
+url = "https://opencollective.com/eslint"
+
+[npm.".".packages."node_modules/esquery"]
+version = "1.7.0"
+resolved = "https://registry.npmjs.org/esquery/-/esquery-1.7.0.tgz"
+integrity = "sha512-Ap6G0WQwcU/LHsvLwON1fAQX9Zp0A2Y6Y/cJBl9r/JbW90Zyg4/zbG6zzKa2OTALELarYHmKu0GhpM5EO+7T0g=="
+dev = true
+license = "BSD-3-Clause"
+
+[npm.".".packages."node_modules/esquery".dependencies]
+estraverse = "^5.1.0"
+
+[npm.".".packages."node_modules/esquery".engines]
+node = ">=0.10"
+
+[npm.".".packages."node_modules/esrecurse"]
+version = "4.3.0"
+resolved = "https://registry.npmjs.org/esrecurse/-/esrecurse-4.3.0.tgz"
+integrity = "sha512-KmfKL3b6G+RXvP8N1vr3Tq1kL/oCFgn2NYXEtqP8/L3pKapUA4G8cFVaoF3SU323CD4XypR/ffioHmkti6/Tag=="
+dev = true
+license = "BSD-2-Clause"
+
+[npm.".".packages."node_modules/esrecurse".dependencies]
+estraverse = "^5.2.0"
+
+[npm.".".packages."node_modules/esrecurse".engines]
+node = ">=4.0"
+
+[npm.".".packages."node_modules/estraverse"]
+version = "5.3.0"
+resolved = "https://registry.npmjs.org/estraverse/-/estraverse-5.3.0.tgz"
+integrity = "sha512-MMdARuVEQziNTeJD8DgMqmhwR11BRQ/cBP+pLtYdSTnf3MIO8fFeiINEbX36ZdNlfU/7A9f3gUw49B3oQsvwBA=="
+dev = true
+license = "BSD-2-Clause"
+
+[npm.".".packages."node_modules/estraverse".engines]
+node = ">=4.0"
+
+[npm.".".packages."node_modules/estree-walker"]
+version = "3.0.3"
+resolved = "https://registry.npmjs.org/estree-walker/-/estree-walker-3.0.3.tgz"
+integrity = "sha512-7RUKfXgSMMkzt6ZuXmqapOurLGPPfgj6l9uRZ7lRGolvk0y2yocc35LdcxKC5PQZdn2DMqioAQ2NoWcrTKmm6g=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/estree-walker".dependencies]
+"@types/estree" = "^1.0.0"
+
+[npm.".".packages."node_modules/esutils"]
+version = "2.0.3"
+resolved = "https://registry.npmjs.org/esutils/-/esutils-2.0.3.tgz"
+integrity = "sha512-kVscqXk4OCp68SZ0dkgEKVi6/8ij300KBWTJq32P/dYeWTSwK41WyTxalN1eRmA5Z9UU/LX9D7FWSmV9SAYx6g=="
+dev = true
+license = "BSD-2-Clause"
+
+[npm.".".packages."node_modules/esutils".engines]
+node = ">=0.10.0"
+
+[npm.".".packages."node_modules/expect-type"]
+version = "1.4.0"
+resolved = "https://registry.npmjs.org/expect-type/-/expect-type-1.4.0.tgz"
+integrity = "sha512-KfYbmpRm0VbLjEvVa9yGwCi9GI34xvi7A/HXYWQO65CSD2u3MczUJSuwXKFIxlGsgBQizV9q5J9NHj4VG0n+pA=="
+dev = true
+license = "Apache-2.0"
+
+[npm.".".packages."node_modules/expect-type".engines]
+node = ">=12.0.0"
+
+[npm.".".packages."node_modules/fast-deep-equal"]
+version = "3.1.3"
+resolved = "https://registry.npmjs.org/fast-deep-equal/-/fast-deep-equal-3.1.3.tgz"
+integrity = "sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/fast-json-stable-stringify"]
+version = "2.1.0"
+resolved = "https://registry.npmjs.org/fast-json-stable-stringify/-/fast-json-stable-stringify-2.1.0.tgz"
+integrity = "sha512-lhd/wF+Lk98HZoTCtlVraHtfh5XYijIjalXck7saUtuanSDyLMxnHhSXEDJqHxD7msR8D0uCmqlkwjCV8xvwHw=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/fast-levenshtein"]
+version = "2.0.6"
+resolved = "https://registry.npmjs.org/fast-levenshtein/-/fast-levenshtein-2.0.6.tgz"
+integrity = "sha512-DCXu6Ifhqcks7TZKY3Hxp3y6qphY5SJZmrWMDrKcERSOXWQdMhU9Ig/PYrzyw/ul9jOIyh0N4M0tbC5hodg8dw=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/fast-string-truncated-width"]
+version = "3.0.3"
+resolved = "https://registry.npmjs.org/fast-string-truncated-width/-/fast-string-truncated-width-3.0.3.tgz"
+integrity = "sha512-0jjjIEL6+0jag3l2XWWizO64/aZVtpiGE3t0Zgqxv0DPuxiMjvB3M24fCyhZUO4KomJQPj3LTSUnDP3GpdwC0g=="
+license = "MIT"
+
+[npm.".".packages."node_modules/fast-string-width"]
+version = "3.0.2"
+resolved = "https://registry.npmjs.org/fast-string-width/-/fast-string-width-3.0.2.tgz"
+integrity = "sha512-gX8LrtNEI5hq8DVUfRQMbr5lpaS4nMIWV+7XEbXk2b8kiQIizgnlr12B4dA3ZEx3308ze0O4Q1R+cHts8kyUJg=="
+license = "MIT"
+
+[npm.".".packages."node_modules/fast-string-width".dependencies]
+fast-string-truncated-width = "^3.0.2"
+
+[npm.".".packages."node_modules/fast-wrap-ansi"]
+version = "0.2.2"
+resolved = "https://registry.npmjs.org/fast-wrap-ansi/-/fast-wrap-ansi-0.2.2.tgz"
+integrity = "sha512-7F2Fl+TjRSenLqlU3UjSH0iyqopqoZIu7eZVpEirP2g1GtWa2G/ecEmBdgz31+Mxr+ELclgg6sokpSFIQiZ02Q=="
+license = "MIT"
+
+[npm.".".packages."node_modules/fast-wrap-ansi".dependencies]
+fast-string-width = "^3.0.2"
+
+[npm.".".packages."node_modules/fdir"]
+version = "6.5.0"
+resolved = "https://registry.npmjs.org/fdir/-/fdir-6.5.0.tgz"
+integrity = "sha512-tIbYtZbucOs0BRGqPJkshJUYdL+SDH7dVM8gjy+ERp3WAUjLEFJE+02kanyHtwjWOnwrKYBiwAmM0p4kLJAnXg=="
+license = "MIT"
+
+[npm.".".packages."node_modules/fdir".engines]
+node = ">=12.0.0"
+
+[npm.".".packages."node_modules/fdir".peerDependencies]
+picomatch = "^3 || ^4"
+
+[npm.".".packages."node_modules/fdir".peerDependenciesMeta.picomatch]
+optional = true
+
+[npm.".".packages."node_modules/fflate"]
+version = "0.8.3"
+resolved = "https://registry.npmjs.org/fflate/-/fflate-0.8.3.tgz"
+integrity = "sha512-tbZNuJrLwGUp3zshBtdy4W+ORxZuIh8a5ilyIEQDC5rY1f3U20JMry0Ll3WBzU58EZKsEuJFXhb5gwv8CsPvgA=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/file-entry-cache"]
+version = "11.1.5"
+resolved = "https://registry.npmjs.org/file-entry-cache/-/file-entry-cache-11.1.5.tgz"
+integrity = "sha512-+PFTHITI08JIGhnNpGNI8T8inUpgZfk3GNEqfT9R2zZV2iFXg3CvqzSl/uEhs7TSGujYRELEANyDvS8Fj7+S7Q=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/file-entry-cache".dependencies]
+flat-cache = "^6.1.23"
+
+[npm.".".packages."node_modules/find-up"]
+version = "5.0.0"
+resolved = "https://registry.npmjs.org/find-up/-/find-up-5.0.0.tgz"
+integrity = "sha512-78/PXT1wlLLDgTzDs7sjq9hzz0vXD+zn+7wypEe4fXQxCmdmqfGsEPQxmiCSQI3ajFV91bVSsvNtrJRiW6nGng=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/find-up".dependencies]
+locate-path = "^6.0.0"
+path-exists = "^4.0.0"
+
+[npm.".".packages."node_modules/find-up".engines]
+node = ">=10"
+
+[npm.".".packages."node_modules/find-up".funding]
+url = "https://github.com/sponsors/sindresorhus"
+
+[npm.".".packages."node_modules/flat-cache"]
+version = "6.1.23"
+resolved = "https://registry.npmjs.org/flat-cache/-/flat-cache-6.1.23.tgz"
+integrity = "sha512-f++BY9pTk+983xK1FLzlLpmM0i0z+jHmx3QESGkURMXujQZz1k5wzwX6hjnQ8goaD0B+sYnDK1yZ6MTyZfUaqA=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/flat-cache".dependencies]
+cacheable = "^2.5.0"
+flatted = "^3.4.2"
+hookified = "^1.15.0"
+
+[npm.".".packages."node_modules/flatted"]
+version = "3.4.4"
+resolved = "https://registry.npmjs.org/flatted/-/flatted-3.4.4.tgz"
+integrity = "sha512-5+ybhBZANEJxaH3X5evAFatUxLfEHSr7n6kYJ+1Qd0mUqr4eu9gIf6GDbWHf8RJijHrjjO8G+la14SlL2SeS1Q=="
+dev = true
+license = "ISC"
+
+[npm.".".packages."node_modules/fsevents"]
+version = "2.3.3"
+resolved = "https://registry.npmjs.org/fsevents/-/fsevents-2.3.3.tgz"
+integrity = "sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw=="
+dev = true
+hasInstallScript = true
+license = "MIT"
+optional = true
+os = ["darwin"]
+
+[npm.".".packages."node_modules/fsevents".engines]
+node = "^8.16.0 || ^10.6.0 || >=11.0.0"
+
+[npm.".".packages."node_modules/get-east-asian-width"]
+version = "1.6.0"
+resolved = "https://registry.npmjs.org/get-east-asian-width/-/get-east-asian-width-1.6.0.tgz"
+integrity = "sha512-QRbvDIbx6YklUe6RxeTeleMR0yv3cYH6PsPZHcnVn7xv7zO1BHN8r0XETu8n6Ye3Q+ahtSarc3WgtNWmehIBfA=="
+license = "MIT"
+
+[npm.".".packages."node_modules/get-east-asian-width".engines]
+node = ">=18"
+
+[npm.".".packages."node_modules/get-east-asian-width".funding]
+url = "https://github.com/sponsors/sindresorhus"
+
+[npm.".".packages."node_modules/glob-parent"]
+version = "6.0.2"
+resolved = "https://registry.npmjs.org/glob-parent/-/glob-parent-6.0.2.tgz"
+integrity = "sha512-XxwI8EOhVQgWp6iDL+3b0r86f4d6AX6zSU55HfB4ydCEuXLXc5FcYeOu+nnGftS4TEju/11rt4KJPTMgbfmv4A=="
+dev = true
+license = "ISC"
+
+[npm.".".packages."node_modules/glob-parent".dependencies]
+is-glob = "^4.0.3"
+
+[npm.".".packages."node_modules/glob-parent".engines]
+node = ">=10.13.0"
+
+[npm.".".packages."node_modules/hashery"]
+version = "1.5.1"
+resolved = "https://registry.npmjs.org/hashery/-/hashery-1.5.1.tgz"
+integrity = "sha512-iZyKG96/JwPz1N55vj2Ie2vXbhu440zfUfJvSwEqEbeLluk7NnapfGqa7LH0mOsnDxTF85Mx8/dyR6HfqcbmbQ=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/hashery".dependencies]
+hookified = "^1.15.0"
+
+[npm.".".packages."node_modules/hashery".engines]
+node = ">=20"
+
+[npm.".".packages."node_modules/hookified"]
+version = "1.15.1"
+resolved = "https://registry.npmjs.org/hookified/-/hookified-1.15.1.tgz"
+integrity = "sha512-MvG/clsADq1GPM2KGo2nyfaWVyn9naPiXrqIe4jYjXNZQt238kWyOGrsyc/DmRAQ+Re6yeo6yX/yoNCG5KAEVg=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/human-id"]
+version = "4.2.1"
+resolved = "https://registry.npmjs.org/human-id/-/human-id-4.2.1.tgz"
+integrity = "sha512-zPGsiS+dWoTZtZ4AtpA9Y+BdSFSNWvnouNlWNoUFyAM6xHOHmdCvqO3k8AIbdamCOv4gUFUVNPf6rJFfc4UiJw=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/human-id".bin]
+human-id = "dist/cli.js"
+
+[npm.".".packages."node_modules/iconv-lite"]
+version = "0.7.2"
+resolved = "https://registry.npmjs.org/iconv-lite/-/iconv-lite-0.7.2.tgz"
+integrity = "sha512-im9DjEDQ55s9fL4EYzOAv0yMqmMBSZp6G0VvFyTMPKWxiSBHUj9NW/qqLmXUwXrrM7AvqSlTCfvqRb0cM8yYqw=="
+license = "MIT"
+
+[npm.".".packages."node_modules/iconv-lite".dependencies]
+safer-buffer = ">= 2.1.2 < 3.0.0"
+
+[npm.".".packages."node_modules/iconv-lite".engines]
+node = ">=0.10.0"
+
+[npm.".".packages."node_modules/iconv-lite".funding]
+type = "opencollective"
+url = "https://opencollective.com/express"
+
+[npm.".".packages."node_modules/ignore"]
+version = "5.3.2"
+resolved = "https://registry.npmjs.org/ignore/-/ignore-5.3.2.tgz"
+integrity = "sha512-hsBTNUqQTDwkWtcdYI2i06Y/nUBEsNEDJKjWdigLvegy8kDuJAS8uRlpkkcQpyEXL0Z/pjDy5HBmMjRCJ2gq+g=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/ignore".engines]
+node = ">= 4"
+
+[npm.".".packages."node_modules/import-meta-resolve"]
+version = "4.2.0"
+resolved = "https://registry.npmjs.org/import-meta-resolve/-/import-meta-resolve-4.2.0.tgz"
+integrity = "sha512-Iqv2fzaTQN28s/FwZAoFq0ZSs/7hMAHJVX+w8PZl3cY19Pxk6jFFalxQoIfW2826i/fDLXv8IiEZRIT0lDuWcg=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/import-meta-resolve".funding]
+type = "github"
+url = "https://github.com/sponsors/wooorm"
+
+[npm.".".packages."node_modules/imurmurhash"]
+version = "0.1.4"
+resolved = "https://registry.npmjs.org/imurmurhash/-/imurmurhash-0.1.4.tgz"
+integrity = "sha512-JmXMZ6wuvDmLiHEml9ykzqO6lwFbof0GG4IkcGaENdCRDDmMVnny7s5HsIgHCbaq0w2MyPhDqkhTUgS2LU2PHA=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/imurmurhash".engines]
+node = ">=0.8.19"
+
+[npm.".".packages."node_modules/is-extglob"]
+version = "2.1.1"
+resolved = "https://registry.npmjs.org/is-extglob/-/is-extglob-2.1.1.tgz"
+integrity = "sha512-SbKbANkN603Vi4jEZv49LeVJMn4yGwsbzZworEoyEiutsN3nJYdbO36zfhGJ6QEDpOZIFkDtnq5JRxmvl3jsoQ=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/is-extglob".engines]
+node = ">=0.10.0"
+
+[npm.".".packages."node_modules/is-glob"]
+version = "4.0.3"
+resolved = "https://registry.npmjs.org/is-glob/-/is-glob-4.0.3.tgz"
+integrity = "sha512-xelSayHH36ZgE7ZWhli7pW34hNbNl8Ojv5KVmkJD4hBdD3th8Tfk9vYasLM+mXWOZhFkgZfxhLSnrwRr4elSSg=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/is-glob".dependencies]
+is-extglob = "^2.1.1"
+
+[npm.".".packages."node_modules/is-glob".engines]
+node = ">=0.10.0"
+
+[npm.".".packages."node_modules/is-interactive"]
+version = "2.0.0"
+resolved = "https://registry.npmjs.org/is-interactive/-/is-interactive-2.0.0.tgz"
+integrity = "sha512-qP1vozQRI+BMOPcjFzrjXuQvdak2pHNUMZoeG2eRbiSqyvbEf/wQtEOTOX1guk6E3t36RkaqiSt8A/6YElNxLQ=="
+license = "MIT"
+
+[npm.".".packages."node_modules/is-interactive".engines]
+node = ">=12"
+
+[npm.".".packages."node_modules/is-interactive".funding]
+url = "https://github.com/sponsors/sindresorhus"
+
+[npm.".".packages."node_modules/is-unicode-supported"]
+version = "2.1.0"
+resolved = "https://registry.npmjs.org/is-unicode-supported/-/is-unicode-supported-2.1.0.tgz"
+integrity = "sha512-mE00Gnza5EEB3Ds0HfMyllZzbBrmLOX3vfWoj9A9PEnTfratQ/BcaJOuMhnkhjXvb2+FkY3VuHqtAGpTPmglFQ=="
+license = "MIT"
+
+[npm.".".packages."node_modules/is-unicode-supported".engines]
+node = ">=18"
+
+[npm.".".packages."node_modules/is-unicode-supported".funding]
+url = "https://github.com/sponsors/sindresorhus"
+
+[npm.".".packages."node_modules/isexe"]
+version = "2.0.0"
+resolved = "https://registry.npmjs.org/isexe/-/isexe-2.0.0.tgz"
+integrity = "sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw=="
+license = "ISC"
+
+[npm.".".packages."node_modules/jju"]
+version = "1.4.0"
+resolved = "https://registry.npmjs.org/jju/-/jju-1.4.0.tgz"
+integrity = "sha512-8wb9Yw966OSxApiCt0K3yNJL8pnNeIv+OEq2YMidz4FKP6nonSRoOXc80iXY4JaN2FC11B9qsNmDsm+ZOfMROA=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/json-schema-traverse"]
+version = "0.4.1"
+resolved = "https://registry.npmjs.org/json-schema-traverse/-/json-schema-traverse-0.4.1.tgz"
+integrity = "sha512-xbbCH5dCYU5T8LcEhhuh7HJ88HXuW3qsI3Y0zOZFKfZEHcpWiHU/Jxzk629Brsab/mMiHQti9wMP+845RPe3Vg=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/json-stable-stringify-without-jsonify"]
+version = "1.0.1"
+resolved = "https://registry.npmjs.org/json-stable-stringify-without-jsonify/-/json-stable-stringify-without-jsonify-1.0.1.tgz"
+integrity = "sha512-Bdboy+l7tA3OGW6FjyFHWkP5LuByj1Tk33Ljyq0axyzdk9//JSi2u3fP1QSmd1KNwq6VOKYGlAu87CisVir6Pw=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/jsonc-parser"]
+version = "3.3.1"
+resolved = "https://registry.npmjs.org/jsonc-parser/-/jsonc-parser-3.3.1.tgz"
+integrity = "sha512-HUgH65KyejrUFPvHFPbqOY0rsFip3Bo5wb4ngvdi1EpCYWUQDC5V+Y7mZws+DLkr4M//zQJoanu1SP+87Dv1oQ=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/keyv"]
+version = "5.6.0"
+resolved = "https://registry.npmjs.org/keyv/-/keyv-5.6.0.tgz"
+integrity = "sha512-CYDD3SOtsHtyXeEORYRx2qBtpDJFjRTGXUtmNEMGyzYOKj1TE3tycdlho7kA1Ufx9OYWZzg52QFBGALTirzDSw=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/keyv".dependencies]
+"@keyv/serialize" = "^1.1.1"
+
+[npm.".".packages."node_modules/launch-editor"]
+version = "2.14.2"
+resolved = "https://registry.npmjs.org/launch-editor/-/launch-editor-2.14.2.tgz"
+integrity = "sha512-NHJEb30MGBCkmZXLZwz25t37QR4aY03ZzPYUJXOJaOa92uWwExI9SBQUuIznBYc1xkD7cJNGX7oc3Nl3sq2kQQ=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/launch-editor".dependencies]
+picocolors = "^1.1.1"
+shell-quote = "^1.10.0"
+
+[npm.".".packages."node_modules/levn"]
+version = "0.4.1"
+resolved = "https://registry.npmjs.org/levn/-/levn-0.4.1.tgz"
+integrity = "sha512-+bT2uH4E5LGE7h/n3evcS/sQlJXCpIp6ym8OWJ5eV6+67Dsql/LaaT7qJBAt2rzfoa/5QBGBhxDix1dMt2kQKQ=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/levn".dependencies]
+prelude-ls = "^1.2.1"
+type-check = "~0.4.0"
+
+[npm.".".packages."node_modules/levn".engines]
+node = ">= 0.8.0"
+
+[npm.".".packages."node_modules/lightningcss"]
+version = "1.33.0"
+resolved = "https://registry.npmjs.org/lightningcss/-/lightningcss-1.33.0.tgz"
+integrity = "sha512-WkUDrojuJs0xkgGf2udWxa3yGBRxPtxUkB79i6aCZLRgc7PM8fZe9TosfPDcvEpQZbuFASnHYmRLBLUbmLOIIA=="
+dev = true
+license = "MPL-2.0"
+
+[npm.".".packages."node_modules/lightningcss".dependencies]
+detect-libc = "^2.0.3"
+
+[npm.".".packages."node_modules/lightningcss".engines]
+node = ">= 12.0.0"
+
+[npm.".".packages."node_modules/lightningcss".funding]
+type = "opencollective"
+url = "https://opencollective.com/parcel"
+
+[npm.".".packages."node_modules/lightningcss".optionalDependencies]
+lightningcss-android-arm64 = "1.33.0"
+lightningcss-darwin-arm64 = "1.33.0"
+lightningcss-darwin-x64 = "1.33.0"
+lightningcss-freebsd-x64 = "1.33.0"
+lightningcss-linux-arm-gnueabihf = "1.33.0"
+lightningcss-linux-arm64-gnu = "1.33.0"
+lightningcss-linux-arm64-musl = "1.33.0"
+lightningcss-linux-x64-gnu = "1.33.0"
+lightningcss-linux-x64-musl = "1.33.0"
+lightningcss-win32-arm64-msvc = "1.33.0"
+lightningcss-win32-x64-msvc = "1.33.0"
+
+[npm.".".packages."node_modules/lightningcss-android-arm64"]
+version = "1.33.0"
+resolved = "https://registry.npmjs.org/lightningcss-android-arm64/-/lightningcss-android-arm64-1.33.0.tgz"
+integrity = "sha512-gEpRTalKdosp4Bb8qWtc2iOgE5SeIHlpS1up9bFq2wAyYhl1UdTObYiHe98zEM9SQvSoqQZ1IQD0JNpg3Ml5pg=="
+cpu = ["arm64"]
+dev = true
+license = "MPL-2.0"
+optional = true
+os = ["android"]
+
+[npm.".".packages."node_modules/lightningcss-android-arm64".engines]
+node = ">= 12.0.0"
+
+[npm.".".packages."node_modules/lightningcss-android-arm64".funding]
+type = "opencollective"
+url = "https://opencollective.com/parcel"
+
+[npm.".".packages."node_modules/lightningcss-darwin-arm64"]
+version = "1.33.0"
+resolved = "https://registry.npmjs.org/lightningcss-darwin-arm64/-/lightningcss-darwin-arm64-1.33.0.tgz"
+integrity = "sha512-Sciaz8eenNTKn9b3t7+xr0ipTp9YxKQY4npwQ3mrRuL0BAVHBLyZxofhaKBAVtzmtRZ/zTyo0/to4B1uWG/Djg=="
+cpu = ["arm64"]
+dev = true
+license = "MPL-2.0"
+optional = true
+os = ["darwin"]
+
+[npm.".".packages."node_modules/lightningcss-darwin-arm64".engines]
+node = ">= 12.0.0"
+
+[npm.".".packages."node_modules/lightningcss-darwin-arm64".funding]
+type = "opencollective"
+url = "https://opencollective.com/parcel"
+
+[npm.".".packages."node_modules/lightningcss-darwin-x64"]
+version = "1.33.0"
+resolved = "https://registry.npmjs.org/lightningcss-darwin-x64/-/lightningcss-darwin-x64-1.33.0.tgz"
+integrity = "sha512-Z5UPAxzrjlWNNyGy6i65cJzzvgJ5D3T6wMvs+gWpY9d7qRhANrxqAp6LhxIgZhWEw18RfJTGcRxjuLIBr+m8XQ=="
+cpu = ["x64"]
+dev = true
+license = "MPL-2.0"
+optional = true
+os = ["darwin"]
+
+[npm.".".packages."node_modules/lightningcss-darwin-x64".engines]
+node = ">= 12.0.0"
+
+[npm.".".packages."node_modules/lightningcss-darwin-x64".funding]
+type = "opencollective"
+url = "https://opencollective.com/parcel"
+
+[npm.".".packages."node_modules/lightningcss-freebsd-x64"]
+version = "1.33.0"
+resolved = "https://registry.npmjs.org/lightningcss-freebsd-x64/-/lightningcss-freebsd-x64-1.33.0.tgz"
+integrity = "sha512-QQM/Ti/hQajJwCY+RiWuCZ9sdtI/XQk7nDK5vC8kkdwixezOlDgvDx7+RT+QjK6FcFT4MpsuoBnHIo/O3StRRg=="
+cpu = ["x64"]
+dev = true
+license = "MPL-2.0"
+optional = true
+os = ["freebsd"]
+
+[npm.".".packages."node_modules/lightningcss-freebsd-x64".engines]
+node = ">= 12.0.0"
+
+[npm.".".packages."node_modules/lightningcss-freebsd-x64".funding]
+type = "opencollective"
+url = "https://opencollective.com/parcel"
+
+[npm.".".packages."node_modules/lightningcss-linux-arm-gnueabihf"]
+version = "1.33.0"
+resolved = "https://registry.npmjs.org/lightningcss-linux-arm-gnueabihf/-/lightningcss-linux-arm-gnueabihf-1.33.0.tgz"
+integrity = "sha512-N7FVBe6iS24MlM6R/4RBTxGhQheZGs7tiQ9U32UtF75NzP5Q7xWPRqLBCKxlRQRk3rY1jCIPLzx7WzOhuUIRLQ=="
+cpu = ["arm"]
+dev = true
+license = "MPL-2.0"
+optional = true
+os = ["linux"]
+
+[npm.".".packages."node_modules/lightningcss-linux-arm-gnueabihf".engines]
+node = ">= 12.0.0"
+
+[npm.".".packages."node_modules/lightningcss-linux-arm-gnueabihf".funding]
+type = "opencollective"
+url = "https://opencollective.com/parcel"
+
+[npm.".".packages."node_modules/lightningcss-linux-arm64-gnu"]
+version = "1.33.0"
+resolved = "https://registry.npmjs.org/lightningcss-linux-arm64-gnu/-/lightningcss-linux-arm64-gnu-1.33.0.tgz"
+integrity = "sha512-j2v/itmy4HlNxlc6voKXYgBqNi0Ng2LShg4z7GufpEgs05P+2suBVyi9I6YHq5uoVFx9ETin3eCEhLVyXGQnKg=="
+cpu = ["arm64"]
+dev = true
+libc = ["glibc"]
+license = "MPL-2.0"
+optional = true
+os = ["linux"]
+
+[npm.".".packages."node_modules/lightningcss-linux-arm64-gnu".engines]
+node = ">= 12.0.0"
+
+[npm.".".packages."node_modules/lightningcss-linux-arm64-gnu".funding]
+type = "opencollective"
+url = "https://opencollective.com/parcel"
+
+[npm.".".packages."node_modules/lightningcss-linux-arm64-musl"]
+version = "1.33.0"
+resolved = "https://registry.npmjs.org/lightningcss-linux-arm64-musl/-/lightningcss-linux-arm64-musl-1.33.0.tgz"
+integrity = "sha512-yiO5ROMuYQgXbC60yjZU5CYSFZGKXL0HFATXt9mHJn1+zW55oCtMI9NfcVhYLMFDL7gV7oBPon/EmMMGg2OvtQ=="
+cpu = ["arm64"]
+dev = true
+libc = ["musl"]
+license = "MPL-2.0"
+optional = true
+os = ["linux"]
+
+[npm.".".packages."node_modules/lightningcss-linux-arm64-musl".engines]
+node = ">= 12.0.0"
+
+[npm.".".packages."node_modules/lightningcss-linux-arm64-musl".funding]
+type = "opencollective"
+url = "https://opencollective.com/parcel"
+
+[npm.".".packages."node_modules/lightningcss-linux-x64-gnu"]
+version = "1.33.0"
+resolved = "https://registry.npmjs.org/lightningcss-linux-x64-gnu/-/lightningcss-linux-x64-gnu-1.33.0.tgz"
+integrity = "sha512-ar+Ju7LmcN0Jo4FpL4hpFybwNG9/3A/Br5KW2n2jyODg3MEZXaDYADdemoNS+BDNfMgKvylJLj4S5tyRActuAg=="
+cpu = ["x64"]
+dev = true
+libc = ["glibc"]
+license = "MPL-2.0"
+optional = true
+os = ["linux"]
+
+[npm.".".packages."node_modules/lightningcss-linux-x64-gnu".engines]
+node = ">= 12.0.0"
+
+[npm.".".packages."node_modules/lightningcss-linux-x64-gnu".funding]
+type = "opencollective"
+url = "https://opencollective.com/parcel"
+
+[npm.".".packages."node_modules/lightningcss-linux-x64-musl"]
+version = "1.33.0"
+resolved = "https://registry.npmjs.org/lightningcss-linux-x64-musl/-/lightningcss-linux-x64-musl-1.33.0.tgz"
+integrity = "sha512-RYiYbkokw0trfKqqzfF55lginwEPrD3OJDfTuJzFs1MK6iFnDenaz1fqLLtX4ITG3OktJQXOeTaw1awrBAlZPw=="
+cpu = ["x64"]
+dev = true
+libc = ["musl"]
+license = "MPL-2.0"
+optional = true
+os = ["linux"]
+
+[npm.".".packages."node_modules/lightningcss-linux-x64-musl".engines]
+node = ">= 12.0.0"
+
+[npm.".".packages."node_modules/lightningcss-linux-x64-musl".funding]
+type = "opencollective"
+url = "https://opencollective.com/parcel"
+
+[npm.".".packages."node_modules/lightningcss-win32-arm64-msvc"]
+version = "1.33.0"
+resolved = "https://registry.npmjs.org/lightningcss-win32-arm64-msvc/-/lightningcss-win32-arm64-msvc-1.33.0.tgz"
+integrity = "sha512-1K+MPfLSFVpphzpdbfkhlWk6wBrTObBzS2T6db10PNOZgR9GoVsAWzwNyuhUYYbTp23j+4RrncfujZ4uAzXvwA=="
+cpu = ["arm64"]
+dev = true
+license = "MPL-2.0"
+optional = true
+os = ["win32"]
+
+[npm.".".packages."node_modules/lightningcss-win32-arm64-msvc".engines]
+node = ">= 12.0.0"
+
+[npm.".".packages."node_modules/lightningcss-win32-arm64-msvc".funding]
+type = "opencollective"
+url = "https://opencollective.com/parcel"
+
+[npm.".".packages."node_modules/lightningcss-win32-x64-msvc"]
+version = "1.33.0"
+resolved = "https://registry.npmjs.org/lightningcss-win32-x64-msvc/-/lightningcss-win32-x64-msvc-1.33.0.tgz"
+integrity = "sha512-OlEICDx/Xl0FqSp4bry8zFnCvGpig3Gl4gCquvYwHuqJKEC1+n9NgDniFvqHGmMv1ZkqDJrDqKKSykTDX+ehuA=="
+cpu = ["x64"]
+dev = true
+license = "MPL-2.0"
+optional = true
+os = ["win32"]
+
+[npm.".".packages."node_modules/lightningcss-win32-x64-msvc".engines]
+node = ">= 12.0.0"
+
+[npm.".".packages."node_modules/lightningcss-win32-x64-msvc".funding]
+type = "opencollective"
+url = "https://opencollective.com/parcel"
+
+[npm.".".packages."node_modules/locate-path"]
+version = "6.0.0"
+resolved = "https://registry.npmjs.org/locate-path/-/locate-path-6.0.0.tgz"
+integrity = "sha512-iPZK6eYjbxRu3uB4/WZ3EsEIMJFMqAoopl3R+zuq0UjcAm/MO6KCweDgPfP3elTztoKP3KtnVHxTn2NHBSDVUw=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/locate-path".dependencies]
+p-locate = "^5.0.0"
+
+[npm.".".packages."node_modules/locate-path".engines]
+node = ">=10"
+
+[npm.".".packages."node_modules/locate-path".funding]
+url = "https://github.com/sponsors/sindresorhus"
+
+[npm.".".packages."node_modules/log-symbols"]
+version = "7.0.1"
+resolved = "https://registry.npmjs.org/log-symbols/-/log-symbols-7.0.1.tgz"
+integrity = "sha512-ja1E3yCr9i/0hmBVaM0bfwDjnGy8I/s6PP4DFp+yP+a+mrHO4Rm7DtmnqROTUkHIkqffC84YY7AeqX6oFk0WFg=="
+license = "MIT"
+
+[npm.".".packages."node_modules/log-symbols".dependencies]
+is-unicode-supported = "^2.0.0"
+yoctocolors = "^2.1.1"
+
+[npm.".".packages."node_modules/log-symbols".engines]
+node = ">=18"
+
+[npm.".".packages."node_modules/log-symbols".funding]
+url = "https://github.com/sponsors/sindresorhus"
+
+[npm.".".packages."node_modules/magic-string"]
+version = "1.4.5"
+resolved = "https://registry.npmjs.org/magic-string/-/magic-string-1.4.5.tgz"
+integrity = "sha512-oLLC2+YvQUfAa+vxoufE/yc1icb87M9iXIRqAoR/2EhE/8cb3SF/+Gi0c2By1B+5Vz2e2vQtUvHiu1+63Znh+w=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/magic-string".dependencies]
+"@jridgewell/sourcemap-codec" = "^1.6.0"
+
+[npm.".".packages."node_modules/mimic-function"]
+version = "5.0.1"
+resolved = "https://registry.npmjs.org/mimic-function/-/mimic-function-5.0.1.tgz"
+integrity = "sha512-VP79XUPxV2CigYP3jWwAUFSku2aKqBH7uTAapFWCBqutsbmDo96KY5o8uh6U+/YSIn5OxJnXp73beVkpqMIGhA=="
+license = "MIT"
+
+[npm.".".packages."node_modules/mimic-function".engines]
+node = ">=18"
+
+[npm.".".packages."node_modules/mimic-function".funding]
+url = "https://github.com/sponsors/sindresorhus"
+
+[npm.".".packages."node_modules/minimatch"]
+version = "10.2.6"
+resolved = "https://registry.npmjs.org/minimatch/-/minimatch-10.2.6.tgz"
+integrity = "sha512-vpLQEs+VLCr1nU0BXS07maYoFwlDAH0gngQuuttxIwutDFEMHq2blX+8vpgxDdK3J1PwjCJiep77OitTZ4Ll1A=="
+dev = true
+license = "BlueOak-1.0.0"
+
+[npm.".".packages."node_modules/minimatch".dependencies]
+brace-expansion = "^5.0.8"
+
+[npm.".".packages."node_modules/minimatch".engines]
+node = "18 || 20 || >=22"
+
+[npm.".".packages."node_modules/minimatch".funding]
+url = "https://github.com/sponsors/isaacs"
+
+[npm.".".packages."node_modules/minipass"]
+version = "7.1.3"
+resolved = "https://registry.npmjs.org/minipass/-/minipass-7.1.3.tgz"
+integrity = "sha512-tEBHqDnIoM/1rXME1zgka9g6Q2lcoCkxHLuc7ODJ5BxbP5d4c2Z5cGgtXAku59200Cx7diuHTOYfSBD8n6mm8A=="
+license = "BlueOak-1.0.0"
+
+[npm.".".packages."node_modules/minipass".engines]
+node = ">=16 || 14 >=14.17"
+
+[npm.".".packages."node_modules/minizlib"]
+version = "3.1.0"
+resolved = "https://registry.npmjs.org/minizlib/-/minizlib-3.1.0.tgz"
+integrity = "sha512-KZxYo1BUkWD2TVFLr0MQoM8vUUigWD3LlD83a/75BqC+4qE0Hb1Vo5v1FgcfaNXvfXzr+5EhQ6ing/CaBijTlw=="
+license = "MIT"
+
+[npm.".".packages."node_modules/minizlib".dependencies]
+minipass = "^7.1.2"
+
+[npm.".".packages."node_modules/minizlib".engines]
+node = ">= 18"
+
+[npm.".".packages."node_modules/mrmime"]
+version = "2.0.1"
+resolved = "https://registry.npmjs.org/mrmime/-/mrmime-2.0.1.tgz"
+integrity = "sha512-Y3wQdFg2Va6etvQ5I82yUhGdsKrcYox6p7FfL1LbK2J4V01F9TGlepTIhnK24t7koZibmg82KGglhA1XK5IsLQ=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/mrmime".engines]
+node = ">=10"
+
+[npm.".".packages."node_modules/ms"]
+version = "2.1.3"
+resolved = "https://registry.npmjs.org/ms/-/ms-2.1.3.tgz"
+integrity = "sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/mute-stream"]
+version = "3.0.0"
+resolved = "https://registry.npmjs.org/mute-stream/-/mute-stream-3.0.0.tgz"
+integrity = "sha512-dkEJPVvun4FryqBmZ5KhDo0K9iDXAwn08tMLDinNdRBNPcYEDiWYysLcc6k3mjTMlbP9KyylvRpd4wFtwrT9rw=="
+license = "ISC"
+
+[npm.".".packages."node_modules/mute-stream".engines]
+node = "^20.17.0 || >=22.9.0"
+
+[npm.".".packages."node_modules/nanoid"]
+version = "3.3.20"
+resolved = "https://registry.npmjs.org/nanoid/-/nanoid-3.3.20.tgz"
+integrity = "sha512-uKdg2G3GNCKQn9byYOpxbGqrT2fGO5KRt5J/8b3pok8rT6qxGWF6hxMyJiEYtAf+FVyYuD9hRaDqX5uPFYJ4ZQ=="
+dev = true
+funding = [{ type = "github", url = "https://github.com/sponsors/ai" }]
+license = "MIT"
+
+[npm.".".packages."node_modules/nanoid".bin]
+nanoid = "bin/nanoid.cjs"
+
+[npm.".".packages."node_modules/nanoid".engines]
+node = "^10 || ^12 || ^13.7 || ^14 || >=15.0.1"
+
+[npm.".".packages."node_modules/natural-compare"]
+version = "1.4.0"
+resolved = "https://registry.npmjs.org/natural-compare/-/natural-compare-1.4.0.tgz"
+integrity = "sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/nostics"]
+version = "1.4.0"
+resolved = "https://registry.npmjs.org/nostics/-/nostics-1.4.0.tgz"
+integrity = "sha512-WjXHOuNuzY3MPKOoCT2zL1Sa3cS2mOUe4o8F94JvBOH2cGfyNItbQmCb2pNHIxoodd5O+vtmmHq7PoSZVGgCHA=="
+license = "MIT"
+
+[npm.".".packages."node_modules/obug"]
+version = "3.0.0"
+resolved = "https://registry.npmjs.org/obug/-/obug-3.0.0.tgz"
+integrity = "sha512-5vvB5+W7ePv+p3uqxi+RcW1XAzLW0/hxt3/4X4Lc4qHudzOhmBiBwOY6DRob4WnanAEGvNcLjF+KNOufrUoEQw=="
+dev = true
+funding = ["https://github.com/sponsors/sxzz", "https://opencollective.com/debug"]
+license = "MIT"
+
+[npm.".".packages."node_modules/obug".engines]
+node = ">=12.20.0"
+
+[npm.".".packages."node_modules/onetime"]
+version = "7.0.0"
+resolved = "https://registry.npmjs.org/onetime/-/onetime-7.0.0.tgz"
+integrity = "sha512-VXJjc87FScF88uafS3JllDgvAm+c/Slfz06lorj2uAY34rlUu0Nt+v8wreiImcrgAjjIHp1rXpTDlLOGw29WwQ=="
+license = "MIT"
+
+[npm.".".packages."node_modules/onetime".dependencies]
+mimic-function = "^5.0.0"
+
+[npm.".".packages."node_modules/onetime".engines]
+node = ">=18"
+
+[npm.".".packages."node_modules/onetime".funding]
+url = "https://github.com/sponsors/sindresorhus"
+
+[npm.".".packages."node_modules/optionator"]
+version = "0.9.4"
+resolved = "https://registry.npmjs.org/optionator/-/optionator-0.9.4.tgz"
+integrity = "sha512-6IpQ7mKUxRcZNLIObR0hz7lxsapSSIYNZJwXPGeF0mTVqGKFIXj1DQcMoT22S3ROcLyY/rz0PWaWZ9ayWmad9g=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/optionator".dependencies]
+deep-is = "^0.1.3"
+fast-levenshtein = "^2.0.6"
+levn = "^0.4.1"
+prelude-ls = "^1.2.1"
+type-check = "^0.4.0"
+word-wrap = "^1.2.5"
+
+[npm.".".packages."node_modules/optionator".engines]
+node = ">= 0.8.0"
+
+[npm.".".packages."node_modules/ora"]
+version = "9.4.1"
+resolved = "https://registry.npmjs.org/ora/-/ora-9.4.1.tgz"
+integrity = "sha512-6VlU9MLXbjVQD04AZCMX28hVtA5bUoadvUqO76MUCVA0ilwJbMiHsITRPfyVm6p/BC0Av/BXMujx39WCe1LEqw=="
+license = "MIT"
+
+[npm.".".packages."node_modules/ora".dependencies]
+chalk = "^5.6.2"
+cli-cursor = "^5.0.0"
+cli-spinners = "^3.2.0"
+is-interactive = "^2.0.0"
+is-unicode-supported = "^2.1.0"
+log-symbols = "^7.0.1"
+stdin-discarder = "^0.3.2"
+string-width = "^8.1.0"
+
+[npm.".".packages."node_modules/ora".engines]
+node = ">=20"
+
+[npm.".".packages."node_modules/ora".funding]
+url = "https://github.com/sponsors/sindresorhus"
+
+[npm.".".packages."node_modules/ora/node_modules/chalk"]
+version = "5.6.2"
+resolved = "https://registry.npmjs.org/chalk/-/chalk-5.6.2.tgz"
+integrity = "sha512-7NzBL0rN6fMUW+f7A6Io4h40qQlG+xGmtMxfbnH/K7TAtt8JQWVQK+6g0UXKMeVJoyV5EkkNsErQ8pVD3bLHbA=="
+license = "MIT"
+
+[npm.".".packages."node_modules/ora/node_modules/chalk".engines]
+node = "^12.17.0 || ^14.13 || >=16.0.0"
+
+[npm.".".packages."node_modules/ora/node_modules/chalk".funding]
+url = "https://github.com/chalk/chalk?sponsor=1"
+
+[npm.".".packages."node_modules/p-limit"]
+version = "3.1.0"
+resolved = "https://registry.npmjs.org/p-limit/-/p-limit-3.1.0.tgz"
+integrity = "sha512-TYOanM3wGwNGsZN2cVTYPArw454xnXj5qmWF1bEoAc4+cU/ol7GVh7odevjp1FNHduHc3KZMcFduxU5Xc6uJRQ=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/p-limit".dependencies]
+yocto-queue = "^0.1.0"
+
+[npm.".".packages."node_modules/p-limit".engines]
+node = ">=10"
+
+[npm.".".packages."node_modules/p-limit".funding]
+url = "https://github.com/sponsors/sindresorhus"
+
+[npm.".".packages."node_modules/p-locate"]
+version = "5.0.0"
+resolved = "https://registry.npmjs.org/p-locate/-/p-locate-5.0.0.tgz"
+integrity = "sha512-LaNjtRWUBY++zB5nE/NwcaoMylSPk+S+ZHNB1TzdbMJMny6dynpAGt7X/tl/QYq3TIeE6nxHppbo2LGymrG5Pw=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/p-locate".dependencies]
+p-limit = "^3.0.2"
+
+[npm.".".packages."node_modules/p-locate".engines]
+node = ">=10"
+
+[npm.".".packages."node_modules/p-locate".funding]
+url = "https://github.com/sponsors/sindresorhus"
+
+[npm.".".packages."node_modules/package-manager-detector"]
+version = "1.8.0"
+resolved = "https://registry.npmjs.org/package-manager-detector/-/package-manager-detector-1.8.0.tgz"
+integrity = "sha512-yQA4H19AmPEoMUeavPMDIe1higySl/gH/yaQrkT/s07Qp+7pp2hYz30N3z2l5BkjVkF9Ow6o0wjJamm2y7Sn0A=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/path-exists"]
+version = "4.0.0"
+resolved = "https://registry.npmjs.org/path-exists/-/path-exists-4.0.0.tgz"
+integrity = "sha512-ak9Qy5Q7jYb2Wwcey5Fpvg2KoAc/ZIhLSLOSBmRmygPsGwkVVt0fZa0qrtMz+m6tJTAHfZQ8FnmB4MG4LWy7/w=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/path-exists".engines]
+node = ">=8"
+
+[npm.".".packages."node_modules/path-key"]
+version = "3.1.1"
+resolved = "https://registry.npmjs.org/path-key/-/path-key-3.1.1.tgz"
+integrity = "sha512-ojmeN0qd+y0jszEtoY48r0Peq5dwMEkIlCOu6Q5f41lfkswXuKtYrhgoTpLnyIcHm24Uhqx+5Tqm2InSwLhE6Q=="
+license = "MIT"
+
+[npm.".".packages."node_modules/path-key".engines]
+node = ">=8"
+
+[npm.".".packages."node_modules/pathe"]
+version = "2.0.3"
+resolved = "https://registry.npmjs.org/pathe/-/pathe-2.0.3.tgz"
+integrity = "sha512-WUjGcAqP1gQacoQe+OBJsFA7Ld4DyXuUIjZ5cc75cLHvJ7dtNsTugphxIADwspS+AraAUePCKrSVtPLFj/F88w=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/picocolors"]
+version = "1.1.1"
+resolved = "https://registry.npmjs.org/picocolors/-/picocolors-1.1.1.tgz"
+integrity = "sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA=="
+dev = true
+license = "ISC"
+
+[npm.".".packages."node_modules/picomatch"]
+version = "4.0.7"
+resolved = "https://registry.npmjs.org/picomatch/-/picomatch-4.0.7.tgz"
+integrity = "sha512-qcJu88Q2IWqJsDD529JKMdwGm/dvInW4HvQnRwiH9JtihJvzGOscDtHE3x1pBKeUOTysQ8kVmLnJ2kJu7yhcGA=="
+license = "MIT"
+
+[npm.".".packages."node_modules/picomatch".engines]
+node = ">=12"
+
+[npm.".".packages."node_modules/picomatch".funding]
+url = "https://github.com/sponsors/jonschlinkert"
+
+[npm.".".packages."node_modules/postcss"]
+version = "8.5.32"
+resolved = "https://registry.npmjs.org/postcss/-/postcss-8.5.32.tgz"
+integrity = "sha512-LJlKCCAUFKOuZxipUdYw1NzIITEsPcgyOG9LkvRJvuKj/bRzbuRY0ARXvL0pWGpsZvn8jku+LMep2eU0seHp8g=="
+dev = true
+funding = [
+    { type = "opencollective", url = "https://opencollective.com/postcss/" },
+    { type = "tidelift", url = "https://tidelift.com/funding/github/npm/postcss" },
+    { type = "github", url = "https://github.com/sponsors/ai" },
+]
+license = "MIT"
+
+[npm.".".packages."node_modules/postcss".dependencies]
+nanoid = "^3.3.20"
+picocolors = "^1.1.1"
+source-map-js = "^1.2.2"
+
+[npm.".".packages."node_modules/postcss".engines]
+node = "^10 || ^12 || >=14"
+
+[npm.".".packages."node_modules/prelude-ls"]
+version = "1.2.1"
+resolved = "https://registry.npmjs.org/prelude-ls/-/prelude-ls-1.2.1.tgz"
+integrity = "sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/prelude-ls".engines]
+node = ">= 0.8.0"
+
+[npm.".".packages."node_modules/punycode"]
+version = "2.3.1"
+resolved = "https://registry.npmjs.org/punycode/-/punycode-2.3.1.tgz"
+integrity = "sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/punycode".engines]
+node = ">=6"
+
+[npm.".".packages."node_modules/qified"]
+version = "0.10.1"
+resolved = "https://registry.npmjs.org/qified/-/qified-0.10.1.tgz"
+integrity = "sha512-+Owyggi9IxT1ePKGafcI87ubSmxol6smwJ+RAHDQlx9+9cPwFWDiKFFCPuWhr9ignlGpZ9vDQLw67N4dcTVFEA=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/qified".dependencies]
+hookified = "^2.1.1"
+
+[npm.".".packages."node_modules/qified".engines]
+node = ">=20"
+
+[npm.".".packages."node_modules/qified/node_modules/hookified"]
+version = "2.2.0"
+resolved = "https://registry.npmjs.org/hookified/-/hookified-2.2.0.tgz"
+integrity = "sha512-p/LgFzRN5FeoD3DLS6bkUapeye6E4SI6yJs6KetENd18S+FBthqYq2amJUWpt5z0EQwwHemidjY5OqJGEKm5uA=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/restore-cursor"]
+version = "5.1.0"
+resolved = "https://registry.npmjs.org/restore-cursor/-/restore-cursor-5.1.0.tgz"
+integrity = "sha512-oMA2dcrw6u0YfxJQXm342bFKX/E4sG9rbTzO9ptUcR/e8A33cHuvStiYOwH7fszkZlZ1z/ta9AAoPk2F4qIOHA=="
+license = "MIT"
+
+[npm.".".packages."node_modules/restore-cursor".dependencies]
+onetime = "^7.0.0"
+signal-exit = "^4.1.0"
+
+[npm.".".packages."node_modules/restore-cursor".engines]
+node = ">=18"
+
+[npm.".".packages."node_modules/restore-cursor".funding]
+url = "https://github.com/sponsors/sindresorhus"
+
+[npm.".".packages."node_modules/rolldown"]
+version = "1.2.19"
+resolved = "https://registry.npmjs.org/rolldown/-/rolldown-1.2.19.tgz"
+integrity = "sha512-QIiV1J9d0pzN4jeeTH4sjPy0AZ6cAy2cG0ExeoE1+U8Rvj+hR3gYkokx0YbeUNGlZqiQJJ2utcETe0oKXwzsuA=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/rolldown".dependencies]
+"@oxc-project/types" = "=0.156.0"
+"@rolldown/pluginutils" = "^1.0.0"
+
+[npm.".".packages."node_modules/rolldown".bin]
+rolldown = "bin/cli.mjs"
+
+[npm.".".packages."node_modules/rolldown".engines]
+node = "^20.19.0 || >=22.12.0"
+
+[npm.".".packages."node_modules/rolldown".optionalDependencies]
+"@rolldown/binding-android-arm-eabi" = "1.2.19"
+"@rolldown/binding-android-arm64" = "1.2.19"
+"@rolldown/binding-darwin-arm64" = "1.2.19"
+"@rolldown/binding-darwin-x64" = "1.2.19"
+"@rolldown/binding-freebsd-x64" = "1.2.19"
+"@rolldown/binding-linux-arm-gnueabihf" = "1.2.19"
+"@rolldown/binding-linux-arm64-gnu" = "1.2.19"
+"@rolldown/binding-linux-arm64-musl" = "1.2.19"
+"@rolldown/binding-linux-ppc64-gnu" = "1.2.19"
+"@rolldown/binding-linux-s390x-gnu" = "1.2.19"
+"@rolldown/binding-linux-x64-gnu" = "1.2.19"
+"@rolldown/binding-linux-x64-musl" = "1.2.19"
+"@rolldown/binding-openharmony-arm64" = "1.2.19"
+"@rolldown/binding-wasm32-wasi" = "1.2.19"
+"@rolldown/binding-win32-arm64-msvc" = "1.2.19"
+"@rolldown/binding-win32-x64-msvc" = "1.2.19"
+
+[npm.".".packages."node_modules/safer-buffer"]
+version = "2.1.2"
+resolved = "https://registry.npmjs.org/safer-buffer/-/safer-buffer-2.1.2.tgz"
+integrity = "sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg=="
+license = "MIT"
+
+[npm.".".packages."node_modules/semver"]
+version = "7.8.5"
+resolved = "https://registry.npmjs.org/semver/-/semver-7.8.5.tgz"
+integrity = "sha512-Y7/KDsb8LjooZpwaqGyulO6DQlksgCncchHGk+sZIY4SBvUocMBEFH5Ur1fI4dV+Jvl0w6cjvucaIi40puRioA=="
+dev = true
+license = "ISC"
+
+[npm.".".packages."node_modules/semver".bin]
+semver = "bin/semver.js"
+
+[npm.".".packages."node_modules/semver".engines]
+node = ">=10"
+
+[npm.".".packages."node_modules/shebang-command"]
+version = "2.0.0"
+resolved = "https://registry.npmjs.org/shebang-command/-/shebang-command-2.0.0.tgz"
+integrity = "sha512-kHxr2zZpYtdmrN1qDjrrX/Z1rR1kG8Dx+gkpK1G4eXmvXswmcE1hTWBWYUzlraYw1/yZp6YuDY77YtvbN0dmDA=="
+license = "MIT"
+
+[npm.".".packages."node_modules/shebang-command".dependencies]
+shebang-regex = "^3.0.0"
+
+[npm.".".packages."node_modules/shebang-command".engines]
+node = ">=8"
+
+[npm.".".packages."node_modules/shebang-regex"]
+version = "3.0.0"
+resolved = "https://registry.npmjs.org/shebang-regex/-/shebang-regex-3.0.0.tgz"
+integrity = "sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A=="
+license = "MIT"
+
+[npm.".".packages."node_modules/shebang-regex".engines]
+node = ">=8"
+
+[npm.".".packages."node_modules/shell-quote"]
+version = "1.12.0"
+resolved = "https://registry.npmjs.org/shell-quote/-/shell-quote-1.12.0.tgz"
+integrity = "sha512-PcByqNyT/38F2kDNi006HAMRJaULuBzq/FOsw3qdZvX/GA9W/jamDaRskgHjubHiftXK5sIFxLNkvrXUwcof6Q=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/shell-quote".engines]
+node = ">= 0.4"
+
+[npm.".".packages."node_modules/shell-quote".funding]
+url = "https://github.com/sponsors/ljharb"
+
+[npm.".".packages."node_modules/signal-exit"]
+version = "4.1.0"
+resolved = "https://registry.npmjs.org/signal-exit/-/signal-exit-4.1.0.tgz"
+integrity = "sha512-bzyZ1e88w9O1iNJbKnOlvYTrWPDl46O1bG0D3XInv+9tkPrxrN8jUUTiFlDkkmKWgn1M6CfIA13SuGqOa9Korw=="
+license = "ISC"
+
+[npm.".".packages."node_modules/signal-exit".engines]
+node = ">=14"
+
+[npm.".".packages."node_modules/signal-exit".funding]
+url = "https://github.com/sponsors/isaacs"
+
+[npm.".".packages."node_modules/sirv"]
+version = "3.0.2"
+resolved = "https://registry.npmjs.org/sirv/-/sirv-3.0.2.tgz"
+integrity = "sha512-2wcC/oGxHis/BoHkkPwldgiPSYcpZK3JU28WoMVv55yHJgcZ8rlXvuG9iZggz+sU1d4bRgIGASwyWqjxu3FM0g=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/sirv".dependencies]
+"@polka/url" = "^1.0.0-next.24"
+mrmime = "^2.0.0"
+totalist = "^3.0.0"
+
+[npm.".".packages."node_modules/sirv".engines]
+node = ">=18"
+
+[npm.".".packages."node_modules/sisteransi"]
+version = "1.0.5"
+resolved = "https://registry.npmjs.org/sisteransi/-/sisteransi-1.0.5.tgz"
+integrity = "sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/skills"]
+version = "1.8.1"
+resolved = "https://registry.npmjs.org/skills/-/skills-1.8.1.tgz"
+integrity = "sha512-QK3wlZ5j8wcpLPUOXt7+1Gu1f9JKpv7lBpO0zmqKa5VBrt45/woVo8Max1x4wha3pCNafNHiiodYK6Xi/0alQQ=="
+license = "MIT"
+
+[npm.".".packages."node_modules/skills".dependencies]
+nostics = "^1.3.0"
+tar = "^7.5.22"
+yaml = "^2.9.1"
+
+[npm.".".packages."node_modules/skills".bin]
+add-skill = "bin/cli.mjs"
+skills = "bin/cli.mjs"
+
+[npm.".".packages."node_modules/skills".engines]
+node = ">=22.20.0"
+
+[npm.".".packages."node_modules/smol-toml"]
+version = "1.9.1"
+resolved = "https://registry.npmjs.org/smol-toml/-/smol-toml-1.9.1.tgz"
+integrity = "sha512-j7WyPdf0CJoutMzMoPLF/bVXHtKZIT9Rb4eGeEbWw8X2t5oirjPgpL+OpaENZrILYaXqYwnVH+qgUwVbl+pUJQ=="
+dev = true
+license = "BSD-3-Clause"
+
+[npm.".".packages."node_modules/smol-toml".engines]
+node = ">= 18"
+
+[npm.".".packages."node_modules/smol-toml".funding]
+url = "https://github.com/sponsors/cyyynthia"
+
+[npm.".".packages."node_modules/source-map-js"]
+version = "1.2.2"
+resolved = "https://registry.npmjs.org/source-map-js/-/source-map-js-1.2.2.tgz"
+integrity = "sha512-KGj/8Y43x35aZVDtt+J4mK1hoLGHULMYfSkODJNQjNDC3oW1PqPoxMwo0pLUsWM/UEGzON/NxeHywEfNXNP3Vw=="
+dev = true
+license = "BSD-3-Clause"
+
+[npm.".".packages."node_modules/source-map-js".engines]
+node = ">=0.10.0"
+
+[npm.".".packages."node_modules/std-env"]
+version = "4.3.0"
+resolved = "https://registry.npmjs.org/std-env/-/std-env-4.3.0.tgz"
+integrity = "sha512-OtU/EgQ1kIm5KwqQpBC6ZEMXrZRui11w8zgfTWp8cdO9B8OaPsbA8bTHO2P+HNo1VlUTGMVBwPhydu6poeXiag=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/stdin-discarder"]
+version = "0.3.2"
+resolved = "https://registry.npmjs.org/stdin-discarder/-/stdin-discarder-0.3.2.tgz"
+integrity = "sha512-eCPu1qRxPVkl5605OTWF8Wz40b4Mf45NY5LQmVPQ599knfs5QhASUm9GbJ5BDMDOXgrnh0wyEdvzmL//YMlw0A=="
+license = "MIT"
+
+[npm.".".packages."node_modules/stdin-discarder".engines]
+node = ">=18"
+
+[npm.".".packages."node_modules/stdin-discarder".funding]
+url = "https://github.com/sponsors/sindresorhus"
+
+[npm.".".packages."node_modules/string-width"]
+version = "8.2.2"
+resolved = "https://registry.npmjs.org/string-width/-/string-width-8.2.2.tgz"
+integrity = "sha512-GaPUh5gfdrYzqeVNZvUfT23vYYxXzKYidUcnMtJg/3rxRV63EFZy3k6xfKlmfeJD0176lnUV/Usr3XcwSvFzpg=="
+license = "MIT"
+
+[npm.".".packages."node_modules/string-width".dependencies]
+get-east-asian-width = "^1.5.0"
+strip-ansi = "^7.1.2"
+
+[npm.".".packages."node_modules/string-width".engines]
+node = ">=20"
+
+[npm.".".packages."node_modules/string-width".funding]
+url = "https://github.com/sponsors/sindresorhus"
+
+[npm.".".packages."node_modules/strip-ansi"]
+version = "7.2.0"
+resolved = "https://registry.npmjs.org/strip-ansi/-/strip-ansi-7.2.0.tgz"
+integrity = "sha512-yDPMNjp4WyfYBkHnjIRLfca1i6KMyGCtsVgoKe/z1+6vukgaENdgGBZt+ZmKPc4gavvEZ5OgHfHdrazhgNyG7w=="
+license = "MIT"
+
+[npm.".".packages."node_modules/strip-ansi".dependencies]
+ansi-regex = "^6.2.2"
+
+[npm.".".packages."node_modules/strip-ansi".engines]
+node = ">=12"
+
+[npm.".".packages."node_modules/strip-ansi".funding]
+url = "https://github.com/chalk/strip-ansi?sponsor=1"
+
+[npm.".".packages."node_modules/tar"]
+version = "7.5.23"
+resolved = "https://registry.npmjs.org/tar/-/tar-7.5.23.tgz"
+integrity = "sha512-lkukzdoGngZHJZXxW4S/E4Fp9ghTDlyZXrQGRNoJ/LXvDKcXUTq2sg5yQe74po7Voea6n/IN09+wE/QvJMiifA=="
+license = "BlueOak-1.0.0"
+
+[npm.".".packages."node_modules/tar".dependencies]
+"@isaacs/fs-minipass" = "^4.0.0"
+chownr = "^3.0.0"
+minipass = "^7.1.2"
+minizlib = "^3.1.0"
+yallist = "^5.0.0"
+
+[npm.".".packages."node_modules/tar".engines]
+node = ">=18"
+
+[npm.".".packages."node_modules/tinybench"]
+version = "6.2.4"
+resolved = "https://registry.npmjs.org/tinybench/-/tinybench-6.2.4.tgz"
+integrity = "sha512-SQ52jEncXxbMCzJuY2A/jGIbbAu6NYsBWW7grz2pNE+EnzQdoGaoBfpk4qC/opE7qiUcGmGgaGIz5EoHdS1O9w=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/tinybench".engines]
+node = ">=20.0.0"
+
+[npm.".".packages."node_modules/tinyexec"]
+version = "1.3.1"
+resolved = "https://registry.npmjs.org/tinyexec/-/tinyexec-1.3.1.tgz"
+integrity = "sha512-GCvB3aoys96IuDFBMcTB46JOR6mdMtAToqwiW8JlWhsoh1mhHi/xn9ss/Dg7N555GiJyEt2qzoG/NHCwM6h1EA=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/tinyexec".engines]
+node = ">=18"
+
+[npm.".".packages."node_modules/tinyglobby"]
+version = "0.2.17"
+resolved = "https://registry.npmjs.org/tinyglobby/-/tinyglobby-0.2.17.tgz"
+integrity = "sha512-wXR/dYpcqKmfWpEdZjiKJOwCNFndD0DMnrW/cYjVGttEkBfVgcLFHoNrlj47mjOVic9yyNu65alsgF4NQyTa2g=="
+license = "MIT"
+
+[npm.".".packages."node_modules/tinyglobby".dependencies]
+fdir = "^6.5.0"
+picomatch = "^4.0.4"
+
+[npm.".".packages."node_modules/tinyglobby".engines]
+node = ">=12.0.0"
+
+[npm.".".packages."node_modules/tinyglobby".funding]
+url = "https://github.com/sponsors/SuperchupuDev"
+
+[npm.".".packages."node_modules/tinyrainbow"]
+version = "3.2.0"
+resolved = "https://registry.npmjs.org/tinyrainbow/-/tinyrainbow-3.2.0.tgz"
+integrity = "sha512-LgO3D9yZJjApUiuUfl9iFAwrtaX4+lok3wJIqttGoKCHlWUqHqbQpnxCf82L8FjgKsh4iGo78hqJwgL8F6To2A=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/tinyrainbow".engines]
+node = ">=14.0.0"
+
+[npm.".".packages."node_modules/totalist"]
+version = "3.0.1"
+resolved = "https://registry.npmjs.org/totalist/-/totalist-3.0.1.tgz"
+integrity = "sha512-sf4i37nQ2LBx4m3wB74y+ubopq6W/dIzXg0FDGjsYnZHVa1Da8FH853wlL2gtUhg+xJXjfk3kUZS3BRoQeoQBQ=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/totalist".engines]
+node = ">=6"
+
+[npm.".".packages."node_modules/ts-api-utils"]
+version = "2.5.0"
+resolved = "https://registry.npmjs.org/ts-api-utils/-/ts-api-utils-2.5.0.tgz"
+integrity = "sha512-OJ/ibxhPlqrMM0UiNHJ/0CKQkoKF243/AEmplt3qpRgkW8VG7IfOS41h7V8TjITqdByHzrjcS/2si+y4lIh8NA=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/ts-api-utils".engines]
+node = ">=18.12"
+
+[npm.".".packages."node_modules/ts-api-utils".peerDependencies]
+typescript = ">=4.8.4"
+
+[npm.".".packages."node_modules/tslib"]
+version = "2.9.1"
+resolved = "https://registry.npmjs.org/tslib/-/tslib-2.9.1.tgz"
+integrity = "sha512-a4Ux9VKuIMHsOS7ENbEq6hK2ZGYIT27Rtl0E4eD9KqwxhKiQeMZE/9xb3IdYwWaSOyIBQLExhQgXDTYoiCxnWA=="
+dev = true
+license = "0BSD"
+optional = true
+
+[npm.".".packages."node_modules/type-check"]
+version = "0.4.0"
+resolved = "https://registry.npmjs.org/type-check/-/type-check-0.4.0.tgz"
+integrity = "sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/type-check".dependencies]
+prelude-ls = "^1.2.1"
+
+[npm.".".packages."node_modules/type-check".engines]
+node = ">= 0.8.0"
+
+[npm.".".packages."node_modules/typescript"]
+version = "6.0.3"
+resolved = "https://registry.npmjs.org/typescript/-/typescript-6.0.3.tgz"
+integrity = "sha512-y2TvuxSZPDyQakkFRPZHKFm+KKVqIisdg9/CZwm9ftvKXLP8NRWj38/ODjNbr43SsoXqNuAisEf1GdCxqWcdBw=="
+dev = true
+license = "Apache-2.0"
+
+[npm.".".packages."node_modules/typescript".bin]
+tsc = "bin/tsc"
+tsserver = "bin/tsserver"
+
+[npm.".".packages."node_modules/typescript".engines]
+node = ">=14.17"
+
+[npm.".".packages."node_modules/typescript-eslint"]
+version = "8.72.2"
+resolved = "https://registry.npmjs.org/typescript-eslint/-/typescript-eslint-8.72.2.tgz"
+integrity = "sha512-c/+AKMW1KB81r28Sp0AAdcyXj5dzNmAsZFcsrxKbZTKmcBK2xIwBR31dcSYSDu3bKmzXe8GKrSxO+eDQ401Uzg=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/typescript-eslint".dependencies]
+"@typescript-eslint/eslint-plugin" = "8.72.2"
+"@typescript-eslint/parser" = "8.72.2"
+"@typescript-eslint/typescript-estree" = "8.72.2"
+"@typescript-eslint/utils" = "8.72.2"
+
+[npm.".".packages."node_modules/typescript-eslint".engines]
+node = "^18.18.0 || ^20.9.0 || >=21.1.0"
+
+[npm.".".packages."node_modules/typescript-eslint".funding]
+type = "opencollective"
+url = "https://opencollective.com/typescript-eslint"
+
+[npm.".".packages."node_modules/typescript-eslint".peerDependencies]
+eslint = "^8.57.0 || ^9.0.0 || ^10.0.0"
+typescript = ">=4.8.4 <6.1.0"
+
+[npm.".".packages."node_modules/undici-types"]
+version = "6.21.0"
+resolved = "https://registry.npmjs.org/undici-types/-/undici-types-6.21.0.tgz"
+integrity = "sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp+7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ=="
+devOptional = true
+license = "MIT"
+
+[npm.".".packages."node_modules/uri-js"]
+version = "4.4.1"
+resolved = "https://registry.npmjs.org/uri-js/-/uri-js-4.4.1.tgz"
+integrity = "sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg=="
+dev = true
+license = "BSD-2-Clause"
+
+[npm.".".packages."node_modules/uri-js".dependencies]
+punycode = "^2.1.0"
+
+[npm.".".packages."node_modules/vite"]
+version = "8.3.8"
+resolved = "https://registry.npmjs.org/vite/-/vite-8.3.8.tgz"
+integrity = "sha512-LzOn3h9rG/0vhLdXrV4yJ4QFA9eEoqCl+Yx+kGJd7aB9w6nfNgVHKSYwLPZUHrz4ZGa+t+kXjV9itvcHDLQouA=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/vite".dependencies]
+lightningcss = "^1.33.0"
+picomatch = "^4.0.7"
+postcss = "^8.5.32"
+rolldown = "~1.2.18"
+tinyglobby = "^0.2.17"
+
+[npm.".".packages."node_modules/vite".bin]
+vite = "bin/vite.js"
+
+[npm.".".packages."node_modules/vite".engines]
+node = "^20.19.0 || >=22.12.0"
+
+[npm.".".packages."node_modules/vite".funding]
+url = "https://github.com/vitejs/vite?sponsor=1"
+
+[npm.".".packages."node_modules/vite".optionalDependencies]
+fsevents = "~2.3.3"
+
+[npm.".".packages."node_modules/vite".peerDependencies]
+"@types/node" = "^20.19.0 || >=22.12.0"
+"@vitejs/devtools" = "^0.7.1 || ^0.8.0"
+esbuild = "^0.27.0 || ^0.28.0"
+jiti = ">=1.21.0"
+less = "^4.0.0"
+sass = "^1.70.0"
+sass-embedded = "^1.70.0"
+stylus = ">=0.54.8"
+sugarss = "^5.0.0"
+terser = "^5.16.0"
+tsx = "^4.8.1"
+yaml = "^2.4.2"
+
+[npm.".".packages."node_modules/vite".peerDependenciesMeta."@types/node"]
+optional = true
+
+[npm.".".packages."node_modules/vite".peerDependenciesMeta."@vitejs/devtools"]
+optional = true
+
+[npm.".".packages."node_modules/vite".peerDependenciesMeta.esbuild]
+optional = true
+
+[npm.".".packages."node_modules/vite".peerDependenciesMeta.jiti]
+optional = true
+
+[npm.".".packages."node_modules/vite".peerDependenciesMeta.less]
+optional = true
+
+[npm.".".packages."node_modules/vite".peerDependenciesMeta.sass]
+optional = true
+
+[npm.".".packages."node_modules/vite".peerDependenciesMeta.sass-embedded]
+optional = true
+
+[npm.".".packages."node_modules/vite".peerDependenciesMeta.stylus]
+optional = true
+
+[npm.".".packages."node_modules/vite".peerDependenciesMeta.sugarss]
+optional = true
+
+[npm.".".packages."node_modules/vite".peerDependenciesMeta.terser]
+optional = true
+
+[npm.".".packages."node_modules/vite".peerDependenciesMeta.tsx]
+optional = true
+
+[npm.".".packages."node_modules/vite".peerDependenciesMeta.yaml]
+optional = true
+
+[npm.".".packages."node_modules/vitest"]
+version = "5.1.1"
+resolved = "https://registry.npmjs.org/vitest/-/vitest-5.1.1.tgz"
+integrity = "sha512-trVmzUFOSraCZcI3uZIMD5FqBh4atFkC/XuJP/IU7qtyQay0FCs3Ia+0QiQ2JJwGyWG/xrcBoJNel2+O7kEZ0g=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/vitest".dependencies]
+"@types/chai" = "^5.2.2"
+"@vitest/mocker" = "5.1.1"
+chai = "^6.3.0"
+es-module-lexer = "^2.3.2"
+expect-type = "^1.4.0"
+magic-string = "^1.4.5"
+obug = "^3.0.0"
+picomatch = "^4.0.7"
+std-env = "^4.3.0"
+tinybench = "^6.2.3"
+tinyexec = "^1.3.1"
+tinyglobby = "^0.2.17"
+why-is-node-running = "3.2.1"
+
+[npm.".".packages."node_modules/vitest".bin]
+vitest = "vitest.mjs"
+
+[npm.".".packages."node_modules/vitest".engines]
+node = "^22.12.0 || ^24.0.0 || >=26.0.0"
+
+[npm.".".packages."node_modules/vitest".funding]
+url = "https://opencollective.com/vitest"
+
+[npm.".".packages."node_modules/vitest".peerDependencies]
+"@edge-runtime/vm" = "*"
+"@opentelemetry/api" = "^1.9.0"
+"@types/node" = "^22.0.0 || >=24.0.0"
+"@vitest/browser-playwright" = "5.1.1"
+"@vitest/browser-preview" = "5.1.1"
+"@vitest/browser-webdriverio" = "^5.0.0-beta.5 || >=5.0.0"
+"@vitest/coverage-istanbul" = "5.1.1"
+"@vitest/coverage-v8" = "5.1.1"
+"@vitest/ui" = "5.1.1"
+happy-dom = "*"
+jsdom = "*"
+vite = "^6.4.0 || ^7.0.0 || ^8.0.0"
+
+[npm.".".packages."node_modules/vitest".peerDependenciesMeta."@edge-runtime/vm"]
+optional = true
+
+[npm.".".packages."node_modules/vitest".peerDependenciesMeta."@opentelemetry/api"]
+optional = true
+
+[npm.".".packages."node_modules/vitest".peerDependenciesMeta."@types/node"]
+optional = true
+
+[npm.".".packages."node_modules/vitest".peerDependenciesMeta."@vitest/browser-playwright"]
+optional = true
+
+[npm.".".packages."node_modules/vitest".peerDependenciesMeta."@vitest/browser-preview"]
+optional = true
+
+[npm.".".packages."node_modules/vitest".peerDependenciesMeta."@vitest/browser-webdriverio"]
+optional = true
+
+[npm.".".packages."node_modules/vitest".peerDependenciesMeta."@vitest/coverage-istanbul"]
+optional = true
+
+[npm.".".packages."node_modules/vitest".peerDependenciesMeta."@vitest/coverage-v8"]
+optional = true
+
+[npm.".".packages."node_modules/vitest".peerDependenciesMeta."@vitest/ui"]
+optional = true
+
+[npm.".".packages."node_modules/vitest".peerDependenciesMeta.happy-dom]
+optional = true
+
+[npm.".".packages."node_modules/vitest".peerDependenciesMeta.jsdom]
+optional = true
+
+[npm.".".packages."node_modules/vitest".peerDependenciesMeta.vite]
+optional = false
+
+[npm.".".packages."node_modules/which"]
+version = "2.0.2"
+resolved = "https://registry.npmjs.org/which/-/which-2.0.2.tgz"
+integrity = "sha512-BLI3Tl1TW3Pvl70l3yq3Y64i+awpwXqsGBYWkkqMtnbXgrMD+yj7rhW0kuEDxzJaYXGjEW5ogapKNMEKNMjibA=="
+license = "ISC"
+
+[npm.".".packages."node_modules/which".dependencies]
+isexe = "^2.0.0"
+
+[npm.".".packages."node_modules/which".bin]
+node-which = "bin/node-which"
+
+[npm.".".packages."node_modules/which".engines]
+node = ">= 8"
+
+[npm.".".packages."node_modules/why-is-node-running"]
+version = "3.2.1"
+resolved = "https://registry.npmjs.org/why-is-node-running/-/why-is-node-running-3.2.1.tgz"
+integrity = "sha512-Tb2FUhB4vUsGQlfSquQLYkApkuPAFQXGFzxWKHHumVz2dK+X1RUm/HnID4+TfIGYJ1kTcwOaCk/buYCEJr6YjQ=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/why-is-node-running".bin]
+why-is-node-running = "cli.js"
+
+[npm.".".packages."node_modules/why-is-node-running".engines]
+node = ">=20.11"
+
+[npm.".".packages."node_modules/word-wrap"]
+version = "1.2.5"
+resolved = "https://registry.npmjs.org/word-wrap/-/word-wrap-1.2.5.tgz"
+integrity = "sha512-BN22B5eaMMI9UMtjrGd5g5eCYPpCPDUy0FJXbYsaT5zYxjFOckS53SQDE3pWkVoWpHXVb3BrYcEN4Twa55B5cA=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/word-wrap".engines]
+node = ">=0.10.0"
+
+[npm.".".packages."node_modules/yallist"]
+version = "5.0.0"
+resolved = "https://registry.npmjs.org/yallist/-/yallist-5.0.0.tgz"
+integrity = "sha512-YgvUTfwqyc7UXVMrB+SImsVYSmTS8X/tSrtdNZMImM+n7+QTriRXyXim0mBrTXNeqzVF0KWGgHPeiyViFFrNDw=="
+license = "BlueOak-1.0.0"
+
+[npm.".".packages."node_modules/yallist".engines]
+node = ">=18"
+
+[npm.".".packages."node_modules/yaml"]
+version = "2.9.1"
+resolved = "https://registry.npmjs.org/yaml/-/yaml-2.9.1.tgz"
+integrity = "sha512-3NxN8+78OdzbT7C/WjGsyfPAtJaN3FNDsWxv7Y7mcDsT/oOmgW8BpyQQFFBnvZE3j9Y2Sdz1ULFLezL7Eb2yFw=="
+license = "ISC"
+
+[npm.".".packages."node_modules/yaml".bin]
+yaml = "bin.mjs"
+
+[npm.".".packages."node_modules/yaml".engines]
+node = ">= 14.6"
+
+[npm.".".packages."node_modules/yaml".funding]
+url = "https://github.com/sponsors/eemeli"
+
+[npm.".".packages."node_modules/yocto-queue"]
+version = "0.1.0"
+resolved = "https://registry.npmjs.org/yocto-queue/-/yocto-queue-0.1.0.tgz"
+integrity = "sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q=="
+dev = true
+license = "MIT"
+
+[npm.".".packages."node_modules/yocto-queue".engines]
+node = ">=10"
+
+[npm.".".packages."node_modules/yocto-queue".funding]
+url = "https://github.com/sponsors/sindresorhus"
+
+[npm.".".packages."node_modules/yoctocolors"]
+version = "2.2.0"
+resolved = "https://registry.npmjs.org/yoctocolors/-/yoctocolors-2.2.0.tgz"
+integrity = "sha512-xYqdZFUK/VYazNl/oCDYN+3WloWQwMfZxBoiNt6qNyk+xfOdi598muWE42rNZFp1kNOiqW936q5RhUdnpqElSg=="
+license = "MIT"
+
+[npm.".".packages."node_modules/yoctocolors".engines]
+node = ">=18"
+
+[npm.".".packages."node_modules/yoctocolors".funding]
+url = "https://github.com/sponsors/sindresorhus"
+
+[npm.".".packages."node_modules/zod"]
+version = "4.6.7"
+resolved = "https://registry.npmjs.org/zod/-/zod-4.6.7.tgz"
+integrity = "sha512-g8W2D2kU6a8untc053fX1uVBKzM7yqAxW/3zwk83+6RyF2+SKOuV+c0wBDhUwzV1PaGapmZH+rmcUzPf+3CGwg=="
+license = "MIT"
+
+[npm.".".packages."node_modules/zod".funding]
+url = "https://github.com/sponsors/colinhacks"
+
+[held_to]
+"pnpm-lock.yaml" = "6fce91b87bbd2650f41c6995b6357372f8b9b555d2f4409c24a8f9ea27fde3ee"
