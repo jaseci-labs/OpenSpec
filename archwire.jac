@@ -7,6 +7,10 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/core/openspec-root" { JsNull, at, js_error, rec }
+    "src/utils/file-system" ++> "src/core/openspec-root" { FileSystemUtils }
+    "src/core/config-prompts" ++> "src/core/openspec-root" { serializeConfig }
+    src.core.store.errors ++> "src/core/openspec-root" { makeStoreDiagnostic }
     src.host ++> "src/core/known-projects" { at, js_error, kind, found, rec }
     "src/core/project-dir" ++> "src/core/known-projects" { OPENSPEC_DIR_NAME }
     "src/core/global-config" ++> "src/core/known-projects" { getGlobalDataDir }
@@ -454,9 +458,6 @@ graph import {
     }
     "src/core/global-config" --> "src/core/root-selection" { getGlobalConfig }
     "src/utils/file-system" --> "src/core/root-selection" { FileSystemUtils }
-    "src/utils/file-system" --> "src/core/openspec-root" { FileSystemUtils }
-    "src/core/config-prompts" --> "src/core/openspec-root" { serializeConfig }
-    src.core.store.errors --> "src/core/openspec-root" { StoreDiagnostic, makeStoreDiagnostic }
     src.core.store.foundation --> "src/core/project-config" { getStoreMetadataPath }
     "src/utils/spec-discovery" --> "src/utils/item-discovery" { discoverSpecFiles }
     "src/utils/spec-path-containment" --> "src/utils/spec-discovery" { assertDiscoveredSpecFile }
