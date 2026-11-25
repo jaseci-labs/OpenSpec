@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import chalk from 'chalk';
-import { getTaskProgressForChange, formatTaskStatus } from '../utils/task-progress.js';
+import { getTaskProgressForChange } from '../utils/task-progress.js';
 import { MarkdownParser } from './parsers/markdown-parser.js';
 import { discoverSpecFiles } from '../utils/spec-discovery.js';
 import { loadChangeContext, formatChangeStatus, type ChangeStatus } from './artifact-graph/index.js';
@@ -165,7 +165,7 @@ export class ViewCommand {
         const spec = parser.parseSpec(id);
         const requirementCount = spec.requirements.length;
         specs.push({ name: id, requirementCount });
-      } catch (error) {
+      } catch {
         // If spec cannot be parsed, include with 0 count
         specs.push({ name: id, requirementCount: 0 });
       }
@@ -178,8 +178,6 @@ export class ViewCommand {
     changesData: { draft: any[]; active: any[]; completed: any[] },
     specsData: any[]
   ): void {
-    const totalChanges =
-      changesData.draft.length + changesData.active.length + changesData.completed.length;
     const totalSpecs = specsData.length;
     const totalRequirements = specsData.reduce((sum, spec) => sum + spec.requirementCount, 0);
 
@@ -190,11 +188,6 @@ export class ViewCommand {
     changesData.active.forEach((change) => {
       totalTasks += change.progress.total;
       completedTasks += change.progress.completed;
-    });
-
-    changesData.completed.forEach(() => {
-      // Completed changes count as 100% done (we don't know exact task count)
-      // This is a simplification
     });
 
     console.log(chalk.bold('Summary:'));

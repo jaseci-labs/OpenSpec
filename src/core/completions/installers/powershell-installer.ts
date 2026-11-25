@@ -11,14 +11,6 @@ import { InstallationResult } from '../factory.js';
 export class PowerShellInstaller {
   private readonly homeDir: string;
 
-  /**
-   * Markers for PowerShell profile configuration management
-   */
-  private readonly PROFILE_MARKERS = {
-    start: '# OPENSPEC:START',
-    end: '# OPENSPEC:END',
-  };
-
   constructor(homeDir: string = os.homedir()) {
     this.homeDir = homeDir;
   }
@@ -156,21 +148,6 @@ export class PowerShellInstaller {
       // File doesn't exist, no backup needed
       return undefined;
     }
-  }
-
-  /**
-   * Generate PowerShell profile configuration content
-   *
-   * @param scriptPath - Path to the completion script
-   * @returns Configuration content
-   */
-  private generateProfileConfig(scriptPath: string): string {
-    return [
-      '# OpenSpec shell completions configuration',
-      `if (Test-Path "${scriptPath}") {`,
-      `    . "${scriptPath}"`,
-      '}',
-    ].join('\n');
   }
 
   /**
@@ -427,7 +404,7 @@ export class PowerShellInstaller {
    * @param options.yes - Skip confirmation prompt (handled by command layer)
    * @returns Uninstallation result
    */
-  async uninstall(options?: { yes?: boolean }): Promise<{ success: boolean; message: string }> {
+  async uninstall(_options?: { yes?: boolean }): Promise<{ success: boolean; message: string }> {
     try {
       const targetPath = this.getInstallationPath();
 

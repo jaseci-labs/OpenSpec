@@ -40,7 +40,7 @@ import {
   getGlobalConfig,
   getGlobalConfigPath,
 } from '../core/global-config.js';
-import { StoreError, type StoreDiagnostic } from '../core/store/errors.js';
+import { StoreError } from '../core/store/errors.js';
 import { isInteractive } from '../utils/interactive.js';
 import {
   asErrorMessage,

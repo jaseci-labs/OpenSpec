@@ -336,7 +336,6 @@ export async function registerStore(
     },
     input.cwd
   );
-  const storeRoot = getStoreRootForBackend(backend);
 
   const committed = await commitStoreRegistration({
     id,

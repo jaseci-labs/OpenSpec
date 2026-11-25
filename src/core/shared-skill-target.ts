@@ -94,14 +94,6 @@ function readListFileTools(projectPath: string, view: FileView): string[] {
 }
 
 /**
- * Whether a list file names a tool. Only then is `.agents/skills` known to be
- * OpenSpec's; guessing from skill wording never decides whose a skill is.
- */
-export function hasSkillToolList(projectPath: string, view: FileView = DISK_VIEW): boolean {
-  return readListFileTools(projectPath, view).length > 0;
-}
-
-/**
  * The tools listed as set up in this project. A project from before the list
  * existed yields the one tool its shared folder was written for, if any.
  */

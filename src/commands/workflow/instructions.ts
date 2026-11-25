@@ -596,7 +596,7 @@ export async function generateApplyInstructions(
   // Parse every concrete file matched by apply.tracks. A tracking path may be
   // a glob owned by an artifact with any ID, so treating it as one literal
   // path loses task evidence for valid custom schemas.
-  let parsedTasks: LocatedTask[] = [];
+  const parsedTasks: LocatedTask[] = [];
   const unavailableTrackingFiles: Array<{ path: string; reason: string }> = [];
   let tracksFileExists = false;
   if (tracksFile) {

@@ -26,7 +26,7 @@ export class CompletionProvider {
    * @param projectRoot - Project root directory (default: process.cwd())
    */
   constructor(
-    private readonly cacheTTLMs: number = 2000,
+    cacheTTLMs: number = 2000,
     private readonly projectRoot: string = process.cwd()
   ) {
     this.cacheTTL = cacheTTLMs;

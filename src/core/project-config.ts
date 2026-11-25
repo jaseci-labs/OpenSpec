@@ -370,8 +370,6 @@ export function readProjectConfig(projectRoot: string): ProjectConfig | null {
 
     // Parse rules field using Zod
     if (raw.rules !== undefined) {
-      const rulesField = z.record(z.string(), z.array(z.string()));
-
       // First check if it's an object structure (guard against null since typeof null === 'object')
       if (typeof raw.rules === 'object' && raw.rules !== null && !Array.isArray(raw.rules)) {
         // Artifact ids are intentionally not restricted to the built-in naming

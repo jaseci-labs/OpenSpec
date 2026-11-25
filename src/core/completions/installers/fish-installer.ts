@@ -141,7 +141,7 @@ export class FishInstaller {
    * @param options.yes - Skip confirmation prompt (handled by command layer)
    * @returns Uninstallation result
    */
-  async uninstall(options?: { yes?: boolean }): Promise<{ success: boolean; message: string }> {
+  async uninstall(_options?: { yes?: boolean }): Promise<{ success: boolean; message: string }> {
     try {
       const targetPath = this.getInstallationPath();
 

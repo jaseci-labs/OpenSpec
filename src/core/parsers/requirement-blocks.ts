@@ -90,7 +90,7 @@ export function extractRequirementsSection(content: string): RequirementsSection
   // Parse requirement blocks within section body
   const blocks: RequirementBlock[] = [];
   let cursor = 0;
-  let preambleLines: string[] = [];
+  const preambleLines: string[] = [];
 
   // Collect preamble lines until first requirement header
   while (cursor < sectionBodyLines.length && !isRequirementHeader(cursor)) {

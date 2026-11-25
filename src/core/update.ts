@@ -409,8 +409,7 @@ export class UpdateCommand {
     // 4. Detect and handle legacy artifacts + upgrade legacy tools using effective config
     const legacyUpgrade = await this.handleLegacyCleanup(
       resolvedProjectPath,
-      desiredWorkflows,
-      delivery
+      desiredWorkflows
     );
     const {
       newlyConfiguredTools,
@@ -1260,8 +1259,7 @@ export class UpdateCommand {
    */
   private async handleLegacyCleanup(
     projectPath: string,
-    desiredWorkflows: readonly (typeof SKILL_WORKFLOWS)[number][],
-    delivery: Delivery
+    desiredWorkflows: readonly (typeof SKILL_WORKFLOWS)[number][]
   ): Promise<LegacyUpgradeResult> {
     // Detect legacy artifacts
     const detection = await detectLegacyArtifacts(projectPath);
@@ -1319,8 +1317,7 @@ export class UpdateCommand {
         projectPath,
         onlyReleasedOutput ? projectDetection : detection,
         canPrompt && !onlyReleasedOutput,
-        desiredWorkflows,
-        delivery
+        desiredWorkflows
       );
       // Unasked cleanup is all or nothing: if a tool failed to set up, its old
       // commands may still need openspec/AGENTS.md, so nothing old is removed.
@@ -1373,8 +1370,7 @@ export class UpdateCommand {
         projectPath,
         detection,
         canPrompt,
-        desiredWorkflows,
-        delivery
+        desiredWorkflows
       );
       await this.performImmediateLegacyCleanup(projectPath, detection, legacyUpgrade);
       return {
@@ -1503,8 +1499,7 @@ export class UpdateCommand {
     projectPath: string,
     detection: LegacyDetectionResult,
     canPrompt: boolean,
-    desiredWorkflows: readonly (typeof SKILL_WORKFLOWS)[number][],
-    delivery: Delivery
+    desiredWorkflows: readonly (typeof SKILL_WORKFLOWS)[number][]
   ): Promise<LegacyUpgradeResult> {
     // Get tools that had legacy artifacts
     const legacyTools = getToolsFromLegacyArtifacts(detection);
@@ -1565,7 +1560,7 @@ export class UpdateCommand {
         message: 'Select tools to set up with the new skill system:',
         pageSize: 15,
         choices: sortedChoices,
-        validate: (_selected: string[]) => true, // Allow empty selection (user can skip)
+        validate: () => true, // Allow empty selection (user can skip)
       });
 
       if (selectedTools.length === 0) {

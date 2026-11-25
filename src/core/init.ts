@@ -253,7 +253,7 @@ export class InitCommand {
       }
       // The tools picked need project scope, and nobody asked for global: set up the project.
     }
-    const deferredLegacyCleanup = integrationsOnly ? null : await this.handleLegacyCleanup(projectPath, extendMode);
+    const deferredLegacyCleanup = integrationsOnly ? null : await this.handleLegacyCleanup(projectPath);
     migrateLegacyToolDirs(projectPath);
     if (extendMode) migrateIfNeeded(projectPath, getAvailableTools(projectPath));
     if (canPrompt) {
@@ -312,7 +312,7 @@ export class InitCommand {
     // declares its store, so preserve it byte-for-byte.
     const configStatus = integrationsOnly
       ? 'exists' as const
-      : await this.createConfig(openspecPath, extendMode);
+      : await this.createConfig(openspecPath);
 
     // Persist an explicit Copilot cloud decision so `openspec update` (which
     // never prompts) honors it. Best-effort: a config-write failure must not
@@ -507,7 +507,7 @@ export class InitCommand {
       );
     }
     if (!context.integrationsOnly) await this.createDirectoryStructure(openspecPath, context.extendMode);
-    const configStatus = context.integrationsOnly ? 'exists' : await this.createConfig(openspecPath, context.extendMode);
+    const configStatus = context.integrationsOnly ? 'exists' : await this.createConfig(openspecPath);
     this.displaySuccessMessage(
       projectPath,
       supported,
@@ -681,7 +681,7 @@ export class InitCommand {
    * Cleans repo-local legacy artifacts immediately and defers global Codex prompt
    * cleanup until replacement skills have been installed.
    */
-  private async handleLegacyCleanup(projectPath: string, extendMode: boolean): Promise<DeferredLegacyCleanup | null> {
+  private async handleLegacyCleanup(projectPath: string): Promise<DeferredLegacyCleanup | null> {
     // Detect legacy artifacts
     const detection = await detectLegacyArtifacts(projectPath);
 
@@ -1303,7 +1303,7 @@ export class InitCommand {
     );
   }
 
-  private async createConfig(openspecPath: string, extendMode: boolean): Promise<'created' | 'exists' | 'skipped'> {
+  private async createConfig(openspecPath: string): Promise<'created' | 'exists' | 'skipped'> {
     const configPath = path.join(openspecPath, 'config.yaml');
     const configYmlPath = path.join(openspecPath, 'config.yml');
     const configYamlExists = fs.existsSync(configPath);

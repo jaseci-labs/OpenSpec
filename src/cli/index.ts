@@ -771,7 +771,7 @@ program
       const { CompletionCommand } = await import('../commands/completion.js');
       const completionCommand = new CompletionCommand();
       await completionCommand.complete({ type });
-    } catch (error) {
+    } catch {
       // Silently fail for graceful shell completion experience
       process.exitCode = 1;
     }

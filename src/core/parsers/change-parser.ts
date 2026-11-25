@@ -6,12 +6,6 @@ import path from 'path';
 import { promises as fs } from 'fs';
 import { discoverSpecFiles, type DiscoveredSpec } from '../../utils/spec-discovery.js';
 
-interface DeltaSection {
-  operation: DeltaOperation;
-  requirements: Requirement[];
-  renames?: Array<{ from: string; to: string }>;
-}
-
 /** A header-only block for a REMOVED entry written in the bullet form. */
 function removedNameBlock(name: string): RequirementBlock {
   const headerLine = `### Requirement: ${name}`;
@@ -76,7 +70,7 @@ export class ChangeParser extends MarkdownParser {
         const plan = parseDeltaSpec(content);
         if (Object.values(plan.sectionPresence).some(Boolean)) hasDeltaSections = true;
         deltas.push(...this.parseSpecDeltas(id, plan));
-      } catch (error) {
+      } catch {
         // Spec file might not be readable, which is okay
         continue;
       }

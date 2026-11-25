@@ -12,13 +12,11 @@ export interface Section {
 export class MarkdownParser {
   private lines: string[];
   private codeFenceLineMask: boolean[];
-  private currentLine: number;
 
   constructor(content: string) {
     const normalized = MarkdownParser.normalizeContent(content);
     this.lines = normalized.split('\n');
     this.codeFenceLineMask = buildCodeFenceMask(this.lines);
-    this.currentLine = 0;
   }
 
   protected static normalizeContent(content: string): string {

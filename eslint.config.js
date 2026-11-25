@@ -21,11 +21,13 @@ export default tseslint.config(
           ],
         },
       ],
-      // Disable rules that need broader cleanup - focus on critical issues only
       '@typescript-eslint/no-explicit-any': 'off',
-      '@typescript-eslint/no-unused-vars': 'off',
-      'no-empty': 'off',
-      'prefer-const': 'off',
+      // A leading underscore marks a binding kept on purpose (a parameter an
+      // interface requires, a key dropped by destructuring).
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        { argsIgnorePattern: '^_', varsIgnorePattern: '^_', caughtErrorsIgnorePattern: '^_' },
+      ],
     },
   },
   {

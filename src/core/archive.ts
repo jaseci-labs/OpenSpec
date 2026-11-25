@@ -1540,7 +1540,9 @@ export class ArchiveCommand {
             hasDeltaSpecs = true;
             break;
           }
-        } catch {}
+        } catch {
+          // An unreadable spec file is treated as carrying no deltas.
+        }
       }
       if (hasDeltaSpecs) {
         // No mainSpecsDir here on purpose: the scenario-loss check standalone

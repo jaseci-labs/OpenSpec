@@ -1,4 +1,4 @@
-import { z, ZodError } from 'zod';
+import { ZodError } from 'zod';
 import { readFileSync, promises as fs } from 'fs';
 import path from 'path';
 import { SpecSchema, ChangeSchema, Spec, Change } from '../schemas/index.js';
@@ -75,7 +75,7 @@ export class Validator {
       
     } catch (error) {
       const baseMessage = error instanceof Error ? error.message : 'Unknown error';
-      const enriched = this.enrichTopLevelError(specName, baseMessage);
+      const enriched = this.enrichTopLevelError(baseMessage);
       issues.push({
         level: 'ERROR',
         path: 'file',
@@ -101,7 +101,7 @@ export class Validator {
       issues.push(...this.applySpecRules(spec, content));
     } catch (error) {
       const baseMessage = error instanceof Error ? error.message : 'Unknown error';
-      const enriched = this.enrichTopLevelError(specName, baseMessage);
+      const enriched = this.enrichTopLevelError(baseMessage);
       issues.push({ level: 'ERROR', path: 'file', message: enriched });
     }
     return this.createReport(issues);
@@ -138,11 +138,11 @@ export class Validator {
         issues.push(...zodIssues);
       }
       
-      issues.push(...this.applyChangeRules(change, content));
+      issues.push(...this.applyChangeRules(change));
       
     } catch (error) {
       const baseMessage = error instanceof Error ? error.message : 'Unknown error';
-      const enriched = this.enrichTopLevelError(changeName, baseMessage);
+      const enriched = this.enrichTopLevelError(baseMessage);
       issues.push({
         level: 'ERROR',
         path: 'file',
@@ -566,7 +566,7 @@ export class Validator {
       if (skipSpecs && !specsDirHasFiles) {
         issues.push({ level: 'INFO', path: 'file', message: VALIDATION_MESSAGES.CHANGE_SKIP_SPECS_ACCEPTED });
       } else if (!skipSpecs) {
-        issues.push({ level: 'ERROR', path: 'file', message: this.enrichTopLevelError('change', VALIDATION_MESSAGES.CHANGE_NO_DELTAS) });
+        issues.push({ level: 'ERROR', path: 'file', message: this.enrichTopLevelError(VALIDATION_MESSAGES.CHANGE_NO_DELTAS) });
       }
     }
 
@@ -930,7 +930,7 @@ export class Validator {
     return issues;
   }
 
-  private applyChangeRules(change: Change, content: string): ValidationIssue[] {
+  private applyChangeRules(change: Change): ValidationIssue[] {
     const issues: ValidationIssue[] = [];
     
     const MIN_DELTA_DESCRIPTION_LENGTH = 10;
@@ -957,7 +957,7 @@ export class Validator {
     return issues;
   }
 
-  private enrichTopLevelError(itemId: string, baseMessage: string): string {
+  private enrichTopLevelError(baseMessage: string): string {
     const msg = baseMessage.trim();
     if (msg === VALIDATION_MESSAGES.CHANGE_NO_DELTAS) {
       return `${msg}. ${VALIDATION_MESSAGES.GUIDE_NO_DELTAS}`;
