@@ -7,6 +7,19 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> src.core.profiles { missing }
+    src.host ++> "src/core/artifact-graph/types" { found, rec }
+    src.host ++> "src/core/change-metadata/schema" { rec, rx }
+    include src.core.id ++> "src/core/change-metadata/schema" { isKebabId }
+    include "src/core/change-metadata/schema" ++> "src/core/change-metadata/index" {
+        isKebabId,
+        InitiativeLinkSchema,
+        CHANGE_METADATA_KNOWN_KEYS,
+        ChangeMetadataSchema,
+        ChangeMetadata,
+    }
+    src.host ++> "src/core/artifact-graph/schema" { at, missing }
+    "src/core/artifact-graph/types" ++> "src/core/artifact-graph/schema" { SchemaYamlSchema }
     src.host ++> src.core.store.errors { merge, rec }
     src.host ++> src.core.id { JsNull, rx, sub }
     src.core.validation.constants --> "src/core/schemas/base.schema" { VALIDATION_MESSAGES }
@@ -726,7 +739,6 @@ graph import {
     "src/core/command-generation/adapters/zcode" --> "src/core/command-generation/adapters/index" {
         zcodeAdapter,
     }
-    "src/core/global-config" --> src.core.profiles { Profile }
     src.core.config --> "src/core/profile-sync-drift" { AI_TOOLS }
     "src/core/global-config" --> "src/core/profile-sync-drift" { Delivery }
     src.core.profiles --> "src/core/profile-sync-drift" { SKILL_WORKFLOWS, withRouter }
@@ -1310,11 +1322,6 @@ graph import {
         ActionContext,
         PlanningHomeSummary,
     }
-    "src/core/artifact-graph/types" --> "src/core/artifact-graph/schema" {
-        Artifact,
-        SchemaYaml,
-        SchemaYamlSchema,
-    }
     "src/core/artifact-graph/types" --> "src/core/artifact-graph/graph" {
         Artifact,
         BlockedArtifacts,
@@ -1388,8 +1395,6 @@ graph import {
     }
     "src/core/project-config" --> "src/utils/change-metadata" { ProjectConfig, readProjectConfig }
     src.core.references --> "src/utils/change-metadata" { sanitizeInline }
-    "src/core/change-metadata/schema" --> "src/core/change-metadata/index";
-    src.core.id --> "src/core/change-metadata/schema" { isKebabId }
     "src/core/planning-home" --> "src/core/change-status-policy" { PlanningHome }
     "src/utils/nested-change" --> src.commands.workflow.shared {
         describeNestedChange,
