@@ -7,6 +7,58 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> src.commands.workset { JsNull, at, js_error, missing, promise, rec, same }
+    src.lazy ++> src.commands.workset { need }
+    src.core.worksets ++> src.commands.workset {
+        buildWorksetCodeWorkspaceJson,
+        getWorkset,
+        getWorksetCodeWorkspacePath,
+        listWorksets,
+        readWorksetsState,
+        removeWorkset,
+        updateWorksetsState,
+        validateWorksetName,
+        withWorkset,
+        withWorksetsLock,
+        worksetNotFoundError,
+    }
+    src.core.openers ++> src.commands.workset {
+        buildLaunchCommand,
+        findOpener,
+        isOpenerCommandAvailable,
+        isOpenerEnabled,
+        listOpenerChoices,
+        mergeOpenerTable,
+    }
+    "src/core/file-state" ++> src.commands.workset { pathIsDirectory, writeFileAtomically }
+    "src/core/global-config" ++> src.commands.workset { getGlobalConfig, getGlobalConfigPath }
+    src.core.store.errors ++> src.commands.workset { StoreError }
+    src.utils.interactive ++> src.commands.workset { isInteractive }
+    "src/commands/shared-output" ++> src.commands.workset {
+        asErrorMessage,
+        emitFailure,
+        isPromptCancellationError,
+        printJson,
+    }
+    "src/commands/workset-input" ++> src.commands.workset {
+        finalizeWorkset,
+        firstInstalledAlternative,
+        formatMemberRows,
+        noToolInstalledError,
+        resolveMemberFlags,
+        toolUnavailableError,
+        toolUnknownError,
+    }
+    "src/commands/workset-prompts" ++> src.commands.workset {
+        composeInteractively,
+        confirmRemoveInteractively,
+        promptOpenNow,
+        promptToolFromChoices,
+    }
+    src.host ++> src.cli.commands.workset { rec }
+    "src/core/completions/command-registry" ++> src.cli.commands.workset { COMMAND_REGISTRY }
+    "src/commands/shared-output" ++> src.cli.commands.workset { printJson }
+    src.commands.workset ++> src.cli.commands.workset { WorksetCommand }
     src.host ++> "src/core/update-plan" { at, js_error, kind, rec }
     "src/utils/file-system" ++> "src/core/update-plan" { FileSystemUtils }
     "src/core/file-view" ++> "src/core/update-plan" { DISK_VIEW }
@@ -2500,66 +2552,6 @@ graph import {
     "test/helpers/fs-snapshot" --> "test/commands/workset.test" { snapshotDirectory }
     "test/helpers/temp-cleanup" --> "test/commands/workset.test" { cleanupTempPath }
     src.cli.commands.workset --> "test/commands/workset.test";
-    src.core.worksets --> src.commands.workset {
-        Workset,
-        WorksetMember,
-        buildWorksetCodeWorkspaceJson,
-        getWorkset,
-        getWorksetCodeWorkspacePath,
-        listWorksets,
-        readWorksetsState,
-        removeWorkset,
-        updateWorksetsState,
-        validateWorksetName,
-        withWorkset,
-        withWorksetsLock,
-        worksetNotFoundError,
-    }
-    src.core.openers --> src.commands.workset {
-        LaunchCommand,
-        OpenerDefinition,
-        buildLaunchCommand,
-        findOpener,
-        isOpenerCommandAvailable,
-        isOpenerEnabled,
-        listOpenerChoices,
-        mergeOpenerTable,
-    }
-    "src/core/file-state" --> src.commands.workset { pathIsDirectory, writeFileAtomically }
-    "src/core/global-config" --> src.commands.workset { getGlobalConfig, getGlobalConfigPath }
-    src.core.store.errors --> src.commands.workset { StoreError }
-    src.utils.interactive --> src.commands.workset { isInteractive }
-    "src/commands/shared-output" --> src.commands.workset {
-        asErrorMessage,
-        emitFailure,
-        isPromptCancellationError,
-        printJson,
-    }
-    "src/commands/workset-input" --> src.commands.workset {
-        finalizeWorkset,
-        firstInstalledAlternative,
-        formatMemberRows,
-        noToolInstalledError,
-        resolveMemberFlags,
-        toolUnavailableError,
-        toolUnknownError,
-    }
-    "src/commands/workset-prompts" --> src.commands.workset {
-        composeInteractively,
-        confirmRemoveInteractively,
-        promptOpenNow,
-        promptToolFromChoices,
-    }
-    "src/core/completions/command-registry" --> src.cli.commands.workset { COMMAND_REGISTRY }
-    src.core.store.errors --> src.cli.commands.workset { StoreDiagnostic }
-    "src/commands/shared-output" --> src.cli.commands.workset { printJson }
-    src.commands.workset --> src.cli.commands.workset;
-    src.commands.workset --> src.cli.commands.workset {
-        WorksetCommand,
-        WorksetCreateOptions,
-        WorksetOpenOptions,
-        WorksetRemoveOptions,
-    }
     src.core.archive --> "test/core/archive.test" { ArchiveCommand, isRetirableSpec }
     "src/core/specs-apply" --> "test/core/archive.test" { retireSpec }
     src.core.validation.validator --> "test/core/archive.test" { Validator }
