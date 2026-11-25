@@ -7,6 +7,8 @@ graph spaces {
 }
 
 graph import {
+    src.lazy ++> "src/core/artifact-graph/outputs" { need }
+    src.lazy ++> src.utils.interactive { load }
     src.host ++> "src/core/artifact-graph/outputs" { at, found, js_error, rec, sub }
     "src/utils/file-system" ++> "src/core/artifact-graph/outputs" { FileSystemUtils }
     "src/core/artifact-graph/outputs" ++> "src/core/artifact-graph/state" { artifactOutputExists }

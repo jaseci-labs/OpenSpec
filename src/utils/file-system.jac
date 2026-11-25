@@ -304,9 +304,15 @@ obj FileSystemUtils(globalThis.Object) {
 }
 
 with entry {
-    FileSystemUtils.joinPath = new(
-        globalThis.Function, "f", "return (base, ...segments) => f(base, segments.flat())"
-    )(globalThis.Object.getOwnPropertyDescriptor(FileSystemUtils, "joinPath").value);
+    new(
+        globalThis.Function,
+        "C",
+        "const raw = (k) => Object.getOwnPropertyDescriptor(C, k).value;"
+            + "const join = raw('joinPath'); C.joinPath = (base, ...segments) => join(base, segments.flat());"
+            + "for (const k of ['createDirectory', 'fileExists', 'canWriteFile', 'directoryExists', 'writeFile',"
+            + " 'readFile', 'updateFileWithMarkers', 'ensureWritePermissions']) {"
+            + " const f = raw(k); C[k] = (...args) => f(...args).then(); }",
+    )(FileSystemUtils);
 }
 
 def findMarkerBlock(content: str, startMarker: str, endMarker: str) -> any {

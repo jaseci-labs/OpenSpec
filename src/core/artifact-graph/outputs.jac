@@ -1,8 +1,5 @@
 import from "node:fs" { default as fs }
 import from "node:path" { default as path }
-import from "brace-expansion" { expand }
-import from "picomatch" { default as picomatch }
-import from "tinyglobby" { globSync }
 
 glob:priv EXTGLOB: str = "[!*+?@]\\([^(]*\\)",
           DUPLICATE_SLASH: str = "(?!^)/{2,}",
@@ -134,7 +131,9 @@ def:priv expandArtifactBraces(pattern: str) -> list[str] {
         (pre, body, post) = group;
         wrapped = "{" + body + "}";
         count = len(pending) + len(finished);
-        alternatives = expand(wrapped, rec(max=max(MAX_BRACE_EXPANSIONS - count, 0) + 1));
+        alternatives = need("brace-expansion").expand(
+            wrapped, rec(max=max(MAX_BRACE_EXPANSIONS - count, 0) + 1)
+        );
         if len(alternatives) == 1 and alternatives[0] == wrapped {
             pending.append(pre + LITERAL_BRACE_OPEN + body + LITERAL_BRACE_CLOSE + post);
             continue;
@@ -161,7 +160,7 @@ def:priv listDirectoryMatches(directory: str, segment: str) -> list[str] {
         }
         raise;
     }
-    isMatch = picomatch(segment, rec(dot=False, nobrace=True, noglobstar=True, posix=True));
+    isMatch = need("picomatch")(segment, rec(dot=False, nobrace=True, noglobstar=True, posix=True));
     return [item.name for item in entries if isMatch(item.name)];
 }
 
@@ -268,7 +267,7 @@ def resolveArtifactOutputs(changeDir: str, generates: str) -> list[str] {
         assertGlobDirectoryTraversal(changeDir, pattern.split("/")[:-1]);
     }
     matches: set[str] = set();
-    for found_path in globSync(
+    for found_path in need("tinyglobby").globSync(
         patterns,
         rec(
             cwd=changeDir,

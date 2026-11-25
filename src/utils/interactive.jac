@@ -3,8 +3,6 @@ import from "node:process" { default as process }
 
 type InteractiveOptions = any;
 
-glob:priv lazyImport: any = new(globalThis.Function, "specifier", "return import(specifier)");
-
 def resolveNoInteractive(value: any = None) -> bool {
     if kind(value) == "boolean" {
         return value;
@@ -35,7 +33,7 @@ async def confirmPrompt(prompt: any, io: any = None) -> bool {
     source = at(io, "input") ?? process.stdin;
     sink = at(io, "output") ?? process.stdout;
     if truthy(source["isTTY"]) and truthy(sink["isTTY"]) {
-        return await (await lazyImport("@inquirer/prompts")).confirm(prompt);
+        return await (await load("@inquirer/prompts")).confirm(prompt);
     }
     return await readYesNo(prompt, source, sink);
 }
