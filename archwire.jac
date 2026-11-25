@@ -7,6 +7,127 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/core/skill-installer" {
+        JsNull,
+        at,
+        kind,
+        matchOf,
+        merge,
+        missing,
+        rec,
+        truthy,
+    }
+    src.lazy ++> "src/core/skill-installer" { load, need }
+    "src/utils/command-references" ++> "src/core/skill-installer" {
+        transformToSharedSkillReferences,
+    }
+    "src/core/shared/skill-generation" ++> "src/core/skill-installer" {
+        generateSkillFiles,
+        getSkillTemplates,
+        stripVolatileFrontmatter,
+    }
+    src.host ++> "src/core/shared/skill-generation" { at, merge, missing, rec, sub }
+    "src/core/shared/allowed-tools" ++> "src/core/shared/skill-generation" {
+        OPENSPEC_CLI_ALLOWED_TOOLS,
+    }
+    "src/core/templates/skill-templates" ++> "src/core/shared/skill-generation" {
+        getExploreSkillTemplate,
+        getNewChangeSkillTemplate,
+        getContinueChangeSkillTemplate,
+        getApplyChangeSkillTemplate,
+        getUpdateChangeSkillTemplate,
+        getFfChangeSkillTemplate,
+        getSyncSpecsSkillTemplate,
+        getArchiveChangeSkillTemplate,
+        getBulkArchiveChangeSkillTemplate,
+        getVerifyChangeSkillTemplate,
+        getOnboardSkillTemplate,
+        getOpsxProposeSkillTemplate,
+        getRouterSkillTemplate,
+        ROUTER_SKILL_NAME,
+        getOpsxExploreCommandTemplate,
+        getOpsxNewCommandTemplate,
+        getOpsxContinueCommandTemplate,
+        getOpsxApplyCommandTemplate,
+        getOpsxUpdateCommandTemplate,
+        getOpsxFfCommandTemplate,
+        getOpsxSyncCommandTemplate,
+        getOpsxArchiveCommandTemplate,
+        getOpsxBulkArchiveCommandTemplate,
+        getOpsxVerifyCommandTemplate,
+        getOpsxOnboardCommandTemplate,
+        getOpsxProposeCommandTemplate,
+    }
+    src.host ++> "src/core/templates/workflows/bulk-archive-change" { rec }
+    "src/core/templates/workflows/archive-change" ++> "src/core/templates/workflows/bulk-archive-change" {
+        SYNC_FALLBACK_SAFEGUARDS,
+    }
+    "src/core/templates/workflows/store-selection" ++> "src/core/templates/workflows/bulk-archive-change" {
+        STORE_SELECTION_GUIDANCE,
+    }
+    "src/core/templates/workflows/project-root" ++> "src/core/templates/workflows/bulk-archive-change" {
+        PROJECT_ROOT_GUARD,
+    }
+    include src.core.templates.types ++> "src/core/templates/skill-templates" {
+        CommandTemplate,
+        SkillTemplate,
+    }
+    include src.core.templates.workflows.explore ++> "src/core/templates/skill-templates" {
+        getExploreSkillTemplate,
+        getOpsxExploreCommandTemplate,
+    }
+    include "src/core/templates/workflows/new-change" ++> "src/core/templates/skill-templates" {
+        getNewChangeSkillTemplate,
+        getOpsxNewCommandTemplate,
+    }
+    include "src/core/templates/workflows/continue-change" ++> "src/core/templates/skill-templates" {
+        getContinueChangeSkillTemplate,
+        getOpsxContinueCommandTemplate,
+    }
+    include "src/core/templates/workflows/apply-change" ++> "src/core/templates/skill-templates" {
+        getApplyChangeSkillTemplate,
+        getApplyInstructions,
+        getOpsxApplyCommandTemplate,
+    }
+    include "src/core/templates/workflows/update-change" ++> "src/core/templates/skill-templates" {
+        getOpsxUpdateCommandTemplate,
+        getUpdateChangeSkillTemplate,
+    }
+    include "src/core/templates/workflows/ff-change" ++> "src/core/templates/skill-templates" {
+        getFfChangeSkillTemplate,
+        getOpsxFfCommandTemplate,
+    }
+    include "src/core/templates/workflows/sync-specs" ++> "src/core/templates/skill-templates" {
+        getOpsxSyncCommandTemplate,
+        getSyncSpecsSkillTemplate,
+    }
+    include "src/core/templates/workflows/archive-change" ++> "src/core/templates/skill-templates" {
+        getArchiveChangeSkillTemplate,
+        getOpsxArchiveCommandTemplate,
+    }
+    include "src/core/templates/workflows/verify-change" ++> "src/core/templates/skill-templates" {
+        getOpsxVerifyCommandTemplate,
+        getVerifyChangeSkillTemplate,
+    }
+    include src.core.templates.workflows.onboard ++> "src/core/templates/skill-templates" {
+        getOnboardSkillTemplate,
+        getOpsxOnboardCommandTemplate,
+    }
+    include src.core.templates.workflows.propose ++> "src/core/templates/skill-templates" {
+        getOpsxProposeCommandTemplate,
+        getOpsxProposeSkillTemplate,
+    }
+    include src.core.templates.workflows.feedback ++> "src/core/templates/skill-templates" {
+        getFeedbackSkillTemplate,
+    }
+    include src.core.templates.workflows.router ++> "src/core/templates/skill-templates" {
+        ROUTER_SKILL_NAME,
+        getRouterSkillTemplate,
+    }
+    include "src/core/templates/workflows/bulk-archive-change" ++> "src/core/templates/skill-templates" {
+        getBulkArchiveChangeSkillTemplate,
+        getOpsxBulkArchiveCommandTemplate,
+    }
     src.host ++> "src/core/specs-apply" { at, js_error, matchOf, merge, missing, rec, sub, found }
     src.lazy ++> "src/core/specs-apply" { pick }
     "src/core/parsers/requirement-blocks" ++> "src/core/specs-apply" {
@@ -1254,120 +1375,6 @@ graph import {
         normalizeGeneratedContent,
     }
     "src/core/file-view" --> "src/core/shared/skill-links" { DISK_VIEW, FileView }
-    "src/utils/command-references" --> "src/core/skill-installer" {
-        transformToSharedSkillReferences,
-    }
-    "src/core/shared/skill-generation" --> "src/core/skill-installer" {
-        generateSkillFiles,
-        getSkillTemplates,
-        stripVolatileFrontmatter,
-    }
-    "src/core/templates/skill-templates" --> "src/core/shared/skill-generation" {
-        ROUTER_SKILL_NAME,
-        SkillTemplate,
-        getApplyChangeSkillTemplate,
-        getArchiveChangeSkillTemplate,
-        getBulkArchiveChangeSkillTemplate,
-        getContinueChangeSkillTemplate,
-        getExploreSkillTemplate,
-        getFfChangeSkillTemplate,
-        getNewChangeSkillTemplate,
-        getOnboardSkillTemplate,
-        getOpsxApplyCommandTemplate,
-        getOpsxArchiveCommandTemplate,
-        getOpsxBulkArchiveCommandTemplate,
-        getOpsxContinueCommandTemplate,
-        getOpsxExploreCommandTemplate,
-        getOpsxFfCommandTemplate,
-        getOpsxNewCommandTemplate,
-        getOpsxOnboardCommandTemplate,
-        getOpsxProposeCommandTemplate,
-        getOpsxProposeSkillTemplate,
-        getOpsxSyncCommandTemplate,
-        getOpsxUpdateCommandTemplate,
-        getOpsxVerifyCommandTemplate,
-        getRouterSkillTemplate,
-        getSyncSpecsSkillTemplate,
-        getUpdateChangeSkillTemplate,
-        getVerifyChangeSkillTemplate,
-    }
-    "src/core/command-generation/index" --> "src/core/shared/skill-generation" { CommandContent }
-    "src/core/shared/allowed-tools" --> "src/core/shared/skill-generation" {
-        OPENSPEC_CLI_ALLOWED_TOOLS,
-    }
-    src.core.templates.types --> "src/core/templates/skill-templates" {
-        CommandTemplate,
-        SkillTemplate,
-    }
-    src.core.templates.workflows.explore --> "src/core/templates/skill-templates" {
-        getExploreSkillTemplate,
-        getOpsxExploreCommandTemplate,
-    }
-    "src/core/templates/workflows/new-change" --> "src/core/templates/skill-templates" {
-        getNewChangeSkillTemplate,
-        getOpsxNewCommandTemplate,
-    }
-    "src/core/templates/workflows/continue-change" --> "src/core/templates/skill-templates" {
-        getContinueChangeSkillTemplate,
-        getOpsxContinueCommandTemplate,
-    }
-    "src/core/templates/workflows/apply-change" --> "src/core/templates/skill-templates" {
-        getApplyChangeSkillTemplate,
-        getApplyInstructions,
-        getOpsxApplyCommandTemplate,
-    }
-    "src/core/templates/workflows/update-change" --> "src/core/templates/skill-templates" {
-        getOpsxUpdateCommandTemplate,
-        getUpdateChangeSkillTemplate,
-    }
-    "src/core/templates/workflows/ff-change" --> "src/core/templates/skill-templates" {
-        getFfChangeSkillTemplate,
-        getOpsxFfCommandTemplate,
-    }
-    "src/core/templates/workflows/sync-specs" --> "src/core/templates/skill-templates" {
-        getOpsxSyncCommandTemplate,
-        getSyncSpecsSkillTemplate,
-    }
-    "src/core/templates/workflows/archive-change" --> "src/core/templates/skill-templates" {
-        getArchiveChangeSkillTemplate,
-        getOpsxArchiveCommandTemplate,
-    }
-    "src/core/templates/workflows/bulk-archive-change" --> "src/core/templates/skill-templates" {
-        getBulkArchiveChangeSkillTemplate,
-        getOpsxBulkArchiveCommandTemplate,
-    }
-    "src/core/templates/workflows/verify-change" --> "src/core/templates/skill-templates" {
-        getOpsxVerifyCommandTemplate,
-        getVerifyChangeSkillTemplate,
-    }
-    src.core.templates.workflows.onboard --> "src/core/templates/skill-templates" {
-        getOnboardSkillTemplate,
-        getOpsxOnboardCommandTemplate,
-    }
-    src.core.templates.workflows.propose --> "src/core/templates/skill-templates" {
-        getOpsxProposeCommandTemplate,
-        getOpsxProposeSkillTemplate,
-    }
-    src.core.templates.workflows.feedback --> "src/core/templates/skill-templates" {
-        getFeedbackSkillTemplate,
-    }
-    src.core.templates.workflows.router --> "src/core/templates/skill-templates" {
-        ROUTER_SKILL_NAME,
-        getRouterSkillTemplate,
-    }
-    src.core.templates.types --> "src/core/templates/workflows/bulk-archive-change" {
-        CommandTemplate,
-        SkillTemplate,
-    }
-    "src/core/templates/workflows/archive-change" --> "src/core/templates/workflows/bulk-archive-change" {
-        SYNC_FALLBACK_SAFEGUARDS,
-    }
-    "src/core/templates/workflows/store-selection" --> "src/core/templates/workflows/bulk-archive-change" {
-        STORE_SELECTION_GUIDANCE,
-    }
-    "src/core/templates/workflows/project-root" --> "src/core/templates/workflows/bulk-archive-change" {
-        PROJECT_ROOT_GUARD,
-    }
     "src/utils/file-system" --> "src/core/shared/command-reconcile" { FileSystemUtils }
     "src/core/command-generation/index" --> "src/core/shared/command-reconcile" {
         CommandAdapterRegistry,
