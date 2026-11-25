@@ -3199,353 +3199,6 @@ graph import {
     }
     "src/core/shared/skill-generation" --> "test/core/global-skills.test" { getCommandContents }
     "scripts/skillssh-shared" --> "test/core/global-skills.test" { stripVolatileFrontmatter }
-    "dist/core/shared/skill-generation.d" --> "scripts/skillssh-shared" { stripVolatileFrontmatter }
-    "dist/core/templates/skill-templates.d" --> "dist/core/shared/skill-generation.d" {
-        SkillTemplate,
-        getOpsxExploreCommandTemplate,
-    }
-    "dist/core/command-generation/index.d" --> "dist/core/shared/skill-generation.d" {
-        CommandContent,
-    }
-    "dist/core/templates/types.d" --> "dist/core/templates/skill-templates.d" {
-        CommandTemplate,
-        SkillTemplate,
-    }
-    "dist/core/templates/workflows/explore.d" --> "dist/core/templates/skill-templates.d" {
-        getExploreSkillTemplate,
-        getOpsxExploreCommandTemplate,
-    }
-    "dist/core/templates/workflows/new-change.d" --> "dist/core/templates/skill-templates.d" {
-        getNewChangeSkillTemplate,
-        getOpsxNewCommandTemplate,
-    }
-    "dist/core/templates/workflows/continue-change.d" --> "dist/core/templates/skill-templates.d" {
-        getContinueChangeSkillTemplate,
-        getOpsxContinueCommandTemplate,
-    }
-    "dist/core/templates/workflows/apply-change.d" --> "dist/core/templates/skill-templates.d" {
-        getApplyChangeSkillTemplate,
-        getApplyInstructions,
-        getOpsxApplyCommandTemplate,
-    }
-    "dist/core/templates/workflows/update-change.d" --> "dist/core/templates/skill-templates.d" {
-        getOpsxUpdateCommandTemplate,
-        getUpdateChangeSkillTemplate,
-    }
-    "dist/core/templates/workflows/ff-change.d" --> "dist/core/templates/skill-templates.d" {
-        getFfChangeSkillTemplate,
-        getOpsxFfCommandTemplate,
-    }
-    "dist/core/templates/workflows/sync-specs.d" --> "dist/core/templates/skill-templates.d" {
-        getOpsxSyncCommandTemplate,
-        getSyncSpecsSkillTemplate,
-    }
-    "dist/core/templates/workflows/archive-change.d" --> "dist/core/templates/skill-templates.d" {
-        getArchiveChangeSkillTemplate,
-        getOpsxArchiveCommandTemplate,
-    }
-    "dist/core/templates/workflows/bulk-archive-change.d" --> "dist/core/templates/skill-templates.d" {
-        getBulkArchiveChangeSkillTemplate,
-        getOpsxBulkArchiveCommandTemplate,
-    }
-    "dist/core/templates/workflows/verify-change.d" --> "dist/core/templates/skill-templates.d" {
-        getOpsxVerifyCommandTemplate,
-        getVerifyChangeSkillTemplate,
-    }
-    "dist/core/templates/workflows/onboard.d" --> "dist/core/templates/skill-templates.d" {
-        getOnboardSkillTemplate,
-        getOpsxOnboardCommandTemplate,
-    }
-    "dist/core/templates/workflows/propose.d" --> "dist/core/templates/skill-templates.d" {
-        getOpsxProposeCommandTemplate,
-        getOpsxProposeSkillTemplate,
-    }
-    "dist/core/templates/workflows/feedback.d" --> "dist/core/templates/skill-templates.d" {
-        getFeedbackSkillTemplate,
-    }
-    "dist/core/templates/workflows/router.d" --> "dist/core/templates/skill-templates.d" {
-        ROUTER_SKILL_NAME,
-        getRouterSkillTemplate,
-    }
-    "dist/core/templates/types.d" --> "dist/core/templates/workflows/explore.d" {
-        CommandTemplate,
-        SkillTemplate,
-    }
-    "dist/core/templates/types.d" --> "dist/core/templates/workflows/new-change.d" {
-        CommandTemplate,
-        SkillTemplate,
-    }
-    "dist/core/templates/types.d" --> "dist/core/templates/workflows/continue-change.d" {
-        CommandTemplate,
-        SkillTemplate,
-    }
-    "dist/core/templates/types.d" --> "dist/core/templates/workflows/apply-change.d" {
-        CommandTemplate,
-        SkillTemplate,
-    }
-    "dist/core/templates/types.d" --> "dist/core/templates/workflows/update-change.d" {
-        CommandTemplate,
-        SkillTemplate,
-    }
-    "dist/core/templates/types.d" --> "dist/core/templates/workflows/ff-change.d" {
-        CommandTemplate,
-        SkillTemplate,
-    }
-    "dist/core/templates/types.d" --> "dist/core/templates/workflows/sync-specs.d" {
-        CommandTemplate,
-        SkillTemplate,
-    }
-    "dist/core/templates/types.d" --> "dist/core/templates/workflows/archive-change.d" {
-        CommandTemplate,
-        SkillTemplate,
-    }
-    "dist/core/templates/types.d" --> "dist/core/templates/workflows/bulk-archive-change.d" {
-        CommandTemplate,
-        SkillTemplate,
-    }
-    "dist/core/templates/types.d" --> "dist/core/templates/workflows/verify-change.d" {
-        CommandTemplate,
-        SkillTemplate,
-    }
-    "dist/core/templates/types.d" --> "dist/core/templates/workflows/onboard.d" {
-        CommandTemplate,
-        SkillTemplate,
-    }
-    "dist/core/templates/types.d" --> "dist/core/templates/workflows/propose.d" {
-        CommandTemplate,
-        SkillTemplate,
-    }
-    "dist/core/templates/types.d" --> "dist/core/templates/workflows/feedback.d" { SkillTemplate }
-    "dist/core/templates/types.d" --> "dist/core/templates/workflows/router.d" { SkillTemplate }
-    "dist/core/command-generation/types.d" --> "dist/core/command-generation/index.d" {
-        CommandContent,
-        GeneratedCommand,
-        ToolCommandAdapter,
-    }
-    "dist/core/command-generation/registry.d" --> "dist/core/command-generation/index.d" {
-        CommandAdapterRegistry,
-    }
-    "dist/core/command-generation/generator.d" --> "dist/core/command-generation/index.d" {
-        generateCommand,
-        generateCommands,
-    }
-    "dist/core/command-generation/adapters/index.d" --> "dist/core/command-generation/index.d" {
-        claudeAdapter,
-        cursorAdapter,
-        devinAdapter,
-    }
-    "dist/core/command-generation/types.d" --> "dist/core/command-generation/registry.d" {
-        ToolCommandAdapter,
-    }
-    "dist/core/command-generation/types.d" --> "dist/core/command-generation/generator.d" {
-        CommandContent,
-        GeneratedCommand,
-        ToolCommandAdapter,
-    }
-    "dist/core/command-generation/adapters/amazon-q.d" --> "dist/core/command-generation/adapters/index.d" {
-        amazonQAdapter,
-    }
-    "dist/core/command-generation/adapters/antigravity.d" --> "dist/core/command-generation/adapters/index.d" {
-        antigravityAdapter,
-    }
-    "dist/core/command-generation/adapters/atomcode.d" --> "dist/core/command-generation/adapters/index.d" {
-        atomcodeAdapter,
-    }
-    "dist/core/command-generation/adapters/auggie.d" --> "dist/core/command-generation/adapters/index.d" {
-        auggieAdapter,
-    }
-    "dist/core/command-generation/adapters/bob.d" --> "dist/core/command-generation/adapters/index.d" {
-        bobAdapter,
-    }
-    "dist/core/command-generation/adapters/claude.d" --> "dist/core/command-generation/adapters/index.d" {
-        claudeAdapter,
-    }
-    "dist/core/command-generation/adapters/cline.d" --> "dist/core/command-generation/adapters/index.d" {
-        clineAdapter,
-    }
-    "dist/core/command-generation/adapters/command-code.d" --> "dist/core/command-generation/adapters/index.d" {
-        commandCodeAdapter,
-    }
-    "dist/core/command-generation/adapters/codebuddy.d" --> "dist/core/command-generation/adapters/index.d" {
-        codebuddyAdapter,
-    }
-    "dist/core/command-generation/adapters/codestudio.d" --> "dist/core/command-generation/adapters/index.d" {
-        codeStudioAdapter,
-    }
-    "dist/core/command-generation/adapters/continue.d" --> "dist/core/command-generation/adapters/index.d" {
-        continueAdapter,
-    }
-    "dist/core/command-generation/adapters/costrict.d" --> "dist/core/command-generation/adapters/index.d" {
-        costrictAdapter,
-    }
-    "dist/core/command-generation/adapters/crush.d" --> "dist/core/command-generation/adapters/index.d" {
-        crushAdapter,
-    }
-    "dist/core/command-generation/adapters/cursor.d" --> "dist/core/command-generation/adapters/index.d" {
-        cursorAdapter,
-    }
-    "dist/core/command-generation/adapters/devin.d" --> "dist/core/command-generation/adapters/index.d" {
-        devinAdapter,
-    }
-    "dist/core/command-generation/adapters/easycode.d" --> "dist/core/command-generation/adapters/index.d" {
-        easycodeAdapter,
-    }
-    "dist/core/command-generation/adapters/factory.d" --> "dist/core/command-generation/adapters/index.d" {
-        factoryAdapter,
-    }
-    "dist/core/command-generation/adapters/gemini.d" --> "dist/core/command-generation/adapters/index.d" {
-        geminiAdapter,
-    }
-    "dist/core/command-generation/adapters/github-copilot.d" --> "dist/core/command-generation/adapters/index.d" {
-        githubCopilotAdapter,
-    }
-    "dist/core/command-generation/adapters/gigacode.d" --> "dist/core/command-generation/adapters/index.d" {
-        gigacodeAdapter,
-    }
-    "dist/core/command-generation/adapters/iflow.d" --> "dist/core/command-generation/adapters/index.d" {
-        iflowAdapter,
-    }
-    "dist/core/command-generation/adapters/junie.d" --> "dist/core/command-generation/adapters/index.d" {
-        junieAdapter,
-    }
-    "dist/core/command-generation/adapters/kilocode.d" --> "dist/core/command-generation/adapters/index.d" {
-        kilocodeAdapter,
-    }
-    "dist/core/command-generation/adapters/kiro.d" --> "dist/core/command-generation/adapters/index.d" {
-        kiroAdapter,
-    }
-    "dist/core/command-generation/adapters/oh-my-pi.d" --> "dist/core/command-generation/adapters/index.d" {
-        ohMyPiAdapter,
-    }
-    "dist/core/command-generation/adapters/opencode.d" --> "dist/core/command-generation/adapters/index.d" {
-        opencodeAdapter,
-    }
-    "dist/core/command-generation/adapters/pi.d" --> "dist/core/command-generation/adapters/index.d" {
-        piAdapter,
-    }
-    "dist/core/command-generation/adapters/codeassistant.d" --> "dist/core/command-generation/adapters/index.d" {
-        codeassistantAdapter,
-    }
-    "dist/core/command-generation/adapters/qoder.d" --> "dist/core/command-generation/adapters/index.d" {
-        qoderAdapter,
-    }
-    "dist/core/command-generation/adapters/lingma.d" --> "dist/core/command-generation/adapters/index.d" {
-        lingmaAdapter,
-    }
-    "dist/core/command-generation/adapters/qwen.d" --> "dist/core/command-generation/adapters/index.d" {
-        qwenAdapter,
-    }
-    "dist/core/command-generation/adapters/roocode.d" --> "dist/core/command-generation/adapters/index.d" {
-        roocodeAdapter,
-    }
-    "dist/core/command-generation/adapters/trae.d" --> "dist/core/command-generation/adapters/index.d" {
-        traeAdapter,
-    }
-    "dist/core/command-generation/adapters/zcode.d" --> "dist/core/command-generation/adapters/index.d" {
-        zcodeAdapter,
-    }
-    "dist/core/command-generation/types.d" --> "dist/core/command-generation/adapters/amazon-q.d" {
-        ToolCommandAdapter,
-    }
-    "dist/core/command-generation/types.d" --> "dist/core/command-generation/adapters/antigravity.d" {
-        ToolCommandAdapter,
-    }
-    "dist/core/command-generation/types.d" --> "dist/core/command-generation/adapters/atomcode.d" {
-        ToolCommandAdapter,
-    }
-    "dist/core/command-generation/types.d" --> "dist/core/command-generation/adapters/auggie.d" {
-        ToolCommandAdapter,
-    }
-    "dist/core/command-generation/types.d" --> "dist/core/command-generation/adapters/bob.d" {
-        ToolCommandAdapter,
-    }
-    "dist/core/command-generation/types.d" --> "dist/core/command-generation/adapters/claude.d" {
-        ToolCommandAdapter,
-    }
-    "dist/core/command-generation/types.d" --> "dist/core/command-generation/adapters/cline.d" {
-        ToolCommandAdapter,
-    }
-    "dist/core/command-generation/types.d" --> "dist/core/command-generation/adapters/command-code.d" {
-        ToolCommandAdapter,
-    }
-    "dist/core/command-generation/types.d" --> "dist/core/command-generation/adapters/codebuddy.d" {
-        ToolCommandAdapter,
-    }
-    "dist/core/command-generation/types.d" --> "dist/core/command-generation/adapters/codestudio.d" {
-        ToolCommandAdapter,
-    }
-    "dist/core/command-generation/types.d" --> "dist/core/command-generation/adapters/continue.d" {
-        ToolCommandAdapter,
-    }
-    "dist/core/command-generation/types.d" --> "dist/core/command-generation/adapters/costrict.d" {
-        ToolCommandAdapter,
-    }
-    "dist/core/command-generation/types.d" --> "dist/core/command-generation/adapters/crush.d" {
-        ToolCommandAdapter,
-    }
-    "dist/core/command-generation/types.d" --> "dist/core/command-generation/adapters/cursor.d" {
-        ToolCommandAdapter,
-    }
-    "dist/core/command-generation/types.d" --> "dist/core/command-generation/adapters/devin.d" {
-        ToolCommandAdapter,
-    }
-    "dist/core/command-generation/types.d" --> "dist/core/command-generation/adapters/easycode.d" {
-        ToolCommandAdapter,
-    }
-    "dist/core/command-generation/types.d" --> "dist/core/command-generation/adapters/factory.d" {
-        ToolCommandAdapter,
-    }
-    "dist/core/command-generation/types.d" --> "dist/core/command-generation/adapters/gemini.d" {
-        ToolCommandAdapter,
-    }
-    "dist/core/command-generation/types.d" --> "dist/core/command-generation/adapters/github-copilot.d" {
-        ToolCommandAdapter,
-    }
-    "dist/core/command-generation/types.d" --> "dist/core/command-generation/adapters/gigacode.d" {
-        ToolCommandAdapter,
-    }
-    "dist/core/command-generation/types.d" --> "dist/core/command-generation/adapters/iflow.d" {
-        ToolCommandAdapter,
-    }
-    "dist/core/command-generation/types.d" --> "dist/core/command-generation/adapters/junie.d" {
-        ToolCommandAdapter,
-    }
-    "dist/core/command-generation/types.d" --> "dist/core/command-generation/adapters/kilocode.d" {
-        ToolCommandAdapter,
-    }
-    "dist/core/command-generation/types.d" --> "dist/core/command-generation/adapters/kiro.d" {
-        ToolCommandAdapter,
-    }
-    "dist/core/command-generation/types.d" --> "dist/core/command-generation/adapters/oh-my-pi.d" {
-        ToolCommandAdapter,
-    }
-    "dist/core/command-generation/types.d" --> "dist/core/command-generation/adapters/opencode.d" {
-        ToolCommandAdapter,
-    }
-    "dist/core/command-generation/types.d" --> "dist/core/command-generation/adapters/pi.d" {
-        ToolCommandAdapter,
-    }
-    "dist/core/command-generation/types.d" --> "dist/core/command-generation/adapters/codeassistant.d" {
-        ToolCommandAdapter,
-    }
-    "dist/core/command-generation/types.d" --> "dist/core/command-generation/adapters/qoder.d" {
-        ToolCommandAdapter,
-    }
-    "dist/core/command-generation/types.d" --> "dist/core/command-generation/adapters/lingma.d" {
-        ToolCommandAdapter,
-    }
-    "dist/core/command-generation/types.d" --> "dist/core/command-generation/adapters/qwen.d" {
-        ToolCommandAdapter,
-    }
-    "dist/core/command-generation/types.d" --> "dist/core/command-generation/adapters/roocode.d" {
-        ToolCommandAdapter,
-    }
-    "dist/core/command-generation/types.d" --> "dist/core/command-generation/adapters/trae.d" {
-        ToolCommandAdapter,
-    }
-    "dist/core/command-generation/types.d" --> "dist/core/command-generation/adapters/zcode.d" {
-        ToolCommandAdapter,
-    }
     src.core.init --> "test/core/init.test" { InitCommand }
     "src/core/global-config" --> "test/core/init.test" { getGlobalConfig, saveGlobalConfig }
     "src/core/project-config" --> "test/core/init.test" { MAX_CONTEXT_SIZE, readProjectConfig }
@@ -4567,34 +4220,11 @@ graph import {
     "src/core/artifact-graph/index" --> "test/utils/task-progress.test" { resolveArtifactOutputs }
     website.scripts.preview --> "test/website-preview.test";
     "test/helpers/run-cli" --> "vitest.setup" { ensureCliBuilt, terminateActiveCliChildren }
-    "dist/cli/index.d" --> bin.openspec { runCli }
-    "dist/core/global-config.d" --> scripts.binary.entry { getGlobalDataDir }
-    "dist/core/artifact-graph/resolver.d" --> scripts.binary.entry { setPackageSchemasDir }
-    "dist/core/version-check.d" --> scripts.binary.entry { markStandaloneBinary }
-    "dist/cli/index.d" --> scripts.binary.entry;
-    "dist/core/artifact-graph/types.d" --> "dist/core/artifact-graph/resolver.d" { SchemaYaml }
-    "dist/core/shared/skill-generation.d" --> "scripts/generate-skillssh" {
-        generateSkillFiles,
-        getSkillTemplates,
-    }
-    "dist/utils/command-references.d" --> "scripts/generate-skillssh" {
-        transformToSharedSkillReferences,
-    }
     "scripts/skillssh-shared" --> "scripts/generate-skillssh" {
         SKILLS_DIR,
         cleanSkillSubdirectories,
         prepareSkillDirectory,
         stripVolatileFrontmatter,
-    }
-    "dist/core/command-surface.d" --> "dist/utils/command-references.d" { CommandSurfaceCapability }
-    "dist/core/command-generation/invocation.d" --> "dist/utils/command-references.d" {
-        CommandInvocation,
-    }
-    "dist/core/command-generation/invocation.d" --> "dist/core/command-surface.d" {
-        CommandInvocation,
-    }
-    "dist/core/command-generation/types.d" --> "dist/core/command-generation/invocation.d" {
-        ToolCommandAdapter,
     }
     "scripts/parity-hash-shared" --> "scripts/regen-parity-hashes" {
         rewriteParityHashes,
@@ -4602,4 +4232,88 @@ graph import {
     }
     src.cli.index --> src.index;
     src.core.index --> src.index;
+    "dist/core/shared/skill-generation.d" --> "scripts/skillssh-shared" { stripVolatileFrontmatter }
+    "dist/core/templates/skill-templates.d" --> "dist/core/shared/skill-generation.d" {
+        SkillTemplate,
+        getOpsxExploreCommandTemplate,
+    }
+    "dist/core/command-generation/index.d" --> "dist/core/shared/skill-generation.d" {
+        CommandContent,
+    }
+    "dist/core/templates/workflows/explore.d" --> "dist/core/templates/skill-templates.d" {
+        getExploreSkillTemplate,
+        getOpsxExploreCommandTemplate,
+    }
+    "dist/core/templates/workflows/new-change.d" --> "dist/core/templates/skill-templates.d" {
+        getNewChangeSkillTemplate,
+        getOpsxNewCommandTemplate,
+    }
+    "dist/core/templates/workflows/continue-change.d" --> "dist/core/templates/skill-templates.d" {
+        getContinueChangeSkillTemplate,
+        getOpsxContinueCommandTemplate,
+    }
+    "dist/core/templates/workflows/apply-change.d" --> "dist/core/templates/skill-templates.d" {
+        getApplyChangeSkillTemplate,
+        getApplyInstructions,
+        getOpsxApplyCommandTemplate,
+    }
+    "dist/core/templates/workflows/update-change.d" --> "dist/core/templates/skill-templates.d" {
+        getOpsxUpdateCommandTemplate,
+        getUpdateChangeSkillTemplate,
+    }
+    "dist/core/templates/workflows/ff-change.d" --> "dist/core/templates/skill-templates.d" {
+        getFfChangeSkillTemplate,
+        getOpsxFfCommandTemplate,
+    }
+    "dist/core/templates/workflows/sync-specs.d" --> "dist/core/templates/skill-templates.d" {
+        getOpsxSyncCommandTemplate,
+        getSyncSpecsSkillTemplate,
+    }
+    "dist/core/templates/workflows/archive-change.d" --> "dist/core/templates/skill-templates.d" {
+        getArchiveChangeSkillTemplate,
+        getOpsxArchiveCommandTemplate,
+    }
+    "dist/core/templates/workflows/bulk-archive-change.d" --> "dist/core/templates/skill-templates.d" {
+        getBulkArchiveChangeSkillTemplate,
+        getOpsxBulkArchiveCommandTemplate,
+    }
+    "dist/core/templates/workflows/verify-change.d" --> "dist/core/templates/skill-templates.d" {
+        getOpsxVerifyCommandTemplate,
+        getVerifyChangeSkillTemplate,
+    }
+    "dist/core/templates/workflows/onboard.d" --> "dist/core/templates/skill-templates.d" {
+        getOnboardSkillTemplate,
+        getOpsxOnboardCommandTemplate,
+    }
+    "dist/core/templates/workflows/propose.d" --> "dist/core/templates/skill-templates.d" {
+        getOpsxProposeCommandTemplate,
+        getOpsxProposeSkillTemplate,
+    }
+    "dist/core/command-generation/registry.d" --> "dist/core/command-generation/index.d" {
+        CommandAdapterRegistry,
+    }
+    "dist/core/command-generation/generator.d" --> "dist/core/command-generation/index.d" {
+        generateCommand,
+        generateCommands,
+    }
+    "dist/core/command-generation/adapters/index.d" --> "dist/core/command-generation/index.d" {
+        claudeAdapter,
+        cursorAdapter,
+        devinAdapter,
+    }
+    "dist/core/command-generation/adapters/claude.d" --> "dist/core/command-generation/adapters/index.d" {
+        claudeAdapter,
+    }
+    "dist/cli/index.d" --> bin.openspec { runCli }
+    "dist/core/artifact-graph/resolver.d" --> scripts.binary.entry { setPackageSchemasDir }
+    "dist/core/version-check.d" --> scripts.binary.entry { markStandaloneBinary }
+    "dist/cli/index.d" --> scripts.binary.entry;
+    "dist/core/shared/skill-generation.d" --> "scripts/generate-skillssh" {
+        generateSkillFiles,
+        getSkillTemplates,
+    }
+    "dist/utils/command-references.d" --> "scripts/generate-skillssh" {
+        transformToSharedSkillReferences,
+    }
+    "dist/core/command-surface.d" --> "dist/utils/command-references.d" { CommandSurfaceCapability }
 }
