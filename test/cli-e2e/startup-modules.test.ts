@@ -50,14 +50,8 @@ afterAll(() => {
   }
 });
 
-// Under neojac a Jac module is emitted to .jac/src/<path>.mjs, and its dist/
-// forwarder loads only for TypeScript callers. Every emitted Jac module is parsed
-// as the CLI starts (neojac's boot module imports them all) and started only when
-// first used, so `own` sees only what is still TypeScript; npm packages, the
-// part of start-up these tests can still pin, load only on first use.
 function loadedModules(args: string[], withProject = false): {
   own: string[];
-  jacModules: string[];
   packages: Set<string>;
   status: number | null;
 } {
@@ -88,12 +82,22 @@ function loadedModules(args: string[], withProject = false): {
   // in case the checkout path goes through a symlink or a Windows short name.
   const distRoot = realpathSync.native(path.join(cliProjectRoot, 'dist'));
 
+  // Under neojac a module's code is .jac/src/<path>.mjs, loaded as the CLI
+  // starts and run when the module is started; the recorder logs each start
+  // (`started:<url>`), which counts as loading `<path>.js`.
+  const jacRoot = realpathSync.native(path.join(cliProjectRoot, '.jac', 'src'));
   const urls = readFileSync(logFile, 'utf-8').split('\n').filter(Boolean);
   const own: string[] = [];
-  const jacModules: string[] = [];
-  const jacRoot = realpathSync.native(path.join(cliProjectRoot, '.jac', 'src'));
   const packages = new Set<string>();
-  for (const url of urls) {
+  for (const line of urls) {
+    if (line.startsWith('started:')) {
+      const file = fileURLToPath(line.slice('started:'.length));
+      if (file.startsWith(jacRoot + path.sep)) {
+        own.push(path.relative(jacRoot, file).split(path.sep).join('/').replace(/\.mjs$/, '.js'));
+      }
+      continue;
+    }
+    const url = line;
     if (!url.startsWith('file:')) continue;
     const file = fileURLToPath(url);
     const segments = file.split(path.sep);
@@ -103,30 +107,12 @@ function loadedModules(args: string[], withProject = false): {
       packages.add(name.startsWith('@') ? `${name}/${segments[lastNodeModules + 2]}` : name);
     } else if (file.startsWith(distRoot + path.sep)) {
       own.push(path.relative(distRoot, file).split(path.sep).join('/'));
-    } else if (file.startsWith(jacRoot + path.sep)) {
-      jacModules.push(path.relative(jacRoot, file).split(path.sep).join('/').replace(/\.mjs$/, '.js'));
     }
   }
   // An empty list means the paths didn't match, and every absence check
   // below would pass without checking anything.
   expect(own).not.toEqual([]);
-  return { own, jacModules, packages, status: result.status };
-}
-
-// A command implemented in Jac is started by a Jac caller's import of its
-// emission, which a load hook cannot tell from the parse every Jac module gets
-// at start-up; only its dist/ forwarder (a TypeScript caller's import) shows.
-function isJac(command: string): boolean {
-  return COMMAND_IMPLEMENTATIONS[command].every((module) =>
-    existsSync(path.join(cliProjectRoot, '.jac', 'src', module.replace(/\.js$/, '.mjs')))
-  );
-}
-
-// No other command's implementation loaded, and this one's did where that is visible.
-function expectOnlyImplementation(own: string[], command: string): void {
-  const loaded = implementationsLoaded(own);
-  expect(loaded.filter((other) => other !== command)).toEqual([]);
-  if (!isJac(command)) expect(loaded).toContain(command);
+  return { own, packages, status: result.status };
 }
 
 function implementationsLoaded(own: string[]): string[] {
@@ -166,7 +152,7 @@ describe('CLI startup loads only what the command needs', () => {
 
   it('`openspec __complete schemas` loads the schema reader but not tinyglobby or ora', async () => {
     await ensureCliBuilt();
-    const { own, jacModules, packages, status } = loadedModules(['__complete', 'schemas']);
+    const { own, packages, status } = loadedModules(['__complete', 'schemas']);
 
     expect(status).toBe(0);
     expect([...packages]).not.toContain('fast-glob');
@@ -176,11 +162,8 @@ describe('CLI startup loads only what the command needs', () => {
     expect(own).not.toContain('telemetry/index.js');
     // The name promises a schema reader, so pin it: the resolver directly, not
     // the artifact-graph barrel, which re-exports it but also pulls outputs.js
-    // and with it tinyglobby. The resolver is a Jac module, which its Jac callers
-    // reach through its emission rather than its dist/ forwarder.
-    expect(
-      own.includes('core/artifact-graph/resolver.js') || jacModules.includes('core/artifact-graph/resolver.js')
-    ).toBe(true);
+    // and with it tinyglobby.
+    expect(own).toContain('core/artifact-graph/resolver.js');
     expect(own).not.toContain('core/artifact-graph/index.js');
   });
 
@@ -259,7 +242,7 @@ describe('CLI startup loads only what the command needs', () => {
     await ensureCliBuilt();
     const { own } = loadedModules(invocation.split(' '));
 
-    expectOnlyImplementation(own, command);
+    expect(implementationsLoaded(own)).toEqual([command]);
   });
 
   it.each([
@@ -272,7 +255,7 @@ describe('CLI startup loads only what the command needs', () => {
     const { own, packages, status } = loadedModules(invocation.split(' '), true);
 
     expect(status).toBe(0);
-    expectOnlyImplementation(own, command);
+    expect(implementationsLoaded(own)).toEqual([command]);
     expect([...packages]).not.toContain('ora');
   });
 });
