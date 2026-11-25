@@ -7,6 +7,17 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/utils/change-utils" { at, found, merge, rec }
+    "src/utils/file-system" ++> "src/utils/change-utils" { FileSystemUtils }
+    "src/utils/change-metadata" ++> "src/utils/change-utils" {
+        validateSchemaName,
+        writeChangeMetadata,
+    }
+    src.utils.date ++> "src/utils/change-utils" { formatLocalDate }
+    "src/core/project-config" ++> "src/utils/change-utils" { readProjectConfig }
+    src.core.id ++> "src/utils/change-utils" { isKebabId }
+    "src/core/artifact-graph/resolver" ++> "src/utils/change-utils" { resolveSchema }
+    "src/core/artifact-graph/outputs" ++> "src/utils/change-utils" { isSpecsArtifactPath }
     src.host ++> "src/utils/change-metadata" {
         JsNull,
         at,
@@ -2873,17 +2884,6 @@ graph import {
         statusFromError,
         validateSchemaExists,
     }
-    "src/utils/file-system" --> "src/utils/change-utils" { FileSystemUtils }
-    "src/utils/change-metadata" --> "src/utils/change-utils" {
-        validateSchemaName,
-        writeChangeMetadata,
-    }
-    src.utils.date --> "src/utils/change-utils" { formatLocalDate }
-    "src/core/project-config" --> "src/utils/change-utils" { readProjectConfig }
-    src.core.id --> "src/utils/change-utils" { isKebabId }
-    "src/core/artifact-graph/resolver" --> "src/utils/change-utils" { resolveSchema }
-    "src/core/artifact-graph/outputs" --> "src/utils/change-utils" { isSpecsArtifactPath }
-    "src/core/change-metadata/index" --> "src/utils/change-utils" { ChangeMetadata }
     "src/utils/task-progress" --> src.core.list { formatTaskStatus, getTaskProgressForChange }
     "src/core/parsers/markdown-parser" --> src.core.list { MarkdownParser }
     "src/core/root-selection" --> src.core.list { RootOutput }
