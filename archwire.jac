@@ -7,6 +7,16 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/core/templates/workflows/bulk-archive-change" { rec }
+    "src/core/templates/workflows/archive-change" ++> "src/core/templates/workflows/bulk-archive-change" {
+        SYNC_FALLBACK_SAFEGUARDS,
+    }
+    "src/core/templates/workflows/store-selection" ++> "src/core/templates/workflows/bulk-archive-change" {
+        STORE_SELECTION_GUIDANCE,
+    }
+    "src/core/templates/workflows/project-root" ++> "src/core/templates/workflows/bulk-archive-change" {
+        PROJECT_ROOT_GUARD,
+    }
     src.lazy ++> src.commands.feedback { need, packageRoot }
     src.host ++> "src/commands/install-standalone" { JsNull, at, found, merge, missing, rec, sub }
     src.lazy ++> "src/commands/install-standalone" { pick }
@@ -1274,10 +1284,6 @@ graph import {
         getArchiveChangeSkillTemplate,
         getOpsxArchiveCommandTemplate,
     }
-    "src/core/templates/workflows/bulk-archive-change" --> "src/core/templates/skill-templates" {
-        getBulkArchiveChangeSkillTemplate,
-        getOpsxBulkArchiveCommandTemplate,
-    }
     "src/core/templates/workflows/verify-change" --> "src/core/templates/skill-templates" {
         getOpsxVerifyCommandTemplate,
         getVerifyChangeSkillTemplate,
@@ -1296,19 +1302,6 @@ graph import {
     src.core.templates.workflows.router --> "src/core/templates/skill-templates" {
         ROUTER_SKILL_NAME,
         getRouterSkillTemplate,
-    }
-    src.core.templates.types --> "src/core/templates/workflows/bulk-archive-change" {
-        CommandTemplate,
-        SkillTemplate,
-    }
-    "src/core/templates/workflows/archive-change" --> "src/core/templates/workflows/bulk-archive-change" {
-        SYNC_FALLBACK_SAFEGUARDS,
-    }
-    "src/core/templates/workflows/store-selection" --> "src/core/templates/workflows/bulk-archive-change" {
-        STORE_SELECTION_GUIDANCE,
-    }
-    "src/core/templates/workflows/project-root" --> "src/core/templates/workflows/bulk-archive-change" {
-        PROJECT_ROOT_GUARD,
     }
     "src/utils/file-system" --> "src/core/shared/command-reconcile" { FileSystemUtils }
     "src/core/command-generation/index" --> "src/core/shared/command-reconcile" {
@@ -4189,4 +4182,8 @@ graph import {
     }
     src.cli.index --> src.index;
     src.core.index --> src.index;
+    "src/core/templates/workflows/bulk-archive-change" --> "src/core/templates/skill-templates" {
+        getBulkArchiveChangeSkillTemplate,
+        getOpsxBulkArchiveCommandTemplate,
+    }
 }
