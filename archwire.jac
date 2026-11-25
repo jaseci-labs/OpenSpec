@@ -7,6 +7,22 @@ graph spaces {
 }
 
 graph import {
+    "src/core/artifact-graph/schema" ++> "src/core/artifact-graph/graph" { loadSchema, parseSchema }
+    src.host ++> src.core.openers { JsNull, at, found, merge, missing, rec }
+    src.core.store.errors ++> src.core.openers { StoreError }
+    "src/core/zod-issues" ++> src.core.openers { formatZodIssues }
+    src.host ++> src.core.config { merge, rec }
+    include "src/core/project-dir" ++> src.core.config { OPENSPEC_DIR_NAME }
+    src.host ++> "src/core/onboarding-commands" { JsNull, rec }
+    src.core.profiles ++> "src/core/onboarding-commands" { ALL_WORKFLOWS }
+    src.host ++> "src/core/shared/ide-restart" { JsNull }
+    src.core.config ++> "src/core/shared/ide-restart" { AI_TOOLS }
+    src.host ++> "src/core/shared/skill-paths" { at, missing, truthy }
+    src.core.config ++> "src/core/shared/skill-paths" {
+        AI_TOOLS,
+        SKILL_LINKED_TOOL_IDS,
+        installerAgent,
+    }
     src.host ++> src.core.profiles { missing }
     src.host ++> "src/core/artifact-graph/types" { found, rec }
     src.host ++> "src/core/change-metadata/schema" { rec, rx }
@@ -207,7 +223,6 @@ graph import {
         listRegisteredStores,
         unregisterStoreRegistration,
     }
-    "src/core/project-dir" --> src.core.config { OPENSPEC_DIR_NAME }
     src.core.index --> "test/cli-e2e/capstone-journeys.test" { getGlobalDataDir, registerStore }
     "test/helpers/run-cli" --> "test/cli-e2e/capstone-journeys.test" { runCLI }
     "test/helpers/openspec-fixtures" --> "test/cli-e2e/capstone-journeys.test" {
@@ -860,12 +875,6 @@ graph import {
         RELEASED_GENERATED_FINGERPRINTS,
     }
     "src/utils/file-system" --> "src/core/shared/generated-fingerprint" { findMarkerBlock }
-    src.core.config --> "src/core/shared/skill-paths" {
-        AIToolOption,
-        AI_TOOLS,
-        SKILL_LINKED_TOOL_IDS,
-        installerAgent,
-    }
     "src/core/shared/generated-fingerprint" --> "src/core/shared/skill-links" {
         isReleasedGeneratedContent,
         normalizeGeneratedContent,
@@ -1097,8 +1106,6 @@ graph import {
     }
     src.core.templates.types --> src.core.templates.workflows.feedback { SkillTemplate }
     src.core.templates.types --> src.core.templates.workflows.router { SkillTemplate }
-    src.core.config --> "src/core/shared/ide-restart" { AI_TOOLS }
-    "src/core/global-config" --> "src/core/shared/ide-restart" { Delivery }
     "src/utils/file-system" --> "src/core/shared/command-reconcile" { FileSystemUtils }
     "src/core/command-generation/index" --> "src/core/shared/command-reconcile" {
         CommandAdapterRegistry,
@@ -1322,13 +1329,6 @@ graph import {
         ActionContext,
         PlanningHomeSummary,
     }
-    "src/core/artifact-graph/types" --> "src/core/artifact-graph/graph" {
-        Artifact,
-        BlockedArtifacts,
-        CompletedSet,
-        SchemaYaml,
-    }
-    "src/core/artifact-graph/schema" --> "src/core/artifact-graph/graph" { loadSchema, parseSchema }
     "src/core/artifact-graph/types" --> "src/core/artifact-graph/state" { CompletedSet }
     "src/core/artifact-graph/graph" --> "src/core/artifact-graph/state" { ArtifactGraph }
     "src/core/artifact-graph/outputs" --> "src/core/artifact-graph/state" { artifactOutputExists }
@@ -1875,7 +1875,6 @@ graph import {
     "src/core/released-output-sweep" --> "src/core/retired-tools" { pruneEmptyParents }
     src.core.profiles --> "src/core/retired-tools" { ALL_WORKFLOWS }
     "src/core/file-view" --> "src/core/retired-tools" { FileView }
-    src.core.profiles --> "src/core/onboarding-commands" { ALL_WORKFLOWS, WorkflowId }
     src.core.config --> "src/core/available-tools" { AIToolOption, AI_TOOLS }
     "src/core/shared-skill-target" --> "src/core/available-tools" { readSkillToolList }
     "src/core/shared/tool-detection" --> "src/core/available-tools" {
@@ -2413,9 +2412,6 @@ graph import {
         promptOpenNow,
         promptToolFromChoices,
     }
-    src.core.store.errors --> src.core.openers { StoreError }
-    "src/core/zod-issues" --> src.core.openers { formatZodIssues }
-    src.core.worksets --> src.core.openers { WorksetMember }
     "src/core/file-state" --> "src/commands/workset-input" { pathIsDirectory }
     src.core.openers --> "src/commands/workset-input" {
         OpenerDefinition,
