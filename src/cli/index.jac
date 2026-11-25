@@ -793,7 +793,7 @@ def runCli(argv: any = None) {
 
 with entry {
     import from "../core/version-check" { getStandaloneBinaryPath }
-    script: any = process.argv[1];
+    script: any = process.argv[1] if len(process.argv) > 1 else None;
     if not missing(getStandaloneBinaryPath())
         or (script and resolve(script) == join(packageRoot(), "dist", "cli", "index.js"))
     {
