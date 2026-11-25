@@ -7,6 +7,40 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> src.commands.context { JsNull, at, js_error, rec, same, truthy }
+    "src/commands/shared-output" ++> src.commands.context { emitFailure, printJson }
+    "src/commands/shared-gather" ++> src.commands.context { gatherRelationshipData }
+    "src/core/relationship-health" ++> src.commands.context { inspectRelationships }
+    "src/core/working-set" ++> src.commands.context {
+        assembleWorkingSet,
+        buildCodeWorkspaceJson,
+        isAvailableMember,
+    }
+    "src/core/root-selection" ++> src.commands.context { resolveRootForCommand }
+    src.core.store.errors ++> src.commands.context { StoreError }
+    src.host ++> src.commands.doctor { JsNull, at, js_error, merge, missing, promise, rec, truthy }
+    "src/commands/shared-output" ++> src.commands.doctor { emitFailure, printJson }
+    "src/commands/shared-gather" ++> src.commands.doctor { gatherRelationshipData }
+    "src/core/relationship-health" ++> src.commands.doctor { inspectRelationships }
+    "src/core/root-selection" ++> src.commands.doctor { resolveRootForCommand }
+    src.core.store.foundation ++> src.commands.doctor { readOptionalStoreMetadataState }
+    src.core.store.git ++> src.commands.doctor {
+        gitOriginUrl,
+        gitTrackingDrift,
+        isGitRepositoryAtRoot,
+    }
+    "src/core/project-config" ++> src.commands.doctor {
+        classifyOpenSpecDir,
+        readProjectConfig,
+        resolveConfigFilePath,
+    }
+    "src/core/planning-home" ++> src.commands.doctor { findRepoPlanningRootSync }
+    src.lazy ++> src.cli.commands.context { load, packageRoot, pick }
+    "src/core/completions/command-registry" ++> src.cli.commands.context { COMMAND_REGISTRY }
+    "src/core/completions/shared-flags" ++> src.cli.commands.context { COMMON_FLAGS }
+    src.lazy ++> src.cli.commands.doctor { load, packageRoot, pick }
+    "src/core/completions/command-registry" ++> src.cli.commands.doctor { COMMAND_REGISTRY }
+    "src/core/completions/shared-flags" ++> src.cli.commands.doctor { COMMON_FLAGS }
     src.host ++> src.commands.store { JsNull, at, js_error, merge, missing, rec, same, truthy }
     src.lazy ++> src.commands.store { load }
     "src/commands/shared-output" ++> src.commands.store { asErrorMessage, emitFailure, printJson }
@@ -2827,52 +2861,6 @@ graph import {
     "src/utils/item-discovery" --> src.commands.spec { getSpecIds }
     "src/utils/spec-discovery" --> src.commands.spec { discoverSpecFiles }
     "src/utils/spec-path-containment" --> src.commands.spec { assertDiscoveredSpecFile }
-    "src/core/completions/command-registry" --> src.cli.commands.doctor { COMMAND_REGISTRY }
-    "src/core/completions/shared-flags" --> src.cli.commands.doctor { COMMON_FLAGS }
-    src.commands.doctor --> src.cli.commands.doctor;
-    src.commands.doctor --> src.cli.commands.doctor { DoctorOptions }
-    "src/core/root-selection" --> src.commands.doctor {
-        ResolvedOpenSpecRoot,
-        resolveRootForCommand,
-    }
-    src.core.store.foundation --> src.commands.doctor { readOptionalStoreMetadataState }
-    src.core.store.git --> src.commands.doctor {
-        gitOriginUrl,
-        gitTrackingDrift,
-        isGitRepositoryAtRoot,
-    }
-    "src/core/project-config" --> src.commands.doctor {
-        classifyOpenSpecDir,
-        readProjectConfig,
-        resolveConfigFilePath,
-    }
-    "src/core/planning-home" --> src.commands.doctor { findRepoPlanningRootSync }
-    "src/commands/shared-gather" --> src.commands.doctor { gatherRelationshipData }
-    "src/core/relationship-health" --> src.commands.doctor {
-        InspectRelationshipsInput,
-        RelationshipHealth,
-        inspectRelationships,
-    }
-    "src/commands/shared-output" --> src.commands.doctor { emitFailure, printJson }
-    "src/core/completions/command-registry" --> src.cli.commands.context { COMMAND_REGISTRY }
-    "src/core/completions/shared-flags" --> src.cli.commands.context { COMMON_FLAGS }
-    src.commands.context --> src.cli.commands.context;
-    src.commands.context --> src.cli.commands.context { ContextOptions }
-    "src/core/root-selection" --> src.commands.context {
-        ResolvedOpenSpecRoot,
-        resolveRootForCommand,
-    }
-    "src/core/relationship-health" --> src.commands.context { inspectRelationships }
-    "src/core/working-set" --> src.commands.context {
-        WorkingSet,
-        WorkingSetMember,
-        assembleWorkingSet,
-        buildCodeWorkspaceJson,
-        isAvailableMember,
-    }
-    src.core.store.errors --> src.commands.context { StoreError }
-    "src/commands/shared-output" --> src.commands.context { emitFailure, printJson }
-    "src/commands/shared-gather" --> src.commands.context { gatherRelationshipData }
     src.commands.workflow.status --> src.commands.workflow.index {
         BATCH_STATUS_FAILURE_PAYLOAD,
         StatusOptions,

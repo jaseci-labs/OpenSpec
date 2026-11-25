@@ -1,6 +1,3 @@
-type InspectRelationshipsInput = any;
-type RelationshipHealth = any;
-
 def:priv warning(code: str, message: str, fix: str) -> any {
     return makeStoreDiagnostic("warning", code, message, rec(target="relationships", fix=fix));
 }

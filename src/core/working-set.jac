@@ -1,6 +1,3 @@
-type WorkingSet = any;
-type WorkingSetMember = any;
-
 def isAvailableMember(member: any) -> bool {
     return member["path"] is not None and len(member.status) == 0;
 }
