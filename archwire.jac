@@ -7,6 +7,41 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/core/github-copilot/cloud-agent" { JsNull, at, js_error, kind, missing, rec }
+    src.lazy ++> "src/core/github-copilot/cloud-agent" { need }
+    "src/utils/file-system" ++> "src/core/github-copilot/cloud-agent" { FileSystemUtils }
+    "src/core/project-config" ++> "src/core/github-copilot/cloud-agent" {
+        readProjectConfig,
+        resolveConfigFilePath,
+    }
+    src.host ++> src.commands.completion { at, truthy }
+    src.lazy ++> src.commands.completion { load }
+    src.core.completions.factory ++> src.commands.completion {
+        CompletionFactory,
+        errorText,
+        jsAsync,
+    }
+    "src/core/completions/installers/zsh-installer" ++> src.commands.completion { zshrcDisplayPath }
+    "src/core/completions/command-registry" ++> src.commands.completion { COMMAND_REGISTRY }
+    "src/utils/shell-detection" ++> src.commands.completion { detectShell }
+    "src/core/completions/completion-provider" ++> src.commands.completion { CompletionProvider }
+    "src/utils/item-discovery" ++> src.commands.completion { getArchivedChangeIds }
+    src.host ++> "src/core/completions/completion-provider" { rec }
+    src.core.completions.factory ++> "src/core/completions/completion-provider" { jsAsync }
+    "src/utils/item-discovery" ++> "src/core/completions/completion-provider" {
+        getActiveChangeIds,
+        getSpecIds,
+    }
+    "src/core/artifact-graph/resolver" ++> "src/core/completions/completion-provider" {
+        listSchemas,
+    }
+    src.host ++> "src/core/standalone-tip" { JsNull, at, same }
+    src.utils.ci ++> "src/core/standalone-tip" { isCiEnvironment }
+    "src/core/completion-tip" ++> "src/core/standalone-tip" { markConfigFlag, readRawConfig }
+    "src/core/version-check" ++> "src/core/standalone-tip" {
+        getCliInstallInfo,
+        getStandaloneBinaryPath,
+    }
     src.host ++> src.core.references {
         JsNull,
         found,
@@ -1870,17 +1905,6 @@ graph import {
     src.commands.completion --> "test/commands/completion.test" { CompletionCommand }
     "src/utils/shell-detection" --> "test/commands/completion.test";
     "src/core/completions/installers/zsh-installer" --> "test/commands/completion.test";
-    src.core.completions.factory --> src.commands.completion { CompletionFactory }
-    "src/core/completions/installers/zsh-installer" --> src.commands.completion { zshrcDisplayPath }
-    "src/core/completions/command-registry" --> src.commands.completion { COMMAND_REGISTRY }
-    "src/utils/shell-detection" --> src.commands.completion { SupportedShell, detectShell }
-    "src/core/completions/completion-provider" --> src.commands.completion { CompletionProvider }
-    "src/utils/item-discovery" --> src.commands.completion { getArchivedChangeIds }
-    "src/utils/item-discovery" --> "src/core/completions/completion-provider" {
-        getActiveChangeIds,
-        getSpecIds,
-    }
-    "src/core/artifact-graph/resolver" --> "src/core/completions/completion-provider";
     "test/helpers/run-cli" --> "test/commands/config-edit.test" { runCLI }
     src.cli.commands.config --> "test/commands/config-edit.test";
     src.commands.config --> "test/commands/config-edit.test";
@@ -2053,11 +2077,6 @@ graph import {
         usesSharedSkills,
     }
     "src/core/file-view" --> "src/core/available-tools" { DISK_VIEW, FileView }
-    "src/utils/file-system" --> "src/core/github-copilot/cloud-agent" { FileSystemUtils }
-    "src/core/project-config" --> "src/core/github-copilot/cloud-agent" {
-        readProjectConfig,
-        resolveConfigFilePath,
-    }
     src.core.config --> "src/core/global-skills" { AI_TOOLS, OPENSPEC_SKILL_NAMES, installerAgent }
     "src/core/global-config" --> "src/core/global-skills" { getGlobalDataDir }
     src.core.profiles --> "src/core/global-skills" { withRouter }
@@ -2864,12 +2883,6 @@ graph import {
     "src/core/artifact-graph/resolver" --> "src/utils/change-utils" { resolveSchema }
     "src/core/artifact-graph/outputs" --> "src/utils/change-utils" { isSpecsArtifactPath }
     "src/core/change-metadata/index" --> "src/utils/change-utils" { ChangeMetadata }
-    src.utils.ci --> "src/core/standalone-tip" { isCiEnvironment }
-    "src/core/completion-tip" --> "src/core/standalone-tip" { markConfigFlag, readRawConfig }
-    "src/core/version-check" --> "src/core/standalone-tip" {
-        getCliInstallInfo,
-        getStandaloneBinaryPath,
-    }
     "src/utils/task-progress" --> src.core.list { formatTaskStatus, getTaskProgressForChange }
     "src/core/parsers/markdown-parser" --> src.core.list { MarkdownParser }
     "src/core/root-selection" --> src.core.list { RootOutput }
