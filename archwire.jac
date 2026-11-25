@@ -196,10 +196,10 @@ graph import {
         frontmatter,
     }
     src.host ++> "src/core/command-generation/adapters/opencode" { found }
-    "src/core/command-generation/types" ++> "src/core/command-generation/adapters/atomcode" {
-        commandAdapter,
+    "src/core/command-generation/types" --> "src/core/command-generation/adapters/atomcode" {
+        CommandContent,
+        ToolCommandAdapter,
     }
-    src.host ++> "src/core/command-generation/adapters/atomcode" { found, rec }
     src.host ++> "src/core/command-generation/yaml" { kind, sub }
     src.host ++> "src/core/command-generation/toml" { sub }
     src.host ++> "src/core/command-generation/types" { merge, rec, sub }
