@@ -7,6 +7,26 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> src.commands.workflow.templates { js_error, rec }
+    src.lazy ++> src.commands.workflow.templates { load }
+    "src/core/artifact-graph/index" ++> src.commands.workflow.templates {
+        ArtifactGraph,
+        getSchemaDir,
+        resolveSchema,
+    }
+    "src/core/artifact-graph/resolver" ++> src.commands.workflow.templates {
+        getProjectSchemasDir,
+        getUserSchemasDir,
+    }
+    "src/utils/file-system" ++> src.commands.workflow.templates { FileSystemUtils }
+    src.commands.workflow.shared ++> src.commands.workflow.templates {
+        DEFAULT_SCHEMA,
+        validateSchemaExists,
+    }
+    src.host ++> src.commands.workflow.schemas { JsNull, rec, truthy }
+    src.lazy ++> src.commands.workflow.schemas { pick }
+    "src/core/artifact-graph/index" ++> src.commands.workflow.schemas { listSchemasWithInfo }
+    "src/core/root-selection" ++> src.commands.workflow.schemas { resolveRootForCommand }
     src.host ++> src.commands.workflow.shared { at, js_error, merge, rec, truthy }
     src.lazy ++> src.commands.workflow.shared { pick }
     "src/commands/shared-output" ++> src.commands.workflow.shared { asErrorMessage }
@@ -2886,7 +2906,6 @@ graph import {
     src.commands.completion --> src.cli.index;
     src.commands.workflow.status --> src.cli.index;
     src.commands.workflow.instructions --> src.cli.index;
-    src.commands.workflow.templates --> src.cli.index;
     src.commands.workflow.schemas --> src.cli.index;
     "src/commands/workflow/new-change" --> src.cli.index;
     src.commands.spec --> src.cli.commands.spec;
@@ -2910,29 +2929,12 @@ graph import {
         archiveInstructionsCommand,
         instructionsCommand,
     }
-    src.commands.workflow.templates --> src.commands.workflow.index {
-        TemplatesOptions,
-        templatesCommand,
-    }
     src.commands.workflow.schemas --> src.commands.workflow.index { SchemasOptions, schemasCommand }
     "src/commands/workflow/new-change" --> src.commands.workflow.index {
         NewChangeOptions,
         newChangeCommand,
     }
     src.commands.workflow.shared --> src.commands.workflow.index { DEFAULT_SCHEMA }
-    "src/core/artifact-graph/index" --> src.commands.workflow.templates {
-        ArtifactGraph,
-        getSchemaDir,
-        resolveSchema,
-    }
-    "src/utils/file-system" --> src.commands.workflow.templates { FileSystemUtils }
-    src.commands.workflow.shared --> src.commands.workflow.templates {
-        DEFAULT_SCHEMA,
-        validateSchemaExists,
-    }
-    "src/core/artifact-graph/resolver" --> src.commands.workflow.templates;
-    "src/core/artifact-graph/index" --> src.commands.workflow.schemas { listSchemasWithInfo }
-    "src/core/root-selection" --> src.commands.workflow.schemas { resolveRootForCommand }
     "src/utils/change-utils" --> "src/commands/workflow/new-change" {
         createChange,
         validateChangeName,
@@ -4350,4 +4352,9 @@ graph import {
         stripVolatileFrontmatter,
     }
     "dist/cli/index.d" --> bin.openspec { runCli }
+    src.commands.workflow.templates --> src.cli.index;
+    src.commands.workflow.templates --> src.commands.workflow.index {
+        TemplatesOptions,
+        templatesCommand,
+    }
 }
