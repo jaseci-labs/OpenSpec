@@ -8,7 +8,6 @@ graph spaces {
 
 graph import {
     src.host ++> "src/core/file-view" { rec }
-    src.host ++> "src/core/config-schema" { rec, missing, kind, js_error }
     src.host ++> "src/core/global-config" {
         rec,
         merge,
