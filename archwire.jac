@@ -7,6 +7,14 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/utils/nested-change" { promise, rec }
+    "src/core/artifact-graph/outputs" ++> "src/utils/nested-change" { artifactOutputExists }
+    "src/core/artifact-graph/resolver" ++> "src/utils/nested-change" { resolveSchema }
+    "src/utils/change-metadata" ++> "src/utils/nested-change" {
+        METADATA_FILENAME,
+        resolveSchemaForChange,
+    }
+    "src/utils/spec-discovery" ++> "src/utils/nested-change" { hasAnyFileUnder }
     src.host ++> "src/utils/change-utils" { at, found, merge, rec }
     "src/utils/file-system" ++> "src/utils/change-utils" { FileSystemUtils }
     "src/utils/change-metadata" ++> "src/utils/change-utils" {
@@ -1810,13 +1818,6 @@ graph import {
     src.core.references --> src.commands.workflow.shared { ReferenceIndexEntry }
     "src/core/root-selection" --> src.commands.workflow.shared { isRootSelectionError }
     "src/commands/workflow/default-schema" --> src.commands.workflow.shared { DEFAULT_SCHEMA }
-    "src/core/artifact-graph/outputs" --> "src/utils/nested-change" { artifactOutputExists }
-    "src/core/artifact-graph/resolver" --> "src/utils/nested-change" { resolveSchema }
-    "src/utils/change-metadata" --> "src/utils/nested-change" {
-        METADATA_FILENAME,
-        resolveSchemaForChange,
-    }
-    "src/utils/spec-discovery" --> "src/utils/nested-change" { hasAnyFileUnder }
     "src/core/artifact-graph/index" --> "src/utils/task-progress" {
         Artifact,
         SchemaYaml,
