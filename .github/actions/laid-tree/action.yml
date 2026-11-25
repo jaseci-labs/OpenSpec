@@ -12,9 +12,11 @@ runs:
     - name: Unpack and install
       shell: bash
       run: |
-        mkdir -p "$RUNNER_TEMP/laid"
-        tar -xf laid-tree.tar -C "$RUNNER_TEMP/laid"
+        # Forward slashes: on Windows the same path then works in bash, pwsh and Node.
+        laid="${RUNNER_TEMP//\\//}/laid"
+        mkdir -p "$laid"
+        tar -xf laid-tree.tar -C "$laid"
         rm laid-tree.tar
-        cd "$RUNNER_TEMP/laid"
+        cd "$laid"
         npm ci --ignore-scripts
-        echo "LAID=$RUNNER_TEMP/laid" >> "$GITHUB_ENV"
+        echo "LAID=$laid" >> "$GITHUB_ENV"

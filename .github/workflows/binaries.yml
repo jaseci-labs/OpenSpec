@@ -52,6 +52,29 @@ jobs:
               - '!assets/**'
               - '!*.md'
 
+  # The CLI's source is Jac, which neojac (Linux and macOS only) compiles to
+  # JavaScript. This job lays the project out as its node space emits it; the
+  # binary jobs below bundle that tree with Bun.
+  laid:
+    name: Build with neojac
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: changes
+    if: needs.changes.outputs.code == 'true'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ env.REF }}
+          persist-credentials: false
+      - uses: ./.github/actions/setup-neojac
+      - run: neojac npm run build
+      - run: tar --exclude=./node_modules -chf laid-tree.tar -C .jac/test/spaces/openspec .
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: laid-tree
+          path: laid-tree.tar
+          retention-days: 1
+
   # Built on Windows because only there can Bun label the executables as
   # OpenSpec (name, publisher, version). Unlabeled they still say "Bun", which
   # antivirus tools read as a disguised program and remove (#2243).
@@ -59,7 +82,7 @@ jobs:
     name: Build Windows
     runs-on: windows-latest
     timeout-minutes: 15
-    needs: changes
+    needs: [changes, laid]
     if: needs.changes.outputs.code == 'true'
     defaults:
       run:
@@ -72,7 +95,6 @@ jobs:
         with:
           ref: ${{ env.REF }}
           persist-credentials: false
-      - uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
       # No dependency caches, as in the Build job.
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
@@ -82,15 +104,19 @@ jobs:
         with:
           bun-version: ${{ env.BUN_VERSION }}
           no-cache: true
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm run build
-      - run: bun scripts/binary/build.mjs windows-x64 windows-arm64
+      - uses: ./.github/actions/laid-tree
+      - name: Build the Windows binaries in the laid-out tree
+        run: |
+          cd "$LAID"
+          node build.js
+          bun scripts/binary/build.mjs windows-x64 windows-arm64
+          mv dist-bin "$GITHUB_WORKSPACE/dist-bin"
       # The binaries report package.json's version (smoke.sh checks), so this
       # keeps assets off a release they do not belong to.
       - name: Check the version matches the release tag
         if: github.event_name == 'release' || github.event_name == 'workflow_dispatch'
         run: |
-          version=$(node -p "require('./package.json').version")
+          version=$(node -p "require(process.env.LAID + '/package.json').version")
           # Tags are v1.2.3, or @fission-ai/openspec@1.2.3 as changesets first
           # creates them. Exact match: a suffix match would let v11.0.0 pass for 1.0.0.
           tag_version=${REF##*@}
@@ -110,14 +136,13 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    needs: [changes, windows]
+    needs: [changes, laid, windows]
     if: needs.changes.outputs.code == 'true'
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: ${{ env.REF }}
           persist-credentials: false
-      - uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
       # No dependency caches: this job builds release binaries, and a cache
       # written by a pull request run could poison them.
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
@@ -128,9 +153,14 @@ jobs:
         with:
           bun-version: ${{ env.BUN_VERSION }}
           no-cache: true
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm run build
-      - run: bun scripts/binary/build.mjs linux-x64 linux-arm64 linux-x64-musl linux-arm64-musl darwin-x64 darwin-arm64
+      - uses: ./.github/actions/laid-tree
+      - name: Build the other binaries in the laid-out tree
+        run: |
+          cd "$LAID"
+          node build.js
+          bun scripts/binary/build.mjs linux-x64 linux-arm64 linux-x64-musl linux-arm64-musl darwin-x64 darwin-arm64
+          mkdir -p "$GITHUB_WORKSPACE/dist-bin"
+          mv dist-bin/* "$GITHUB_WORKSPACE/dist-bin/"
       # The Windows executables, from the job above.
       - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
@@ -165,7 +195,7 @@ jobs:
 
   verify:
     name: Verify ${{ matrix.asset }}
-    needs: build
+    needs: [laid, build]
     runs-on: ${{ matrix.os }}
     timeout-minutes: 40
     strategy:
@@ -198,15 +228,32 @@ jobs:
           path: dist-bin
       - run: chmod +x dist-bin/openspec-*
 
+      # The tree neojac laid out: package.json and the scripts and tests the
+      # checks below run. Containers install their own dependencies from it.
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        if: matrix.alpine == ''
+        with:
+          node-version: '22.20.0'
+          package-manager-cache: false
+      - uses: ./.github/actions/laid-tree
+        if: matrix.alpine == ''
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        if: matrix.alpine != ''
+        with:
+          name: laid-tree
+      - name: Unpack the laid-out tree for the container
+        if: matrix.alpine != ''
+        run: mkdir laid && tar -xf laid-tree.tar -C laid && echo "LAID=$PWD/laid" >> "$GITHUB_ENV"
+
       - name: Smoke test
         run: |
           if [ -n "$ALPINE" ]; then
-            docker run --rm -v "$PWD:/src" -w /src "alpine:$ALPINE" sh -c \
-              "apk add --no-cache bash git nodejs libstdc++ libgcc >/dev/null && bash scripts/binary/smoke.sh dist-bin/openspec-$ASSET"
+            docker run --rm -v "$PWD:/src" -w /src/laid "alpine:$ALPINE" sh -c \
+              "apk add --no-cache bash git nodejs libstdc++ libgcc >/dev/null && bash scripts/binary/smoke.sh ../dist-bin/openspec-$ASSET"
           elif [ "$RUNNER_OS" = Windows ]; then
-            bash scripts/binary/smoke.sh "dist-bin/openspec-$ASSET.exe"
+            bash "$LAID/scripts/binary/smoke.sh" "dist-bin/openspec-$ASSET.exe"
           else
-            bash scripts/binary/smoke.sh "dist-bin/openspec-$ASSET"
+            bash "$LAID/scripts/binary/smoke.sh" "dist-bin/openspec-$ASSET"
           fi
 
       - name: Run from PowerShell and cmd
@@ -229,7 +276,7 @@ jobs:
           $exe = "dist-bin\openspec-$env:ASSET.exe"
           $info = (Get-Item $exe).VersionInfo
           $info | Format-List ProductName, CompanyName, FileDescription, ProductVersion, FileVersion, LegalCopyright
-          $version = ((Get-Content package.json -Raw | ConvertFrom-Json).version -split '-')[0]
+          $version = ((Get-Content "$env:LAID/package.json" -Raw | ConvertFrom-Json).version -split '-')[0]
           if ($info.ProductName -ne 'OpenSpec') { throw "product name is '$($info.ProductName)', expected OpenSpec" }
           if ($info.CompanyName -ne 'FISSION AI INC') { throw "publisher is '$($info.CompanyName)', expected FISSION AI INC" }
           if ($info.ProductVersion -ne "$version.0") { throw "product version is '$($info.ProductVersion)', expected $version.0" }
@@ -328,14 +375,8 @@ jobs:
             Stop-Process $server
           }
 
-      # The repo's own CLI tests, run against this binary instead of Node.
-      - uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
-        if: matrix.alpine == ''
-      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
-        if: matrix.alpine == ''
-        with:
-          node-version: '22.20.0'
-          package-manager-cache: false
+      # The repo's own CLI tests, run against this binary instead of Node, in
+      # the tree neojac laid out (the tests import the CLI's modules).
       - name: CLI test suite and `openspec install` against the binary
         run: |
           # `openspec install` (install-check.sh) downloads from this build, served locally.
@@ -344,19 +385,20 @@ jobs:
           $py -m http.server 8766 --directory dist-bin >/dev/null 2>&1 &
           for _ in $(seq 20); do curl -sf -o /dev/null http://127.0.0.1:8766/SHA256SUMS && break; sleep 0.5; done
           if [ -n "$ALPINE" ]; then
-            # Copied in: the container installs its own (musl) dependencies.
-            # Run as a normal user; root can read files the tests make unreadable.
+            # The laid-out tree and the binaries are copied in: the container
+            # installs its own (musl) dependencies. Run as a normal user; root
+            # can read files the tests make unreadable.
             docker run --rm --network host -v "$PWD:/src:ro" node:22-alpine sh -c \
-              "apk add -q --no-cache bash git libstdc++ libgcc && corepack enable &&
-               mkdir /w && cd /src && tar --exclude=./node_modules -cf - . | tar -xf - -C /w && chown -R node /w &&
-               su node -c 'cd /w && pnpm install --frozen-lockfile && pnpm run build &&
+              "apk add -q --no-cache bash git libstdc++ libgcc &&
+               mkdir /w && cp -r /src/laid/. /w/ && cp -r /src/dist-bin /w/ && chown -R node /w &&
+               su node -c 'cd /w && npm ci --ignore-scripts && node build.js &&
                  bash scripts/binary/e2e.sh dist-bin/openspec-$ASSET &&
                  OPENSPEC_DOWNLOAD_URL=http://127.0.0.1:8766 bash scripts/binary/install-check.sh dist-bin/openspec-$ASSET'"
           else
-            pnpm install --frozen-lockfile
-            pnpm run build
-            bin="dist-bin/openspec-$ASSET"
+            bin="$PWD/dist-bin/openspec-$ASSET"
             [ "$RUNNER_OS" = Windows ] && bin="$bin.exe"
+            cd "$LAID"
+            node build.js
             bash scripts/binary/e2e.sh "$bin"
             OPENSPEC_DOWNLOAD_URL=http://127.0.0.1:8766 bash scripts/binary/install-check.sh "$bin"
           fi
