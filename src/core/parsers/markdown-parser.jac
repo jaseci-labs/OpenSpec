@@ -62,9 +62,14 @@ obj MarkdownParser(globalThis.Object) {
     def parseSections -> any {
         sections = [];
         stack: list[any] = [];
-        for i in range(len(self.lines)) {
-            line = self.lines[i];
-            header = JsNull if self.codeFenceLineMask[i] else matchOf(line, "^(#{1,6})\\s+(.+)$");
+        lines: any = self.lines;
+        mask: any = self.codeFenceLineMask;
+        for i in range(len(lines)) {
+            line: str = lines[i];
+            if mask[i] or not line.startswith("#") {
+                continue;
+            }
+            header = matchOf(line, "^(#{1,6})\\s+(.+)$");
             if not header {
                 continue;
             }
@@ -85,15 +90,19 @@ obj MarkdownParser(globalThis.Object) {
     }
 
     def getContentUntilNextHeader(startLine: int, currentLevel: int) -> str {
+        lines: any = self.lines;
+        mask: any = self.codeFenceLineMask;
+        count = len(lines);
         end = startLine;
-        while end < len(self.lines) {
-            header = JsNull if self.codeFenceLineMask[end] else matchOf(self.lines[end], HEADER);
+        while end < count {
+            line: str = lines[end];
+            header = JsNull if mask[end] or not line.startswith("#") else matchOf(line, HEADER);
             if header and len(header[1]) <= currentLevel {
                 break;
             }
             end += 1;
         }
-        joined: any = "\n".join(self.lines[startLine:end]);
+        joined: any = "\n".join(lines[startLine:end]);
         return joined.trim();
     }
 

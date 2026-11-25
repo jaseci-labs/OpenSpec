@@ -16,14 +16,21 @@ def rx(pattern: str, flags: str = "") -> any {
     return new(globalThis.RegExp, pattern, flags);
 }
 
-glob:priv madePatterns: any = globalThis.Object.create(JsNull);
+glob:priv madePatterns: dict[str, dict[str, any]] = {};
 
-def:priv madeRx(pattern: str, flags: str) -> any {
-    key = flags + "/" + pattern;
-    made = madePatterns[key];
+def:priv madeRx(pattern: any, flags: str) -> any {
+    if not isinstance(pattern, str) {
+        return new(globalThis.RegExp, pattern, flags);
+    }
+    byFlags = madePatterns.get(flags);
+    if byFlags is None {
+        byFlags = {};
+        madePatterns[flags] = byFlags;
+    }
+    made = byFlags.get(pattern);
     if made is None {
         made = rx(pattern, flags);
-        madePatterns[key] = made;
+        byFlags[pattern] = made;
     } elif "g" in flags or "y" in flags {
         made.lastIndex = 0;
     }
