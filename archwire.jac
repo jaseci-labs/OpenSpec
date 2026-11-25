@@ -7,6 +7,17 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> src.core.view { js_error, promise, rec, sub }
+    src.lazy ++> src.core.view { pick }
+    "src/utils/task-progress" ++> src.core.view { getTaskProgressForChange }
+    "src/core/parsers/markdown-parser" ++> src.core.view { MarkdownParser }
+    "src/utils/spec-discovery" ++> src.core.view { discoverSpecFiles }
+    "src/core/artifact-graph/index" ++> src.core.view { formatChangeStatus, loadChangeContext }
+    src.host ++> src.core.list { JsNull, at, js_error, promise, rec, truthy }
+    "src/utils/task-progress" ++> src.core.list { formatTaskStatus, getTaskProgressForChange }
+    "src/core/parsers/markdown-parser" ++> src.core.list { MarkdownParser }
+    "src/utils/spec-discovery" ++> src.core.list { discoverSpecFiles }
+    "src/utils/nested-change" ++> src.core.list { describeNestedChange, findNestedChanges }
     src.host ++> "src/core/retired-tools" { rec }
     include src.core.config ++> "src/core/retired-tools" {
         RETIRED_TOOLS,
@@ -2948,23 +2959,6 @@ graph import {
         printJson,
         statusFromError,
         validateSchemaExists,
-    }
-    "src/utils/task-progress" --> src.core.list { formatTaskStatus, getTaskProgressForChange }
-    "src/core/parsers/markdown-parser" --> src.core.list { MarkdownParser }
-    "src/core/root-selection" --> src.core.list { RootOutput }
-    "src/utils/spec-discovery" --> src.core.list { discoverSpecFiles }
-    "src/utils/nested-change" --> src.core.list {
-        NestedChangeFinding,
-        describeNestedChange,
-        findNestedChanges,
-    }
-    "src/utils/task-progress" --> src.core.view { getTaskProgressForChange }
-    "src/core/parsers/markdown-parser" --> src.core.view { MarkdownParser }
-    "src/utils/spec-discovery" --> src.core.view { discoverSpecFiles }
-    "src/core/artifact-graph/index" --> src.core.view {
-        ChangeStatus,
-        formatChangeStatus,
-        loadChangeContext,
     }
     "src/core/converters/json-converter" --> src.commands.change { JsonConverter }
     src.core.validation.validator --> src.commands.change { Validator }
