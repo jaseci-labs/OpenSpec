@@ -7,6 +7,29 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> src.core.references {
+        JsNull,
+        found,
+        matchOf,
+        missing,
+        promise,
+        rec,
+        rx,
+        same,
+        sub,
+        truthy,
+    }
+    src.core.store.errors ++> src.core.references { makeStoreDiagnostic }
+    src.core.store.foundation ++> src.core.references {
+        isValidStoreId,
+        listStoreRegistryEntries,
+        readStoreRegistryState,
+    }
+    src.core.store.registry ++> src.core.references { getStoreRootForBackend }
+    "src/core/root-selection" ++> src.core.references { inspectRegisteredStore }
+    "src/utils/item-discovery" ++> src.core.references { getSpecIds }
+    "src/utils/file-system" ++> src.core.references { FileSystemUtils }
+    "src/core/project-config" ++> src.core.references { MAX_CONTEXT_SIZE }
     src.host ++> "src/core/root-selection" {
         JsNull,
         at,
@@ -1121,20 +1144,6 @@ graph import {
     src.core.store.index --> src.core.index;
     "src/core/planning-home" --> src.core.index;
     "src/core/openspec-root" --> src.core.index;
-    src.core.store.errors --> src.core.references { StoreDiagnostic, makeStoreDiagnostic }
-    src.core.store.foundation --> src.core.references {
-        isValidStoreId,
-        listStoreRegistryEntries,
-        readStoreRegistryState,
-    }
-    src.core.store.registry --> src.core.references { getStoreRootForBackend }
-    "src/core/root-selection" --> src.core.references {
-        ResolvedOpenSpecRoot,
-        inspectRegisteredStore,
-    }
-    "src/utils/item-discovery" --> src.core.references { getSpecIds }
-    "src/utils/file-system" --> src.core.references { FileSystemUtils }
-    "src/core/project-config" --> src.core.references { DeclarationEntry, MAX_CONTEXT_SIZE }
     src.core.index --> "test/cli-e2e/capstone-journeys.test" { getGlobalDataDir, registerStore }
     "test/helpers/run-cli" --> "test/cli-e2e/capstone-journeys.test" { runCLI }
     "test/helpers/openspec-fixtures" --> "test/cli-e2e/capstone-journeys.test" {
