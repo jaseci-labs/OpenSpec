@@ -1,9 +1,4 @@
-/**
- * Static template strings for Zsh completion scripts.
- * These are Zsh-specific helper functions that never change.
- */
-
-export const ZSH_DYNAMIC_HELPERS = `# Dynamic completion helpers
+glob ZSH_DYNAMIC_HELPERS: str = """# Dynamic completion helpers
 
 # Use openspec __complete to get available changes
 _openspec_complete_changes() {
@@ -42,4 +37,4 @@ _openspec_complete_schemas() {
     schemas+=("$id:$desc")
   done < <(openspec __complete schemas 2>/dev/null)
   _describe "schema" schemas
-}`;
+}""";

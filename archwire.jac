@@ -7,6 +7,38 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> "src/core/parsers/requirement-text" { rx, found, sub, rec }
+    include "src/core/parsers/code-fence" ++> "src/core/parsers/requirement-text" {
+        buildCodeFenceMask,
+    }
+    src.host ++> "src/core/parsers/requirement-blocks" {
+        rx,
+        sub,
+        found,
+        matchOf,
+        rec,
+        JsNull,
+        missing,
+    }
+    "src/core/parsers/requirement-text" ++> "src/core/parsers/requirement-blocks" {
+        buildCodeFenceMask,
+        SCENARIO_HEADER,
+    }
+    src.host ++> "src/core/parsers/spec-structure" { sub, found, matchOf, rec }
+    "src/core/parsers/code-fence" ++> "src/core/parsers/spec-structure" { buildCodeFenceMask }
+    "src/core/parsers/requirement-blocks" ++> "src/core/parsers/spec-structure" {
+        normalizeRequirementName,
+        REQUIREMENTS_SECTION_HEADER_REGEX,
+    }
+    src.host ++> "src/utils/requirement-diff" { JsNull, rec, missing }
+    "src/core/parsers/requirement-blocks" ++> "src/utils/requirement-diff" {
+        extractRequirementsSection,
+        foldRequirementName,
+        normalizeRequirementName,
+    }
+    src.host ++> src.core.store.git { rec, merge, js_error, at, kind, same, JsNull, sub, matchOf }
+    src.core.store.errors ++> src.core.store.git { StoreError }
+    src.host ++> "src/core/parsers/code-fence" { matchOf }
     src.host ++> src.core.store.errors { merge, rec }
     src.host ++> src.core.id { JsNull, rx, sub }
     src.core.validation.constants --> "src/core/schemas/base.schema" { VALIDATION_MESSAGES }
@@ -118,7 +150,6 @@ graph import {
     }
     "src/core/global-config" --> "src/core/root-selection" { getGlobalConfig }
     "src/utils/file-system" --> "src/core/root-selection" { FileSystemUtils }
-    src.core.store.errors --> src.core.store.git { StoreError }
     "src/utils/file-system" --> "src/core/openspec-root" { FileSystemUtils }
     "src/core/config-prompts" --> "src/core/openspec-root" { serializeConfig }
     src.core.store.errors --> "src/core/openspec-root" { StoreDiagnostic, makeStoreDiagnostic }
@@ -130,11 +161,6 @@ graph import {
     "src/core/parsers/requirement-blocks" --> "src/utils/spec-discovery" { parseDeltaSpec }
     "src/core/project-dir" --> "src/utils/spec-path-containment" { OPENSPEC_DIR_NAME }
     "src/utils/file-system" --> "src/utils/spec-path-containment" { FileSystemUtils }
-    "src/core/parsers/requirement-text" --> "src/core/parsers/requirement-blocks" {
-        SCENARIO_HEADER,
-        buildCodeFenceMask,
-    }
-    "src/core/parsers/code-fence" --> "src/core/parsers/requirement-text" { buildCodeFenceMask }
     src.core.store.foundation --> src.core.store.index;
     src.core.store.errors --> src.core.store.index;
     src.core.store.registry --> src.core.store.index;
@@ -1574,11 +1600,6 @@ graph import {
     "src/utils/file-system" --> "src/core/specs-apply" { FileSystemUtils }
     "src/utils/spec-path-containment" --> "src/core/specs-apply" { assertSpecFileWithin }
     "src/utils/line-endings" --> "src/core/specs-apply" { matchLineEnding }
-    "src/core/parsers/code-fence" --> "src/core/parsers/spec-structure" { buildCodeFenceMask }
-    "src/core/parsers/requirement-blocks" --> "src/core/parsers/spec-structure" {
-        REQUIREMENTS_SECTION_HEADER_REGEX,
-        normalizeRequirementName,
-    }
     "src/utils/task-progress" --> "src/core/validation/task-numbering" { parseTaskLines }
     "src/utils/task-progress" --> "src/core/validation/task-checkboxes" { parseTaskLines }
     "src/core/parsers/code-fence" --> "src/core/validation/purpose-placeholder" {
@@ -2835,11 +2856,6 @@ graph import {
     "src/core/parsers/markdown-parser" --> "src/core/converters/json-converter" { MarkdownParser }
     "src/core/parsers/change-parser" --> "src/core/converters/json-converter" { ChangeParser }
     "src/utils/file-system" --> "src/core/converters/json-converter" { FileSystemUtils }
-    "src/core/parsers/requirement-blocks" --> "src/utils/requirement-diff" {
-        extractRequirementsSection,
-        foldRequirementName,
-        normalizeRequirementName,
-    }
     src.utils.interactive --> src.commands.show { isInteractive }
     "src/utils/item-discovery" --> src.commands.show { getActiveChangeIds, getSpecIds }
     "src/core/root-selection" --> src.commands.show {

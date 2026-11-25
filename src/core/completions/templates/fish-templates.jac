@@ -1,9 +1,4 @@
-/**
- * Static template strings for Fish completion scripts.
- * These are Fish-specific helper functions that never change.
- */
-
-export const FISH_STATIC_HELPERS = `# Helper function to match the command path at the start of the invocation
+glob FISH_STATIC_HELPERS: str = """# Helper function to match the command path at the start of the invocation
 function __fish_openspec_using_command_path
     set -l expected
     set -l value_flags
@@ -115,9 +110,9 @@ function __fish_openspec_positional_index
     end
     test $skip -eq 0; or return 1
     test $count -eq (math $target + $depth)
-end`;
+end""";
 
-export const FISH_DYNAMIC_HELPERS = `# Dynamic completion helpers
+glob FISH_DYNAMIC_HELPERS: str = """# Dynamic completion helpers
 
 function __fish_openspec_changes
     openspec __complete changes 2>/dev/null | while read -l id desc
@@ -140,4 +135,4 @@ function __fish_openspec_schemas
     openspec __complete schemas 2>/dev/null | while read -l id desc
         printf '%s\\t%s\\n' "$id" "$desc"
     end
-end`;
+end""";
