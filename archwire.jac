@@ -7,6 +7,55 @@ graph spaces {
 }
 
 graph import {
+    include "src/core/artifact-graph/types" ++> "src/core/artifact-graph/index" {
+        Artifact,
+        ArtifactSchema,
+        BlockedArtifacts,
+        CompletedSet,
+        SchemaYaml,
+        SchemaYamlSchema,
+    }
+    include "src/core/artifact-graph/schema" ++> "src/core/artifact-graph/index" {
+        SchemaValidationError,
+        loadSchema,
+        parseSchema,
+    }
+    include "src/core/artifact-graph/graph" ++> "src/core/artifact-graph/index" { ArtifactGraph }
+    include "src/core/artifact-graph/state" ++> "src/core/artifact-graph/index" { detectCompleted }
+    include "src/core/artifact-graph/outputs" ++> "src/core/artifact-graph/index" {
+        artifactOutputExists,
+        isGlobPattern,
+        resolveArtifactOutputPath,
+        resolveArtifactOutputs,
+    }
+    include "src/core/artifact-graph/resolver" ++> "src/core/artifact-graph/index" {
+        SchemaInfo,
+        SchemaLoadError,
+        getPackageSchemasDir,
+        getSchemaDir,
+        getUserSchemasDir,
+        listSchemas,
+        listSchemasWithInfo,
+        resolveSchema,
+    }
+    include "src/core/artifact-graph/instruction-loader" ++> "src/core/artifact-graph/index" {
+        ArtifactInstructions,
+        ArtifactPathSummary,
+        ArtifactStatus,
+        ChangeContext,
+        ChangeStatus,
+        DependencyInfo,
+        LoadChangeContextOptions,
+        TemplateLoadError,
+        formatChangeStatus,
+        generateInstructions,
+        loadChangeContext,
+        loadTemplate,
+    }
+    include "src/core/change-status-policy" ++> "src/core/artifact-graph/index" {
+        ActionContext,
+        PlanningHomeSummary,
+    }
     src.host ++> "src/core/artifact-graph/instruction-loader" {
         JsNull,
         at,
@@ -1759,55 +1808,6 @@ graph import {
         parseLocatedTaskLines,
     }
     "src/utils/change-metadata" --> src.commands.workflow.instructions { METADATA_FILENAME }
-    "src/core/artifact-graph/types" --> "src/core/artifact-graph/index" {
-        Artifact,
-        ArtifactSchema,
-        BlockedArtifacts,
-        CompletedSet,
-        SchemaYaml,
-        SchemaYamlSchema,
-    }
-    "src/core/artifact-graph/schema" --> "src/core/artifact-graph/index" {
-        SchemaValidationError,
-        loadSchema,
-        parseSchema,
-    }
-    "src/core/artifact-graph/graph" --> "src/core/artifact-graph/index" { ArtifactGraph }
-    "src/core/artifact-graph/state" --> "src/core/artifact-graph/index" { detectCompleted }
-    "src/core/artifact-graph/outputs" --> "src/core/artifact-graph/index" {
-        artifactOutputExists,
-        isGlobPattern,
-        resolveArtifactOutputPath,
-        resolveArtifactOutputs,
-    }
-    "src/core/artifact-graph/resolver" --> "src/core/artifact-graph/index" {
-        SchemaInfo,
-        SchemaLoadError,
-        getPackageSchemasDir,
-        getSchemaDir,
-        getUserSchemasDir,
-        listSchemas,
-        listSchemasWithInfo,
-        resolveSchema,
-    }
-    "src/core/artifact-graph/instruction-loader" --> "src/core/artifact-graph/index" {
-        ArtifactInstructions,
-        ArtifactPathSummary,
-        ArtifactStatus,
-        ChangeContext,
-        ChangeStatus,
-        DependencyInfo,
-        LoadChangeContextOptions,
-        TemplateLoadError,
-        formatChangeStatus,
-        generateInstructions,
-        loadChangeContext,
-        loadTemplate,
-    }
-    "src/core/change-status-policy" --> "src/core/artifact-graph/index" {
-        ActionContext,
-        PlanningHomeSummary,
-    }
     "src/utils/nested-change" --> src.commands.workflow.shared {
         describeNestedChange,
         findNestedChangesIn,
