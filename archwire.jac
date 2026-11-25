@@ -7,6 +7,34 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> src.commands.workflow.status { JsNull, at, js_error, merge, owns, rec, truthy }
+    src.lazy ++> src.commands.workflow.status { load, pick }
+    "src/core/planning-home" ++> src.commands.workflow.status { getChangeDir }
+    "src/core/root-selection" ++> src.commands.workflow.status {
+        findDeclaringProjectRoot,
+        isStoreSelectedRoot,
+        resolveRootForCommand,
+        toPlanningHome,
+        toRootOutput,
+        withStoreFlag,
+    }
+    "src/core/artifact-graph/index" ++> src.commands.workflow.status {
+        formatChangeStatus,
+        loadChangeContext,
+    }
+    "src/core/change-status-policy" ++> src.commands.workflow.status { resolveNextStep }
+    "src/commands/shared-output" ++> src.commands.workflow.status { asStatus }
+    "src/utils/nested-change" ++> src.commands.workflow.status {
+        describeNestedChange,
+        findNestedChanges,
+    }
+    src.commands.workflow.shared ++> src.commands.workflow.status {
+        getAvailableChanges,
+        getStatusColor,
+        getStatusIndicator,
+        validateChangeExists,
+        validateSchemaExists,
+    }
     src.host ++> "src/commands/workflow/new-change" { JsNull, at, js_error, merge, rec, truthy }
     src.lazy ++> "src/commands/workflow/new-change" { load, pick }
     "src/utils/change-utils" ++> "src/commands/workflow/new-change" {
@@ -2727,34 +2755,6 @@ graph import {
     }
     src.commands.workflow.status --> "test/commands/workflow-instructions-skipped.test" {
         printStatusText,
-    }
-    "src/core/planning-home" --> src.commands.workflow.status { getChangeDir }
-    "src/core/root-selection" --> src.commands.workflow.status {
-        findDeclaringProjectRoot,
-        isStoreSelectedRoot,
-        resolveRootForCommand,
-        toPlanningHome,
-        toRootOutput,
-        withStoreFlag,
-    }
-    "src/core/artifact-graph/index" --> src.commands.workflow.status {
-        ChangeStatus,
-        formatChangeStatus,
-        loadChangeContext,
-    }
-    "src/core/change-status-policy" --> src.commands.workflow.status { resolveNextStep }
-    "src/commands/shared-output" --> src.commands.workflow.status { asStatus }
-    "src/utils/nested-change" --> src.commands.workflow.status {
-        describeNestedChange,
-        findNestedChanges,
-    }
-    src.core.store.errors --> src.commands.workflow.status { StoreDiagnostic }
-    src.commands.workflow.shared --> src.commands.workflow.status {
-        getAvailableChanges,
-        getStatusColor,
-        getStatusIndicator,
-        validateChangeExists,
-        validateSchemaExists,
     }
     "src/core/global-config" --> "test/commands/workset.test" { getGlobalDataDir }
     src.core.worksets --> "test/commands/workset.test" {
