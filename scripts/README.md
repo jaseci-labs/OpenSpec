@@ -99,7 +99,7 @@ bash scripts/binary/e2e.sh dist-bin/openspec-<asset>
 
 Records a fingerprint of every file each released OpenSpec version generated,
 and every tool-folder path it wrote, into
-`src/core/shared/released-generated-fingerprints.ts`. `openspec update` uses it
+`src/core/shared/released-generated-fingerprints.jac`. `openspec update` uses it
 to tell an untouched file from an earlier release (safe to remove when it is
 no longer needed) from a file the user edited (always kept).
 
