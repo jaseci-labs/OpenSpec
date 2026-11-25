@@ -12,7 +12,7 @@ packageManager = "pnpm@10.34.5"
 publishConfig = { access = "public" }
 exports = { "." = { types = "./dist/index.d.ts", default = "./dist/index.js" } }
 bin = { openspec = "./bin/openspec.js" }
-files = ["dist", "bin", "schemas", "src", "!dist/**/*.test.js", "!dist/**/__tests__", "!dist/**/*.map"]
+files = ["dist", "bin", "schemas", "src", "!src/**/*.ts", ".jac/src", ".jac/@jac", ".jac/__boot.mjs", ".jac/__remotes.mjs", "!dist/**/*.test.js", "!dist/**/__tests__", "!dist/**/*.map"]
 
 [npm.".".scripts]
 lint = "eslint src/"
