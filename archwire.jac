@@ -7,6 +7,28 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> src.commands.change { JsNull, at, jsAsync, js_error, matchOf, merge, rec, truthy }
+    src.lazy ++> src.commands.change { load, pick }
+    "src/core/converters/json-converter" ++> src.commands.change { JsonConverter }
+    "src/core/parsers/change-parser" ++> src.commands.change { ChangeParser }
+    "src/core/parsers/requirement-blocks" ++> src.commands.change {
+        foldRequirementName,
+        parseDeltaSpec,
+    }
+    "src/utils/file-system" ++> src.commands.change { FileSystemUtils }
+    "src/utils/item-discovery" ++> src.commands.change { getActiveChangeIds }
+    "src/utils/nested-change" ++> src.commands.change { describeNestedChange, findNestedChangesIn }
+    "src/utils/requirement-diff" ++> src.commands.change {
+        buildRenameMap,
+        diffRequirementBlock,
+        extractRequirementBlock,
+    }
+    "src/utils/spec-discovery" ++> src.commands.change { discoverSpecFiles }
+    "src/utils/spec-path-containment" ++> src.commands.change { assertDiscoveredSpecFile }
+    "src/utils/task-progress" ++> src.commands.change { getTaskProgressForChange }
+    src.core.validation.constants ++> src.commands.change { VALIDATION_MESSAGES }
+    src.core.validation.validator ++> src.commands.change { Validator }
+    src.utils.interactive ++> src.commands.change { isInteractive }
     src.host ++> src.commands.spec { JsNull, at, jsAsync, js_error, merge, rec, truthy }
     src.lazy ++> src.commands.spec { load }
     "src/core/parsers/markdown-parser" ++> src.commands.spec { MarkdownParser }
@@ -3166,28 +3188,6 @@ graph import {
     src.core.view --> src.cli.index;
     src.telemetry.index --> src.cli.index;
     src.utils.interactive --> src.cli.index;
-    "src/core/converters/json-converter" --> src.commands.change { JsonConverter }
-    "src/core/parsers/change-parser" --> src.commands.change { ChangeParser }
-    "src/core/parsers/requirement-blocks" --> src.commands.change {
-        foldRequirementName,
-        parseDeltaSpec,
-    }
-    "src/core/root-selection" --> src.commands.change { RootOutput }
-    "src/utils/file-system" --> src.commands.change { FileSystemUtils }
-    "src/utils/item-discovery" --> src.commands.change { getActiveChangeIds }
-    "src/utils/nested-change" --> src.commands.change { describeNestedChange, findNestedChangesIn }
-    "src/utils/requirement-diff" --> src.commands.change {
-        buildRenameMap,
-        diffRequirementBlock,
-        extractRequirementBlock,
-    }
-    "src/utils/spec-discovery" --> src.commands.change { discoverSpecFiles }
-    "src/utils/spec-path-containment" --> src.commands.change { assertDiscoveredSpecFile }
-    "src/utils/task-progress" --> src.commands.change { getTaskProgressForChange }
-    src.core.schemas.index --> src.commands.change { Change, Delta }
-    src.core.validation.constants --> src.commands.change { VALIDATION_MESSAGES }
-    src.core.validation.validator --> src.commands.change { Validator }
-    src.utils.interactive --> src.commands.change { isInteractive }
     "src/core/completions/command-registry" ++> src.commands.completion { COMMAND_REGISTRY }
     "src/core/completions/completion-provider" ++> src.commands.completion { CompletionProvider }
     "src/core/completions/installers/zsh-installer" ++> src.commands.completion { zshrcDisplayPath }
