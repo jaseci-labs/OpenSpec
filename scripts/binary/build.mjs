@@ -45,7 +45,7 @@ for (const asset of assets) {
 const staticRequire = {
   name: 'static-require',
   setup(build) {
-    build.onLoad({ filter: /[\\/]dist[\\/].*\.js$/ }, async (args) => {
+    build.onLoad({ filter: /[\\/](dist[\\/].*\.js|src[\\/]lazy\.js)$/ }, async (args) => {
       const contents = (await Bun.file(args.path).text())
         .replace(/const require = createRequire\(import\.meta\.url\);/g, '')
         .replaceAll('createRequire(import.meta.url)(', 'require(');
