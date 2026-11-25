@@ -7,6 +7,25 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> src.core.worksets { JsNull, at, js_error, merge, rec }
+    src.lazy ++> src.core.worksets { need }
+    "src/core/global-config" ++> src.core.worksets { getGlobalDataDir }
+    "src/utils/file-system" ++> src.core.worksets { FileSystemUtils }
+    "src/core/file-state" ++> src.core.worksets {
+        acquireFileLock,
+        makeLockErrorFactory,
+        pathIsFile,
+        releaseFileLock,
+        writeFileAtomically,
+    }
+    src.core.store.errors ++> src.core.worksets { StoreError }
+    src.core.id ++> src.core.worksets {
+        KEBAB_ID_DESCRIPTION,
+        KEBAB_ID_FIX,
+        folderStyleNameProblem,
+        isKebabId,
+    }
+    "src/core/zod-issues" ++> src.core.worksets { formatZodIssues }
     "src/core/command-generation/types" ++> "src/core/command-generation/adapters/claude" {
         commandAdapter,
     }
@@ -1202,23 +1221,6 @@ graph import {
         readLaunchLog,
     }
     "test/helpers/fs-snapshot" --> "test/cli-e2e/workset-journey.test" { snapshotDirectory }
-    "src/core/global-config" --> src.core.worksets { getGlobalDataDir }
-    "src/utils/file-system" --> src.core.worksets { FileSystemUtils }
-    "src/core/file-state" --> src.core.worksets {
-        acquireFileLock,
-        makeLockErrorFactory,
-        pathIsFile,
-        releaseFileLock,
-        writeFileAtomically,
-    }
-    src.core.store.errors --> src.core.worksets { StoreError }
-    src.core.id --> src.core.worksets {
-        KEBAB_ID_DESCRIPTION,
-        KEBAB_ID_FIX,
-        folderStyleNameProblem,
-        isKebabId,
-    }
-    "src/core/zod-issues" --> src.core.worksets { formatZodIssues }
     "test/helpers/path-env" --> "test/helpers/fake-tool" { withPrependedPathEnv }
     src.commands.workflow.instructions --> "test/commands/apply-instructions-blocked.test" {
         generateApplyInstructions,
