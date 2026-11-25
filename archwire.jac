@@ -7,6 +7,107 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> src.core.init { at, found, js_error, kind, merge, missing, promise, rec, truthy }
+    src.lazy ++> src.core.init { load, need, packageRoot, pick }
+    src.core.completions.factory ++> src.core.init { jsAsync }
+    "src/utils/file-system" ++> src.core.init { FileSystemUtils }
+    "src/core/project-skills-scope" ++> src.core.init { forgetProjectSkills }
+    "src/core/project-config" ++> src.core.init {
+        MAX_CONTEXT_SIZE,
+        classifyOpenSpecDir,
+        readProjectConfig,
+        storePointerProblem,
+    }
+    "src/core/planning-home" ++> src.core.init { findRepoPlanningRootSync }
+    "src/core/root-selection" ++> src.core.init { resolveOpenSpecRoot }
+    "src/core/openspec-root" ++> src.core.init { ANCHORED_OPENSPEC_DIRS, ensureDirectoryAnchor }
+    "src/utils/command-references" ++> src.core.init {
+        getSkillReferenceTransformer,
+        transformToSkillReferences,
+        usesNaturalLanguageSkillReferences,
+    }
+    src.core.config ++> src.core.init {
+        AI_TOOLS,
+        OPENSPEC_DIR_NAME,
+        SKILL_LINKED_TOOL_IDS,
+        getUniversalTool,
+        installerAgent,
+        resolveToolIdAlias,
+        universalToolFallbackHint,
+    }
+    src.core.styles.palette ++> src.core.init { PALETTE }
+    src.utils.interactive ++> src.core.init { isInteractive }
+    "src/core/config-prompts" ++> src.core.init { serializeConfig }
+    "src/core/legacy-cleanup" ++> src.core.init {
+        cleanupLegacyArtifacts,
+        detectLegacyArtifacts,
+        formatCleanupSummary,
+        formatDeferredGlobalPromptSummary,
+        formatDetectionSummary,
+        getLegacyGlobalPromptMatches,
+        omitGlobalLegacyPromptFiles,
+        pickGlobalLegacyPromptFiles,
+    }
+    src.core.shared.index ++> src.core.init {
+        formatIdeRestart,
+        getConfiguredTools,
+        getSkillTemplates,
+        getToolStates,
+        getToolsWithSkillsDir,
+        toolSupportsSkills,
+    }
+    "src/core/shared/command-reconcile" ++> src.core.init {
+        classifyCommandFiles,
+        formatKeptCommandFiles,
+        reconcileCommandFiles,
+    }
+    "src/core/retired-tools" ++> src.core.init {
+        cleanUpRetiredTools,
+        findRetiredTool,
+        formatRetiredToolCleanup,
+        formatRetiredToolError,
+    }
+    "src/core/released-output-sweep" ++> src.core.init { pruneEmptyParents }
+    "src/core/global-config" ++> src.core.init { getGlobalConfig }
+    "src/core/global-skills" ++> src.core.init {
+        SKILL_SCOPES,
+        describeRemovedSkills,
+        describeSkillsError,
+        installGlobalSkills,
+        isHomeFolder,
+        projectHasOwnSkills,
+        readGlobalSkills,
+        supportsGlobalSkills,
+    }
+    src.core.profiles ++> src.core.init { getProfileWorkflows, withRouter }
+    "src/core/available-tools" ++> src.core.init { getAvailableTools }
+    "src/core/onboarding-commands" ++> src.core.init { formatOptionalWorkflowsNote }
+    "src/core/shared/skill-paths" ++> src.core.init { usesSharedSkills }
+    "src/core/shared/shared-skill-install" ++> src.core.init { installSharedSkills }
+    "src/core/update-plan" ++> src.core.init { UpdatePlanRecorder, realFileOps }
+    "src/core/file-view" ++> src.core.init { DISK_VIEW }
+    "src/core/known-projects" ++> src.core.init { rememberProject }
+    src.core.migration ++> src.core.init {
+        computeProfileMigration,
+        describeLegacyMigration,
+        hasMovableContent,
+        keptInPlaceNotice,
+        migrateIfNeeded,
+        migrateLegacyToolDirs,
+        scanInstalledWorkflows,
+    }
+    "src/core/command-surface" ++> src.core.init { shouldReconcileCommandFilesForTool }
+    "src/core/github-copilot/cloud-agent" ++> src.core.init {
+        findUnmanagedCloudFiles,
+        hasExistingManagedCloudFiles,
+        listManagedCloudFiles,
+        persistCopilotCloudOptIn,
+        readCopilotCloudOptIn,
+        removeCopilotCloudFiles,
+        writeCopilotCloudFiles,
+    }
+    "src/ui/welcome-screen" ++> src.core.init { showWelcomeScreen }
+    "src/prompts/searchable-multi-select" ++> src.core.init { searchableMultiSelect }
     src.host ++> "src/core/retired-tools" { rec }
     include src.core.config ++> "src/core/retired-tools" {
         RETIRED_TOOLS,
@@ -2334,108 +2435,6 @@ graph import {
     "src/core/global-skills" --> src.core.update;
     src.core.init --> src.core.update;
     "src/prompts/searchable-multi-select" --> src.core.update;
-    "src/utils/file-system" --> src.core.init { FileSystemUtils }
-    "src/core/project-skills-scope" --> src.core.init { forgetProjectSkills }
-    "src/core/project-config" --> src.core.init {
-        MAX_CONTEXT_SIZE,
-        classifyOpenSpecDir,
-        readProjectConfig,
-        storePointerProblem,
-    }
-    "src/core/planning-home" --> src.core.init { findRepoPlanningRootSync }
-    "src/core/root-selection" --> src.core.init { resolveOpenSpecRoot }
-    "src/core/openspec-root" --> src.core.init { ANCHORED_OPENSPEC_DIRS, ensureDirectoryAnchor }
-    "src/utils/command-references" --> src.core.init {
-        getSkillReferenceTransformer,
-        transformToSkillReferences,
-        usesNaturalLanguageSkillReferences,
-    }
-    src.core.config --> src.core.init {
-        AIToolOption,
-        AI_TOOLS,
-        OPENSPEC_DIR_NAME,
-        SKILL_LINKED_TOOL_IDS,
-        getUniversalTool,
-        installerAgent,
-        resolveToolIdAlias,
-        universalToolFallbackHint,
-    }
-    src.core.styles.palette --> src.core.init { PALETTE }
-    src.utils.interactive --> src.core.init { isInteractive }
-    "src/core/config-prompts" --> src.core.init { serializeConfig }
-    "src/core/legacy-cleanup" --> src.core.init {
-        LegacyDetectionResult,
-        cleanupLegacyArtifacts,
-        detectLegacyArtifacts,
-        formatCleanupSummary,
-        formatDeferredGlobalPromptSummary,
-        formatDetectionSummary,
-        getLegacyGlobalPromptMatches,
-        omitGlobalLegacyPromptFiles,
-        pickGlobalLegacyPromptFiles,
-    }
-    src.core.shared.index --> src.core.init {
-        ToolSkillStatus,
-        formatIdeRestart,
-        getConfiguredTools,
-        getSkillTemplates,
-        getToolStates,
-        getToolsWithSkillsDir,
-        toolSupportsSkills,
-    }
-    "src/core/shared/command-reconcile" --> src.core.init {
-        classifyCommandFiles,
-        formatKeptCommandFiles,
-        reconcileCommandFiles,
-    }
-    "src/core/retired-tools" --> src.core.init {
-        cleanUpRetiredTools,
-        findRetiredTool,
-        formatRetiredToolCleanup,
-        formatRetiredToolError,
-    }
-    "src/core/released-output-sweep" --> src.core.init { pruneEmptyParents }
-    "src/core/global-config" --> src.core.init { Delivery, Profile, getGlobalConfig }
-    "src/core/global-skills" --> src.core.init {
-        SKILL_SCOPES,
-        SkillScope,
-        describeRemovedSkills,
-        describeSkillsError,
-        installGlobalSkills,
-        isHomeFolder,
-        projectHasOwnSkills,
-        readGlobalSkills,
-        supportsGlobalSkills,
-    }
-    src.core.profiles --> src.core.init { getProfileWorkflows, withRouter }
-    "src/core/available-tools" --> src.core.init { getAvailableTools }
-    "src/core/onboarding-commands" --> src.core.init { formatOptionalWorkflowsNote }
-    "src/core/shared/skill-paths" --> src.core.init { usesSharedSkills }
-    "src/core/shared/shared-skill-install" --> src.core.init { installSharedSkills }
-    "src/core/update-plan" --> src.core.init { UpdatePlanRecorder, realFileOps }
-    "src/core/file-view" --> src.core.init { DISK_VIEW }
-    "src/core/known-projects" --> src.core.init { rememberProject }
-    src.core.migration --> src.core.init {
-        computeProfileMigration,
-        describeLegacyMigration,
-        hasMovableContent,
-        keptInPlaceNotice,
-        migrateIfNeeded,
-        migrateLegacyToolDirs,
-        scanInstalledWorkflows,
-    }
-    "src/core/command-surface" --> src.core.init { shouldReconcileCommandFilesForTool }
-    "src/core/github-copilot/cloud-agent" --> src.core.init {
-        findUnmanagedCloudFiles,
-        hasExistingManagedCloudFiles,
-        listManagedCloudFiles,
-        persistCopilotCloudOptIn,
-        readCopilotCloudOptIn,
-        removeCopilotCloudFiles,
-        writeCopilotCloudFiles,
-    }
-    "src/ui/welcome-screen" --> src.core.init;
-    "src/prompts/searchable-multi-select" --> src.core.init;
     src.cli.commands.config --> "test/commands/config-profile.test";
     src.commands.config --> "test/commands/config-profile.test";
     "src/core/global-config" --> "test/commands/config-profile.test";
