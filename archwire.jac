@@ -7,6 +7,39 @@ graph spaces {
 }
 
 graph import {
+    src.host ++> src.commands.schema {
+        JsNull,
+        at,
+        found,
+        js_error,
+        merge,
+        missing,
+        rec,
+        same,
+        truthy,
+    }
+    src.lazy ++> src.commands.schema { load, need }
+    "src/core/artifact-graph/resolver" ++> src.commands.schema {
+        getPackageSchemasDir,
+        getProjectSchemasDir,
+        getSchemaDir,
+        getUserSchemasDir,
+        isSchemaDir,
+        listSchemas,
+    }
+    "src/core/artifact-graph/schema" ++> src.commands.schema {
+        SchemaValidationError,
+        findApplyTracksWarning,
+        parseSchema,
+    }
+    "src/core/project-config" ++> src.commands.schema { resolveConfigFilePath }
+    "src/utils/file-system" ++> src.commands.schema { FileSystemUtils }
+    src.commands.schema ++> src.cli.commands.schema {
+        schemaForkCommand,
+        schemaInitCommand,
+        schemaValidateCommand,
+        schemaWhichCommand,
+    }
     src.lazy ++> src.commands.feedback { need, packageRoot }
     src.host ++> "src/commands/install-standalone" { JsNull, at, found, merge, missing, rec, sub }
     src.lazy ++> "src/commands/install-standalone" { pick }
@@ -2107,23 +2140,6 @@ graph import {
     }
     src.cli.commands.schema --> "test/commands/schema-fork-fidelity.test";
     "src/core/artifact-graph/resolver" --> "test/commands/schema-fork-fidelity.test";
-    src.commands.schema --> src.cli.commands.schema;
-    "src/core/artifact-graph/resolver" --> src.commands.schema {
-        getPackageSchemasDir,
-        getProjectSchemasDir,
-        getSchemaDir,
-        getUserSchemasDir,
-        isSchemaDir,
-        listSchemas,
-    }
-    "src/core/artifact-graph/schema" --> src.commands.schema {
-        SchemaValidationError,
-        findApplyTracksWarning,
-        parseSchema,
-    }
-    "src/core/artifact-graph/types" --> src.commands.schema { Artifact, SchemaYaml }
-    "src/core/project-config" --> src.commands.schema { resolveConfigFilePath }
-    "src/utils/file-system" --> src.commands.schema { FileSystemUtils }
     "test/helpers/run-cli" --> "test/commands/schema.test" { runCLI }
     src.cli.commands.schema --> "test/commands/schema.test";
     "src/core/artifact-graph/resolver" --> "test/commands/schema.test";
